@@ -1,0 +1,127 @@
+<resources>
+    <string name="app_name">e-Connecto</string>
+
+    <string name="title_activity_welcome">Home Screen</string>
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+    <string name="slide_1_title">Hello Food!</string>
+    <string name="slide_1_desc">The easiest way to order food from your favourite restaurant!</string>
+
+    <string name="slide_2_title">Movie Tickets</string>
+    <string name="slide_2_desc">Book movie tickets for your family and friends!</string>
+
+    <string name="slide_3_title">Great Discounts</string>
+    <string name="slide_3_desc">Best discounts on every single service we offer!</string>
+
+    <string name="slide_4_title">World Travel</string>
+    <string name="slide_4_desc">Book tickets of any transportation and travel the world!</string>
+
+
+    <string name="aqua_hey">AquaHey!</string>
+    <string name="key_shared_prefs">key_shared_prefs</string>
+    <string name="key_logged_in">key_logged_in</string>
+    <string name="login_label">Login</string>
+    <string name="signup_label">Sign Up</string>
+    <string name="password">Password</string>
+    <string name="forgot_pswd">Forgot Password</string>
+    <string name="register_to_use_aqua_hey">Register to Use AquaHey!</string>
+    <string name="name">Name</string>
+    <string name="mobile_no">Mobile No.</string>
+    <string name="email_id">Email ID</string>
+    <string name="confirm_pswd">Confirm Password</string>
+    <string name="error_network_unavailable">Please check your network connection</string>
+    <string name="please_enter_username">Please enter  username</string>
+    <string name="please_enter_seller_name">Please enter  Seller/Business name</string>
+    <string name="please_enter_password">Please enter password</string>
+    <string name="password_must_have_atleast_6_character">Password must have atleast 6 character</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+    <string name="nav_header_desc">Nav Header</string>
+    <string name="nav_header_title">Aqua Hey</string>
+    <string name="nav_header_subtitle">AquaHey! India</string>
+    <string name="key_serializable">key_serializable</string>
+    <string name="sit_back_and_relax_while_we_verify_your_mobile_number_and_send_otp"><![CDATA[Sit back & Relax! While we verify your mobile number and Send you OTP]]></string>
+    <string name="enter_otp_below">(Enter the OTP below in case we fail to detect the SMS automatically)</string>
+    <string name="submit">Submit</string>
+    <string name="enter_otp">Enter OTP</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="edit_number">Edit Number</string>
+    <string name="please_enter_valid_mobile_number">Please enter 10 digit mobile number</string>
+    <string name="please_enter_valid_email">Please enter valid email</string>
+    <string name="please_enter_same_pswd">Please enter same password</string>
+    <string name="home">Home</string>
+    <string name="orders">Orders</string>
+    <string name="listings">Listings</string>
+    <string name="payments">Payments</string>
+    <string name="share">Share App</string>
+    <string name="help_faq">Help &amp; About Us</string>
+    <string name="send_feedback">Feedback</string>
+    <string name="logout">Logout</string>
+    <string name="ok">OK</string>
+    <string name="you_are_sucessfully_logout">You are successfully logout.</string>
+    <string name="cancel">Cancel</string>
+    <string name="do_you_really_want_to_logout">Do you really wants to Logout ?</string>
+    <string name="enter_registered_mobile_no">Enter registered mobile no.</string>
+    <string name="please_enter_otp">Please enter otp which is sent to your mobile number</string>
+    <string name="enter_valid_otp">Enter valid otp</string>
+    <string name="please_check_your_network_connection">Please check your internet connection.</string>
+    <string name="save_address">Save Address</string>
+    <string name="enter_address">Enter Address</string>
+    <string name="enter_city">Enter City</string>
+    <string name="enter_state">Enter State</string>
+    <string name="enter_pincode">Enter Pincode</string>
+    <string name="sellername">Enter Seller/Business Name</string>
+    <string name="enter_mobile_no">Enter Mobile No.</string>
+    <string name="add_seller">Add Seller</string>
+    <string name="please_enter_address">Please enter addressData</string>
+    <string name="please_enter_valid_pincode">Please Enter valid pincode.</string>
+    <string name="please_enter_city_name">Please enter city</string>
+    <string name="please_enter_state">Please enter state.</string>
+    <string name="key_otp_data">key_otp_data</string>
+    <string name="key_mobile_no">key_mobile_no</string>
+    <string name="new_password">New Password</string>
+    <string name="change_pswd">Change Password</string>
+    <string name="gst_no">GST No</string>
+    <string name="item_list">Item List</string>
+    <string name="my_account">My Account</string>
+    <string name="register">Register</string>
+    <string name="my_profile">My Profile</string>
+    <string name="sales">Sales</string>
+    <string name="total_sales_this_week">Total Sales this week</string>
+    <string name="todays_sale">Today\'s Sale</string>
+    <string name="rupee_symbol">₹</string>
+    <string name="service_quality">Service Quality</string>
+    <string name="new_order">New Order</string>
+    <string name="pending">Pending</string>
+    <string name="completed">Completed</string>
+    <string name="please_enter_valid_registered_number">Please enter valid registered mobile number.</string>
+    <string name="please_enter_valid_credentials">Please enter valid credentials</string>
+    <string name="select_app_to_share">Select App to share</string>
+    <string name="save_profile">Save Profile</string>
+    <string name="key_login_data">key_login_data</string>
+    <string name="key_new_order_data">key_new_order_data</string>
+    <string name="key_complete_order_data">key_complete_order_data</string>
+    <string name="key_pending_order_data">key_pending_order_data</string>
+    <string name="no_data_available">No data available.</string>
+    <string name="no_new_order_available">No Order available right now.</string>
+    <string name="no_pending_order">No Order is pending.</string>
+    <string name="units">Units</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="contact_us">Contact Us</string>
+    <string name="no_product_added">No Product is added yet.</string>
+    <string name="dealerId">Dealer ID</string>
+    <string name="price">Price</string>
+
+    <string name="website_link"><a href="http://aquahey.com/website/index.html"> www.aquahey.com</a></string>
+    <string name="fb_link"><a href="https://www.facebook.com/AquaHeyApp/?modal=admin_todo_tour"> facebook.com/aquahey</a></string>
+    <string name="insta_link"><a href="https://www.instagram.com/aquaheyapp/"> instagram.com/aquahey</a></string>
+    <string name="text_visit_our_website">Visit Our Website : </string>
+    <string name="text_like_on_fb">Like Us on Facebook :</string>
+    <string name="text_follow_us_on_insta">Follow Us on Instagram :</string>
+    <string name="key_first_time_launch">key_first_time_launch</string>
+
+
+</resources>

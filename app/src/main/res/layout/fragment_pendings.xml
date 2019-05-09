@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerPendings"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_20dp"
+        android:paddingBottom="@dimen/_50dp"
+        app:layoutManager="LinearLayoutManager"
+        android:scrollbars="vertical"
+        android:overScrollMode="never"
+        tools:context=".ui.fragments.PendingsFragment"
+        tools:listitem="@layout/list_items" />
+
+    <TextView
+        android:id="@+id/emptyTextView"
+        style="@style/EmptyTextView"
+        android:visibility="gone"
+        android:text="@string/no_pending_order" />
+
+</LinearLayout>

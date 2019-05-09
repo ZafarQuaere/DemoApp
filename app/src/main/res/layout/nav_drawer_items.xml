@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    tools:showIn="@layout/activity_main">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_app_theme"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/nav_header_desc"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            app:srcCompat="@drawable/icon_man" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            android:text="@string/nav_header_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nav_header_subtitle" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/textItem1"
+                style="@style/NavigationDrawerText"
+                android:drawableLeft="@drawable/ic_home"
+                android:onClick="onHomeClick"
+                android:text="@string/home" />
+
+            <TextView
+                android:id="@+id/textItem2"
+                style="@style/NavigationDrawerText"
+                android:drawableLeft="@drawable/ic_orders"
+                android:onClick="ordersClick"
+                android:text="@string/orders" />
+
+            <TextView
+                android:id="@+id/textItem3"
+                style="@style/NavigationDrawerText"
+                android:drawableLeft="@drawable/ic_listings"
+                android:onClick="onListingClick"
+                android:text="@string/listings" />
+
+
+            <TextView
+                style="@style/NavigationDrawerText"
+                android:drawableLeft="@drawable/ic_rupee"
+                android:onClick="onPaymentsClick"
+                android:text="@string/payments" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_app_theme" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/rlytMyAccount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="expandMyAccount"
+                    android:orientation="horizontal"
+                    android:paddingVertical="@dimen/_5dp">
+
+                    <TextView
+                        android:id="@+id/textMyAcocunt"
+                        style="@style/NavigationDrawerText"
+                        android:layout_alignParentLeft="true"
+                        android:drawableLeft="@drawable/ic_my_account"
+                        android:text="@string/my_account" />
+
+                    <ImageButton
+                        android:id="@+id/iconMyAccountExpand"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginEnd="@dimen/_5dp"
+                        android:background="@drawable/ic_plus" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/lytMyAccount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rlytMyAccount"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/_30dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/NavigationDrawerText"
+                        android:drawableLeft="@drawable/ic_support"
+                        android:onClick="onProfileClick"
+                        android:text="@string/my_profile" />
+
+                    <TextView
+                        style="@style/NavigationDrawerText"
+                        android:drawableLeft="@drawable/ic_icon_address"
+                        android:onClick="saveAddressClick"
+                        android:text="@string/save_address" />
+
+                    <TextView
+                        style="@style/NavigationDrawerText"
+                        android:drawableLeft="@drawable/ic_settings"
+                        android:onClick="changePasswordClick"
+                        android:text="@string/change_pswd" />
+
+                    <TextView
+                        style="@style/NavigationDrawerText"
+                        android:drawableLeft="@drawable/ic_logout"
+                        android:onClick="onLogoutClick"
+                        android:text="@string/logout" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <TextView
+                style="@style/NavigationDrawerText"
+                android:drawableLeft="@drawable/ic_icons_share"
+                android:onClick="onShareClick"
+                android:text="@string/share" />
+
+            <TextView
+                style="@style/NavigationDrawerText"
+                android:drawableLeft="@drawable/ic_settings"
+                android:onClick="helpNFaqClick"
+                android:text="@string/help_faq" />
+
+            <TextView
+                style="@style/NavigationDrawerText"
+                android:drawableLeft="@drawable/ic_feedback"
+                android:onClick="item3Click"
+                android:text="@string/send_feedback" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

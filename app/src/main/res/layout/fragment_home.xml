@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:clickable="true"
+    android:padding="@dimen/padding_home_screen">
+
+
+    <TextView
+        android:id="@+id/txtSalesLable"
+        style="@style/RegularThemeTextview"
+        android:layout_marginLeft="@dimen/_20dp"
+        android:textStyle="bold"
+        android:textSize="@dimen/font_20sp"
+        android:text="@string/sales" />
+
+    <TextView
+        style="@style/RegularThemeTextview"
+        android:layout_below="@+id/txtSalesLable"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/_20dp"
+        android:layout_marginTop="@dimen/_10dp"
+        android:text="@string/total_sales_this_week" />
+
+    <TextView
+        android:id="@+id/textTotalSalesAmount"
+        style="@style/RegularThemeTextview"
+        android:layout_below="@+id/txtSalesLable"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginRight="@dimen/_20dp"
+        tools:text="5620" />
+
+    <!-- Week Sales  -->
+    <RelativeLayout
+        android:layout_width="@dimen/circle_big_width"
+        android:layout_height="@dimen/circle_big_height"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/home_screen_margin_top"
+        android:background="@drawable/circle_home_big"
+        android:elevation="@dimen/_10dp"
+        android:padding="@dimen/_10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textIconIceOrder"
+                style="@style/RegularThemeTextview"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/todays_sale" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginRight="@dimen/_5dp"
+                    android:text="@string/rupee_symbol"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/textTodayAmount"
+                    style="@style/RegularThemeTextview"
+                    android:text="200"
+                    android:textColor="@color/colorBlack" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1dp"
+                android:background="@color/colorGrey" />
+
+            <TextView
+                android:id="@+id/textTodayUnit"
+                style="@style/RegularThemeTextview"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_10dp"
+                android:text="5 Units"
+                android:textColor="@color/colorBlack" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/txtServiceQuality"
+            style="@style/RegularThemeTextview"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:text="@string/service_quality"
+            android:textColor="@color/colorTextHome"
+            android:textSize="@dimen/font_20sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_below="@+id/txtServiceQuality"
+            android:layout_marginTop="@dimen/_20dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/rlytBottomCircle1"
+                android:layout_width="@dimen/circle_small_height"
+                android:layout_height="@dimen/circle_small_height"
+                android:background="@drawable/circle_home_small">
+
+                <TextView
+                    style="@style/RegularThemeTextview"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:text="3"
+                    android:textColor="@color/colorBlack" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlytBottomCircle2"
+                android:layout_width="@dimen/circle_small_height"
+                android:layout_height="@dimen/circle_small_height"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="50dp"
+                android:background="@drawable/circle_home_small"
+                android:elevation="@dimen/_10dp">
+
+                <TextView
+                    style="@style/RegularThemeTextview"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:text="3"
+                    android:textColor="@color/colorBlack" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlytBottomCircle3"
+                android:layout_width="@dimen/circle_small_height"
+                android:layout_height="@dimen/circle_small_height"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/circle_home_small"
+                android:elevation="@dimen/_10dp">
+
+                <TextView
+                    style="@style/RegularThemeTextview"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:text="3"
+                    android:textColor="@color/colorBlack" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/textView3"
+                style="@style/RegularThemeTextview"
+                android:layout_below="@+id/rlytBottomCircle1"
+                android:layout_marginTop="5dp"
+                android:paddingLeft="@dimen/_10dp"
+                android:text="All Rating"
+                android:textColor="@color/colorBlack" />
+
+
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/RegularThemeTextview"
+                android:layout_below="@+id/rlytBottomCircle2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:text="Delivery Rating"
+                android:textColor="@color/colorBlack" />
+
+
+            <TextView
+                android:id="@+id/textView13"
+                style="@style/RegularThemeTextview"
+                android:layout_below="@+id/rlytBottomCircle3"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="5dp"
+                android:paddingRight="@dimen/_10dp"
+                android:text="Quality"
+                android:textColor="@color/colorBlack" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

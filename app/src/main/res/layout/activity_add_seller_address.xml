@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_app_theme"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/lyHeader"
+        layout="@layout/app_bar_main"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionbar_height"
+        android:layout_alignParentTop="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/_40dp">
+
+        <EditText
+            android:id="@+id/editAddress"
+            style="@style/TextInputEdit"
+            android:layout_marginTop="100dp"
+            android:hint="@string/enter_address"
+            android:inputType="textMultiLine"
+            android:maxLines="2"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/editCity"
+            style="@style/TextInputEdit"
+            android:layout_marginTop="@dimen/_40dp"
+            android:hint="@string/enter_city"
+            android:inputType="textPersonName"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/editState"
+            style="@style/TextInputEdit"
+            android:layout_marginTop="@dimen/_40dp"
+            android:background="@drawable/rectangle_bg"
+            android:hint="@string/enter_state"
+            android:inputType="textPersonName"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/editPincode"
+            style="@style/NumberInputEdit"
+            android:layout_marginTop="@dimen/_40dp"
+            android:background="@drawable/rectangle_bg"
+            android:hint="@string/enter_pincode"
+            android:maxLength="6"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/btnSaveAddress"
+            style="@style/ButtonTextStyle"
+            android:layout_marginTop="@dimen/_30dp"
+            android:background="@drawable/btnsignin"
+            android:text="@string/save_address" />
+    </LinearLayout>
+</LinearLayout>
+

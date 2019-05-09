@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_app_theme"
+    android:focusableInTouchMode="true">
+
+    <include
+        android:id="@+id/lytHeader"
+        layout="@layout/app_bar_main"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionbar_height"
+        android:layout_alignParentTop="true" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/lytHeader">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/_30dp"
+            android:paddingBottom="@dimen/_20dp">
+
+            <TextView
+                android:id="@+id/textView6"
+                style="@style/LargeTextview"
+                android:layout_below="@+id/lyHeader"
+                android:layout_gravity="center"
+                android:padding="@dimen/_10dp"
+                android:text="@string/register_to_use_aqua_hey" />
+
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/_20dp"
+                android:elevation="@dimen/_10dp"
+                android:src="@drawable/icon_drops" />
+
+
+            <EditText
+                android:id="@+id/editText"
+                style="@style/TextInputEdit"
+                android:drawableRight="@android:drawable/ic_menu_search"
+                android:drawablePadding="@dimen/_10dp"
+                android:hint="@string/gst_no"
+                android:imeOptions="actionSearch"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/editName"
+                style="@style/TextInputEdit"
+                android:layout_marginTop="@dimen/_20dp"
+                android:hint="@string/name"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/editMobile"
+                style="@style/NumberInputEdit"
+                android:layout_marginTop="@dimen/_20dp"
+                android:hint="@string/mobile_no"
+                android:maxLength="10"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/editEmailId"
+                style="@style/TextInputEdit"
+                android:layout_marginTop="@dimen/_20dp"
+                android:hint="@string/email_id"
+                android:inputType="textEmailAddress"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/editPassword"
+                style="@style/PasswordInputEdit"
+                android:layout_marginTop="@dimen/_20dp"
+                android:hint="@string/password"
+                android:textAlignment="center" />
+
+
+            <EditText
+                android:id="@+id/editConfirmPassword"
+                style="@style/PasswordInputEdit"
+                android:layout_marginTop="@dimen/_20dp"
+                android:hint="@string/confirm_pswd"
+                android:inputType="textPassword"
+                android:textAlignment="center" />
+
+
+            <Button
+                android:id="@+id/btnRegister"
+                style="@style/ButtonTextStyle"
+                android:layout_marginTop="@dimen/_30dp"
+                android:background="@drawable/btnsignin"
+                android:text="@string/signup_label" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>
+

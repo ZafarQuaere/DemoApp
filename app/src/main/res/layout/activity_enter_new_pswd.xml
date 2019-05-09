@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    tools:context=".ui.activities.EnterNewPswdActivity">
+
+    <include
+        android:id="@+id/lyHeader"
+        layout="@layout/app_bar_main"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionbar_height"
+        android:layout_alignParentTop="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/_40dp">
+
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="115dp"
+            android:layout_height="115dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="8dp"
+            android:visibility="gone"
+            app:srcCompat="@drawable/icon_drops" />
+
+        <TextView
+            style="@style/XLargeTextview"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/_40dp"
+            android:text="@string/aqua_hey"
+            android:textAlignment="center" />
+
+
+        <EditText
+            android:id="@+id/editPassword"
+            style="@style/PasswordInputEdit"
+            android:hint="@string/new_password"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/editConfirmPassword"
+            style="@style/PasswordInputEdit"
+            android:layout_marginTop="@dimen/_20dp"
+            android:hint="@string/confirm_pswd"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/btnChangePswd"
+            style="@style/ButtonTextStyle"
+            android:layout_marginTop="@dimen/_20dp"
+            android:background="@drawable/btnsignup"
+            android:text="@string/change_pswd" />
+
+    </LinearLayout>
+
+</RelativeLayout>
