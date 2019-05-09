@@ -35,6 +35,7 @@
     <dimen name="actionbar_title_text">16sp</dimen>
     <dimen name="xx_large_text">24sp</dimen>
     <dimen name="x_large_text">20sp</dimen>
+    <dimen name="large_text">16sp</dimen>
 
     <dimen name="font_20sp">20sp</dimen>
     <dimen name="nav_header_vertical_spacing">10dp</dimen>

@@ -122,6 +122,8 @@
     <string name="text_like_on_fb">Like Us on Facebook :</string>
     <string name="text_follow_us_on_insta">Follow Us on Instagram :</string>
     <string name="key_first_time_launch">key_first_time_launch</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
 
 
 </resources>
