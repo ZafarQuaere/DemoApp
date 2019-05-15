@@ -124,6 +124,12 @@
     <string name="key_first_time_launch">key_first_time_launch</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
+    <string name="already_member_login_here">Already a member ? Login here..</string>
+    <string name="username">Username</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="enter_registered_email">Enter Registered Email</string>
+    <string name="send_otp">Send OTP</string>
 
 
 </resources>

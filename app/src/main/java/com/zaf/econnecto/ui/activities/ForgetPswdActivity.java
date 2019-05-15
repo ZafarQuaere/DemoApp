@@ -29,7 +29,7 @@ public class ForgetPswdActivity extends BaseActivity<ForgotPswdPresenter> implem
         mContext = this;
 
         getPresenter().updateActionBar(mContext);
-        findViewById(R.id.btnSubmit).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btnPassword).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 validationField();
@@ -39,8 +39,8 @@ public class ForgetPswdActivity extends BaseActivity<ForgotPswdPresenter> implem
     }
 
     private void validationField() {
-        EditText editMobile = (EditText)findViewById(R.id.editMobile);
-        getPresenter().validMobileNo(editMobile.getText().toString().trim());
+        EditText editEmail = (EditText)findViewById(R.id.editEmail);
+        getPresenter().validMobileNo(editEmail.getText().toString().trim());
     }
 
 
