@@ -28,7 +28,7 @@ public class ForgetPswdActivity extends BaseActivity<ForgotPswdPresenter> implem
         setContentView(R.layout.activity_forgot_pswd);
         mContext = this;
 
-        getPresenter().updateActionBar(mContext);
+        //getPresenter().updateActionBar(mContext);
         findViewById(R.id.btnPassword).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
