@@ -28,7 +28,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="@dimen/_10dp"
-                    android:paddingVertical="@dimen/_20dp"
+                    android:paddingVertical="@dimen/_10dp"
                     android:text="@string/register"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/large_text" />
@@ -52,7 +52,7 @@
                     android:id="@+id/lytInputs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_20dp"
+                    android:layout_marginTop="@dimen/_10dp"
                     android:orientation="vertical"
                     android:paddingLeft="@dimen/_20dp"
                     android:paddingRight="@dimen/_20dp">
@@ -185,7 +185,7 @@
                         android:id="@+id/btnRegister"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_10dp"
+                        android:layout_marginTop="@dimen/_30dp"
                         android:background="@drawable/rounded_background"
                         android:text="@string/register"
                         android:textColor="@color/colorWhite"
@@ -195,14 +195,14 @@
                         android:id="@+id/txtLogin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5dp"
+                        android:layout_marginVertical="@dimen/_5dp"
                         android:gravity="center_horizontal"
                         android:text="@string/already_member_login_here"
                         android:textColor="@color/bg_screen3" />
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_10dp" />
+                        android:layout_height="@dimen/_30dp" />
 
                 </LinearLayout>
 
