@@ -15,7 +15,7 @@
         <item name="android:windowBackground">@color/colorTransparent</item>
         <item name="android:textColorPrimary">#FFFFFF</item>
         <item name="android:backgroundDimEnabled">false</item>
-        <item name="android:textColor">@color/color_app_theme</item>
+        <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">14sp</item>
         <item name="android:gravity">center</item>
@@ -118,7 +118,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textSize">@dimen/regular_text</item>
-        <item name="android:textColor">@color/color_app_theme</item>
+        <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
     <!-- Actionbar Title TextView -->

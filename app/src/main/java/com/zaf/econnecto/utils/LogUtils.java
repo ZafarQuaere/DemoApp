@@ -52,7 +52,7 @@ public class LogUtils {
     public static void showSnackBar(Context context, ViewGroup layout, String msg) {
         Snackbar snackbar = Snackbar.make(layout, msg, Snackbar.LENGTH_LONG);
         View snackView = snackbar.getView();
-        snackView.setBackgroundColor(ContextCompat.getColor(context, R.color.color_app_theme));
+        snackView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
         snackbar.show();
     }
 

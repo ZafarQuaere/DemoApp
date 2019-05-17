@@ -13,7 +13,7 @@
         android:id="@+id/tabLayout"
         android:layout_width="407dp"
         android:layout_height="wrap_content"
-        android:background="@color/color_app_theme"
+        android:background="@color/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

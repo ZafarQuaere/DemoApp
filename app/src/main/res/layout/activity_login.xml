@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -31,13 +32,14 @@
                 android:id="@+id/lytHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/bg_screen3">
+                android:background="@color/colorPrimary">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/_20dp"
-                    android:text="Login - Profile"
+                    android:paddingVertical="@dimen/_10dp"
+                    android:paddingStart="@dimen/_20dp"
+                    android:text="@string/login_label"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/actionbar_title_text" />
 
@@ -80,7 +82,9 @@
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10dp">
+                    android:layout_marginTop="@dimen/_10dp"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/colorPrimary">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/editPassword"
@@ -100,7 +104,7 @@
                     android:layout_marginTop="@dimen/_10dp"
                     android:gravity="center_horizontal"
                     android:text="@string/forgot_pswd"
-                    android:textColor="@color/bg_screen3"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/regular_text"
                     android:visibility="visible" />
 
@@ -123,7 +127,7 @@
                     android:layout_marginTop="@dimen/_50dp"
                     android:gravity="center_horizontal"
                     android:text="Register Here.."
-                    android:textColor="@color/bg_screen3"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/actionbar_title_text"
                     android:textStyle="normal" />
             </LinearLayout>

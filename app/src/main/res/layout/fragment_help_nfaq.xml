@@ -27,7 +27,7 @@
         android:gravity="center_vertical"
         android:text="Contact : +91-8444040514"
         android:textColor="@color/colorBlack"
-        android:textColorLink="@color/color_app_theme" />
+        android:textColorLink="@color/colorPrimary" />
 
     <TextView
         style="@style/RegularTextview"
@@ -38,7 +38,7 @@
         android:gravity="center_vertical"
         android:text="Email : support@aquahey.com"
         android:textColor="@color/colorBlack"
-        android:textColorLink="@color/color_app_theme" />
+        android:textColorLink="@color/colorPrimary" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -59,7 +59,7 @@
             style="@style/RegularTextview"
             android:linksClickable="true"
             android:text="@string/website_link"
-            android:textColorLink="@color/color_app_theme"
+            android:textColorLink="@color/colorPrimary"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -82,7 +82,7 @@
             style="@style/RegularTextview"
             android:linksClickable="true"
             android:text="@string/fb_link"
-            android:textColorLink="@color/color_app_theme"
+            android:textColorLink="@color/colorPrimary"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -107,7 +107,7 @@
             style="@style/RegularTextview"
             android:linksClickable="true"
             android:text="@string/insta_link"
-            android:textColorLink="@color/color_app_theme"
+            android:textColorLink="@color/colorPrimary"
             android:textStyle="bold" />
 
     </LinearLayout>

@@ -22,7 +22,7 @@
                 android:id="@+id/lytHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/bg_screen3">
+                android:background="@color/colorPrimary">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -131,7 +131,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:passwordToggleEnabled="true"
-                        app:passwordToggleTint="@color/color_app_theme"
+                        app:passwordToggleTint="@color/colorPrimary"
                         android:layout_marginTop="@dimen/_10dp">
 
                         <android.support.design.widget.TextInputEditText
@@ -198,7 +198,7 @@
                         android:layout_marginVertical="@dimen/_5dp"
                         android:gravity="center_horizontal"
                         android:text="@string/already_member_login_here"
-                        android:textColor="@color/bg_screen3" />
+                        android:textColor="@color/colorPrimary" />
 
                     <View
                         android:layout_width="match_parent"

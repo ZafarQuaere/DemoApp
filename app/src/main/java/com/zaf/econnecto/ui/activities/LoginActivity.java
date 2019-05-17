@@ -36,6 +36,12 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mContext = this;
+        findViewById(R.id.imageView2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this,MainActivity.class));
+            }
+        });
         if (Utils.isLoggedIn(mContext)) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();

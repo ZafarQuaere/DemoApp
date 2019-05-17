@@ -4,7 +4,6 @@
     <color name="colorPrimaryDark">#0773E9</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="color_app_theme">@color/colorPrimary</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
     <color name="colorGrey">#949292</color>
@@ -12,10 +11,10 @@
     <color name="colorTransparent">#00000000</color>
 
     <!-- Dialog single button colors -->
-    <color name="dialog_text_color">#041e41</color>
-    <color name="dialog_bg_color">#D1D3D3</color>
-    <color name="dialog_separator_color">#646569</color>
-    <color name="dialog_btn_text_color">#0773E9</color>
+    <color name="dialog_text_color">@color/colorBlack</color>
+    <color name="dialog_bg_color">#f1f1f1</color>
+    <color name="dialog_separator_color">@color/colorPrimary</color>
+    <color name="dialog_btn_text_color">@color/colorPrimary</color>
 
     <color name="colorButtonSignin">#FFD600</color>
     <color name="colorButtonSignUp">#0773E9</color>
