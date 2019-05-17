@@ -130,6 +130,7 @@
     <string name="last_name">Last Name</string>
     <string name="enter_registered_email">Enter Registered Email</string>
     <string name="send_otp">Send OTP</string>
+    <string name="age">Age</string>
 
 
 </resources>

@@ -180,12 +180,67 @@
                             android:text="@string/female" />
                     </RadioGroup>
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10dp"
+                        android:paddingStart="@dimen/_10dp"
+                        android:text="@string/age"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/regular_text" />
+
+                    <HorizontalScrollView
+                        android:scrollbars="none"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:overScrollMode="never"
+                        android:layout_marginVertical="@dimen/_10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="button1"/>
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="button1"/>
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="button1"/>
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="button1"/>
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="button1"/>
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="button1"/>
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="button1"/>
+
+                        </LinearLayout>
+
+                    </HorizontalScrollView>
+
 
                     <Button
                         android:id="@+id/btnRegister"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_30dp"
+                        android:layout_marginTop="@dimen/_20dp"
                         android:background="@drawable/rounded_background"
                         android:text="@string/register"
                         android:textColor="@color/colorWhite"

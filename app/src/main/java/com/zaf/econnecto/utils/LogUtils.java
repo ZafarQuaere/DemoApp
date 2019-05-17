@@ -102,7 +102,6 @@ public class LogUtils {
                 dialog.dismiss();
             }
         });
-
         dialog.show();
     }
 
