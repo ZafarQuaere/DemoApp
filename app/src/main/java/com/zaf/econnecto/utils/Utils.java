@@ -31,11 +31,10 @@ import com.zaf.econnecto.ui.activities.EnterNewPswdActivity;
 import com.zaf.econnecto.ui.activities.EnterOTPActivity;
 import com.zaf.econnecto.ui.activities.ForgetPswdActivity;
 import com.zaf.econnecto.ui.activities.LoginActivity;
+import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
+import com.zaf.econnecto.ui.fragments.BListFragment;
 import com.zaf.econnecto.ui.fragments.FragmentProfile;
 import com.zaf.econnecto.ui.fragments.HomeFragment;
-import com.zaf.econnecto.ui.fragments.ListingsFragment;
-import com.zaf.econnecto.ui.fragments.OrdersFragment;
-import com.zaf.econnecto.ui.fragments.PaymentsFragment;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.utils.parser.ParseManager;
 import com.zaf.econnecto.utils.storage.AppSharedPrefs;
@@ -195,7 +194,7 @@ public class Utils {
         } else if (className.equals(new HomeFragment().getClass().getSimpleName())) {
             textBack.setVisibility(View.GONE);
             imgActionBarDrawerIcon.setVisibility(View.VISIBLE);
-        } else if (className.equals(new OrdersFragment().getClass().getSimpleName())) {
+        } else if (className.equals(new AddBusinessFragment().getClass().getSimpleName())) {
             imgActionBarDrawerIcon.setVisibility(View.VISIBLE);
             textBack.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -203,7 +202,7 @@ public class Utils {
                     ((Activity) activity).onBackPressed();
                 }
             });
-        } else if (className.equals(new ListingsFragment().getClass().getSimpleName())) {
+        } else if (className.equals(new BListFragment().getClass().getSimpleName())) {
             imgActionBarDrawerIcon.setVisibility(View.VISIBLE);
             textBack.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -219,15 +218,7 @@ public class Utils {
                     ((Activity) activity).onBackPressed();
                 }
             });
-        } else if (className.equals(new PaymentsFragment().getClass().getSimpleName())) {
-            imgActionBarDrawerIcon.setVisibility(View.VISIBLE);
-            textBack.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((Activity) activity).onBackPressed();
-                }
-            });
-        } else if (className.equals(new ForgetPswdActivity().getClass().getSimpleName())) {
+        }  else if (className.equals(new ForgetPswdActivity().getClass().getSimpleName())) {
             textBack.setVisibility(View.VISIBLE);
             textBack.setOnClickListener(new View.OnClickListener() {
                 @Override

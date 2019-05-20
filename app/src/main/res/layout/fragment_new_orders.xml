@@ -17,7 +17,7 @@
         android:visibility="gone"
         app:layoutManager="LinearLayoutManager"
         tools:context=".ui.fragments.NewOrderFragment"
-        tools:listitem="@layout/list_items" />
+        tools:listitem="@layout/biz_list_items" />
 
     <TextView
         android:id="@+id/emptyTextView"

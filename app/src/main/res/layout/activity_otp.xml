@@ -67,7 +67,7 @@
             android:layout_width="180dp"
             android:layout_height="@dimen/resend_otp_button_height"
             android:layout_weight="1"
-            android:background="@drawable/btnresend"
+            android:background="@drawable/btn_follow"
             android:onClick="resendOTP"
             android:text="@string/resend_otp"
             android:textColor="@color/colorWhite" />

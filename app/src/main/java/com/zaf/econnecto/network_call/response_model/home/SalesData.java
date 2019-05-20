@@ -6,37 +6,59 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class SalesData {
-    @SerializedName("message")
+    @SerializedName("page")
     @Expose
-    private String message;
-    @SerializedName("status")
+    private Integer page;
+    @SerializedName("per_page")
     @Expose
-    private Integer status;
+    private Integer perPage;
+    @SerializedName("total")
+    @Expose
+    private Integer total;
+    @SerializedName("total_pages")
+    @Expose
+    private Integer totalPages;
     @SerializedName("data")
     @Expose
-    private List<Sales> data = null;
+    private List<DetailData> data = null;
 
-    public String getMessage() {
-        return message;
+    public Integer getPage() {
+        return page;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Integer getPerPage() {
+        return perPage;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setPerPage(Integer perPage) {
+        this.perPage = perPage;
     }
 
-    public List<Sales> getData() {
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
+
+    public Integer getTotalPages() {
+        return totalPages;
+    }
+
+    public void setTotalPages(Integer totalPages) {
+        this.totalPages = totalPages;
+    }
+
+    public List<DetailData> getData() {
         return data;
     }
 
-    public void setData(List<Sales> data) {
+    public void setData(List<DetailData> data) {
         this.data = data;
     }
 

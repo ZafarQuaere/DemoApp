@@ -1,26 +1,36 @@
 package com.zaf.econnecto.ui.fragments;
 
-import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
 import com.zaf.econnecto.R;
+import com.zaf.econnecto.network_call.response_model.home.DetailData;
 import com.zaf.econnecto.network_call.response_model.home.Sales;
+import com.zaf.econnecto.network_call.response_model.product_list.ProductList;
+import com.zaf.econnecto.ui.adapters.CategoryRecylcerAdapter;
 import com.zaf.econnecto.ui.presenters.HomePresenter;
 import com.zaf.econnecto.ui.presenters.operations.IFragHome;
-import com.zaf.econnecto.utils.AppConstant;
+import com.zaf.econnecto.utils.LogUtils;
 
 import java.util.List;
 
 public class HomeFragment extends BaseFragment<HomePresenter> implements IFragHome {
 
-
+    private Context mContext;
     private View view;
+    private RecyclerView recyclerCategory;
+    private GridLayoutManager layoutManager;
+    //private LinearLayoutManager layoutManager;
+    private TextView emptyTextView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,35 +46,46 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IFragHo
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
+        mContext = getActivity();
+        initUI(view);
         getPresenter().callTodaySalesApi();
-        getPresenter().callTotalSalesApi();
         return view;
     }
 
-    @SuppressLint("SetTextI18n")
+    private void initUI(View view) {
+        recyclerCategory = (RecyclerView) view.findViewById(R.id.recyclerCategory);
+        recyclerCategory.setHasFixedSize(true);
+
+        layoutManager = new GridLayoutManager(mContext,2);
+       // layoutManager = new LinearLayoutManager(mContext);
+        recyclerCategory.setLayoutManager(layoutManager);
+        recyclerCategory.setItemAnimator(new DefaultItemAnimator());
+        emptyTextView = (TextView) view.findViewById(R.id.emptyTextView);
+
+    }
+
+
     @Override
-    public void updateTodaySalesData(List<Sales> todaySalesData) {
-        if (todaySalesData != null) {
-            TextView textTodayAmount = (TextView) view.findViewById(R.id.textTodayAmount);
-            TextView textTodayUnit = (TextView) view.findViewById(R.id.textTodayUnit);
-            textTodayAmount.setText(todaySalesData.get(0).getTotalAmount()==null ? "0" : todaySalesData.get(0).getTotalAmount());
-            textTodayUnit.setText(todaySalesData.get(0).getTotalUnit()+" "+getString(R.string.units));
-        }
+    public void updateTodaySalesData(List<DetailData> data) {
+        emptyTextView.setVisibility(data == null ? View.VISIBLE : View.GONE);
+        recyclerCategory.setVisibility(data == null ? View.GONE : View.VISIBLE);
+
+        CategoryRecylcerAdapter adapter = new CategoryRecylcerAdapter(mContext, data, new OnCategoryItemClickListener() {
+            @Override
+            public void onCategoryItemClick(DetailData item) {
+                LogUtils.showToast(mContext,item.getFirstName());
+            }
+        });
+        recyclerCategory.setAdapter(adapter);
+
     }
 
     @Override
-    public void updateTotalSalesData(List<Sales> data) {
-        if (data!= null){
-            TextView textTotalSalesAmount = (TextView) view.findViewById(R.id.textTotalSalesAmount);
-            textTotalSalesAmount.setText(getAmountandUnit(data));
-        }
+    public void updateTotalSalesData(List<Sales> totalSalesData) {
+
     }
 
-    private String getAmountandUnit(List<Sales> data) {
-        String totalAmount = "";
-        if (data.get(0).getTotalAmount() == null || data.get(0).getTotalAmount() == "0"){
-            totalAmount = "0";
-        }
-        return AppConstant.RUPEES_SYMBOL+" "+totalAmount+" Of "+data.get(0).getTotalUnit()+" "+getString(R.string.units);
+    public interface OnCategoryItemClickListener {
+        void onCategoryItemClick(DetailData item);
     }
 }

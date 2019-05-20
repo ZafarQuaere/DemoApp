@@ -17,7 +17,7 @@
         android:scrollbars="vertical"
         android:overScrollMode="never"
         tools:context=".ui.fragments.PendingsFragment"
-        tools:listitem="@layout/list_items" />
+        tools:listitem="@layout/biz_list_items" />
 
     <TextView
         android:id="@+id/emptyTextView"

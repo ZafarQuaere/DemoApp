@@ -19,12 +19,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.MyJsonObjectRequest;
+import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
 import com.zaf.econnecto.ui.fragments.FragmentProfile;
 import com.zaf.econnecto.ui.fragments.HelpNFaqFragment;
 import com.zaf.econnecto.ui.fragments.HomeFragment;
-import com.zaf.econnecto.ui.fragments.ListingsFragment;
-import com.zaf.econnecto.ui.fragments.OrdersFragment;
-import com.zaf.econnecto.ui.fragments.PaymentsFragment;
+import com.zaf.econnecto.ui.fragments.BListFragment;
 import com.zaf.econnecto.ui.presenters.MainPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IMain;
 import com.zaf.econnecto.utils.AppController;
@@ -101,21 +100,19 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     }
 
-    public void ordersClick(View view) {
-        callNewOrderApi();
+    public void addBusinessClick(View view) {
+        /*callNewOrderApi();
         callPendingOrderApi();
-        callCompletedOrderApi();
+        callCompletedOrderApi();*/
+        getPresenter().moveToFragment(AddBusinessFragment.class.getSimpleName());
         closeDrawer();
 
     }
 
-    public void onPaymentsClick(View view) {
-        getPresenter().moveToFragment(PaymentsFragment.class.getSimpleName());
-        closeDrawer();
-    }
+
 
     public void onListingClick(View view) {
-        getPresenter().moveToFragment(ListingsFragment.class.getSimpleName());
+        getPresenter().moveToFragment(BListFragment.class.getSimpleName());
         closeDrawer();
     }
     public void onProfileClick(View view) {
@@ -202,79 +199,6 @@ public class MainActivity extends BaseActivity<MainPresenter>
         closeDrawer();
     }
 
-    public void callNewOrderApi() {
-        /*final AppLoaderFragment loader = AppLoaderFragment.getInstance(mContext);
-        loader.show();*/
-        String url = URL_BASE + URL_ORDERS + Utils.getDealerId(mContext) + URL_ORDER_STATUS + ORDER_STATUS_NEW;
-        LogUtils.DEBUG("URL : " + url);
-        MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                LogUtils.DEBUG("NewOrder Response ::" + response.toString());
-                //loader.dismiss();
-                Utils.saveNewOrderData(mContext,response.toString());
-
-            }
-
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                LogUtils.DEBUG("NewOrder Error ::" + error.getMessage());
-              //  loader.dismiss();
-            }
-        });
-        AppController.getInstance().addToRequestQueue(objectRequest, "NewOrder");
-    }
-
-    public void callPendingOrderApi() {
-
-        String url = URL_BASE + URL_ORDERS + Utils.getDealerId(mContext) + URL_ORDER_STATUS + ORDER_STATUS_PENDING;
-        LogUtils.DEBUG("URL : " + url);
-        MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-
-                LogUtils.DEBUG("PendingOrder Response ::" + response.toString());
-
-                Utils.savePendingOrderData(mContext, response.toString());
-
-            }
-
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                LogUtils.DEBUG("Pending Error ::" + error.getMessage());
-            }
-        });
-        AppController.getInstance().addToRequestQueue(objectRequest, "Pending");
-    }
-
-    public void callCompletedOrderApi() {
-        final AppLoaderFragment loader = AppLoaderFragment.getInstance(mContext);
-        loader.show();
-        String url = URL_BASE + URL_ORDERS + Utils.getDealerId(mContext) + URL_ORDER_STATUS + ORDER_STATUS_COMPLETED;
-        LogUtils.DEBUG("URL : " + url);
-        MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-
-                LogUtils.DEBUG("CompletedOrder Response ::" + response.toString());
-                loader.dismiss();
-                Utils.saveCompleteOrderData(mContext, response.toString());
-                getPresenter().moveToFragment(OrdersFragment.class.getSimpleName());
-
-            }
-
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                LogUtils.DEBUG("CompletedOrder Error ::" + error.getMessage());
-                loader.dismiss();
-            }
-        });
-        AppController.getInstance().addToRequestQueue(objectRequest, "CompletedOrder");
-
-    }
 
 
 }

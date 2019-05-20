@@ -15,13 +15,13 @@ import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.response_model.product_list.MyProductsData;
 import com.zaf.econnecto.network_call.response_model.product_list.ProductList;
 import com.zaf.econnecto.ui.adapters.ProductRecylcerAdapter;
-import com.zaf.econnecto.ui.presenters.ListingsPresenter;
+import com.zaf.econnecto.ui.presenters.BListPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IFragListing;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppLoaderFragment;
 
 
-public class ListingsFragment extends BaseFragment<ListingsPresenter> implements IFragListing {
+public class BListFragment extends BaseFragment<BListPresenter> implements IFragListing {
 
     private RecyclerView recylcerProducts;
     private RecyclerView.LayoutManager layoutManager;
@@ -37,8 +37,8 @@ public class ListingsFragment extends BaseFragment<ListingsPresenter> implements
     }
 
     @Override
-    protected ListingsPresenter initPresenter() {
-        return new ListingsPresenter(getActivity(), this);
+    protected BListPresenter initPresenter() {
+        return new BListPresenter(getActivity(), this);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class ListingsFragment extends BaseFragment<ListingsPresenter> implements
     }
 
     private void initUI(View view) {
-        recylcerProducts = (RecyclerView) view.findViewById(R.id.recylcerProducts);
+        recylcerProducts = (RecyclerView) view.findViewById(R.id.recyclerBusinessList);
         recylcerProducts.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(getActivity());
