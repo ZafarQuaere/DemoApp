@@ -1,10 +1,13 @@
 package com.zaf.econnecto.ui.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.request_model.Register;
@@ -27,7 +30,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         mContext = this;
-      //  Utils.updateActionBar(this,new RegisterActivity().getClass().getSimpleName(),getString(R.string.register), null,null);
+        scrollViewImplementation();
         findViewById(R.id.btnRegister).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,6 +38,24 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
                 validateFields();
             }
         });
+
+    }
+
+    private void scrollViewImplementation() {
+       HorizontalScrollView ageScrollView = (HorizontalScrollView)findViewById(R.id.ageScrollView);
+       final LinearLayout lytScroll = (LinearLayout)findViewById(R.id.lytScroll);
+       lytScroll.setOnClickListener(new View.OnClickListener() {
+           @SuppressLint("ResourceAsColor")
+           @Override
+           public void onClick(View v) {
+               for (int i = 0; i < lytScroll.getChildCount(); i++) {
+                   View button = lytScroll.getChildAt(i);
+                    button.setClickable(true);
+                   button.performClick();
+                   LogUtils.showErrorDialog(mContext,"Ok","Child tag is "+ button.getTag()+" and Id "+button.getId());
+               }
+           }
+       });
 
     }
 
