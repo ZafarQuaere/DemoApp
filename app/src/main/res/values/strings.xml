@@ -139,6 +139,17 @@
     <string name="other_details">Other Details</string>
     <string name="contact_details">Contact Details</string>
     <string name="service_details">Service Details</string>
+    <string name="no_business_available">No Business Available as of now.</string>
+    <string name="do_you_want_to_unfollow">Do you want really want to Unfollow </string>
+    <string name="biz_details">Business Details</string>
 
-
+    <array name="age_group">
+        <item name="10-13">10_13</item>
+        <item name="13-15">13_15</item>
+        <item name="15-18">15_18</item>
+        <item name="18-21">18_21</item>
+        <item name="21-24">22_24</item>
+        <item name="24-27">24_27</item>
+        <item name="27-30">27_30</item>
+    </array>
 </resources>

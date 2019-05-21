@@ -14,7 +14,7 @@ import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.Utils;
 
 
-public class AddSellerAddressActivity extends BaseActivity<AddressPresenter> implements ISellerAddress {
+public class ViewBizDetailsActivity extends BaseActivity<AddressPresenter> implements ISellerAddress {
 
     private Context mContext;
 
@@ -26,9 +26,9 @@ public class AddSellerAddressActivity extends BaseActivity<AddressPresenter> imp
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_seller_address);
+        setContentView(R.layout.activity_view_biz_details);
         mContext = this;
-        Utils.updateActionBar(this,new AddSellerAddressActivity().getClass().getSimpleName(),getString(R.string.save_address),
+        Utils.updateActionBar(this,new ViewBizDetailsActivity().getClass().getSimpleName(),getString(R.string.biz_details),
                 null,null);
         findViewById(R.id.btnSaveAddress).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +62,7 @@ public class AddSellerAddressActivity extends BaseActivity<AddressPresenter> imp
     @Override
     public void saveAddress() {
         // hideProgressDialog();
-        startActivity(new Intent(AddSellerAddressActivity.this, MainActivity.class));
+        startActivity(new Intent(ViewBizDetailsActivity.this, MainActivity.class));
         finish();
     }
 

@@ -1,28 +1,36 @@
 package com.zaf.econnecto.ui.activities;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
 
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.request_model.Register;
+import com.zaf.econnecto.ui.adapters.RecyclerViewAdapter;
 import com.zaf.econnecto.ui.presenters.RegisterPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IRegister;
 import com.zaf.econnecto.utils.LogUtils;
+
+import java.util.ArrayList;
 
 
 public class RegisterActivity extends BaseActivity<RegisterPresenter> implements IRegister {
 
     private Context mContext;
+    private ArrayList<String> number;
+    private RecyclerViewAdapter recyclerViewHorizontalAdapter;
+    private View childView;
+    private int recyclerViewItemPosition;
 
     @Override
     protected RegisterPresenter initPresenter() {
-        return new RegisterPresenter(this,this);
+        return new RegisterPresenter(this, this);
     }
 
     @Override
@@ -34,7 +42,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         findViewById(R.id.btnRegister).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // startActivity(new Intent(RegisterActivity.this, EnterOTPActivity.class));
+                // startActivity(new Intent(RegisterActivity.this, EnterOTPActivity.class));
                 validateFields();
             }
         });
@@ -42,21 +50,60 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     }
 
     private void scrollViewImplementation() {
-       HorizontalScrollView ageScrollView = (HorizontalScrollView)findViewById(R.id.ageScrollView);
-       final LinearLayout lytScroll = (LinearLayout)findViewById(R.id.lytScroll);
-       lytScroll.setOnClickListener(new View.OnClickListener() {
-           @SuppressLint("ResourceAsColor")
-           @Override
-           public void onClick(View v) {
-               for (int i = 0; i < lytScroll.getChildCount(); i++) {
-                   View button = lytScroll.getChildAt(i);
-                    button.setClickable(true);
-                   button.performClick();
-                   LogUtils.showErrorDialog(mContext,"Ok","Child tag is "+ button.getTag()+" and Id "+button.getId());
-               }
-           }
-       });
+        RecyclerView ageScrollView = (RecyclerView) findViewById(R.id.recyclerAge);
+        ageScrollView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
+        // Adding items to RecyclerView.
+        AddItemsToRecyclerViewArrayList();
+        recyclerViewHorizontalAdapter = new RecyclerViewAdapter(number);
 
+
+        ageScrollView.setAdapter(recyclerViewHorizontalAdapter);
+
+        // Adding on item click listener to RecyclerView.
+        ageScrollView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+
+            GestureDetector gestureDetector = new GestureDetector(mContext, new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onSingleTapUp(MotionEvent motionEvent) {
+                    return true;
+                }
+            });
+
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rcView, MotionEvent motionEvent) {
+                childView = rcView.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
+                if (childView != null && gestureDetector.onTouchEvent(motionEvent)) {
+                    //Getting clicked value.
+                    recyclerViewItemPosition = rcView.getChildAdapterPosition(childView);
+                    // Showing clicked item value on screen using toast message.
+                    // Toast.makeText(mContext, number.get(recyclerViewItemPosition), Toast.LENGTH_LONG).show();
+                }
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(RecyclerView Recyclerview, MotionEvent motionEvent) {
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+            }
+        });
+
+    }
+
+    private void AddItemsToRecyclerViewArrayList() {
+        number = new ArrayList<>();
+        number.add("ONE");
+        number.add("TWO");
+        number.add("THREE");
+        number.add("FOUR");
+        number.add("FIVE");
+        number.add("SIX");
+        number.add("SEVEN");
+        number.add("EIGHT");
+        number.add("NINE");
+        number.add("TEN");
     }
 
     private void validateFields() {
@@ -89,6 +136,6 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 
     @Override
     public void onValidationError(String msg) {
-        LogUtils.showErrorDialog(mContext,getString(R.string.ok),msg);
+        LogUtils.showErrorDialog(mContext, getString(R.string.ok), msg);
     }
 }

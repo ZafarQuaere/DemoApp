@@ -14,32 +14,15 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.zaf.econnecto.R;
-import com.zaf.econnecto.network_call.MyJsonObjectRequest;
 import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
-import com.zaf.econnecto.ui.fragments.FragmentProfile;
-import com.zaf.econnecto.ui.fragments.HelpNFaqFragment;
-import com.zaf.econnecto.ui.fragments.HomeFragment;
 import com.zaf.econnecto.ui.fragments.BListFragment;
+import com.zaf.econnecto.ui.fragments.FragmentProfile;
+import com.zaf.econnecto.ui.fragments.HomeFragment;
 import com.zaf.econnecto.ui.presenters.MainPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IMain;
-import com.zaf.econnecto.utils.AppController;
-import com.zaf.econnecto.utils.AppLoaderFragment;
 import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.Utils;
-
-
-import org.json.JSONObject;
-
-import static com.zaf.econnecto.utils.AppConstant.ORDER_STATUS_COMPLETED;
-import static com.zaf.econnecto.utils.AppConstant.ORDER_STATUS_NEW;
-import static com.zaf.econnecto.utils.AppConstant.ORDER_STATUS_PENDING;
-import static com.zaf.econnecto.utils.AppConstant.URL_BASE;
-import static com.zaf.econnecto.utils.AppConstant.URL_ORDERS;
-import static com.zaf.econnecto.utils.AppConstant.URL_ORDER_STATUS;
 
 
 public class MainActivity extends BaseActivity<MainPresenter>
@@ -110,23 +93,25 @@ public class MainActivity extends BaseActivity<MainPresenter>
     }
 
 
-
     public void onListingClick(View view) {
         getPresenter().moveToFragment(BListFragment.class.getSimpleName());
         closeDrawer();
     }
+
     public void onProfileClick(View view) {
         closeDrawer();
         getPresenter().moveToFragment(FragmentProfile.class.getSimpleName());
 
     }
+
     public void saveAddressClick(View view) {
         closeDrawer();
-        startActivity(new Intent(MainActivity.this,AddSellerAddressActivity.class));
+        startActivity(new Intent(MainActivity.this, ViewBizDetailsActivity.class));
     }
+
     public void item3Click(View view) {
         closeDrawer();
-        LogUtils.showToast(mContext,"Development under progress");
+        LogUtils.showToast(mContext, "Development under progress");
     }
 
     public void onLogoutClick(View view) {
@@ -135,10 +120,10 @@ public class MainActivity extends BaseActivity<MainPresenter>
     }
 
     public void expandMyAccount(View view) {
-        LinearLayout lytMyAccount = (LinearLayout)findViewById(R.id.lytMyAccount);
-        ImageButton iconMyAccountExpand = (ImageButton)findViewById(R.id.iconMyAccountExpand);
-        lytMyAccount.setVisibility(lytMyAccount.getVisibility()== View.VISIBLE ? View.GONE : View.VISIBLE);
-        iconMyAccountExpand.setBackground(lytMyAccount.getVisibility()== View.VISIBLE ?getResources().getDrawable(R.drawable.ic_minus) : getResources().getDrawable(R.drawable.ic_plus));
+        LinearLayout lytMyAccount = (LinearLayout) findViewById(R.id.lytMyAccount);
+        ImageButton iconMyAccountExpand = (ImageButton) findViewById(R.id.iconMyAccountExpand);
+        lytMyAccount.setVisibility(lytMyAccount.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+        iconMyAccountExpand.setBackground(lytMyAccount.getVisibility() == View.VISIBLE ? getResources().getDrawable(R.drawable.ic_minus) : getResources().getDrawable(R.drawable.ic_plus));
     }
 
     public void closeDrawer() {
@@ -167,27 +152,27 @@ public class MainActivity extends BaseActivity<MainPresenter>
         int count = getSupportFragmentManager().getBackStackEntryCount();
         if (count > 0) {
             //Utils.clearBackStackTillHomeFragment(MainActivity.this);
-           try {
+            try {
                 getSupportFragmentManager().popBackStack();
                 FragmentManager.BackStackEntry a = getSupportFragmentManager().getBackStackEntryAt(getSupportFragmentManager().getBackStackEntryCount() - 2);//top
                 Fragment baseFrag = (Fragment) getSupportFragmentManager().findFragmentByTag(a.getName());
                 LogUtils.DEBUG("baseFrag Fragment : " + baseFrag.getClass().getSimpleName());
-                getPresenter().updateActionBarTitleOnBackPress(mContext,baseFrag);
+                getPresenter().updateActionBarTitleOnBackPress(mContext, baseFrag);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
             super.onBackPressed();
         }
-        if (count == 1){
+        if (count == 1) {
             finishAffinity();
         }
 
     }
 
     public void changePasswordClick(View view) {
-        getPresenter().startActivity(mContext);
-
+        //  getPresenter().startActivity(mContext);
+        closeDrawer();
     }
 
     public void onShareClick(View view) {
@@ -195,10 +180,9 @@ public class MainActivity extends BaseActivity<MainPresenter>
     }
 
     public void helpNFaqClick(View view) {
-        getPresenter().moveToFragment(HelpNFaqFragment.class.getSimpleName());
+        //getPresenter().moveToFragment(HelpNFaqFragment.class.getSimpleName());
         closeDrawer();
     }
-
 
 
 }

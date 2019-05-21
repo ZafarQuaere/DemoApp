@@ -6,6 +6,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.zaf.econnecto.network_call.MyJsonObjectRequest;
+import com.zaf.econnecto.network_call.response_model.home.SalesData;
 import com.zaf.econnecto.network_call.response_model.product_list.MyProductsData;
 import com.zaf.econnecto.ui.presenters.operations.IFragListing;
 import com.zaf.econnecto.utils.AppConstant;
@@ -32,9 +33,9 @@ public class BListPresenter extends BaseFragmentPresenter {
 
     public void callItemsApi() {
         loader.show();
-        String url = AppConstant.baseUrl + AppConstant.listUrl + 2;
+        String url = AppConstant.baseUrl + AppConstant.listUrl + 3;
         LogUtils.DEBUG("URL : " + url + "\nRequest Body ::");
-        MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
+        MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 LogUtils.DEBUG("ProductList Response ::" + response.toString());
@@ -52,6 +53,8 @@ public class BListPresenter extends BaseFragmentPresenter {
                 }else {
                     mProductFrag.updateList(null);
                 }*/
+                SalesData data = ParseManager.getInstance().fromJSON(response.toString(), SalesData.class);
+                mProductFrag.updateList(data.getData());
                 loader.dismiss();
 
             }

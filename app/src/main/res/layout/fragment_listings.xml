@@ -16,7 +16,7 @@
     <TextView
         android:id="@+id/emptyTextView"
         style="@style/EmptyTextView"
-        android:text="@string/no_product_added"
+        android:text="@string/no_business_available"
         android:visibility="gone" />
 
 </RelativeLayout>

@@ -1,6 +1,7 @@
 package com.zaf.econnecto.ui.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -12,13 +13,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zaf.econnecto.R;
-import com.zaf.econnecto.network_call.response_model.product_list.MyProductsData;
-import com.zaf.econnecto.network_call.response_model.product_list.ProductList;
-import com.zaf.econnecto.ui.adapters.ProductRecylcerAdapter;
+import com.zaf.econnecto.network_call.response_model.home.DetailData;
+import com.zaf.econnecto.ui.activities.ViewBizDetailsActivity;
+import com.zaf.econnecto.ui.adapters.BizListRecyclerAdapter;
 import com.zaf.econnecto.ui.presenters.BListPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IFragListing;
-import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppLoaderFragment;
+
+import java.util.List;
 
 
 public class BListFragment extends BaseFragment<BListPresenter> implements IFragListing {
@@ -80,24 +82,23 @@ public class BListFragment extends BaseFragment<BListPresenter> implements IFrag
     }
 
     @Override
-    public void updateList(MyProductsData data) {
+    public void updateList(List<DetailData> data) {
         emptyTextView.setVisibility(data == null? View.VISIBLE:View.GONE);
         recylcerProducts.setVisibility(data == null? View.GONE:View.VISIBLE);
-        if (data != null && data.getStatus().equals(AppConstant.SUCCESS)) {
-            ProductRecylcerAdapter adapter = new ProductRecylcerAdapter(mContext,data.getData(), new OnListFragmentInteractionListener() {
+        if (data != null){
+            BizListRecyclerAdapter adapter = new BizListRecyclerAdapter(mContext,data, new OnListFragmentInteractionListener() {
                 @Override
-                public void onListFragmentInteraction(ProductList item) {
-                   // LogUtils.showToast(mContext, item.getPName());
+                public void onListFragmentInteraction(DetailData item) {
+                   startActivity(new Intent(getActivity(), ViewBizDetailsActivity.class));
                 }
             });
             recylcerProducts.setAdapter(adapter);
-        }else {
-
         }
-
     }
 
+
+
     public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(ProductList item);
+        void onListFragmentInteraction(DetailData item);
     }
 }

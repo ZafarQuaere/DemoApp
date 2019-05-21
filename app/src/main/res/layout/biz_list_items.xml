@@ -37,7 +37,7 @@
             android:textColor="@color/colorBlack" />
 
         <TextView
-            android:id="@+id/btnFollow"
+            android:id="@+id/textFollow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/content"
@@ -57,9 +57,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/btnFollow"
-            android:layout_marginLeft="@dimen/_10dp"
-            android:layout_toRightOf="@+id/btnFollow"
+            android:layout_alignBottom="@id/textFollow"
+            android:layout_marginEnd="@dimen/_5dp"
+            android:layout_alignParentEnd="true"
             android:drawableLeft="@drawable/ic_follower"
             android:drawablePadding="@dimen/_5dp"
             android:gravity="center"
@@ -67,12 +67,20 @@
             android:textAllCaps="false"
             android:textSize="11sp" />
 
+        <View
+            android:background="@color/colorPrimary"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginHorizontal="@dimen/_40dp"
+            android:layout_below="@+id/textFollow"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
 
         <TextView
+            android:id="@+id/textViewBusiness"
             style="@style/LargeTextview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/btnFollow"
+            android:layout_below="@+id/textFollow"
             android:layout_marginTop="@dimen/_10dp"
             android:gravity="center_horizontal"
             android:text="@string/view_business"

@@ -25,7 +25,7 @@ import android.widget.TextView;
 import com.zaf.econnecto.BuildConfig;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.response_model.login.LoginPojo;
-import com.zaf.econnecto.ui.activities.AddSellerAddressActivity;
+import com.zaf.econnecto.ui.activities.ViewBizDetailsActivity;
 import com.zaf.econnecto.ui.activities.EnterNewPswdActivity;
 import com.zaf.econnecto.ui.activities.EnterOTPActivity;
 import com.zaf.econnecto.ui.activities.ForgetPswdActivity;
@@ -174,7 +174,7 @@ public class Utils {
                     ((Activity) activity).onBackPressed();
                 }
             });
-        } else if (className.equals(new AddSellerAddressActivity().getClass().getSimpleName())) {
+        } else if (className.equals(new ViewBizDetailsActivity().getClass().getSimpleName())) {
             textBack.setVisibility(View.VISIBLE);
             textBack.setOnClickListener(new View.OnClickListener() {
                 @Override
