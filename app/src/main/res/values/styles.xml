@@ -179,6 +179,12 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
-
+    <style name="TextView.InputLabel" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textColor">?android:textColorHint</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingRight">4dp</item>
+        <item name="android:textSize">@dimen/regular_text</item>
+    </style>
 
 </resources>

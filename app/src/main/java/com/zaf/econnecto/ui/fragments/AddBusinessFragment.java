@@ -9,10 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.zaf.econnecto.R;
-import com.zaf.econnecto.ui.presenters.BaseFragmentPresenter;
+import com.zaf.econnecto.ui.presenters.AddBizPresenter;
+import com.zaf.econnecto.ui.presenters.operations.IAddBiz;
 
 
-public class AddBusinessFragment extends BaseFragment {
+public class AddBusinessFragment extends BaseFragment<AddBizPresenter> implements IAddBiz {
 
     private Context mContext;
     private ViewPager viewPager;
@@ -24,9 +25,10 @@ public class AddBusinessFragment extends BaseFragment {
         setHasOptionsMenu(true);
     }
 
+
     @Override
-    protected BaseFragmentPresenter initPresenter() {
-        return null;
+    protected AddBizPresenter initPresenter() {
+        return new AddBizPresenter(getActivity(), this);
     }
 
     @Override
@@ -45,4 +47,18 @@ public class AddBusinessFragment extends BaseFragment {
     }
 
 
+    @Override
+    public void addBusiness(String mobile) {
+
+    }
+
+    @Override
+    public void onValidationError(String msg) {
+
+    }
+
+    @Override
+    public void callApi(String dealerName, String dealerMobile) {
+
+    }
 }

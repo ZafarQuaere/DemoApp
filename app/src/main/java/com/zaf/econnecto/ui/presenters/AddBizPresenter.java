@@ -7,7 +7,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.MyJsonObjectRequest;
-import com.zaf.econnecto.ui.presenters.operations.IAddSeller;
+import com.zaf.econnecto.ui.presenters.operations.IAddBiz;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppController;
 import com.zaf.econnecto.utils.AppLoaderFragment;
@@ -18,14 +18,14 @@ import com.zaf.econnecto.utils.NetworkUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class AddSellerPresenter extends BasePresenter {
+public class AddBizPresenter extends BaseFragmentPresenter {
     private final AppLoaderFragment loader;
     private Context mContext;
-    private IAddSeller mSeller;
+    private IAddBiz mSeller;
 
-    public AddSellerPresenter(Context context, IAddSeller iAddSeller) {
+    public AddBizPresenter(Context context, IAddBiz iAddBiz) {
         super(context);
-        mSeller = iAddSeller;
+        mSeller = iAddBiz;
         mContext = context;
         loader = AppLoaderFragment.getInstance(mContext);
     }
@@ -65,7 +65,7 @@ public class AddSellerPresenter extends BasePresenter {
             public void onResponse(JSONObject response) {
                 LogUtils.DEBUG("AddSeller Response ::" + response.toString());
                 loader.dismiss();
-                mSeller.addSeller(mobile);
+                mSeller.addBusiness(mobile);
             }
 
         }, new Response.ErrorListener() {

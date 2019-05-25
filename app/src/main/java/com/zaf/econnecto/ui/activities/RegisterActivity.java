@@ -5,14 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.request_model.Register;
-import com.zaf.econnecto.ui.adapters.RecyclerViewAdapter;
+import com.zaf.econnecto.ui.adapters.AgeGroupRecyclerAdapter;
+import com.zaf.econnecto.ui.interfaces.AgeSelectedListener;
 import com.zaf.econnecto.ui.presenters.RegisterPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IRegister;
 import com.zaf.econnecto.utils.LogUtils;
@@ -20,13 +19,11 @@ import com.zaf.econnecto.utils.LogUtils;
 import java.util.ArrayList;
 
 
-public class RegisterActivity extends BaseActivity<RegisterPresenter> implements IRegister {
+public class RegisterActivity extends BaseActivity<RegisterPresenter> implements IRegister, AgeSelectedListener {
 
     private Context mContext;
-    private ArrayList<String> number;
-    private RecyclerViewAdapter recyclerViewHorizontalAdapter;
-    private View childView;
-    private int recyclerViewItemPosition;
+    private ArrayList<String> ages;
+    private AgeGroupRecyclerAdapter ageGroupRecyclerAdapter;
 
     @Override
     protected RegisterPresenter initPresenter() {
@@ -47,63 +44,38 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
             }
         });
 
-    }
-
-    private void scrollViewImplementation() {
-        RecyclerView ageScrollView = (RecyclerView) findViewById(R.id.recyclerAge);
-        ageScrollView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
-        // Adding items to RecyclerView.
-        AddItemsToRecyclerViewArrayList();
-        recyclerViewHorizontalAdapter = new RecyclerViewAdapter(number);
-
-
-        ageScrollView.setAdapter(recyclerViewHorizontalAdapter);
-
-        // Adding on item click listener to RecyclerView.
-        ageScrollView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-
-            GestureDetector gestureDetector = new GestureDetector(mContext, new GestureDetector.SimpleOnGestureListener() {
-                @Override
-                public boolean onSingleTapUp(MotionEvent motionEvent) {
-                    return true;
-                }
-            });
-
+        findViewById(R.id.txtLogin).setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onInterceptTouchEvent(RecyclerView rcView, MotionEvent motionEvent) {
-                childView = rcView.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
-                if (childView != null && gestureDetector.onTouchEvent(motionEvent)) {
-                    //Getting clicked value.
-                    recyclerViewItemPosition = rcView.getChildAdapterPosition(childView);
-                    // Showing clicked item value on screen using toast message.
-                    // Toast.makeText(mContext, number.get(recyclerViewItemPosition), Toast.LENGTH_LONG).show();
-                }
-                return false;
-            }
-
-            @Override
-            public void onTouchEvent(RecyclerView Recyclerview, MotionEvent motionEvent) {
-            }
-
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
 
     }
 
-    private void AddItemsToRecyclerViewArrayList() {
-        number = new ArrayList<>();
-        number.add("ONE");
-        number.add("TWO");
-        number.add("THREE");
-        number.add("FOUR");
-        number.add("FIVE");
-        number.add("SIX");
-        number.add("SEVEN");
-        number.add("EIGHT");
-        number.add("NINE");
-        number.add("TEN");
+    private void scrollViewImplementation() {
+        RecyclerView ageScrollView = (RecyclerView) findViewById(R.id.recyclerAge);
+        ageScrollView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        // Adding items to RecyclerView.
+        addAgeGroupItem();
+        ageGroupRecyclerAdapter = new AgeGroupRecyclerAdapter(mContext, ages);
+        ageGroupRecyclerAdapter.setListener(this);
+
+        ageScrollView.setAdapter(ageGroupRecyclerAdapter);
+
+
+    }
+
+    private void addAgeGroupItem() {
+        ages = new ArrayList<>();
+        ages.add("< 15");
+        ages.add("15-18");
+        ages.add("18-25");
+        ages.add("25-30");
+        ages.add("30-35");
+        ages.add("35-45");
+        ages.add("> 45");
+
     }
 
     private void validateFields() {
@@ -137,5 +109,10 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     @Override
     public void onValidationError(String msg) {
         LogUtils.showErrorDialog(mContext, getString(R.string.ok), msg);
+    }
+
+    @Override
+    public void onAgeSelected(String selectedAge) {
+        LogUtils.showToast(mContext, "Listener : " + selectedAge);
     }
 }

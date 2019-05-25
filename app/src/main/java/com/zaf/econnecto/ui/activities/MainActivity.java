@@ -1,5 +1,6 @@
 package com.zaf.econnecto.ui.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +24,8 @@ import com.zaf.econnecto.ui.presenters.MainPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IMain;
 import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.Utils;
+
+import java.util.Objects;
 
 
 public class MainActivity extends BaseActivity<MainPresenter>
@@ -60,6 +63,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
     private void setUpToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
     }
 
     private void initUI() {
@@ -68,6 +72,8 @@ public class MainActivity extends BaseActivity<MainPresenter>
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        //hide default drawer icon
+        toggle.setDrawerIndicatorEnabled(false);
         ImageView imgDrawerIcon = (ImageView) findViewById(R.id.imgActionBarDrawerIcon);
         imgDrawerIcon.setOnClickListener(new View.OnClickListener() {
             @Override

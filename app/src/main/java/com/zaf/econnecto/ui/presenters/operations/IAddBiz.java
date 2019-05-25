@@ -2,9 +2,9 @@ package com.zaf.econnecto.ui.presenters.operations;
 
 
 
-public interface IAddSeller {
+public interface IAddBiz {
 
-    void addSeller(String mobile);
+    void addBusiness(String mobile);
     void onValidationError(String msg);
     void callApi(String dealerName, String dealerMobile);
 }

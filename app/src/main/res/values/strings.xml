@@ -144,6 +144,16 @@
     <string name="biz_details">Business Details</string>
     <string name="business_dialog">Business Dialog (very short description)</string>
     <string name="business_name">Business Name</string>
+    <string name="category">Category</string>
+    <string name="detailed_business_description">Detailed Business Description</string>
+    <string name="year_founded">Foundation year</string>
+    <string name="awards_n_achievement">Awards and Achievements</string>
+    <string name="address">Address</string>
+    <string name="phone">Phone No.</string>
+    <string name="alternate_phone">Alternate Phone</string>
+    <string name="website">Website</string>
+    <string name="charges">Charges</string>
+    <string name="amount">Amount</string>
 
     <array name="age_group">
         <item name="10-13">10_13</item>
