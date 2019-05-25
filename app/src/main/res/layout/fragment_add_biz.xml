@@ -41,7 +41,7 @@
                         android:id="@+id/editFirstName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/first_name"
+                        android:hint="@string/business_name"
                         android:maxLength="70"
                         android:textSize="@dimen/regular_text" />
                 </android.support.design.widget.TextInputLayout>
@@ -54,7 +54,7 @@
                         android:id="@+id/editLastName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/last_name"
+                        android:hint="@string/business_dialog"
                         android:maxLength="70"
                         android:textSize="@dimen/regular_text" />
                 </android.support.design.widget.TextInputLayout>

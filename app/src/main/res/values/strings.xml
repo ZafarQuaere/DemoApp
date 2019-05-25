@@ -142,6 +142,8 @@
     <string name="no_business_available">No Business Available as of now.</string>
     <string name="do_you_want_to_unfollow">Do you want really want to Unfollow </string>
     <string name="biz_details">Business Details</string>
+    <string name="business_dialog">Business Dialog (very short description)</string>
+    <string name="business_name">Business Name</string>
 
     <array name="age_group">
         <item name="10-13">10_13</item>

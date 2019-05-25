@@ -44,12 +44,17 @@ public class MainActivity extends BaseActivity<MainPresenter>
         mContext = this;
         setUpToolbar();
         initUI();
-        moveToHome();
+        //moveToHome();
+        moveToBList();
 
     }
 
     private void moveToHome() {
         getPresenter().moveToFragment(HomeFragment.class.getSimpleName());
+    }
+
+    private void moveToBList() {
+        getPresenter().moveToFragment(BListFragment.class.getSimpleName());
     }
 
     private void setUpToolbar() {
