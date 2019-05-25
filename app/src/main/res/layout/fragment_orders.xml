@@ -105,6 +105,24 @@
                         android:maxLength="70"
                         android:textSize="@dimen/regular_text" />
                 </android.support.design.widget.TextInputLayout>
+
+                <LinearLayout
+                    android:id="@+id/lytAccountIdSpinnerBg"
+                    android:visibility="visible"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/button_transparent_bg">
+                    <Spinner
+                        android:gravity="right"
+                        android:id="@+id/spinnerAccountId"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:visibility="visible" />
+                </LinearLayout>
+
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
