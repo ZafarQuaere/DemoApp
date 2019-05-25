@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/nav_header_desc"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
-            app:srcCompat="@drawable/icon_man" />
+            app:srcCompat="@drawable/avatar_male" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,6 +36,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/nav_header_subtitle" />
+
+        <TextView
+            android:id="@+id/textVie2w"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Username125" />
     </LinearLayout>
 
     <ScrollView
@@ -61,22 +67,16 @@
                 android:id="@+id/textItem2"
                 style="@style/NavigationDrawerText"
                 android:drawableLeft="@drawable/ic_orders"
-                android:onClick="ordersClick"
-                android:text="@string/orders" />
+                android:onClick="addBusinessClick"
+                android:text="@string/add_business" />
 
             <TextView
                 android:id="@+id/textItem3"
                 style="@style/NavigationDrawerText"
                 android:drawableLeft="@drawable/ic_listings"
                 android:onClick="onListingClick"
-                android:text="@string/listings" />
+                android:text="@string/business_list" />
 
-
-            <TextView
-                style="@style/NavigationDrawerText"
-                android:drawableLeft="@drawable/ic_rupee"
-                android:onClick="onPaymentsClick"
-                android:text="@string/payments" />
 
 
             <View
@@ -133,6 +133,7 @@
                         style="@style/NavigationDrawerText"
                         android:drawableLeft="@drawable/ic_icon_address"
                         android:onClick="saveAddressClick"
+                        android:visibility="gone"
                         android:text="@string/save_address" />
 
                     <TextView

@@ -6,6 +6,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.zaf.econnecto.network_call.MyJsonObjectRequest;
+import com.zaf.econnecto.network_call.response_model.home.SalesData;
 import com.zaf.econnecto.network_call.response_model.product_list.MyProductsData;
 import com.zaf.econnecto.ui.presenters.operations.IFragListing;
 import com.zaf.econnecto.utils.AppConstant;
@@ -18,12 +19,12 @@ import com.zaf.econnecto.utils.parser.ParseManager;
 
 import org.json.JSONObject;
 
-public class ListingsPresenter extends BaseFragmentPresenter {
+public class BListPresenter extends BaseFragmentPresenter {
     private Context mContext;
     private IFragListing mProductFrag;
     private AppLoaderFragment loader;
 
-    public ListingsPresenter(Context context, IFragListing productList) {
+    public BListPresenter(Context context, IFragListing productList) {
         super(context);
         mProductFrag = productList;
         mContext = context;
@@ -32,13 +33,14 @@ public class ListingsPresenter extends BaseFragmentPresenter {
 
     public void callItemsApi() {
         loader.show();
-        String url = AppConstant.URL_BASE + AppConstant.URL_PRODUCT_LIST + Utils.getDealerId(mContext);
+        String url = AppConstant.baseUrl + AppConstant.listUrl + 3;
         LogUtils.DEBUG("URL : " + url + "\nRequest Body ::");
-        MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
+        MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 LogUtils.DEBUG("ProductList Response ::" + response.toString());
-                int status = response.optInt("status");
+
+               /* int status = response.optInt("status");
                 if (status == AppConstant.SUCCESS) {
                     try {
                         MyProductsData productsData = ParseManager.getInstance().fromJSON(response.toString(), MyProductsData.class);
@@ -50,7 +52,9 @@ public class ListingsPresenter extends BaseFragmentPresenter {
                     }
                 }else {
                     mProductFrag.updateList(null);
-                }
+                }*/
+                SalesData data = ParseManager.getInstance().fromJSON(response.toString(), SalesData.class);
+                mProductFrag.updateList(data.getData());
                 loader.dismiss();
 
             }

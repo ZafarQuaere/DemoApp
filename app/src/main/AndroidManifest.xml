@@ -27,8 +27,7 @@
         <activity android:name=".ui.activities.MainActivity" android:theme="@style/AppTheme" />
         <activity android:name=".ui.activities.EnterOTPActivity" />
         <activity android:name=".ui.activities.ForgetPswdActivity" />
-        <activity android:name=".ui.activities.AddSellerActivity" />
-        <activity android:name=".ui.activities.AddSellerAddressActivity" />
+        <activity android:name=".ui.activities.ViewBizDetailsActivity" />
         <activity android:name=".ui.activities.EnterNewPswdActivity" />
     </application>
 

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginTop="@dimen/_10dp"
     android:orientation="vertical">
 
@@ -56,6 +57,7 @@
                     android:orientation="vertical"
                     android:paddingLeft="@dimen/_20dp"
                     android:paddingRight="@dimen/_20dp">
+
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -130,9 +132,9 @@
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10dp"
                         app:passwordToggleEnabled="true"
-                        app:passwordToggleTint="@color/colorPrimary"
-                        android:layout_marginTop="@dimen/_10dp">
+                        app:passwordToggleTint="@color/colorPrimary">
 
                         <android.support.design.widget.TextInputEditText
                             android:id="@+id/editPassword"
@@ -189,51 +191,14 @@
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/regular_text" />
 
-                    <HorizontalScrollView
-                        android:scrollbars="none"
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerAge"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:overScrollMode="never"
-                        android:layout_marginVertical="@dimen/_10dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="button1"/>
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="button1"/>
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="button1"/>
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="button1"/>
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="button1"/>
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="button1"/>
-
-                            <Button
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="button1"/>
-
-                        </LinearLayout>
-
-                    </HorizontalScrollView>
+                        android:divider="@null"
+                        android:orientation="horizontal"
+                        app:reverseLayout="true"
+                        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
 
                     <Button

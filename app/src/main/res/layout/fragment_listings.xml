@@ -7,16 +7,16 @@
     android:clickable="true">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recylcerProducts"
+        android:id="@+id/recyclerBusinessList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:overScrollMode="never"
-        tools:listitem="@layout/list_items"/>
+        tools:listitem="@layout/biz_list_items"/>
 
     <TextView
         android:id="@+id/emptyTextView"
         style="@style/EmptyTextView"
-        android:text="@string/no_product_added"
+        android:text="@string/no_business_available"
         android:visibility="gone" />
 
 </RelativeLayout>

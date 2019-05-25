@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3395ff</color>
-    <color name="colorPrimaryDark">#0773E9</color>
+    <color name="colorPrimaryDark">#3395ff</color>
     <color name="colorAccent">#FF4081</color>
 
     <color name="colorWhite">#ffffff</color>
@@ -9,6 +9,7 @@
     <color name="colorGrey">#949292</color>
 
     <color name="colorTransparent">#00000000</color>
+    <color name="home_img_text">#434B3333</color>
 
     <!-- Dialog single button colors -->
     <color name="dialog_text_color">@color/colorBlack</color>

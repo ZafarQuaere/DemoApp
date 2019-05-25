@@ -8,40 +8,39 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.squareup.picasso.Picasso;
 import com.zaf.econnecto.R;
-import com.zaf.econnecto.network_call.response_model.product_list.ProductList;
-import com.zaf.econnecto.ui.fragments.ListingsFragment;
-import com.zaf.econnecto.utils.AppConstant;
+import com.zaf.econnecto.network_call.response_model.home.DetailData;
+import com.zaf.econnecto.ui.fragments.HomeFragment;
 
 import java.util.List;
 
-public class ProductRecylcerAdapter extends RecyclerView.Adapter<ProductRecylcerAdapter.ViewHolder> {
+public class CategoryRecylcerAdapter extends RecyclerView.Adapter<CategoryRecylcerAdapter.ViewHolder> {
 
-    private final List<ProductList> mValues;
-    private final ListingsFragment.OnListFragmentInteractionListener mListener;
-    private Context mContext;
+    private final List<DetailData> mValues;
+    private final HomeFragment.OnCategoryItemClickListener mListener;
+    private Context context;
 
-    public ProductRecylcerAdapter(Context context, List<ProductList> items, ListingsFragment.OnListFragmentInteractionListener listener) {
+    public CategoryRecylcerAdapter(Context mContext,List<DetailData> items, HomeFragment.OnCategoryItemClickListener listener) {
+        context = mContext;
         mValues = items;
         mListener = listener;
-        mContext = context;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_items, parent, false);
+                .inflate(R.layout.category_list_items, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getPName());
-        holder.mContentView.setText(mContext.getString(R.string.price)+": "+ AppConstant.RUPEES_SYMBOL+mValues.get(position).getPrice());
-        Picasso.get().load(mValues.get(position).getImagePath()).into(holder.imgItem);
+        holder.textName.setText(mValues.get(position).getFirstName());
+        //holder.mContentView.setText(mValues.get(position).getLastName());
+
+        Picasso.get().load(mValues.get(position).getAvatar()).placeholder(R.drawable.icon_drops).into(holder.imgItem);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +48,7 @@ public class ProductRecylcerAdapter extends RecyclerView.Adapter<ProductRecylcer
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onCategoryItemClick(holder.mItem);
                 }
             }
         });
@@ -62,22 +61,22 @@ public class ProductRecylcerAdapter extends RecyclerView.Adapter<ProductRecylcer
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         final View mView;
-        final TextView mIdView;
-        final TextView mContentView;
+        final TextView textName;
+       // final TextView mContentView;
         final ImageView imgItem;
-        ProductList mItem;
+        DetailData mItem;
 
         ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            textName = (TextView) view.findViewById(R.id.textName);
+         //   mContentView = (TextView) view.findViewById(R.id.content);
             imgItem = (ImageView) view.findViewById(R.id.imgItem);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + textName.getText() + "'";
         }
     }
 }

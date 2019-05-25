@@ -39,8 +39,8 @@
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">Close</string>
     <string name="nav_header_desc">Nav Header</string>
-    <string name="nav_header_title">Aqua Hey</string>
-    <string name="nav_header_subtitle">AquaHey! India</string>
+    <string name="nav_header_title">E-Connecto</string>
+    <string name="nav_header_subtitle">e-connecto@support.com</string>
     <string name="key_serializable">key_serializable</string>
     <string name="sit_back_and_relax_while_we_verify_your_mobile_number_and_send_otp"><![CDATA[Sit back & Relax! While we verify your mobile number and Send you OTP]]></string>
     <string name="enter_otp_below">(Enter the OTP below in case we fail to detect the SMS automatically)</string>
@@ -104,7 +104,7 @@
     <string name="key_new_order_data">key_new_order_data</string>
     <string name="key_complete_order_data">key_complete_order_data</string>
     <string name="key_pending_order_data">key_pending_order_data</string>
-    <string name="no_data_available">No data available.</string>
+    <string name="no_data_available">Oops! No data available.</string>
     <string name="no_new_order_available">No Order available right now.</string>
     <string name="no_pending_order">No Order is pending.</string>
     <string name="units">Units</string>
@@ -131,6 +131,25 @@
     <string name="enter_registered_email">Enter Registered Email</string>
     <string name="send_otp">Send OTP</string>
     <string name="age">Age</string>
+    <string name="add_business">Add Business</string>
+    <string name="business_list">Business List</string>
+    <string name="establish_date">Establish Date </string>
+    <string name="view_business">View Business</string>
+    <string name="basic_details">Basic Details</string>
+    <string name="other_details">Other Details</string>
+    <string name="contact_details">Contact Details</string>
+    <string name="service_details">Service Details</string>
+    <string name="no_business_available">No Business Available as of now.</string>
+    <string name="do_you_want_to_unfollow">Do you want really want to Unfollow </string>
+    <string name="biz_details">Business Details</string>
 
-
+    <array name="age_group">
+        <item name="10-13">10_13</item>
+        <item name="13-15">13_15</item>
+        <item name="15-18">15_18</item>
+        <item name="18-21">18_21</item>
+        <item name="21-24">22_24</item>
+        <item name="24-27">24_27</item>
+        <item name="27-30">27_30</item>
+    </array>
 </resources>

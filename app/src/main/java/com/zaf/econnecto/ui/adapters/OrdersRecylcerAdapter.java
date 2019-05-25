@@ -28,7 +28,7 @@ public class OrdersRecylcerAdapter extends RecyclerView.Adapter<OrdersRecylcerAd
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_items, parent, false);
+                .inflate(R.layout.biz_list_items, parent, false);
         return new ViewHolder(view);
     }
 
@@ -65,7 +65,7 @@ public class OrdersRecylcerAdapter extends RecyclerView.Adapter<OrdersRecylcerAd
         ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
+            mIdView = (TextView) view.findViewById(R.id.textName);
             mContentView = (TextView) view.findViewById(R.id.content);
             imgItem = (ImageView) view.findViewById(R.id.imgItem);
         }

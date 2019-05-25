@@ -8,12 +8,11 @@ import android.support.v4.app.Fragment;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.ui.activities.ForgetPswdActivity;
 import com.zaf.econnecto.ui.activities.LoginActivity;
+import com.zaf.econnecto.ui.fragments.BListFragment;
 import com.zaf.econnecto.ui.fragments.FragmentProfile;
 import com.zaf.econnecto.ui.fragments.HelpNFaqFragment;
 import com.zaf.econnecto.ui.fragments.HomeFragment;
-import com.zaf.econnecto.ui.fragments.ListingsFragment;
-import com.zaf.econnecto.ui.fragments.OrdersFragment;
-import com.zaf.econnecto.ui.fragments.PaymentsFragment;
+import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.ui.presenters.operations.IMain;
 import com.zaf.econnecto.utils.AppConstant;
@@ -39,17 +38,13 @@ public class MainPresenter extends BasePresenter {
                 Utils.moveToFragment(mContext, new HomeFragment(), HomeFragment.class.getSimpleName(), null);
                 Utils.updateActionBar(mContext,HomeFragment.class.getSimpleName(),mContext.getString(R.string.home),null,null);
                 break;
-            case "OrdersFragment":
-                Utils.moveToFragment(mContext, new OrdersFragment(), OrdersFragment.class.getSimpleName(), null);
-                Utils.updateActionBar(mContext,OrdersFragment.class.getSimpleName(),mContext.getString(R.string.orders),null,null);
+            case "AddBusinessFragment":
+                Utils.moveToFragment(mContext, new AddBusinessFragment(), AddBusinessFragment.class.getSimpleName(), null);
+                Utils.updateActionBar(mContext, AddBusinessFragment.class.getSimpleName(),mContext.getString(R.string.add_business),null,null);
                 break;
-            case "ListingsFragment":
-                Utils.moveToFragment(mContext, new ListingsFragment(), ListingsFragment.class.getSimpleName(), null);
-                Utils.updateActionBar(mContext,ListingsFragment.class.getSimpleName(),mContext.getString(R.string.item_list),null,null);
-                break;
-            case "PaymentsFragment":
-                Utils.moveToFragment(mContext, new PaymentsFragment(), PaymentsFragment.class.getSimpleName(), null);
-                Utils.updateActionBar(mContext,PaymentsFragment.class.getSimpleName(),mContext.getString(R.string.payments),null,null);
+            case "BListFragment":
+                Utils.moveToFragment(mContext, new BListFragment(), BListFragment.class.getSimpleName(), null);
+                Utils.updateActionBar(mContext, BListFragment.class.getSimpleName(),mContext.getString(R.string.business_list),null,null);
                 break;
             case "FragmentProfile":
                 Utils.moveToFragment(mContext, new FragmentProfile(), FragmentProfile.class.getSimpleName(), null);
@@ -91,15 +86,13 @@ public class MainPresenter extends BasePresenter {
     public void updateActionBarTitleOnBackPress(Context mContext, Fragment baseFragment) {
         if (baseFragment.getClass().getSimpleName().contains("Home")) {
             Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.home), null, null);
-        } else if (baseFragment.getClass().getSimpleName().contains("Listing")) {
-            Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.listings), null, null);
+        } else if (baseFragment.getClass().getSimpleName().contains("List")) {
+            Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.business_list), null, null);
         } else if (baseFragment.getClass().getSimpleName().contains("Profile")) {
             Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.my_profile), null, null);
-        } else if (baseFragment.getClass().getSimpleName().contains("Orders")) {
-            Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.orders), null, null);
-        } else if (baseFragment.getClass().getSimpleName().contains("Payments")) {
-            Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.payments), null, null);
-        } else if (baseFragment.getClass().getSimpleName().contains("AddressData")) {
+        } else if (baseFragment.getClass().getSimpleName().contains("Add")) {
+            Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.add_business), null, null);
+        }else if (baseFragment.getClass().getSimpleName().contains("AddressData")) {
             Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.save_address), null, null);
         }else if (baseFragment.getClass().getSimpleName().contains("Help")) {
             Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.help_faq), null, null);
