@@ -111,7 +111,8 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     public void onProfileClick(View view) {
         closeDrawer();
-        getPresenter().moveToFragment(FragmentProfile.class.getSimpleName());
+       // getPresenter().moveToFragment(FragmentProfile.class.getSimpleName());
+        LogUtils.showToast(mContext, "Development under progress");
 
     }
 
@@ -184,6 +185,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
     public void changePasswordClick(View view) {
         //  getPresenter().startActivity(mContext);
         closeDrawer();
+        LogUtils.showToast(mContext, "Development under progress");
     }
 
     public void onShareClick(View view) {
@@ -193,6 +195,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
     public void helpNFaqClick(View view) {
         //getPresenter().moveToFragment(HelpNFaqFragment.class.getSimpleName());
         closeDrawer();
+        LogUtils.showToast(mContext, "Development under progress");
     }
 
 
