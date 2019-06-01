@@ -1,4 +1,4 @@
-package com.zaf.econnecto.network_call.response_model.orders;
+package com.zaf.econnecto.network_call.response_model.biz_list;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

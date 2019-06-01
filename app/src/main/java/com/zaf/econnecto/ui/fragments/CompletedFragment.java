@@ -13,8 +13,8 @@ import android.widget.TextView;
 
 
 import com.zaf.econnecto.R;
-import com.zaf.econnecto.network_call.response_model.orders.OrderData;
-import com.zaf.econnecto.network_call.response_model.orders.OrderList;
+import com.zaf.econnecto.network_call.response_model.biz_list.BizListData;
+import com.zaf.econnecto.network_call.response_model.biz_list.OrderList;
 import com.zaf.econnecto.ui.adapters.OrdersRecylcerAdapter;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.LogUtils;
@@ -31,7 +31,7 @@ public class CompletedFragment extends Fragment {
     private RecyclerView recyclerCompleted;
     private LinearLayoutManager layoutManager;
     private TextView emptyTextView;
-    private OrderData orderData;
+    private BizListData orderData;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class CompletedFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_completed, container, false);
         String completedOrderData = Utils.getCompleteOrderData(mContext);
         LogUtils.DEBUG("completedOrderData >>>> " + completedOrderData);
-        orderData = ParseManager.getInstance().fromJSON(completedOrderData, OrderData.class);
+        orderData = ParseManager.getInstance().fromJSON(completedOrderData, BizListData.class);
         initUI(view);
         return view;
     }
@@ -71,14 +71,14 @@ public class CompletedFragment extends Fragment {
     }
 
     private void updateList() {
-        OrdersRecylcerAdapter adapter = new OrdersRecylcerAdapter((ArrayList<OrderList>) orderData.getData(), new PendingsFragment.OnListFragmentInteractionListener() {
+        /*OrdersRecylcerAdapter adapter = new OrdersRecylcerAdapter((ArrayList<OrderList>) orderData.getData(), new PendingsFragment.OnListFragmentInteractionListener() {
 
             @Override
             public void onListFragmentInteraction(OrderList item) {
                 LogUtils.showToast(mContext, item.getAmount());
             }
         });
-        recyclerCompleted.setAdapter(adapter);
+        recyclerCompleted.setAdapter(adapter);*/
     }
 
 

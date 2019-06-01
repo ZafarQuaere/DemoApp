@@ -30,18 +30,12 @@ public class ViewBizDetailsActivity extends BaseActivity<AddressPresenter> imple
         mContext = this;
         Utils.updateActionBar(this,new ViewBizDetailsActivity().getClass().getSimpleName(),getString(R.string.biz_details),
                 null,null);
-        findViewById(R.id.btnSaveAddress).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // startActivity(new Intent(RegisterActivity.this, EnterOTPActivity.class));
-                validateFields();
-            }
-        });
+
 
     }
 
     private void validateFields() {
-        EditText editAddress = (EditText) findViewById(R.id.editAddress);
+      /*  EditText editAddress = (EditText) findViewById(R.id.editAddress);
         EditText editCity = (EditText) findViewById(R.id.editCity);
         EditText editState = (EditText) findViewById(R.id.editState);
         EditText editPincode = (EditText) findViewById(R.id.editPincode);
@@ -49,7 +43,7 @@ public class ViewBizDetailsActivity extends BaseActivity<AddressPresenter> imple
         getPresenter().validateFields(editAddress.getText().toString().trim(),
                 editCity.getText().toString().trim(),
                 editState.getText().toString().trim(),
-                editPincode.getText().toString().trim());
+                editPincode.getText().toString().trim());*/
     }
 
     @Override

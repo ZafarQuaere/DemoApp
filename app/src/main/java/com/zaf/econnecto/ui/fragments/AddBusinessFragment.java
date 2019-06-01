@@ -35,14 +35,13 @@ public class AddBusinessFragment extends BaseFragment<AddBizPresenter> implement
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_add_biz, container, false);
+        view = inflater.inflate(R.layout.fragment_add_biz1, container, false);
         mContext = getActivity();
         initUI(view);
         return view;
     }
 
     private void initUI(View view) {
-
 
     }
 

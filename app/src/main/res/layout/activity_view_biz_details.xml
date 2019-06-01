@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorPrimary"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
@@ -13,53 +14,96 @@
         android:layout_height="@dimen/actionbar_height"
         android:layout_alignParentTop="true" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingHorizontal="@dimen/_40dp">
+        android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/editAddress"
-            style="@style/TextInputEdit"
-            android:layout_marginTop="100dp"
-            android:hint="@string/enter_address"
-            android:inputType="textMultiLine"
-            android:maxLines="2"
-            android:textAlignment="center" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/editCity"
-            style="@style/TextInputEdit"
-            android:layout_marginTop="@dimen/_40dp"
-            android:hint="@string/enter_city"
-            android:inputType="textPersonName"
-            android:textAlignment="center" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_150dp"
+                android:src="@color/bg_screen2"/>
 
-        <EditText
-            android:id="@+id/editState"
-            style="@style/TextInputEdit"
-            android:layout_marginTop="@dimen/_40dp"
-            android:background="@drawable/rectangle_bg"
-            android:hint="@string/enter_state"
-            android:inputType="textPersonName"
-            android:textAlignment="center" />
+            <ImageView
+                android:id="@+id/imgItem"
+                android:layout_width="@dimen/list_item_image_width"
+                android:layout_height="@dimen/list_item_image_height"
+                android:src="@drawable/avatar_male" />
 
-        <EditText
-            android:id="@+id/editPincode"
-            style="@style/NumberInputEdit"
-            android:layout_marginTop="@dimen/_40dp"
-            android:background="@drawable/rectangle_bg"
-            android:hint="@string/enter_pincode"
-            android:maxLength="6"
-            android:textAlignment="center" />
+            <TextView
+                android:id="@+id/textName"
+                style="@style/LargeTextview"
+                android:layout_marginHorizontal="@dimen/_10dp"
+                android:layout_toRightOf="@+id/imgItem"
+                android:textColor="@color/colorBlack"
+                tools:text="@string/save_address" />
 
-        <Button
-            android:id="@+id/btnSaveAddress"
-            style="@style/ButtonTextStyle"
-            android:layout_marginTop="@dimen/_30dp"
-            android:background="@drawable/btnsignin"
-            android:text="@string/save_address" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/content"
+                style="@style/RegularTextview"
+                android:layout_below="@+id/textName"
+                android:layout_marginHorizontal="@dimen/_10dp"
+                android:layout_toRightOf="@+id/imgItem"
+                android:text="@string/establish_date"
+                android:textColor="@color/colorBlack" />
+
+            <TextView
+                android:id="@+id/textFollow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/content"
+                android:layout_marginStart="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_toRightOf="@+id/imgItem"
+                android:background="@drawable/btn_follow"
+                android:drawableStart="@drawable/ic_follow"
+                android:drawablePadding="@dimen/_5dp"
+                android:paddingHorizontal="@dimen/_10dp"
+                android:paddingVertical="@dimen/_5dp"
+                android:text="Follow"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:textSize="11sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/textFollow"
+                android:layout_marginEnd="@dimen/_5dp"
+                android:layout_alignParentEnd="true"
+                android:drawableLeft="@drawable/ic_follower"
+                android:drawablePadding="@dimen/_5dp"
+                android:gravity="center"
+                android:text="33 Followers"
+                android:textAllCaps="false"
+                android:textSize="11sp" />
+
+            <View
+                android:background="@color/colorPrimary"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_marginHorizontal="@dimen/_40dp"
+                android:layout_below="@+id/textFollow"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
+
+            <TextView
+                android:id="@+id/textViewBusiness"
+                style="@style/LargeTextview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textFollow"
+                android:layout_marginTop="@dimen/_10dp"
+                android:gravity="center_horizontal"
+                android:text="@string/view_business"
+                android:textColor="@color/colorBlack" />
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
 </LinearLayout>
 

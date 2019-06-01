@@ -45,10 +45,10 @@
     <dimen name="drawable_padding">15dp</dimen>
 
     <!-- General Dimensions -->
-    <dimen name="button_height">45dp</dimen>
+    <dimen name="button_height">40dp</dimen>
     <dimen name="resend_otp_button_height">45dp</dimen>
     <dimen name="edit_no_button_height">45dp</dimen>
-    <dimen name="edit_field_height">45dp</dimen>
+    <dimen name="edit_field_height">40dp</dimen>
     <dimen name="actionbar_height">60dp</dimen>
 
     <!-- Home Screen  -->
@@ -62,5 +62,8 @@
 
     <dimen name="list_item_image_height">80dp</dimen>
     <dimen name="list_item_image_width">80dp</dimen>
+
+    <!-- Add Business Screen  -->
+    <dimen name="text_small_header">11sp</dimen>
 
 </resources>

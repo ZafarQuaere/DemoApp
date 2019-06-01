@@ -1,11 +1,11 @@
-package com.zaf.econnecto.network_call.response_model.orders;
+package com.zaf.econnecto.network_call.response_model.biz_list;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class OrderData {
+public class BizListData {
     @SerializedName("message")
     @Expose
     private String message;
@@ -14,7 +14,7 @@ public class OrderData {
     private Integer status;
     @SerializedName("data")
     @Expose
-    private List<OrderList> data = null;
+    private List<BizData> data = null;
 
     public String getMessage() {
         return message;
@@ -32,11 +32,11 @@ public class OrderData {
         this.status = status;
     }
 
-    public List<OrderList> getData() {
+    public List<BizData> getData() {
         return data;
     }
 
-    public void setData(List<OrderList> data) {
+    public void setData(List<BizData> data) {
         this.data = data;
     }
 }

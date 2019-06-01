@@ -13,8 +13,8 @@ import android.widget.TextView;
 
 
 import com.zaf.econnecto.R;
-import com.zaf.econnecto.network_call.response_model.orders.OrderData;
-import com.zaf.econnecto.network_call.response_model.orders.OrderList;
+import com.zaf.econnecto.network_call.response_model.biz_list.BizListData;
+import com.zaf.econnecto.network_call.response_model.biz_list.OrderList;
 import com.zaf.econnecto.ui.adapters.OrdersRecylcerAdapter;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.LogUtils;
@@ -31,7 +31,7 @@ public class PendingsFragment extends Fragment {
     private RecyclerView recyclerPendings;
     private LinearLayoutManager layoutManager;
     private TextView emptyTextView;
-    private OrderData orderData;
+    private BizListData orderData;
 
 
     @Override
@@ -47,7 +47,7 @@ public class PendingsFragment extends Fragment {
 
         String pendingOrderData = Utils.getPendingOrderData(mContext);
         LogUtils.DEBUG("pendingOrderData >>>> " + pendingOrderData);
-        orderData = ParseManager.getInstance().fromJSON(pendingOrderData, OrderData.class);
+        orderData = ParseManager.getInstance().fromJSON(pendingOrderData, BizListData.class);
         initUI(view);
 
         return view;
@@ -73,14 +73,14 @@ public class PendingsFragment extends Fragment {
     }
 
     private void updateList() {
-        OrdersRecylcerAdapter adapter = new OrdersRecylcerAdapter((ArrayList<OrderList>) orderData.getData(), new OnListFragmentInteractionListener() {
+       /* OrdersRecylcerAdapter adapter = new OrdersRecylcerAdapter((ArrayList<OrderList>) orderData.getData(), new OnListFragmentInteractionListener() {
 
             @Override
             public void onListFragmentInteraction(OrderList item) {
                 LogUtils.showToast(mContext, item.getAmount());
             }
         });
-        recyclerPendings.setAdapter(adapter);
+        recyclerPendings.setAdapter(adapter);*/
     }
 
 

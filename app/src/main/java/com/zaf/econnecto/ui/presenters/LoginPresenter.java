@@ -44,7 +44,8 @@ public class LoginPresenter extends BasePresenter {
             mLogin.onValidationError(mContext.getString(R.string.password_must_have_atleast_6_character));
         } else {
             if (NetworkUtils.isNetworkEnabled(mContext)) {
-                mLogin.callLoginApi(userId, password);
+               // mLogin.callLoginApi(userId, password);
+                mLogin.doLogin();
             }else {
                 mLogin.onValidationError(mContext.getString(R.string.please_check_your_network_connection));
             }

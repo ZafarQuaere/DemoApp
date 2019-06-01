@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 
 import com.zaf.econnecto.R;
-import com.zaf.econnecto.network_call.response_model.orders.OrderList;
+import com.zaf.econnecto.network_call.response_model.biz_list.OrderList;
 import com.zaf.econnecto.ui.fragments.PendingsFragment;
 
 import java.util.ArrayList;

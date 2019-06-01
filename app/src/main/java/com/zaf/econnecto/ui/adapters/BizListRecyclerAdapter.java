@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.zaf.econnecto.R;
+import com.zaf.econnecto.network_call.response_model.biz_list.BizData;
 import com.zaf.econnecto.network_call.response_model.home.DetailData;
 import com.zaf.econnecto.ui.fragments.BListFragment;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
@@ -21,11 +22,11 @@ import java.util.List;
 
 public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecyclerAdapter.ViewHolder> {
 
-    private final List<DetailData> mValues;
+    private final List<BizData> mValues;
     private final BListFragment.OnListFragmentInteractionListener mListener;
     private Context mContext;
 
-    public BizListRecyclerAdapter(Context context, List<DetailData> items, BListFragment.OnListFragmentInteractionListener listener) {
+    public BizListRecyclerAdapter(Context context, List<BizData> items, BListFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
         mContext = context;
@@ -41,9 +42,9 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getFirstName());
-        holder.mContentView.setText(mContext.getString(R.string.establish_date)+": "+ Calendar.getInstance().getTime());
-        Picasso.get().load(mValues.get(position).getAvatar()).placeholder(R.drawable.avatar_male).into(holder.imgItem);
+        holder.mIdView.setText(mValues.get(position).getBusinessName());
+        holder.mContentView.setText(mContext.getString(R.string.establish_date)+": "+mValues.get(position).getYearFounded());
+        Picasso.get().load(mValues.get(position).getBusinessPic()).placeholder(R.drawable.avatar_male).into(holder.imgItem);
 
         holder.textFollow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +54,7 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
                     holder.textFollow.setText("Following");
                 }else {
                     LogUtils.showDialogDoubleButton(mContext, mContext.getString(R.string.cancel), mContext.getString(R.string.ok),
-                            mContext.getString(R.string.do_you_want_to_unfollow )+" "+mValues.get(position).getFirstName()+" ?", new DialogButtonClick() {
+                            mContext.getString(R.string.do_you_want_to_unfollow )+" "+mValues.get(position).getBusinessName()+" ?", new DialogButtonClick() {
                                 @Override
                                 public void onOkClick() {
                                     holder.textFollow.setText("Follow");
@@ -92,7 +93,7 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
         final TextView textFollow;
         final TextView textViewBusiness;
         final ImageView imgItem;
-        DetailData mItem;
+        BizData mItem;
 
         ViewHolder(View view) {
             super(view);

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zaf.econnecto.R;
+import com.zaf.econnecto.network_call.response_model.biz_list.BizData;
 import com.zaf.econnecto.network_call.response_model.home.DetailData;
 import com.zaf.econnecto.ui.activities.ViewBizDetailsActivity;
 import com.zaf.econnecto.ui.adapters.BizListRecyclerAdapter;
@@ -49,7 +50,7 @@ public class BListFragment extends BaseFragment<BListPresenter> implements IFrag
         View view = inflater.inflate(R.layout.fragment_listings, container, false);
         initUI(view);
 
-        getPresenter().callItemsApi();
+        getPresenter().callBListApi();
 
         return view;
     }
@@ -82,13 +83,13 @@ public class BListFragment extends BaseFragment<BListPresenter> implements IFrag
     }
 
     @Override
-    public void updateList(List<DetailData> data) {
+    public void updateList(List<BizData> data) {
         emptyTextView.setVisibility(data == null? View.VISIBLE:View.GONE);
         recylcerProducts.setVisibility(data == null? View.GONE:View.VISIBLE);
         if (data != null){
             BizListRecyclerAdapter adapter = new BizListRecyclerAdapter(mContext,data, new OnListFragmentInteractionListener() {
                 @Override
-                public void onListFragmentInteraction(DetailData item) {
+                public void onListFragmentInteraction(BizData item) {
                    startActivity(new Intent(getActivity(), ViewBizDetailsActivity.class));
                 }
             });
@@ -99,6 +100,6 @@ public class BListFragment extends BaseFragment<BListPresenter> implements IFrag
 
 
     public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(DetailData item);
+        void onListFragmentInteraction(BizData item);
     }
 }
