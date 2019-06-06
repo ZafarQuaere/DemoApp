@@ -28,8 +28,7 @@ public class ViewBizDetailsActivity extends BaseActivity<AddressPresenter> imple
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_biz_details);
         mContext = this;
-        Utils.updateActionBar(this,new ViewBizDetailsActivity().getClass().getSimpleName(),getString(R.string.biz_details),
-                null,null);
+       // Utils.updateActionBar(this,new ViewBizDetailsActivity().getClass().getSimpleName(),getString(R.string.biz_details), null,null);
 
 
     }

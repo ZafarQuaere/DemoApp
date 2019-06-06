@@ -28,7 +28,7 @@
 
 
             <EditText
-                android:id="@+id/editName"
+                android:id="@+id/editUserName"
                 style="@style/TextInputEdit"
                 android:layout_marginTop="@dimen/_20dp"
                 android:enabled="false"

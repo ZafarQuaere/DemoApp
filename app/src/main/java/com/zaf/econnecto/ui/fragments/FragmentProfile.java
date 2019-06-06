@@ -39,7 +39,7 @@ public class FragmentProfile extends BaseFragment<ProfilePresenter> implements I
     @Override
     public void updateUI(Data data) {
         if (data != null){
-            EditText editName = (EditText)view.findViewById(R.id.editName);
+            EditText editName = (EditText)view.findViewById(R.id.editUserName);
             EditText editMobile = (EditText)view.findViewById(R.id.editMobile);
             EditText editEmailId = (EditText)view.findViewById(R.id.editEmailId);
             EditText editDealerId = (EditText)view.findViewById(R.id.editDealerId);

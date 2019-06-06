@@ -18,8 +18,8 @@ public class AppConstant {
 
 
     public static final String URL_BASE = "http://econnecto.com/api/";
-    public static final String URL_REGISTER = "/signup";
-    public static final String URL_LOGIN = "/login";
+    public static final String URL_REGISTER = "register.php";
+    public static final String URL_LOGIN = "login.php";
     public static final String URL_BIZ_LIST = "business_list.php"; //(brandname,banner_image)
     public static final String URL_DEALER_ADDRESS = "/insert-dealear-address"; //(brandname,banner_image)
     public static final String URL_INSERT_DELAER = "/insert-dealer"; //(dName,mobile,brandIds,rating,addressId)

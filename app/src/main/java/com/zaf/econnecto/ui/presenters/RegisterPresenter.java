@@ -32,8 +32,8 @@ public class RegisterPresenter extends BasePresenter {
         loader = AppLoaderFragment.getInstance(mContext);
     }
 
-    public void validateFields(String name, String mobileNo, String email, String pswd, String confmPswd) {
-        if (name.equals("") || name.isEmpty()) {
+    public void validateFields(String userName, String mobileNo, String email, String pswd, String confmPswd) {
+        if (userName.equals("") || userName.isEmpty()) {
             mRegister.onValidationError(mContext.getString(R.string.please_enter_username));
         } else if (mobileNo.equals("") || mobileNo.isEmpty() || mobileNo.length() < 10) {
             mRegister.onValidationError(mContext.getString(R.string.please_enter_valid_mobile_number));
@@ -47,7 +47,7 @@ public class RegisterPresenter extends BasePresenter {
             mRegister.onValidationError(mContext.getString(R.string.please_enter_same_pswd));
         } else {
             if (NetworkUtils.isNetworkEnabled(mContext)) {
-                Register register = new Register(name, pswd, mobileNo, email, 1, 7);
+                Register register = new Register(userName, pswd, mobileNo, email, 1, 7);
                 mRegister.callApi(register);
             } else {
                 mRegister.onValidationError(mContext.getString(R.string.please_check_your_network_connection));

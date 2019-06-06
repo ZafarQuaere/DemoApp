@@ -44,12 +44,6 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
             }
         });
 
-        findViewById(R.id.txtLogin).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
 
     }
 
@@ -82,16 +76,17 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         EditText editFirstName = (EditText) findViewById(R.id.editFirstName);
         EditText editLastName = (EditText) findViewById(R.id.editLastName);
         EditText editUserName = (EditText) findViewById(R.id.editUserName);
-        EditText editMobile = (EditText) findViewById(R.id.editMobile);
+       // EditText editMobile = (EditText) findViewById(R.id.editMobile);
         EditText editEmailId = (EditText) findViewById(R.id.editEmailId);
         EditText editPassword = (EditText) findViewById(R.id.editPassword);
         EditText editConfirmPassword = (EditText) findViewById(R.id.editConfirmPassword);
 
-        getPresenter().validateFields(editUserName.getText().toString().trim(),
-                editMobile.getText().toString().trim(),
+      /*  getPresenter().validateFields(editFirstName.getText().toString().trim(),
+        editLastName.getText().toString().trim(),
+        editUserName.getText().toString().trim(),
                 editEmailId.getText().toString().trim(),
                 editPassword.getText().toString().trim(),
-                editConfirmPassword.getText().toString().trim());
+                editConfirmPassword.getText().toString().trim());*/
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.zaf.econnecto.ui.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,7 +40,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
         findViewById(R.id.imageView2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this,MainActivity.class));
+               // startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                startActivity(new Intent(LoginActivity.this, ViewBizDetailsActivity.class));
             }
         });
         if (Utils.isLoggedIn(mContext)) {
@@ -54,11 +56,20 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
     private void initUI() {
       //  Utils.updateActionBar(this,new LoginActivity().getClass().getSimpleName(),getString(R.string.login_label), null,null);
 
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         editUserName = (EditText) findViewById(R.id.editUserName);
         editPassword = (EditText) findViewById(R.id.editPassword);
         TextView textForgetPswd = (TextView) findViewById(R.id.textForgetPswd);
         TextView txtRegister = (TextView) findViewById(R.id.txtRegister);
         Button btnLogin = (Button) findViewById(R.id.btnLogin);
+
+
+
 
         btnLogin.setOnClickListener(this);
         textForgetPswd.setOnClickListener(this);
@@ -74,7 +85,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
 
     @Override
     public void doLogin() {
-
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
         finish();
     }
