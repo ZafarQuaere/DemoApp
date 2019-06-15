@@ -7,9 +7,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.zaf.econnecto.R;
-import com.zaf.econnecto.network_call.request_model.Register;
 import com.zaf.econnecto.ui.adapters.AgeGroupRecyclerAdapter;
 import com.zaf.econnecto.ui.interfaces.AgeSelectedListener;
 import com.zaf.econnecto.ui.presenters.RegisterPresenter;
@@ -24,6 +25,8 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     private Context mContext;
     private ArrayList<String> ages;
     private AgeGroupRecyclerAdapter ageGroupRecyclerAdapter;
+    private String mSelectedAge;
+    private String mSelectedGender;
 
     @Override
     protected RegisterPresenter initPresenter() {
@@ -44,7 +47,23 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
             }
         });
 
+        initUI();
 
+    }
+
+    private void initUI() {
+        RadioGroup rGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        RadioButton checkedRadioButton = (RadioButton) rGroup.findViewById(rGroup.getCheckedRadioButtonId());
+        rGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton selectedRb = (RadioButton) group.findViewById(checkedId);
+                boolean isChecked = selectedRb.isChecked();
+                if (isChecked) {
+                    mSelectedGender = selectedRb.getText().toString().trim();
+                    LogUtils.showToast(mContext, "Selected gender " + selectedRb.getText());
+                }
+            }
+        });
     }
 
     private void scrollViewImplementation() {
@@ -64,11 +83,10 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         ages = new ArrayList<>();
         ages.add("< 15");
         ages.add("15-18");
-        ages.add("18-25");
-        ages.add("25-30");
-        ages.add("30-35");
-        ages.add("35-45");
-        ages.add("> 45");
+        ages.add("19-25");
+        ages.add("26-30");
+        ages.add("31-40");
+        ages.add("> 40");
 
     }
 
@@ -76,23 +94,19 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         EditText editFirstName = (EditText) findViewById(R.id.editFirstName);
         EditText editLastName = (EditText) findViewById(R.id.editLastName);
         EditText editUserName = (EditText) findViewById(R.id.editUserName);
-       // EditText editMobile = (EditText) findViewById(R.id.editMobile);
+        // EditText editMobile = (EditText) findViewById(R.id.editMobile);
         EditText editEmailId = (EditText) findViewById(R.id.editEmailId);
         EditText editPassword = (EditText) findViewById(R.id.editPassword);
         EditText editConfirmPassword = (EditText) findViewById(R.id.editConfirmPassword);
 
-      /*  getPresenter().validateFields(editFirstName.getText().toString().trim(),
-        editLastName.getText().toString().trim(),
-        editUserName.getText().toString().trim(),
+        String ageGroup = getPresenter().getAgeGroup(mSelectedAge);
+
+        getPresenter().validateFields(editFirstName.getText().toString().trim(),
+                editLastName.getText().toString().trim(),
+                editUserName.getText().toString().trim(),
                 editEmailId.getText().toString().trim(),
                 editPassword.getText().toString().trim(),
-                editConfirmPassword.getText().toString().trim());*/
-    }
-
-    @Override
-    public void callApi(Register register) {
-        getPresenter().callRegisterApi(register);
-
+                editConfirmPassword.getText().toString().trim(), ageGroup, mSelectedGender);
     }
 
     @Override
@@ -108,6 +122,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 
     @Override
     public void onAgeSelected(String selectedAge) {
-        LogUtils.showToast(mContext, "Listener : " + selectedAge);
+        this.mSelectedAge = selectedAge;
+        LogUtils.showToast(mContext, "Listener : " + getPresenter().getAgeGroup(selectedAge));
     }
 }

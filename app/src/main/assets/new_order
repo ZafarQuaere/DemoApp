@@ -1,0 +1,22 @@
+{
+  "message": " Done",
+  "status": 1,
+  "data": [
+    {
+      "userId": "8",
+      "brandId": "0",
+      "paymentId": "123",
+      "productId": "1",
+      "addressId": "4",
+      "dealerId": "1",
+      "orderDate": "2019-03-21",
+      "deliverDate": "2018-12-3",
+      "quantity": "1",
+      "status": "0",
+      "OrderType": "1",
+      "AlternateDay": "1",
+      "id": "1",
+      "amount": "0"
+    }
+  ]
+}

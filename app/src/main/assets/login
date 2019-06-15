@@ -1,0 +1,14 @@
+{
+  "message": "Login Done",
+  "status": 1,
+  "data": {
+    "id": "13",
+    "name": "zafar",
+    "password": "a1bff398d87251811298aae9f423d930e4571bd07bb4d68d6a280cceb1ccb48e",
+    "mobile": "7834908329",
+    "email": "zafarimam512@gmail.com",
+    "token": "No Available",
+    "userType": "0",
+    "dealerId": "0"
+  }
+}

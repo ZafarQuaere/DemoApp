@@ -7,7 +7,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.MyJsonObjectRequest;
-import com.zaf.econnecto.network_call.request_model.Register;
 import com.zaf.econnecto.ui.presenters.operations.IRegister;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppController;
@@ -15,7 +14,6 @@ import com.zaf.econnecto.utils.AppLoaderFragment;
 import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.NetworkUtils;
 import com.zaf.econnecto.utils.Utils;
-
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,11 +30,9 @@ public class RegisterPresenter extends BasePresenter {
         loader = AppLoaderFragment.getInstance(mContext);
     }
 
-    public void validateFields(String userName, String mobileNo, String email, String pswd, String confmPswd) {
+    public void validateFields(String firstName, String lastName, String userName, String email, String pswd, String confmPswd, String ageGroup, String gender) {
         if (userName.equals("") || userName.isEmpty()) {
             mRegister.onValidationError(mContext.getString(R.string.please_enter_username));
-        } else if (mobileNo.equals("") || mobileNo.isEmpty() || mobileNo.length() < 10) {
-            mRegister.onValidationError(mContext.getString(R.string.please_enter_valid_mobile_number));
         } else if (!Utils.isValidEmail(email)) {
             mRegister.onValidationError(mContext.getString(R.string.please_enter_valid_email));
         } else if (pswd.equals("") || pswd.isEmpty()) {
@@ -47,8 +43,7 @@ public class RegisterPresenter extends BasePresenter {
             mRegister.onValidationError(mContext.getString(R.string.please_enter_same_pswd));
         } else {
             if (NetworkUtils.isNetworkEnabled(mContext)) {
-                Register register = new Register(userName, pswd, mobileNo, email, 1, 7);
-                mRegister.callApi(register);
+                callRegisterApi(firstName, lastName, userName, pswd, email, pswd, confmPswd, ageGroup, gender);
             } else {
                 mRegister.onValidationError(mContext.getString(R.string.please_check_your_network_connection));
             }
@@ -56,16 +51,19 @@ public class RegisterPresenter extends BasePresenter {
         }
     }
 
-    public void callRegisterApi(final Register register) {
+    public void callRegisterApi(String firstName, String lastName, String userName, String pswd, String email, String pswd1, String confmPswd, String ageGroup, String gender) {
         loader.show();
         JSONObject requestObject = new JSONObject();
         try {
-            requestObject.put("name", register.getName());
-            requestObject.put("email", register.getEmail());
-            requestObject.put("password", register.getPassword());
-            requestObject.put("mobile", register.getMobile());
-            requestObject.put("userType", register.getUserType());
-            requestObject.put("dealerId", register.getDealerId());
+            requestObject.put("first_name", firstName);
+            requestObject.put("last_name", lastName);
+            requestObject.put("username", userName);
+            requestObject.put("email", email);
+            requestObject.put("password", pswd);
+            requestObject.put("confirm_password", confmPswd);
+            // requestObject.put("mobile", register.getMobile());
+            requestObject.put("age_group", ageGroup);
+            requestObject.put("sex", gender);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -88,5 +86,23 @@ public class RegisterPresenter extends BasePresenter {
             }
         });
         AppController.getInstance().addToRequestQueue(objectRequest, "Register");
+    }
+
+    public String getAgeGroup(String mSelectedAge) {
+        switch (mSelectedAge) {
+            case "< 15":
+                return "G1";
+            case "15-18":
+                return "G2";
+            case "19-25":
+                return "G3";
+            case "26-30":
+                return "G4";
+            case "31-40":
+                return "G5";
+            case "> 40":
+                return "G6";
+        }
+        return "G2";
     }
 }

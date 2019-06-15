@@ -154,6 +154,8 @@
     <string name="website">Website</string>
     <string name="charges">Charges</string>
     <string name="amount">Amount</string>
+    <string name="business_details">Business Details</string>
+    <string name="settings">Settings</string>
 
     <array name="age_group">
         <item name="10-13">10_13</item>

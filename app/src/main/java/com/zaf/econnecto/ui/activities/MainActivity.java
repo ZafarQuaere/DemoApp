@@ -183,9 +183,9 @@ public class MainActivity extends BaseActivity<MainPresenter>
     }
 
     public void changePasswordClick(View view) {
-        //  getPresenter().startActivity(mContext);
+        getPresenter().startActivity(mContext);
         closeDrawer();
-        LogUtils.showToast(mContext, "Development under progress");
+        //LogUtils.showToast(mContext, "Development under progress");
     }
 
     public void onShareClick(View view) {

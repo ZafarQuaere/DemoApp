@@ -1,0 +1,14 @@
+{
+  "success": 1,
+  "totalItem": 0,
+  "resultArray": {
+    "id": "20",
+    "name": "My Store",
+    "password": "e552b64969de0305919e367fd9783e388c8c4b8244e8172a6717a09a974230d9",
+    "mobile": "9870273428",
+    "email": "zafima20@gmail.com",
+    "token": "No Available",
+    "userType": "1",
+    "dealerId": "7"
+  }
+}

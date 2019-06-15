@@ -1,0 +1,6 @@
+//TODO
+1) Login success/failure response format.
+
+Api Name : Login Api
+Parameter : Email/MobileNo, password
+{"message":["Login Successful"],"status":1,"data":""}

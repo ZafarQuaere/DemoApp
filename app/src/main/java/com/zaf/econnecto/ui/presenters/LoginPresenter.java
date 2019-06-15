@@ -44,19 +44,19 @@ public class LoginPresenter extends BasePresenter {
             mLogin.onValidationError(mContext.getString(R.string.password_must_have_atleast_6_character));
         } else {
             if (NetworkUtils.isNetworkEnabled(mContext)) {
-               // mLogin.callLoginApi(userId, password);
-                mLogin.doLogin();
+               mLogin.callLoginApi(userId, password);
+                //mLogin.doLogin();
             }else {
                 mLogin.onValidationError(mContext.getString(R.string.please_check_your_network_connection));
             }
         }
     }
 
-    public void callApi(String mobile, String password) {
+    public void callApi(String userId, String password) {
         loader.show();
         JSONObject requestObject = new JSONObject();
         try {
-            requestObject.put("mobile", mobile);
+            requestObject.put("email", userId);
             requestObject.put("password", password);
 
         } catch (JSONException e) {
