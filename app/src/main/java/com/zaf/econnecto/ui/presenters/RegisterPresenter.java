@@ -31,7 +31,13 @@ public class RegisterPresenter extends BasePresenter {
     }
 
     public void validateFields(String firstName, String lastName, String userName, String email, String pswd, String confmPswd, String ageGroup, String gender) {
-        if (userName.equals("") || userName.isEmpty()) {
+        if (firstName.equals("") || firstName.isEmpty()) {
+            mRegister.onValidationError(mContext.getString(R.string.please_enter_firstname));
+        }
+        else if (lastName.equals("") || lastName.isEmpty()) {
+            mRegister.onValidationError(mContext.getString(R.string.please_enter_lastname));
+        }
+        else if (userName.equals("") || userName.isEmpty()) {
             mRegister.onValidationError(mContext.getString(R.string.please_enter_username));
         } else if (!Utils.isValidEmail(email)) {
             mRegister.onValidationError(mContext.getString(R.string.please_enter_valid_email));
@@ -41,7 +47,12 @@ public class RegisterPresenter extends BasePresenter {
             mRegister.onValidationError(mContext.getString(R.string.password_must_have_atleast_6_character));
         } else if (!confmPswd.equalsIgnoreCase(pswd)) {
             mRegister.onValidationError(mContext.getString(R.string.please_enter_same_pswd));
-        } else {
+        }else if (gender == null || gender.isEmpty()) {
+            mRegister.onValidationError(mContext.getString(R.string.please_select_gender));
+        } else if (ageGroup == null || ageGroup.isEmpty()) {
+            mRegister.onValidationError(mContext.getString(R.string.please_select_age));
+        }
+        else {
             if (NetworkUtils.isNetworkEnabled(mContext)) {
                 callRegisterApi(firstName, lastName, userName, pswd, email, pswd, confmPswd, ageGroup, gender);
             } else {
@@ -89,19 +100,22 @@ public class RegisterPresenter extends BasePresenter {
     }
 
     public String getAgeGroup(String mSelectedAge) {
-        switch (mSelectedAge) {
-            case "< 15":
-                return "G1";
-            case "15-18":
-                return "G2";
-            case "19-25":
-                return "G3";
-            case "26-30":
-                return "G4";
-            case "31-40":
-                return "G5";
-            case "> 40":
-                return "G6";
+        if (mSelectedAge.contains("< 15"))
+            return "G1";
+        else if (mSelectedAge.contains("15-18")){
+            return "G2";
+        }
+        else if (mSelectedAge.contains("19-25")){
+            return "G3";
+        }
+        else if (mSelectedAge.contains("26-30")){
+            return "G4";
+        }
+        else if (mSelectedAge.contains("31-40")){
+            return "G5";
+        }
+        else if (mSelectedAge.contains("> 40")){
+            return "G6";
         }
         return "G2";
     }

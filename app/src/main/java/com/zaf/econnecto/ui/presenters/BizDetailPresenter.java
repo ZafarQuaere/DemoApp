@@ -9,7 +9,7 @@ import com.android.volley.VolleyError;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.MyJsonObjectRequest;
 import com.zaf.econnecto.network_call.request_model.AddressData;
-import com.zaf.econnecto.ui.presenters.operations.ISellerAddress;
+import com.zaf.econnecto.ui.presenters.operations.IBizDetail;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppController;
 import com.zaf.econnecto.utils.AppLoaderFragment;
@@ -18,17 +18,16 @@ import com.zaf.econnecto.utils.NetworkUtils;
 import com.zaf.econnecto.utils.Utils;
 
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-public class AddressPresenter extends BasePresenter {
+public class BizDetailPresenter extends BasePresenter {
     private final AppLoaderFragment loader;
     private Context mContext;
-    private ISellerAddress mSellerAddress;
+    private IBizDetail mSellerAddress;
 
-    public AddressPresenter(Context context, ISellerAddress iSellerAddress) {
+    public BizDetailPresenter(Context context, IBizDetail iBizDetail) {
         super(context);
-        mSellerAddress = iSellerAddress;
+        mSellerAddress = iBizDetail;
         mContext = context;
         loader = AppLoaderFragment.getInstance(mContext);
     }
@@ -56,41 +55,29 @@ public class AddressPresenter extends BasePresenter {
         String fullAddress = address + ", " + city + ", " + state + ", " + pincode;
         Address location = Utils.getlocationfromaddress(mContext, fullAddress);
         AddressData adress = new AddressData(address, state, city, pincode, location.getLatitude() + "", "" + location.getLongitude());
-        mSellerAddress.callApi(adress);
+        //mSellerAddress.callApi(adress);
     }
 
-    public void callAddressApi(final AddressData addressData) {
+    public void callBizDetailApi(final String biz_id) {
         loader.show();
-        JSONObject requestObject = new JSONObject();
-        try {
-            requestObject.put("userId", Utils.getUserId(mContext));
-            requestObject.put("addressOne", addressData.getAddress());
-            requestObject.put("city", addressData.getCity());
-            requestObject.put("state", addressData.getState());
-            requestObject.put("pincode", addressData.getPincode());
-            requestObject.put("latitude", addressData.getLatitude());
-            requestObject.put("longitude", addressData.getLongitude());
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        String url = AppConstant.URL_BASE + AppConstant.URL_DEALER_ADDRESS;
-        LogUtils.DEBUG("URL : " + url + "\nRequest Body ::" + requestObject.toString());
-        MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.POST, url, requestObject, new Response.Listener<JSONObject>() {
+        String url = AppConstant.URL_BASE + AppConstant.URL_BIZ_DETAIL+biz_id;
+        LogUtils.DEBUG("URL : " + url + "\nRequest Body ::" );
+        MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                LogUtils.DEBUG("AddressData Response ::" + response.toString());
+                LogUtils.DEBUG("BizDetail Response ::" + response.toString());
                 loader.dismiss();
-                mSellerAddress.saveAddress();
+                mSellerAddress.updateUI();
             }
 
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loader.dismiss();
-                LogUtils.DEBUG("AddressData Error ::" + error.getMessage());
+                LogUtils.DEBUG("BizDetail Error ::" + error.getMessage());
             }
         });
-        AppController.getInstance().addToRequestQueue(objectRequest, "AddressData");
+        AppController.getInstance().addToRequestQueue(objectRequest, "BizDetail");
     }
 }

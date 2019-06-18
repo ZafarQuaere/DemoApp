@@ -68,7 +68,7 @@ public class ProfilePresenter extends BaseFragmentPresenter {
             public void onResponse(JSONObject response) {
                 LogUtils.DEBUG("AddressData Response ::" + response.toString());
 
-                // iFragProfile.saveAddress();
+                // iFragProfile.updateUI();
             }
 
         }, new Response.ErrorListener() {

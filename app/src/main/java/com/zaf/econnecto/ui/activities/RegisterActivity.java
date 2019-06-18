@@ -99,14 +99,15 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         EditText editPassword = (EditText) findViewById(R.id.editPassword);
         EditText editConfirmPassword = (EditText) findViewById(R.id.editConfirmPassword);
 
-        String ageGroup = getPresenter().getAgeGroup(mSelectedAge);
+
+        //String ageGroup = getPresenter().getAgeGroup(mSelectedAge);
 
         getPresenter().validateFields(editFirstName.getText().toString().trim(),
                 editLastName.getText().toString().trim(),
                 editUserName.getText().toString().trim(),
                 editEmailId.getText().toString().trim(),
                 editPassword.getText().toString().trim(),
-                editConfirmPassword.getText().toString().trim(), ageGroup, mSelectedGender);
+                editConfirmPassword.getText().toString().trim(), mSelectedAge, mSelectedGender);
     }
 
     @Override

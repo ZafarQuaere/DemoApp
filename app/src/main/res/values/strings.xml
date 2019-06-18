@@ -156,6 +156,11 @@
     <string name="amount">Amount</string>
     <string name="business_details">Business Details</string>
     <string name="settings">Settings</string>
+    <string name="please_enter_firstname">Please enter first name</string>
+    <string name="please_enter_lastname">Please enter last name</string>
+    <string name="please_select_age">Please select age group.</string>
+    <string name="please_select_gender">Please select gender</string>
+    <string name="key_biz_id">key_biz_id</string>
 
     <array name="age_group">
         <item name="10-13">10_13</item>

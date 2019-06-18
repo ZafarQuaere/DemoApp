@@ -90,7 +90,8 @@ public class BListFragment extends BaseFragment<BListPresenter> implements IFrag
             BizListRecyclerAdapter adapter = new BizListRecyclerAdapter(mContext,data, new OnListFragmentInteractionListener() {
                 @Override
                 public void onListFragmentInteraction(BizData item) {
-                   startActivity(new Intent(getActivity(), ViewBizDetailsActivity.class));
+                    if (item != null)
+                         startActivity(new Intent(getActivity(), ViewBizDetailsActivity.class).putExtra(getString(R.string.key_biz_id),item.getBusinessUid()));
                 }
             });
             recylcerProducts.setAdapter(adapter);

@@ -3,9 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.activities.MainActivity">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -26,7 +28,6 @@
                     android:layout_width="@dimen/_40dp"
                     android:layout_height="@dimen/_40dp"
                     android:layout_centerVertical="true"
-                    android:paddingLeft="@dimen/_5dp"
                     android:scaleType="fitStart"
                     android:src="@drawable/ic_menu_24dp"
                     android:visibility="invisible" />
@@ -38,7 +39,6 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/_10dp"
                     android:background="@drawable/ic_arrow_back"
                     android:fontFamily="sans-serif"
                     android:gravity="center"
@@ -62,13 +62,25 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="@dimen/_20dp"
                     android:background="@drawable/ic_add_biz_white"
-                    android:visibility="visible"  />
+                    android:visibility="gone"  />
 
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main" />
+    <include
+        android:id="@+id/lytParent"
+        layout="@layout/content_main" />
 
-
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:src="@drawable/ic_add_biz_white"
+        app:elevation="6dp"
+        app:layout_anchor="@id/lytParent"
+        app:layout_anchorGravity="bottom|right|end"
+        app:pressedTranslationZ="12dp" />
 </android.support.design.widget.CoordinatorLayout>

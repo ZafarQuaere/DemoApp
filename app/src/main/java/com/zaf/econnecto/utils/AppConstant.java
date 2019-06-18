@@ -16,11 +16,13 @@ public class AppConstant {
     public static final String ORDER_STATUS_COMPLETED = "1";
     public static final String ORDER_STATUS_PENDING = "0";
 
-
     public static final String URL_BASE = "http://econnecto.com/api/";
     public static final String URL_REGISTER = "register.php";
     public static final String URL_LOGIN = "login.php";
     public static final String URL_BIZ_LIST = "business_list.php"; //(brandname,banner_image)
+    public static final String URL_BIZ_DETAIL = "business_list.php?/business_uid="; //(brandname,banner_image)
+
+
     public static final String URL_DEALER_ADDRESS = "/insert-dealear-address"; //(brandname,banner_image)
     public static final String URL_INSERT_DELAER = "/insert-dealer"; //(dName,mobile,brandIds,rating,addressId)
     public static final String URL_INSERT_PRODUCT = "/insert-product"; //{pName,imagePath,dealerId,name,price,productType,isBrand}
@@ -29,12 +31,7 @@ public class AppConstant {
     public static final String URL_CHANGE_PASSWORD = "/change-password?mobile=";
     public static final String URL_CP_PASSWORD = "&password=";
 
-    public static final String URL_ORDERS = "/new-orders?dealerId=";
-    public static final String URL_ORDER_STATUS = "&status=";
 
-    public static final String URL_PRODUCT_LIST = "/product?dealerId=";
-    public static final String URL_TODAY_SALES = "/today-sales?dealerId=";
-    public static final String URL_TOTAL_SALES = "/total-sales?dealerId=";
 
     //http://econnecto.com/api/business_list.php
     public static final String baseUrl = "https://reqres.in";
