@@ -1,6 +1,13 @@
 //TODO
-1) Login success/failure response format.
+1) Login success/failure response format and implement all the scenario in UI.
 
 Api Name : Login Api
 Parameter : Email/MobileNo, password
 {"message":["Login Successful"],"status":1,"data":""}
+
+ e-Connecto url : http://econnecto.com/api/single_business.php?/business_uid=sweets
+ BizDetail Response ::{"message":"business_uid is not set ","status":0,"data":""}
+
+ e-Connecto url : http://econnecto.com/api/single_business.php?/business_uid=ahle
+ BizDetail Response ::{"message":"business_uid is not set ","status":0,"data":""}
+

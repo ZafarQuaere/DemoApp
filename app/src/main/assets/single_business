@@ -1,0 +1,24 @@
+{
+  "message": "Business found successfully",
+  "status": 1,
+  "data": [
+    {
+      "business_name": "BABA CYBERCAFE AND PHOTOCOPY",
+      "short_description": "PHOTOCOPY,LAMAINATON ,ONLINE FORM ETC",
+      "business_category": "Internet Cafe",
+      "detailed_description": "PHOTOCOPY, COLOR COPY,ONINE FORM FILLING AND ALL RELATED ONLINE BILL PAYMENT.",
+      "year_founded": "2010",
+      "awards": "",
+      "address": "BATAMORE NEAR STATION ROAD GAYA BIHAR-823001",
+      "phone1": "7033665817",
+      "phone2": "8757545424",
+      "business_email": "MAKASUD86@GMAIL.COM",
+      "website": "",
+      "charges_unit": null,
+      "charges_amount": null,
+      "followers_count": "5",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/default\/default_business_pic.png"
+    }
+  ]
+}

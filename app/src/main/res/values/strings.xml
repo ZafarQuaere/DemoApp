@@ -161,6 +161,8 @@
     <string name="please_select_age">Please select age group.</string>
     <string name="please_select_gender">Please select gender</string>
     <string name="key_biz_id">key_biz_id</string>
+    <string name="age_group">Age Group</string>
+    <string name="followers">Followers</string>
 
     <array name="age_group">
         <item name="10-13">10_13</item>

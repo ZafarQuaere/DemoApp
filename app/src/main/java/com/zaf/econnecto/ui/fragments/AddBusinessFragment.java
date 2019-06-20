@@ -1,8 +1,10 @@
 package com.zaf.econnecto.ui.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +44,8 @@ public class AddBusinessFragment extends BaseFragment<AddBizPresenter> implement
     }
 
     private void initUI(View view) {
-
+      /*  FloatingActionButton fabAddBizness = (FloatingActionButton) view.findViewById(R.id.fabAddBizness);
+        fabAddBizness.setVisibility(View.GONE);*/
     }
 
 

@@ -1,26 +1,27 @@
 package com.zaf.econnecto.ui.activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ImageView;
 
 
+import com.squareup.picasso.Picasso;
 import com.zaf.econnecto.R;
-import com.zaf.econnecto.network_call.request_model.AddressData;
+import com.zaf.econnecto.network_call.response_model.biz_detail.BizDetails;
 import com.zaf.econnecto.ui.presenters.BizDetailPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IBizDetail;
 import com.zaf.econnecto.utils.LogUtils;
-import com.zaf.econnecto.utils.Utils;
 
 
 public class ViewBizDetailsActivity extends BaseActivity<BizDetailPresenter> implements IBizDetail {
 
     private Context mContext;
     private String biz_uid;
+    private BizDetails mBizDetailsData;
 
     @Override
     protected BizDetailPresenter initPresenter() {
@@ -45,9 +46,6 @@ public class ViewBizDetailsActivity extends BaseActivity<BizDetailPresenter> imp
         final Toolbar toolbar = findViewById(R.id.toolbarBd);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle(getString(R.string.business_details));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,9 +65,17 @@ public class ViewBizDetailsActivity extends BaseActivity<BizDetailPresenter> imp
 
 
     @Override
-    public void updateUI() {
-//        startActivity(new Intent(ViewBizDetailsActivity.this, MainActivity.class));
-//        finish();
+    public void updateUI(BizDetails bizDetails) {
+            mBizDetailsData = bizDetails;
+        CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsing_toolbar);
+        collapsingToolbar.setTitle(mBizDetailsData != null ? mBizDetailsData.getBusinessName(): getString(R.string.business_details));
+
+        ImageView imgProfile = (ImageView) findViewById(R.id.imgProfile);
+        ImageView imgBanner = (ImageView) findViewById(R.id.imgBanner);
+        Picasso.get().load(mBizDetailsData.getBusinessPic()).placeholder(R.drawable.avatar_male).into(imgProfile);
+        Picasso.get().load(mBizDetailsData.getBannerPic()).placeholder(R.drawable.avatar_male).into(imgBanner);
+
+
     }
 
     @Override

@@ -14,6 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <!--application was getting crashed on Android pie -->
+        <uses-library android:name="org.apache.http.legacy"
+            android:required="false"/>
+
         <activity android:name=".ui.activities.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

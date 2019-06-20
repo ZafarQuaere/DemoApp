@@ -44,6 +44,8 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getBusinessName());
         holder.mContentView.setText(mContext.getString(R.string.establish_date)+": "+mValues.get(position).getYearFounded());
+        holder.textFollowers.setText(mValues.get(position).getFollowers_count()+" "+mContext.getString(R.string.followers));
+
         Picasso.get().load(mValues.get(position).getBusinessPic()).placeholder(R.drawable.avatar_male).into(holder.imgItem);
 
         holder.textFollow.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +94,7 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
         final TextView mContentView;
         final TextView textFollow;
         final TextView textViewBusiness;
+        final TextView textFollowers;
         final ImageView imgItem;
         BizData mItem;
 
@@ -102,6 +105,7 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
             mContentView = (TextView) view.findViewById(R.id.content);
             textFollow = (TextView) view.findViewById(R.id.textFollow);
             textViewBusiness = (TextView) view.findViewById(R.id.textViewBusiness);
+            textFollowers = (TextView) view.findViewById(R.id.textFollowers);
             imgItem = (ImageView) view.findViewById(R.id.imgItem);
         }
 

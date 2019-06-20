@@ -6,11 +6,11 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/button_transparent_bg"
-    android:elevation="@dimen/_10dp"
+    android:elevation="@dimen/_5dp"
     android:paddingVertical="@dimen/_5dp"
     android:paddingHorizontal="@dimen/_10dp"
     android:text="Button"
     android:textAllCaps="false"
     android:textSize="@dimen/regular_text"
-    android:layout_margin="@dimen/_5dp">
+    android:layout_margin="@dimen/_10dp">
 </TextView>

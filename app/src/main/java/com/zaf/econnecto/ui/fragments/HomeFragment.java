@@ -3,6 +3,7 @@ package com.zaf.econnecto.ui.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -61,6 +62,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IFragHo
     }
 
     private void initUI(View view) {
+       /* FloatingActionButton fabAddBizness = (FloatingActionButton) view.findViewById(R.id.fabAddBizness);
+        fabAddBizness.setVisibility(View.VISIBLE);*/
         recyclerCategory = (RecyclerView) view.findViewById(R.id.recyclerCategory);
         recyclerCategory.setHasFixedSize(true);
 

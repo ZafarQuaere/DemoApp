@@ -17,6 +17,17 @@ public class BizData {
     @SerializedName("business_uid")
     @Expose
     private String businessUid;
+    @SerializedName("followers_count")
+    @Expose
+    private String followers_count;
+
+    public String getFollowers_count() {
+        return followers_count;
+    }
+
+    public void setFollowers_count(String followers_count) {
+        this.followers_count = followers_count;
+    }
 
     public String getBusinessPic() {
         return businessPic;

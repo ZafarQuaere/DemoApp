@@ -46,6 +46,12 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
                 validateFields();
             }
         });
+        findViewById(R.id.txtLogin).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         initUI();
 

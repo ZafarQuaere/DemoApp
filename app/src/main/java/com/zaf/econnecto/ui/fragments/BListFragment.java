@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -56,6 +57,9 @@ public class BListFragment extends BaseFragment<BListPresenter> implements IFrag
     }
 
     private void initUI(View view) {
+       /* FloatingActionButton fabAddBizness = (FloatingActionButton) view.getRootView().findViewById(R.id.fabAddBizness);
+        fabAddBizness.setVisibility(View.VISIBLE);*/
+
         recylcerProducts = (RecyclerView) view.findViewById(R.id.recyclerBusinessList);
         recylcerProducts.setHasFixedSize(true);
 

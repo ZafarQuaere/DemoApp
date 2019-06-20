@@ -81,8 +81,7 @@ public class LoginPresenter extends BasePresenter {
                 } catch (Exception e) {
                     loader.dismiss();
                     e.printStackTrace();
-                    LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok),
-                            mContext.getString(R.string.please_enter_valid_credentials));
+                    LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.please_enter_valid_credentials));
                 }
 
             }
