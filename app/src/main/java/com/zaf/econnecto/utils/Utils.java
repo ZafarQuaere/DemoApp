@@ -25,7 +25,7 @@ import android.widget.TextView;
 import com.zaf.econnecto.BuildConfig;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.response_model.login.LoginPojo;
-import com.zaf.econnecto.ui.activities.ViewBizDetailsActivity;
+import com.zaf.econnecto.ui.activities.BizDetailsActivity;
 import com.zaf.econnecto.ui.activities.EnterNewPswdActivity;
 import com.zaf.econnecto.ui.activities.EnterOTPActivity;
 import com.zaf.econnecto.ui.activities.ForgetPswdActivity;
@@ -174,7 +174,7 @@ public class Utils {
                     ((Activity) activity).onBackPressed();
                 }
             });
-        } else if (className.equals(new ViewBizDetailsActivity().getClass().getSimpleName())) {
+        } else if (className.equals(new BizDetailsActivity().getClass().getSimpleName())) {
             textBack.setVisibility(View.VISIBLE);
             textBack.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -319,15 +319,15 @@ public class Utils {
         return location;
     }
 
-    public static String getUserId(Context mContext) {
+    public static String getUserEmail(Context mContext) {
         //return "1";
         String loginStringData = getLoginData(mContext);
-        String dealerId = "";
+        String emailId = "";
         LoginPojo loginData = ParseManager.getInstance().fromJSON(loginStringData,LoginPojo.class);
         if (loginData != null ){
-            return loginData.getData().getId();
+            return loginData.getData().getEmail();
         }
-        return dealerId;
+        return emailId;
     }
 
     public static String getDealerId(Context mContext) {

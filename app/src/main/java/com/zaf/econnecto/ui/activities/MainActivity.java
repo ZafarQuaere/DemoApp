@@ -1,6 +1,5 @@
 package com.zaf.econnecto.ui.activities;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,14 +17,11 @@ import android.widget.LinearLayout;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
 import com.zaf.econnecto.ui.fragments.BListFragment;
-import com.zaf.econnecto.ui.fragments.FragmentProfile;
 import com.zaf.econnecto.ui.fragments.HomeFragment;
 import com.zaf.econnecto.ui.presenters.MainPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IMain;
 import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.Utils;
-
-import java.util.Objects;
 
 
 public class MainActivity extends BaseActivity<MainPresenter>
@@ -118,7 +114,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     public void saveAddressClick(View view) {
         closeDrawer();
-        startActivity(new Intent(MainActivity.this, ViewBizDetailsActivity.class));
+        startActivity(new Intent(MainActivity.this, BizDetailsActivity.class));
     }
 
     public void item3Click(View view) {

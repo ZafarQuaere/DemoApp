@@ -11,6 +11,6 @@
     android:paddingHorizontal="@dimen/_10dp"
     android:text="Button"
     android:textAllCaps="false"
-    android:textSize="@dimen/regular_text"
+    android:textSize="@dimen/font_regular_text"
     android:layout_margin="@dimen/_10dp">
 </TextView>

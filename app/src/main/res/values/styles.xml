@@ -51,7 +51,7 @@
         <item name="android:minHeight">@dimen/edit_field_height</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:singleLine">true</item>
-        <item name="android:textSize">@dimen/regular_text</item>
+        <item name="android:textSize">@dimen/font_regular_text</item>
         <item name="android:textColor">@color/colorInputText</item>
         <item name="android:textColorHint">@color/colorHintText</item>
         <item name="android:background">@drawable/rectangle_bg</item>
@@ -65,7 +65,7 @@
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:inputType">text</item>
         <item name="android:singleLine">true</item>
-        <item name="android:textSize">@dimen/regular_text</item>
+        <item name="android:textSize">@dimen/font_regular_text</item>
         <item name="android:textColor">@color/colorInputText</item>
         <item name="android:textColorHint">@color/colorHintText</item>
         <item name="android:background">@drawable/rectangle_bg</item>
@@ -79,7 +79,7 @@
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:inputType">number</item>
         <item name="android:singleLine">true</item>
-        <item name="android:textSize">@dimen/regular_text</item>
+        <item name="android:textSize">@dimen/font_regular_text</item>
         <item name="android:textColor">@color/colorInputText</item>
         <item name="android:textColorHint">@color/colorHintText</item>
         <item name="android:background">@drawable/rectangle_bg</item>
@@ -90,7 +90,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textSize">@dimen/xx_large_text</item>
+        <item name="android:textSize">@dimen/font_xx_large_text</item>
         <item name="android:textColor">@color/colorWhite</item>
     </style>
 
@@ -99,7 +99,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textSize">@dimen/x_large_text</item>
+        <item name="android:textSize">@dimen/font_x_large_text</item>
         <item name="android:textColor">@color/colorWhite</item>
     </style>
 
@@ -108,7 +108,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textSize">@dimen/regular_text</item>
+        <item name="android:textSize">@dimen/font_regular_text</item>
         <item name="android:textColor">@color/colorWhite</item>
     </style>
 
@@ -117,7 +117,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textSize">@dimen/regular_text</item>
+        <item name="android:textSize">@dimen/font_regular_text</item>
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
@@ -126,7 +126,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textSize">@dimen/actionbar_title_text</item>
+        <item name="android:textSize">@dimen/font_actionbar_title_text</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_centerHorizontal">true</item>
@@ -139,7 +139,7 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:gravity">center</item>
-        <item name="android:textSize">@dimen/list_empty_text_size</item>
+        <item name="android:textSize">@dimen/font_list_empty_text_size</item>
         <item name="android:textColor">@color/colorInputText</item>
         <item name="android:layout_marginBottom">@dimen/_40dp</item>
     </style>
@@ -153,7 +153,7 @@
         <item name="android:paddingTop">@dimen/nav_header_vertical_spacing</item>
         <item name="android:paddingBottom">@dimen/nav_header_vertical_spacing</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
-        <item name="android:textSize">@dimen/regular_text</item>
+        <item name="android:textSize">@dimen/font_regular_text</item>
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:drawablePadding">@dimen/drawable_padding</item>
     </style>
@@ -163,7 +163,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/button_height</item>
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textSize">@dimen/regular_text</item>
+        <item name="android:textSize">@dimen/font_regular_text</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_centerHorizontal">true</item>
@@ -184,7 +184,7 @@
         <item name="android:paddingBottom">0dp</item>
         <item name="android:paddingLeft">4dp</item>
         <item name="android:paddingRight">4dp</item>
-        <item name="android:textSize">@dimen/regular_text</item>
+        <item name="android:textSize">@dimen/font_regular_text</item>
     </style>
 
 </resources>

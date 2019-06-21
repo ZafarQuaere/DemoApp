@@ -105,4 +105,35 @@ public class LogUtils {
         dialog.show();
     }
 
+    public static void showDialogSingleActionButton(Context ctx, String btnOkTxt, String message, final DialogButtonClick listener) {
+        final Dialog dialog = new Dialog(ctx);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setContentView(R.layout.dialog_double_button);
+        Button btnOk = (Button) dialog.findViewById(R.id.btn_ok);
+        Button btnCancel = (Button) dialog.findViewById(R.id.btnCancel);
+        btnCancel.setVisibility(View.GONE);
+        TextView textMessage = (TextView) dialog.findViewById(R.id.text_message);
+        textMessage.setText(message);
+
+        btnOk.setText(btnOkTxt);
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                if (listener != null){
+                    listener.onOkClick();
+                }
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
 }

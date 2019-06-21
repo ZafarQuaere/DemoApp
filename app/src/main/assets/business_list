@@ -1,0 +1,246 @@
+{
+  "message": "List fetched successfully",
+  "status": 1,
+  "data": [
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1556119814.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1556119874.png",
+      "business_name": "Sweets house",
+      "year_founded": "1990",
+      "business_uid": "sweets",
+      "followers_count": "19"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1556607199.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1556607383.png",
+      "business_name": "Hotel Grand Palace",
+      "year_founded": "2015",
+      "business_uid": "hotel",
+      "followers_count": "12"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1556694039.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
+      "business_name": "Variety genral store",
+      "year_founded": "1998",
+      "business_uid": "variety",
+      "followers_count": "12"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/default\/default_business_pic.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
+      "business_name": "HOTEL BUDDHA",
+      "year_founded": "2012",
+      "business_uid": "hotel_1",
+      "followers_count": "11"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/default\/default_business_pic.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1556174529.png",
+      "business_name": "Medistar Healthcare",
+      "year_founded": "2016",
+      "business_uid": "medistar",
+      "followers_count": "11"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1556267213.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1556267459.png",
+      "business_name": "Munna biscuits shops",
+      "year_founded": "1990",
+      "business_uid": "munna",
+      "followers_count": "10"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1556107601.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1556107626.png",
+      "business_name": "Webzee Infotech",
+      "year_founded": "2019",
+      "business_uid": "webzee",
+      "followers_count": "10"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1556950418.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
+      "business_name": "AHLE BAIT TRUST",
+      "year_founded": "2019",
+      "business_uid": "ahle",
+      "followers_count": "9"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1556272763.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1556272824.png",
+      "business_name": "Arshad art printing press",
+      "year_founded": "1998",
+      "business_uid": "arshad",
+      "followers_count": "7"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1556707485.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
+      "business_name": "Library ",
+      "year_founded": "2018",
+      "business_uid": "library",
+      "followers_count": "7"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1556244253.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
+      "business_name": "Megha shingar dukan",
+      "year_founded": "2015",
+      "business_uid": "megha",
+      "followers_count": "6"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1558794041.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
+      "business_name": "Shubham jewellers and bartan bhandar",
+      "year_founded": "2014",
+      "business_uid": "shubham",
+      "followers_count": "6"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/default\/default_business_pic.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
+      "business_name": "BABA CYBERCAFE AND PHOTOCOPY",
+      "year_founded": "2010",
+      "business_uid": "baba",
+      "followers_count": "5"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/default\/default_business_pic.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
+      "business_name": "Success institute",
+      "year_founded": "2018",
+      "business_uid": "success",
+      "followers_count": "5"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/default\/default_business_pic.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
+      "business_name": "The Print Shop",
+      "year_founded": "2017",
+      "business_uid": "the",
+      "followers_count": "5"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1556626628.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
+      "business_name": "zeya kitchen store and gift cornor",
+      "year_founded": "2018",
+      "business_uid": "zeya",
+      "followers_count": "5"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1556715530.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1556715771.png",
+      "business_name": "Baba mobile  Dukan ",
+      "year_founded": "2007",
+      "business_uid": "baba_1",
+      "followers_count": "4"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/default\/default_business_pic.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
+      "business_name": "Balaji medical store",
+      "year_founded": "2019",
+      "business_uid": "balaji",
+      "followers_count": "4"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1559576370.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1559576406.png",
+      "business_name": "Janta music house",
+      "year_founded": "1980",
+      "business_uid": "janta",
+      "followers_count": "4"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1556697127.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1556706457.png",
+      "business_name": "Lohani electric house",
+      "year_founded": "1990",
+      "business_uid": "lohani",
+      "followers_count": "4"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1559473342.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
+      "business_name": "Fast food corner",
+      "year_founded": "2018",
+      "business_uid": "fast",
+      "followers_count": "3"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1559121871.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1559121745.png",
+      "business_name": "Ashirvad vastralay",
+      "year_founded": "2010",
+      "business_uid": "ashirvad",
+      "followers_count": "2"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1559572474.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1559572515.png",
+      "business_name": "Karoona footwear ",
+      "year_founded": "2009",
+      "business_uid": "karoona",
+      "followers_count": "2"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1557823118.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1557823197.png",
+      "business_name": "Nageshwari rest house",
+      "year_founded": "2017",
+      "business_uid": "nageshwari",
+      "followers_count": "2"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1559567589.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
+      "business_name": "Shree Ram Mobiles and traders",
+      "year_founded": "2010",
+      "business_uid": "shree",
+      "followers_count": "2"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1560646435.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
+      "business_name": "Z NINE DEVELOPERES",
+      "year_founded": "2019",
+      "business_uid": "z",
+      "followers_count": "2"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/default\/default_business_pic.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
+      "business_name": "Aukat store",
+      "year_founded": "2000",
+      "business_uid": "aukat",
+      "followers_count": "1"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/default\/default_business_pic.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
+      "business_name": "HOTEL PREM",
+      "year_founded": "2015",
+      "business_uid": "hotel_1_2",
+      "followers_count": "1"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1560781467.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
+      "business_name": "Style menia",
+      "year_founded": "2018",
+      "business_uid": "style",
+      "followers_count": "1"
+    },
+    {
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1556169097.png",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1556169121.png",
+      "business_name": "Sweet shop",
+      "year_founded": "2000",
+      "business_uid": "sweet",
+      "followers_count": "1"
+    }
+  ]
+}

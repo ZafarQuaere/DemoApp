@@ -39,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10dp"
-                    android:textSize="@dimen/text_small_header"
+                    android:textSize="@dimen/font_small_header"
                     android:text="@string/business_name"/>
 
                 <EditText
@@ -55,7 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10dp"
-                    android:textSize="@dimen/text_small_header"
+                    android:textSize="@dimen/font_small_header"
                     android:text="@string/business_dialog"/>
 
                 <EditText
@@ -71,7 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10dp"
-                    android:textSize="@dimen/text_small_header"
+                    android:textSize="@dimen/font_small_header"
                     android:text="@string/category"/>
                 <LinearLayout
                     android:layout_marginHorizontal="@dimen/_5dp"
@@ -98,7 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10dp"
-                    android:textSize="@dimen/text_small_header"
+                    android:textSize="@dimen/font_small_header"
                     android:text="@string/detailed_business_description"/>
 
                 <EditText
@@ -139,7 +139,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10dp"
-                    android:textSize="@dimen/text_small_header"
+                    android:textSize="@dimen/font_small_header"
                     android:layout_marginHorizontal="@dimen/_5dp"
                     android:text="@string/year_founded"/>
 
@@ -158,7 +158,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10dp"
-                    android:textSize="@dimen/text_small_header"
+                    android:textSize="@dimen/font_small_header"
                     android:text="@string/awards_n_achievement"/>
 
                 <EditText
@@ -222,7 +222,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10dp"
-                    android:textSize="@dimen/text_small_header"
+                    android:textSize="@dimen/font_small_header"
                     android:text="@string/address"/>
 
                 <EditText
@@ -239,7 +239,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10dp"
-                    android:textSize="@dimen/text_small_header"
+                    android:textSize="@dimen/font_small_header"
                     android:text="@string/phone"/>
 
                 <EditText
@@ -257,7 +257,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10dp"
-                    android:textSize="@dimen/text_small_header"
+                    android:textSize="@dimen/font_small_header"
                     android:text="@string/alternate_phone"/>
 
                 <EditText
@@ -275,7 +275,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10dp"
-                    android:textSize="@dimen/text_small_header"
+                    android:textSize="@dimen/font_small_header"
                     android:text="@string/email_id"/>
 
                 <EditText
@@ -292,7 +292,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10dp"
-                    android:textSize="@dimen/text_small_header"
+                    android:textSize="@dimen/font_small_header"
                     android:text="@string/website"/>
 
                 <EditText
@@ -333,7 +333,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10dp"
-                    android:textSize="@dimen/text_small_header"
+                    android:textSize="@dimen/font_small_header"
                     android:text="@string/charges"/>
                 <LinearLayout
                     android:layout_marginHorizontal="@dimen/_5dp"
@@ -358,7 +358,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10dp"
-                    android:textSize="@dimen/text_small_header"
+                    android:textSize="@dimen/font_small_header"
                     android:text="@string/amount"/>
                 <LinearLayout
                     android:layout_marginHorizontal="@dimen/_5dp"
@@ -393,7 +393,7 @@
             android:background="@drawable/rounded_background"
             android:text="@string/add_business"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/actionbar_title_text" />
+            android:textSize="@dimen/font_actionbar_title_text" />
 
         <View
             android:layout_width="match_parent"

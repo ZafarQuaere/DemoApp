@@ -32,7 +32,7 @@
                     android:paddingVertical="@dimen/_10dp"
                     android:text="@string/register"
                     android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/large_text" />
+                    android:textSize="@dimen/font_large_text" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -69,7 +69,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/first_name"
                             android:maxLength="70"
-                            android:textSize="@dimen/regular_text" />
+                            android:textSize="@dimen/font_regular_text" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -82,7 +82,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/last_name"
                             android:maxLength="70"
-                            android:textSize="@dimen/regular_text" />
+                            android:textSize="@dimen/font_regular_text" />
                     </android.support.design.widget.TextInputLayout>
 
 
@@ -96,7 +96,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/username"
                             android:maxLength="70"
-                            android:textSize="@dimen/regular_text" />
+                            android:textSize="@dimen/font_regular_text" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -112,7 +112,7 @@
                             android:hint="@string/mobile_no"
                             android:inputType="number"
                             android:maxLength="10"
-                            android:textSize="@dimen/regular_text" />
+                            android:textSize="@dimen/font_regular_text" />
                     </android.support.design.widget.TextInputLayout>
 
 
@@ -127,7 +127,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/email_id"
                             android:maxLength="90"
-                            android:textSize="@dimen/regular_text" />
+                            android:textSize="@dimen/font_regular_text" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -144,7 +144,7 @@
                             android:hint="@string/password"
                             android:inputType="textWebPassword"
                             android:maxLength="70"
-                            android:textSize="@dimen/regular_text" />
+                            android:textSize="@dimen/font_regular_text" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -161,7 +161,7 @@
                             android:hint="@string/confirm_pswd"
                             android:inputType="textWebPassword"
                             android:maxLength="70"
-                            android:textSize="@dimen/regular_text" />
+                            android:textSize="@dimen/font_regular_text" />
                     </android.support.design.widget.TextInputLayout>
 
                     <RadioGroup
@@ -192,7 +192,7 @@
                         android:paddingStart="@dimen/_10dp"
                         android:text="@string/age_group"
                         android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/regular_text" />
+                        android:textSize="@dimen/font_regular_text" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recyclerAge"
@@ -212,7 +212,7 @@
                         android:background="@drawable/rounded_background"
                         android:text="@string/register"
                         android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/regular_text" />
+                        android:textSize="@dimen/font_regular_text" />
 
                     <TextView
                         android:id="@+id/txtLogin"

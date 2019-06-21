@@ -1,5 +1,6 @@
 package com.zaf.econnecto.ui.presenters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.location.Address;
 
@@ -12,6 +13,7 @@ import com.zaf.econnecto.network_call.request_model.AddressData;
 import com.zaf.econnecto.network_call.response_model.biz_detail.BizDetailData;
 import com.zaf.econnecto.network_call.response_model.biz_detail.BizDetails;
 import com.zaf.econnecto.network_call.response_model.login.LoginPojo;
+import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.ui.presenters.operations.IBizDetail;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppController;
@@ -36,31 +38,6 @@ public class BizDetailPresenter extends BasePresenter {
         loader = AppLoaderFragment.getInstance(mContext);
     }
 
-    public void validateFields(String address, String city, String state, String pincode) {
-        if (address.equals("") || address.isEmpty()) {
-            mSellerAddress.onValidationError(mContext.getString(R.string.please_enter_address));
-        } else if (city.equals("") || city.isEmpty()) {
-            mSellerAddress.onValidationError(mContext.getString(R.string.please_enter_city_name));
-        } else if (state.equals("") || state.isEmpty()) {
-            mSellerAddress.onValidationError(mContext.getString(R.string.please_enter_state));
-        } else if (pincode.equals("") || pincode.isEmpty() || pincode.length() < 6 || pincode.length() > 6) {
-            mSellerAddress.onValidationError(mContext.getString(R.string.please_enter_valid_pincode));
-        } else {
-            if (NetworkUtils.isNetworkEnabled(mContext)) {
-                getLatLongNCallApi(address, city, state, pincode);
-
-            } else {
-                mSellerAddress.onValidationError(mContext.getString(R.string.please_check_your_network_connection));
-            }
-        }
-    }
-
-    private void getLatLongNCallApi(String address, String city, String state, String pincode) {
-        String fullAddress = address + ", " + city + ", " + state + ", " + pincode;
-        Address location = Utils.getlocationfromaddress(mContext, fullAddress);
-        AddressData adress = new AddressData(address, state, city, pincode, location.getLatitude() + "", "" + location.getLongitude());
-        //mSellerAddress.callApi(adress);
-    }
 
     public void callBizDetailApi(final String biz_id) {
         loader.show();
@@ -84,7 +61,14 @@ public class BizDetailPresenter extends BasePresenter {
                 } catch (Exception e) {
                     loader.dismiss();
                     e.printStackTrace();
-                    LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.please_enter_valid_credentials));
+                    LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.something_wrong_from_server_plz_try_again), new DialogButtonClick() {
+                        @Override
+                        public void onOkClick() {
+                            ((Activity)mContext).onBackPressed();
+                        }
+                        @Override
+                        public void onCancelClick() { }
+                    });
                 }
 
 

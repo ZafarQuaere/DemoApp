@@ -9,15 +9,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.squareup.picasso.Picasso;
 import com.zaf.econnecto.R;
+import com.zaf.econnecto.network_call.MyJsonObjectRequest;
 import com.zaf.econnecto.network_call.response_model.biz_list.BizData;
-import com.zaf.econnecto.network_call.response_model.home.DetailData;
+import com.zaf.econnecto.network_call.response_model.biz_list.BizListData;
 import com.zaf.econnecto.ui.fragments.BListFragment;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
+import com.zaf.econnecto.utils.AppConstant;
+import com.zaf.econnecto.utils.AppController;
 import com.zaf.econnecto.utils.LogUtils;
+import com.zaf.econnecto.utils.Utils;
+import com.zaf.econnecto.utils.parser.ParseManager;
 
-import java.util.Calendar;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecyclerAdapter.ViewHolder> {
@@ -54,18 +64,19 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
                 if (holder.textFollow.getText().equals("Follow")){
                     holder.textFollow.setBackground(mContext.getResources().getDrawable(R.drawable.btn_unfollow));
                     holder.textFollow.setText("Following");
+                    callFollowApi("follow",mValues.get(position).getBusinessUid());
                 }else {
                     LogUtils.showDialogDoubleButton(mContext, mContext.getString(R.string.cancel), mContext.getString(R.string.ok),
                             mContext.getString(R.string.do_you_want_to_unfollow )+" "+mValues.get(position).getBusinessName()+" ?", new DialogButtonClick() {
                                 @Override
                                 public void onOkClick() {
                                     holder.textFollow.setText("Follow");
+                                    callFollowApi("unfollow", mValues.get(position).getBusinessUid());
                                     holder.textFollow.setBackground(mContext.getResources().getDrawable(R.drawable.btn_follow));
                                 }
                                 @Override
                                 public void onCancelClick() { }
                             });
-
                 }
             }
         });
@@ -81,6 +92,41 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
                 }
             }
         });
+    }
+
+    private void callFollowApi(String action, String businessUid) {
+        String url = AppConstant.URL_BASE + AppConstant.URL_FOLLOW;// + 3;
+
+        JSONObject requestObject = new JSONObject();
+        try {
+            requestObject.put("action", action);
+            requestObject.put("user_email", Utils.getUserEmail(mContext));
+            requestObject.put("business_uid", businessUid);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        LogUtils.DEBUG("URL : " + url + "\nRequest Body :: "+requestObject.toString());
+        MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.POST, url, requestObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                LogUtils.DEBUG("Follow Response ::" + response.toString());
+
+                BizListData data = ParseManager.getInstance().fromJSON(response.toString(), BizListData.class);
+                if (data.getStatus() == AppConstant.SUCCESS) {
+                }else {
+                }
+
+
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                LogUtils.DEBUG("Follow Error ::" + error.getMessage());
+            }
+        });
+        AppController.getInstance().addToRequestQueue(objectRequest, "Follow");
     }
 
     @Override

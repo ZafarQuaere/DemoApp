@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,8 +14,7 @@ import android.widget.TextView;
 
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.response_model.biz_list.BizData;
-import com.zaf.econnecto.network_call.response_model.home.DetailData;
-import com.zaf.econnecto.ui.activities.ViewBizDetailsActivity;
+import com.zaf.econnecto.ui.activities.BizDetailsActivity;
 import com.zaf.econnecto.ui.adapters.BizListRecyclerAdapter;
 import com.zaf.econnecto.ui.presenters.BListPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IFragListing;
@@ -95,7 +93,7 @@ public class BListFragment extends BaseFragment<BListPresenter> implements IFrag
                 @Override
                 public void onListFragmentInteraction(BizData item) {
                     if (item != null)
-                         startActivity(new Intent(getActivity(), ViewBizDetailsActivity.class).putExtra(getString(R.string.key_biz_id),item.getBusinessUid()));
+                         startActivity(new Intent(getActivity(), BizDetailsActivity.class).putExtra(getString(R.string.key_biz_id),item.getBusinessUid()));
                 }
             });
             recylcerProducts.setAdapter(adapter);

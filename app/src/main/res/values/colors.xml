@@ -7,6 +7,7 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
     <color name="colorGrey">#949292</color>
+    <color name="colorDarkGrey">#111111</color>
 
     <color name="colorTransparent">#00000000</color>
     <color name="home_img_text">#434B3333</color>

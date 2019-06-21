@@ -4,6 +4,11 @@
 Api Name : Login Api
 Parameter : Email/MobileNo, password
 {"message":["Login Successful"],"status":1,"data":""}
+        {"message":"Login Successful","status":1,"data":""} //Error is coming.
+1561142423.524 28991-28991/com.zaf.econnecto E/e-Connecto:  >> ParseManager >> fromJSON >> Error while parsing JSON : com.google.gson.JsonSyntaxException: java.lang.IllegalStateException: Expected BEGIN_OBJECT but was STRING at line 1 column 50 path $.data
+
+
+
 
  e-Connecto url : http://econnecto.com/api/single_business.php?/business_uid=sweets
  BizDetail Response ::{"message":"business_uid is not set ","status":0,"data":""}

@@ -41,7 +41,7 @@
                     android:paddingStart="@dimen/_20dp"
                     android:text="@string/login_label"
                     android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/actionbar_title_text" />
+                    android:textSize="@dimen/font_actionbar_title_text" />
 
                 <ImageView
                     android:id="@+id/imageView2"
@@ -74,9 +74,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/email_id"
+                        android:singleLine="true"
                         android:maxLength="70"
                         android:text=""
-                        android:textSize="@dimen/regular_text" />
+                        android:textSize="@dimen/font_regular_text" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -94,7 +95,7 @@
                         android:inputType="textWebPassword"
                         android:maxLength="50"
                         android:text=""
-                        android:textSize="@dimen/regular_text" />
+                        android:textSize="@dimen/font_regular_text" />
                 </android.support.design.widget.TextInputLayout>
 
                 <TextView
@@ -105,7 +106,7 @@
                     android:gravity="center_horizontal"
                     android:text="@string/forgot_pswd"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/regular_text"
+                    android:textSize="@dimen/font_regular_text"
                     android:visibility="visible" />
 
                 <Button
@@ -118,7 +119,7 @@
                     android:background="@drawable/rounded_background"
                     android:text="@string/login_label"
                     android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/actionbar_title_text" />
+                    android:textSize="@dimen/font_actionbar_title_text" />
 
                 <TextView
                     android:id="@+id/txtRegister"
@@ -128,7 +129,7 @@
                     android:gravity="center_horizontal"
                     android:text="Register Here.."
                     android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/actionbar_title_text"
+                    android:textSize="@dimen/font_actionbar_title_text"
                     android:textStyle="normal" />
             </LinearLayout>
 

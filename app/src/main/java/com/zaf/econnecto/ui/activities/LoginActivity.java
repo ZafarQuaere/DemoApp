@@ -41,7 +41,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this,MainActivity.class));
-               // startActivity(new Intent(LoginActivity.this, ViewBizDetailsActivity.class));
+               // startActivity(new Intent(LoginActivity.this, BizDetailsActivity.class));
             }
         });
         if (Utils.isLoggedIn(mContext)) {

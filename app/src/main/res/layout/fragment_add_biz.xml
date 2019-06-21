@@ -44,7 +44,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/business_name"
                         android:maxLength="70"
-                        android:textSize="@dimen/regular_text" />
+                        android:textSize="@dimen/font_regular_text" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -57,7 +57,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/business_dialog"
                         android:maxLength="70"
-                        android:textSize="@dimen/regular_text" />
+                        android:textSize="@dimen/font_regular_text" />
                 </android.support.design.widget.TextInputLayout>
 
                 <LinearLayout
@@ -95,7 +95,7 @@
                         android:hint="@string/detailed_business_description"
                         android:maxLength="1000"
                         android:minHeight="@dimen/_100dp"
-                        android:textSize="@dimen/regular_text" />
+                        android:textSize="@dimen/font_regular_text" />
                 </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>
@@ -133,7 +133,7 @@
                         android:hint="@string/year_founded"
                         android:inputType="number"
                         android:maxLength="70"
-                        android:textSize="@dimen/regular_text" />
+                        android:textSize="@dimen/font_regular_text" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -148,7 +148,7 @@
                         android:hint="@string/awards_n_achievement"
                         android:maxLength="1000"
                         android:minHeight="@dimen/_100dp"
-                        android:textSize="@dimen/regular_text" />
+                        android:textSize="@dimen/font_regular_text" />
                 </android.support.design.widget.TextInputLayout>
 
                 <LinearLayout
@@ -205,7 +205,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/address"
                         android:maxLength="70"
-                        android:textSize="@dimen/regular_text" />
+                        android:textSize="@dimen/font_regular_text" />
                 </android.support.design.widget.TextInputLayout>
 
 
@@ -219,7 +219,7 @@
                         android:hint="@string/phone"
                         android:inputType="phone"
                         android:maxLength="10"
-                        android:textSize="@dimen/regular_text" />
+                        android:textSize="@dimen/font_regular_text" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -232,7 +232,7 @@
                         android:hint="@string/alternate_phone"
                         android:inputType="phone"
                         android:maxLength="10"
-                        android:textSize="@dimen/regular_text" />
+                        android:textSize="@dimen/font_regular_text" />
                 </android.support.design.widget.TextInputLayout>
 
 
@@ -246,7 +246,7 @@
                         android:hint="@string/email_id"
                         android:inputType="textEmailAddress"
                         android:maxLength="80"
-                        android:textSize="@dimen/regular_text" />
+                        android:textSize="@dimen/font_regular_text" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -259,7 +259,7 @@
                         android:hint="@string/website"
                         android:inputType="phone"
                         android:maxLength="10"
-                        android:textSize="@dimen/regular_text" />
+                        android:textSize="@dimen/font_regular_text" />
                 </android.support.design.widget.TextInputLayout>
 
 
@@ -347,7 +347,7 @@
             android:background="@drawable/rounded_background"
             android:text="@string/add_business"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/actionbar_title_text" />
+            android:textSize="@dimen/font_actionbar_title_text" />
 
         <View
             android:layout_width="match_parent"
