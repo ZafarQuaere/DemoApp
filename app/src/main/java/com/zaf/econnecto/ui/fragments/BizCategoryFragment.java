@@ -30,7 +30,7 @@ import com.zaf.econnecto.utils.Utils;
 
 import java.util.List;
 
-public class HomeFragment extends BaseFragment<HomePresenter> implements IFragHome {
+public class BizCategoryFragment extends BaseFragment<HomePresenter> implements IFragHome {
 
     private Context mContext;
     private View view;

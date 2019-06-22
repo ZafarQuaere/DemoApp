@@ -11,17 +11,17 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.response_model.home.DetailData;
-import com.zaf.econnecto.ui.fragments.HomeFragment;
+import com.zaf.econnecto.ui.fragments.BizCategoryFragment;
 
 import java.util.List;
 
 public class CategoryRecylcerAdapter extends RecyclerView.Adapter<CategoryRecylcerAdapter.ViewHolder> {
 
     private final List<DetailData> mValues;
-    private final HomeFragment.OnCategoryItemClickListener mListener;
+    private final BizCategoryFragment.OnCategoryItemClickListener mListener;
     private Context context;
 
-    public CategoryRecylcerAdapter(Context mContext,List<DetailData> items, HomeFragment.OnCategoryItemClickListener listener) {
+    public CategoryRecylcerAdapter(Context mContext,List<DetailData> items, BizCategoryFragment.OnCategoryItemClickListener listener) {
         context = mContext;
         mValues = items;
         mListener = listener;

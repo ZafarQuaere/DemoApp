@@ -66,7 +66,6 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
                 boolean isChecked = selectedRb.isChecked();
                 if (isChecked) {
                     mSelectedGender = selectedRb.getText().toString().trim();
-                    LogUtils.showToast(mContext, "Selected gender " + selectedRb.getText());
                 }
             }
         });
@@ -130,6 +129,5 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     @Override
     public void onAgeSelected(String selectedAge) {
         this.mSelectedAge = selectedAge;
-        LogUtils.showToast(mContext, "Listener : " + getPresenter().getAgeGroup(selectedAge));
     }
 }

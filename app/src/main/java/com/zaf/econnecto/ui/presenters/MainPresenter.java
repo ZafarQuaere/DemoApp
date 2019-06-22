@@ -5,20 +5,27 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.zaf.econnecto.R;
+import com.zaf.econnecto.network_call.MyJsonObjectRequest;
 import com.zaf.econnecto.ui.activities.ForgetPswdActivity;
 import com.zaf.econnecto.ui.activities.LoginActivity;
+import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
 import com.zaf.econnecto.ui.fragments.BListFragment;
+import com.zaf.econnecto.ui.fragments.BizCategoryFragment;
 import com.zaf.econnecto.ui.fragments.FragmentProfile;
 import com.zaf.econnecto.ui.fragments.HelpNFaqFragment;
-import com.zaf.econnecto.ui.fragments.HomeFragment;
-import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.ui.presenters.operations.IMain;
 import com.zaf.econnecto.utils.AppConstant;
+import com.zaf.econnecto.utils.AppController;
 import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.Utils;
 import com.zaf.econnecto.utils.storage.AppSharedPrefs;
+
+import org.json.JSONObject;
 
 
 public class MainPresenter extends BasePresenter {
@@ -34,25 +41,25 @@ public class MainPresenter extends BasePresenter {
 
     public void moveToFragment(String fragName) {
         switch (fragName) {
-            case "HomeFragment":
-                Utils.moveToFragment(mContext, new HomeFragment(), HomeFragment.class.getSimpleName(), null);
-                Utils.updateActionBar(mContext,HomeFragment.class.getSimpleName(),mContext.getString(R.string.home),null,null);
+            case "BizCategoryFragment":
+                Utils.moveToFragment(mContext, new BizCategoryFragment(), BizCategoryFragment.class.getSimpleName(), null);
+                Utils.updateActionBar(mContext, BizCategoryFragment.class.getSimpleName(), mContext.getString(R.string.business_category), null, null);
                 break;
             case "AddBusinessFragment":
                 Utils.moveToFragment(mContext, new AddBusinessFragment(), AddBusinessFragment.class.getSimpleName(), null);
-                Utils.updateActionBar(mContext, AddBusinessFragment.class.getSimpleName(),mContext.getString(R.string.add_business),null,null);
+                Utils.updateActionBar(mContext, AddBusinessFragment.class.getSimpleName(), mContext.getString(R.string.add_business), null, null);
                 break;
             case "BListFragment":
                 Utils.moveToFragment(mContext, new BListFragment(), BListFragment.class.getSimpleName(), null);
-                Utils.updateActionBar(mContext, BListFragment.class.getSimpleName(),mContext.getString(R.string.business_list),null,null);
+                Utils.updateActionBar(mContext, BListFragment.class.getSimpleName(), mContext.getString(R.string.business_list), null, null);
                 break;
             case "FragmentProfile":
                 Utils.moveToFragment(mContext, new FragmentProfile(), FragmentProfile.class.getSimpleName(), null);
-                Utils.updateActionBar(mContext, FragmentProfile.class.getSimpleName(),mContext.getString(R.string.my_profile),null,null);
+                Utils.updateActionBar(mContext, FragmentProfile.class.getSimpleName(), mContext.getString(R.string.my_profile), null, null);
                 break;
             case "HelpNFaqFragment":
                 Utils.moveToFragment(mContext, new HelpNFaqFragment(), HelpNFaqFragment.class.getSimpleName(), null);
-                Utils.updateActionBar(mContext, HelpNFaqFragment.class.getSimpleName(),mContext.getString(R.string.help_faq),null,null);
+                Utils.updateActionBar(mContext, HelpNFaqFragment.class.getSimpleName(), mContext.getString(R.string.help_faq), null, null);
                 break;
         }
         //LogUtils.showToast(mContext, fragName);
@@ -63,12 +70,7 @@ public class MainPresenter extends BasePresenter {
                 mContext.getString(R.string.do_you_really_want_to_logout), new DialogButtonClick() {
                     @Override
                     public void onOkClick() {
-                        AppSharedPrefs prefs = AppSharedPrefs.getInstance(mContext);
-                        prefs.clear(mContext.getString(R.string.key_logged_in));
-                        Utils.setLoggedIn(mContext, false);
-                        mContext.startActivity(new Intent(mContext, LoginActivity.class));
-                        LogUtils.showToast(mContext, mContext.getString(R.string.you_are_sucessfully_logout));
-                        ((Activity) mContext).finish();
+                        callLogoutApi();
                     }
 
                     @Override
@@ -77,25 +79,59 @@ public class MainPresenter extends BasePresenter {
                 });
     }
 
+
     public void startActivity(Context mContext) {
         Intent intent = new Intent(mContext, ForgetPswdActivity.class);
-        intent.putExtra(AppConstant.COMINGFROM,AppConstant.HOME);
+        intent.putExtra(AppConstant.COMINGFROM, AppConstant.HOME);
         mContext.startActivity(intent);
     }
 
     public void updateActionBarTitleOnBackPress(Context mContext, Fragment baseFragment) {
-        if (baseFragment.getClass().getSimpleName().contains("Home")) {
-            Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.home), null, null);
+        if (baseFragment.getClass().getSimpleName().contains("Category")) {
+            Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.business_category), null, null);
         } else if (baseFragment.getClass().getSimpleName().contains("List")) {
             Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.business_list), null, null);
         } else if (baseFragment.getClass().getSimpleName().contains("Profile")) {
             Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.my_profile), null, null);
         } else if (baseFragment.getClass().getSimpleName().contains("Add")) {
             Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.add_business), null, null);
-        }else if (baseFragment.getClass().getSimpleName().contains("AddressData")) {
+        } else if (baseFragment.getClass().getSimpleName().contains("AddressData")) {
             Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.save_address), null, null);
-        }else if (baseFragment.getClass().getSimpleName().contains("Help")) {
+        } else if (baseFragment.getClass().getSimpleName().contains("Help")) {
             Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.help_faq), null, null);
         }
     }
+
+
+    private void callLogoutApi() {
+        String url = AppConstant.URL_BASE + AppConstant.URL_LOGOUT;
+        LogUtils.DEBUG("URL : " + url + "\nRequest Body ::" /*+ requestObject.toString()*/);
+        MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                LogUtils.DEBUG("Logout Response ::" + response.toString());
+                if (response != null && !response.equals("")) {
+                    int status = response.optInt("status");
+                    if (status == AppConstant.SUCCESS) {
+                        AppSharedPrefs prefs = AppSharedPrefs.getInstance(mContext);
+                        prefs.clear(mContext.getString(R.string.key_logged_in));
+                        Utils.setLoggedIn(mContext, false);
+                        mContext.startActivity(new Intent(mContext, LoginActivity.class));
+                        LogUtils.showToast(mContext, mContext.getString(R.string.you_are_sucessfully_logout));
+                        ((Activity) mContext).finish();
+                    } else {
+                        LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optString("message"));
+                    }
+                }
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                LogUtils.DEBUG("Logout Error ::" + error.getMessage());
+            }
+        });
+        AppController.getInstance().addToRequestQueue(objectRequest, "Logout");
+    }
+
 }

@@ -32,8 +32,8 @@ import com.zaf.econnecto.ui.activities.ForgetPswdActivity;
 import com.zaf.econnecto.ui.activities.LoginActivity;
 import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
 import com.zaf.econnecto.ui.fragments.BListFragment;
+import com.zaf.econnecto.ui.fragments.BizCategoryFragment;
 import com.zaf.econnecto.ui.fragments.FragmentProfile;
-import com.zaf.econnecto.ui.fragments.HomeFragment;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.utils.parser.ParseManager;
 import com.zaf.econnecto.utils.storage.AppSharedPrefs;
@@ -182,7 +182,7 @@ public class Utils {
                     ((Activity) activity).onBackPressed();
                 }
             });
-        } else if (className.equals(new HomeFragment().getClass().getSimpleName())) {
+        } else if (className.equals(new BizCategoryFragment().getClass().getSimpleName())) {
             textBack.setVisibility(View.GONE);
             imgActionBarDrawerIcon.setVisibility(View.VISIBLE);
         } else if (className.equals(new AddBusinessFragment().getClass().getSimpleName())) {
@@ -230,15 +230,15 @@ public class Utils {
 
         for (int i = fm.getBackStackEntryCount() - 1; i > 0; i--) {
             String fragmentName = (fm.getBackStackEntryAt(i)).getName();
-            if (!fragmentName.equals(new HomeFragment().getClass().getName())) {
+            if (!fragmentName.equals(new BizCategoryFragment().getClass().getName())) {
                 fm.popBackStack();
                 LogUtils.DEBUG("Utils >> clearBackStackTillHomeFragment() >> removed fragment : " + fragmentName);
             } else {
                 break;
             }
         }
-        Utils.updateActionBar(activity, HomeFragment.class.getSimpleName(), activity.getString(R.string.home), null, null);
-        // updateBottomBar(activity, new HomeFragment().getClass().getSimpleName());
+        Utils.updateActionBar(activity, BizCategoryFragment.class.getSimpleName(), activity.getString(R.string.business_category), null, null);
+        // updateBottomBar(activity, new BizCategoryFragment().getClass().getSimpleName());
     }
 
     public static void saveOTPData(Context mContext, String data) {
@@ -320,14 +320,21 @@ public class Utils {
     }
 
     public static String getUserEmail(Context mContext) {
-        //return "1";
-        String loginStringData = getLoginData(mContext);
-        String emailId = "";
-        LoginPojo loginData = ParseManager.getInstance().fromJSON(loginStringData,LoginPojo.class);
-        if (loginData != null ){
-            return loginData.getData().getEmail();
+        AppSharedPrefs prefs = AppSharedPrefs.getInstance(mContext);
+        String data = "";
+        try {
+            data = (String) prefs.get(mContext.getString(R.string.key_user_email));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return data;
         }
-        return emailId;
+        return data;
+    }
+    public static void saveUserEmail(Context mContext, String newOrderData) {
+        if (mContext == null)
+            return;
+        AppSharedPrefs prefs = AppSharedPrefs.getInstance(mContext);
+        prefs.put(mContext.getString(R.string.key_user_email), newOrderData);
     }
 
     public static String getDealerId(Context mContext) {
@@ -366,6 +373,18 @@ public class Utils {
         prefs.put(mContext.getString(R.string.key_login_data), data);
     }
 
+    public static String getNewOrderData(Context context) {
+        AppSharedPrefs prefs = AppSharedPrefs.getInstance(context);
+        String data = "";
+        try {
+            data = (String) prefs.get(context.getString(R.string.key_new_order_data));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return data;
+        }
+        return data;
+    }
+
     public static String getLoginData(Context context) {
         AppSharedPrefs prefs = AppSharedPrefs.getInstance(context);
         String data = "";
@@ -378,24 +397,7 @@ public class Utils {
         return data;
     }
 
-    public static void saveNewOrderData(Context mContext, String newOrderData) {
-        if (mContext == null)
-            return;
-        AppSharedPrefs prefs = AppSharedPrefs.getInstance(mContext);
-        prefs.put(mContext.getString(R.string.key_new_order_data), newOrderData);
-    }
 
-    public static String getNewOrderData(Context context) {
-        AppSharedPrefs prefs = AppSharedPrefs.getInstance(context);
-        String data = "";
-        try {
-            data = (String) prefs.get(context.getString(R.string.key_new_order_data));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return data;
-        }
-        return data;
-    }
 
     public static void savePendingOrderData(Context mContext, String pendingOrderData) {
         if (mContext == null)

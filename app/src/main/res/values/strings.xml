@@ -165,6 +165,11 @@
     <string name="followers">Followers</string>
     <string name="something_wrong_from_server_plz_try_again">Oops! Something went wrong. Please try again</string>
     <string name="contact_n_address">Contact &amp; Address </string>
+    <string name="key_user_email">key_user_email</string>
+    <string name="follow">Follow</string>
+    <string name="following">Following</string>
+    <string name="business_category">Business Category</string>
+    <string name="hot_deals">Hot Deals</string>
 
     <array name="age_group">
         <item name="10-13">10_13</item>

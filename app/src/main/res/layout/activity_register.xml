@@ -125,6 +125,7 @@
                             android:id="@+id/editEmailId"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress"
                             android:hint="@string/email_id"
                             android:maxLength="90"
                             android:textSize="@dimen/font_regular_text" />

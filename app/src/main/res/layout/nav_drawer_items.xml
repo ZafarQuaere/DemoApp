@@ -57,11 +57,18 @@
             android:padding="16dp">
 
             <TextView
-                android:id="@+id/textItem1"
+                android:id="@+id/textItem3"
                 style="@style/NavigationDrawerText"
                 android:drawableLeft="@drawable/ic_home"
+                android:onClick="onListingClick"
+                android:text="@string/business_list" />
+
+            <TextView
+                android:id="@+id/textItem1"
+                style="@style/NavigationDrawerText"
+                android:drawableLeft="@drawable/ic_listings"
                 android:onClick="onHomeClick"
-                android:text="@string/home" />
+                android:text="@string/business_category" />
 
             <TextView
                 android:id="@+id/textItem2"
@@ -69,15 +76,6 @@
                 android:drawableLeft="@drawable/ic_add_biz"
                 android:onClick="addBusinessClick"
                 android:text="@string/add_business" />
-
-            <TextView
-                android:id="@+id/textItem3"
-                style="@style/NavigationDrawerText"
-                android:drawableLeft="@drawable/ic_listings"
-                android:onClick="onListingClick"
-                android:text="@string/business_list" />
-
-
 
             <View
                 android:layout_width="match_parent"
@@ -108,8 +106,8 @@
                         android:id="@+id/iconMyAccountExpand"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginEnd="@dimen/_5dp"
                         android:background="@drawable/ic_plus" />
                 </RelativeLayout>
@@ -133,8 +131,8 @@
                         style="@style/NavigationDrawerText"
                         android:drawableLeft="@drawable/ic_icon_address"
                         android:onClick="saveAddressClick"
-                        android:visibility="gone"
-                        android:text="@string/save_address" />
+                        android:text="@string/save_address"
+                        android:visibility="gone" />
 
                     <TextView
                         style="@style/NavigationDrawerText"
@@ -170,7 +168,6 @@
                 android:drawableLeft="@drawable/ic_feedback"
                 android:onClick="item3Click"
                 android:text="@string/send_feedback" />
-
 
         </LinearLayout>
     </ScrollView>

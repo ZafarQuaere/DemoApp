@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -16,14 +15,12 @@ import com.squareup.picasso.Picasso;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.MyJsonObjectRequest;
 import com.zaf.econnecto.network_call.response_model.biz_list.BizData;
-import com.zaf.econnecto.network_call.response_model.biz_list.BizListData;
 import com.zaf.econnecto.ui.fragments.BListFragment;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppController;
 import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.Utils;
-import com.zaf.econnecto.utils.parser.ParseManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,17 +58,17 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
         holder.textFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (holder.textFollow.getText().equals("Follow")){
+                if (holder.textFollow.getText().equals(mContext.getString(R.string.follow))){
+                    callFollowApi(holder,"follow",mValues.get(position).getBusinessUid());
                     holder.textFollow.setBackground(mContext.getResources().getDrawable(R.drawable.btn_unfollow));
-                    holder.textFollow.setText("Following");
-                    callFollowApi("follow",mValues.get(position).getBusinessUid());
+                    holder.textFollow.setText(mContext.getString(R.string.following));
                 }else {
                     LogUtils.showDialogDoubleButton(mContext, mContext.getString(R.string.cancel), mContext.getString(R.string.ok),
                             mContext.getString(R.string.do_you_want_to_unfollow )+" "+mValues.get(position).getBusinessName()+" ?", new DialogButtonClick() {
                                 @Override
                                 public void onOkClick() {
-                                    holder.textFollow.setText("Follow");
-                                    callFollowApi("unfollow", mValues.get(position).getBusinessUid());
+                                    callFollowApi(holder, "unfollow", mValues.get(position).getBusinessUid());
+                                    holder.textFollow.setText(mContext.getString(R.string.follow));
                                     holder.textFollow.setBackground(mContext.getResources().getDrawable(R.drawable.btn_follow));
                                 }
                                 @Override
@@ -94,7 +91,7 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
         });
     }
 
-    private void callFollowApi(String action, String businessUid) {
+    private void callFollowApi(final ViewHolder holder, final String action, String businessUid) {
         String url = AppConstant.URL_BASE + AppConstant.URL_FOLLOW;// + 3;
 
         JSONObject requestObject = new JSONObject();
@@ -107,17 +104,24 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
             e.printStackTrace();
         }
         LogUtils.DEBUG("URL : " + url + "\nRequest Body :: "+requestObject.toString());
-        MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.POST, url, requestObject, new Response.Listener<JSONObject>() {
+        final MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.POST, url, requestObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 LogUtils.DEBUG("Follow Response ::" + response.toString());
 
-                BizListData data = ParseManager.getInstance().fromJSON(response.toString(), BizListData.class);
-                if (data.getStatus() == AppConstant.SUCCESS) {
-                }else {
+                if (response != null && !response.equals("")) {
+                    int status = response.optInt("status");
+                    if (status != AppConstant.SUCCESS) {
+                        LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.something_wrong_from_server_plz_try_again));
+                        if (action.equals("follow")){
+                            holder.textFollow.setText(mContext.getString(R.string.follow));
+                            holder.textFollow.setBackground(mContext.getResources().getDrawable(R.drawable.btn_follow));
+                        }else {
+                            holder.textFollow.setBackground(mContext.getResources().getDrawable(R.drawable.btn_unfollow));
+                            holder.textFollow.setText(mContext.getString(R.string.following));
+                        }
+                    }
                 }
-
-
             }
 
         }, new Response.ErrorListener() {

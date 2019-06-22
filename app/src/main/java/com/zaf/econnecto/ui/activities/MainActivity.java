@@ -17,7 +17,7 @@ import android.widget.LinearLayout;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
 import com.zaf.econnecto.ui.fragments.BListFragment;
-import com.zaf.econnecto.ui.fragments.HomeFragment;
+import com.zaf.econnecto.ui.fragments.BizCategoryFragment;
 import com.zaf.econnecto.ui.presenters.MainPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IMain;
 import com.zaf.econnecto.utils.LogUtils;
@@ -49,7 +49,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
     }
 
     private void moveToHome() {
-        getPresenter().moveToFragment(HomeFragment.class.getSimpleName());
+        getPresenter().moveToFragment(BizCategoryFragment.class.getSimpleName());
     }
 
     private void moveToBList() {
@@ -85,15 +85,12 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
 
     public void onHomeClick(View view) {
-        getPresenter().moveToFragment(HomeFragment.class.getSimpleName());
+        getPresenter().moveToFragment(BizCategoryFragment.class.getSimpleName());
         closeDrawer();
 
     }
 
     public void addBusinessClick(View view) {
-        /*callNewOrderApi();
-        callPendingOrderApi();
-        callCompletedOrderApi();*/
         getPresenter().moveToFragment(AddBusinessFragment.class.getSimpleName());
         closeDrawer();
 

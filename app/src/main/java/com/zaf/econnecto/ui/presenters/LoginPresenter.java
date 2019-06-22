@@ -52,7 +52,7 @@ public class LoginPresenter extends BasePresenter {
         }
     }
 
-    public void callApi(String userId, String password) {
+    public void callApi(final String userId, String password) {
         loader.show();
         JSONObject requestObject = new JSONObject();
         try {
@@ -68,21 +68,22 @@ public class LoginPresenter extends BasePresenter {
             @Override
             public void onResponse(JSONObject response) {
                 LogUtils.DEBUG("Login Response ::" + response.toString());
-                LoginPojo loginData = ParseManager.getInstance().fromJSON(response.toString(),LoginPojo.class);
-                try {
-                    if (loginData.getStatus().equals(AppConstant.SUCCESS)){
+
+                if (response != null && !response.equals("")){
+                    int status = response.optInt("status");
+                    if (status == AppConstant.SUCCESS){
                         Utils.setLoggedIn(mContext, true);
-                        Utils.saveLoginData(mContext,response.toString());
+                        //Utils.saveLoginData(mContext,response.toString());
+                        Utils.saveUserEmail(mContext,userId);
                         mLogin.doLogin();
                     }else {
-                        LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), loginData.getMessage());
+                        LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optString("message"));
                     }
-                    loader.dismiss();
-                } catch (Exception e) {
-                    loader.dismiss();
-                    e.printStackTrace();
-                    LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.something_wrong_from_server_plz_try_again));
+
                 }
+                loader.dismiss();
+              //  LoginPojo loginData = ParseManager.getInstance().fromJSON(response.toString(),LoginPojo.class);
+
 
             }
 
