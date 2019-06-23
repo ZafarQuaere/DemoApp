@@ -7,7 +7,7 @@
 6) Profile functionality implementation.
 7) Add Business Api integration.
 8) Please share all the validation msg for register, Separate the error msg with, (comma)
-
+9) Update the Email on Drawer below profile image
 
 23 June.
 1) Login request model class removed.

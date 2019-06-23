@@ -21,17 +21,16 @@
         <activity android:name=".ui.activities.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity android:name=".ui.activities.LoginActivity" />
         <activity android:name=".ui.activities.RegisterActivity" />
-        <activity android:name=".ui.activities.MainActivity" android:theme="@style/AppTheme" />
+        <activity android:name=".ui.activities.MainActivity"/>
         <activity android:name=".ui.activities.EnterOTPActivity" />
         <activity android:name=".ui.activities.ForgetPswdActivity" />
-        <activity android:name=".ui.activities.BizDetailsActivity"/>
+        <activity android:name=".ui.activities.BizDetailsActivity"  android:theme="@style/BizDetailTheme"/>
           <!--  android:parentActivityName=".ui.activities.MainActivity"/>-->
         <activity android:name=".ui.activities.EnterNewPswdActivity" />
     </application>

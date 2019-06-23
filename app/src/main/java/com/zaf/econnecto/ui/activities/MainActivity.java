@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
@@ -30,6 +31,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private Context mContext;
+    private TextView textUserEmail;
 
     @Override
     protected MainPresenter initPresenter() {
@@ -63,11 +65,14 @@ public class MainActivity extends BaseActivity<MainPresenter>
     }
 
     private void initUI() {
+//        textUserEmail = (TextView) findViewById(R.id.textUserEmail);
+//        textUserEmail.setText(Utils.getUserEmail(mContext)!= null ?Utils.getUserEmail(mContext):"");
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
         //hide default drawer icon
         toggle.setDrawerIndicatorEnabled(false);
         ImageView imgDrawerIcon = (ImageView) findViewById(R.id.imgActionBarDrawerIcon);
