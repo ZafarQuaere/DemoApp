@@ -60,6 +60,7 @@ public class ProfilePresenter extends BaseFragmentPresenter {
 
         } catch (JSONException e) {
             e.printStackTrace();
+            LogUtils.ERROR(e.getMessage());
         }
         String url = AppConstant.URL_BASE + AppConstant.URL_DEALER_ADDRESS;
         LogUtils.DEBUG("URL : " + url + "\nRequest Body ::" + requestObject.toString());

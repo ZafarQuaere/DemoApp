@@ -57,6 +57,7 @@ public class NewPasswordPresenter extends BasePresenter {
             requestObject.put("mobile", "");
         } catch (JSONException e) {
             e.printStackTrace();
+            LogUtils.ERROR(e.getMessage());
         }
         String url = AppConstant.URL_BASE + AppConstant.URL_CHANGE_PASSWORD + Utils.getMobileNo(mContext)+ AppConstant.URL_CP_PASSWORD+password;
         LogUtils.DEBUG("URL : " + url + "\nRequest Body ::" + requestObject.toString());

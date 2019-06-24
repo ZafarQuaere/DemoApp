@@ -170,6 +170,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
                 getPresenter().updateActionBarTitleOnBackPress(mContext, baseFrag);
             } catch (Exception e) {
                 e.printStackTrace();
+                LogUtils.ERROR(e.getMessage());
             }
         } else {
             super.onBackPressed();

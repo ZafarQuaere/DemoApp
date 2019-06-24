@@ -110,10 +110,8 @@ public class LogUtils {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.setContentView(R.layout.dialog_double_button);
+        dialog.setContentView(R.layout.dialog_single_button);
         Button btnOk = (Button) dialog.findViewById(R.id.btn_ok);
-        Button btnCancel = (Button) dialog.findViewById(R.id.btnCancel);
-        btnCancel.setVisibility(View.GONE);
         TextView textMessage = (TextView) dialog.findViewById(R.id.text_message);
         textMessage.setText(message);
 
@@ -125,12 +123,6 @@ public class LogUtils {
                 if (listener != null){
                     listener.onOkClick();
                 }
-            }
-        });
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
             }
         });
         dialog.show();

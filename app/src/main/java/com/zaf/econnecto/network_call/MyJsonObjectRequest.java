@@ -54,6 +54,7 @@ public class MyJsonObjectRequest extends JsonObjectRequest {
                 listener.onResponse(new JSONObject(FileUtils.loadJSONFromAsset(mContext,fileName)));
             } catch (Exception e) {
                 e.printStackTrace();
+                LogUtils.ERROR(e.getMessage());
             }
         }else {
             LogUtils.DEBUG(AppConstant.TAG+" url : " + url);
@@ -84,6 +85,7 @@ public class MyJsonObjectRequest extends JsonObjectRequest {
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            LogUtils.ERROR(e.getMessage());
         } catch (JSONException e) {
             return Response.error(new ParseError(e));
         }

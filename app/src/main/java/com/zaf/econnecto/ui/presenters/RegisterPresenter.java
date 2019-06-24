@@ -7,6 +7,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.MyJsonObjectRequest;
+import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.ui.presenters.operations.IRegister;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppController;
@@ -78,6 +79,7 @@ public class RegisterPresenter extends BasePresenter {
 
         } catch (JSONException e) {
             e.printStackTrace();
+            LogUtils.ERROR(e.getMessage());
         }
         String url = AppConstant.URL_BASE + AppConstant.URL_REGISTER;
         LogUtils.DEBUG("URL : " + url + "\nRequest Body ::" + requestObject.toString());
@@ -86,7 +88,15 @@ public class RegisterPresenter extends BasePresenter {
             public void onResponse(JSONObject response) {
                 LogUtils.DEBUG("Register Response ::" + response.toString());
                 loader.dismiss();
-                mRegister.doRegister();
+                LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.register_successful_plz_login), new DialogButtonClick() {
+                    @Override
+                    public void onOkClick() {
+                        mRegister.doRegister();
+                    }
+                    @Override
+                    public void onCancelClick() { }
+                });
+
             }
 
         }, new Response.ErrorListener() {

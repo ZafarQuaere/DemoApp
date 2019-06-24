@@ -62,6 +62,9 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
                     callFollowApi(holder,"follow",mValues.get(position).getBusinessUid());
                     holder.textFollow.setBackground(mContext.getResources().getDrawable(R.drawable.btn_unfollow));
                     holder.textFollow.setText(mContext.getString(R.string.following));
+                    holder.textFollowers.setText((Integer.parseInt(mValues.get(position).getFollowers_count())+1)+" "+mContext.getString(R.string.followers));
+                    int followerCount = Integer.parseInt(mValues.get(position).getFollowers_count()) + 1;
+                    mValues.get(position).setFollowers_count(followerCount+"");
                 }else {
                     LogUtils.showDialogDoubleButton(mContext, mContext.getString(R.string.cancel), mContext.getString(R.string.ok),
                             mContext.getString(R.string.do_you_want_to_unfollow )+" "+mValues.get(position).getBusinessName()+" ?", new DialogButtonClick() {
@@ -70,6 +73,9 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
                                     callFollowApi(holder, "unfollow", mValues.get(position).getBusinessUid());
                                     holder.textFollow.setText(mContext.getString(R.string.follow));
                                     holder.textFollow.setBackground(mContext.getResources().getDrawable(R.drawable.btn_follow));
+                                    holder.textFollowers.setText((Integer.parseInt(mValues.get(position).getFollowers_count())-1)+" "+mContext.getString(R.string.followers));
+                                    int followerCount = Integer.parseInt(mValues.get(position).getFollowers_count()) - 1;
+                                    mValues.get(position).setFollowers_count(followerCount+"");
                                 }
                                 @Override
                                 public void onCancelClick() { }
@@ -102,6 +108,7 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
 
         } catch (JSONException e) {
             e.printStackTrace();
+            LogUtils.ERROR(e.getMessage());
         }
         LogUtils.DEBUG("URL : " + url + "\nRequest Body :: "+requestObject.toString());
         final MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.POST, url, requestObject, new Response.Listener<JSONObject>() {
@@ -120,6 +127,8 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
                             holder.textFollow.setBackground(mContext.getResources().getDrawable(R.drawable.btn_unfollow));
                             holder.textFollow.setText(mContext.getString(R.string.following));
                         }
+                    }else{
+
                     }
                 }
             }

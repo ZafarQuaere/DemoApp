@@ -71,6 +71,7 @@ public class ForgotPswdPresenter extends BasePresenter {
                     LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok),
                             mContext.getString(R.string.please_enter_valid_registered_number));
                     e.printStackTrace();
+                    LogUtils.ERROR(e.getMessage());
                 }
 
             }

@@ -57,6 +57,7 @@ public class AddBizPresenter extends BaseFragmentPresenter {
 
         } catch (JSONException e) {
             e.printStackTrace();
+            LogUtils.ERROR(e.getMessage());
         }
         String url = AppConstant.URL_BASE + AppConstant.URL_INSERT_DELAER;
         LogUtils.DEBUG("URL : " + url + "\nRequest Body ::" + requestObject.toString());

@@ -61,6 +61,7 @@ public class LoginPresenter extends BasePresenter {
 
         } catch (JSONException e) {
             e.printStackTrace();
+            LogUtils.ERROR(e.getMessage());
         }
         String url = AppConstant.URL_BASE + AppConstant.URL_LOGIN;
         LogUtils.DEBUG("URL : " + url + "\nRequest Body ::" + requestObject.toString());

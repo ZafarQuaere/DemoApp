@@ -1,8 +1,10 @@
 package com.zaf.econnecto.ui.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +21,7 @@ import com.zaf.econnecto.network_call.response_model.biz_detail.BizDetails;
 import com.zaf.econnecto.ui.presenters.BizDetailPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IBizDetail;
 import com.zaf.econnecto.utils.LogUtils;
+import com.zaf.econnecto.utils.Utils;
 
 
 public class BizDetailsActivity extends BaseActivity<BizDetailPresenter> implements IBizDetail {
@@ -103,6 +106,12 @@ public class BizDetailsActivity extends BaseActivity<BizDetailPresenter> impleme
         textEmail.setText(mBizDetailsData.getBusinessEmail());
         textWebsite.setVisibility(mBizDetailsData.getWebsite().isEmpty() || mBizDetailsData.getWebsite()==null?View.GONE:View.VISIBLE);
         textWebsite.setText(mBizDetailsData.getWebsite());
+        textPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.callPhone(mContext,mBizDetailsData.getPhone1());
+            }
+        });
       //  textFollow.setText(mBizDetailsData.getDetailedDescription().trim());
 
 

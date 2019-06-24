@@ -61,6 +61,7 @@ public class BizDetailPresenter extends BasePresenter {
                 } catch (Exception e) {
                     loader.dismiss();
                     e.printStackTrace();
+                    LogUtils.ERROR(e.getMessage());
                     LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.something_wrong_from_server_plz_try_again), new DialogButtonClick() {
                         @Override
                         public void onOkClick() {

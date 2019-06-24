@@ -46,6 +46,7 @@ public class OtpPresenter extends BasePresenter {
             }
         } catch (JSONException e) {
             e.printStackTrace();
+            LogUtils.ERROR(e.getMessage());
         }
     }
 }

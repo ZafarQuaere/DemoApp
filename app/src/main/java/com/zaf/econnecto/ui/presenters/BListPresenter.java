@@ -48,6 +48,7 @@ public class BListPresenter extends BaseFragmentPresenter {
 
                     } catch (Exception e) {
                         e.printStackTrace();
+                        LogUtils.ERROR(e.getMessage());
                     }
                 }else {
                     mProductFrag.updateList(null);
@@ -67,4 +68,9 @@ public class BListPresenter extends BaseFragmentPresenter {
         AppController.getInstance().addToRequestQueue(objectRequest, "ProductList");
     }
 
+    /*public void checkProgress() {
+        if (loader != null &&loader.isProgressVisible()){
+            loader.dismiss();
+        }
+    }*/
 }

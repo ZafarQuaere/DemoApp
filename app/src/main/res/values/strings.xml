@@ -171,6 +171,8 @@
     <string name="following">Following</string>
     <string name="business_category">Business Category</string>
     <string name="hot_deals">Hot Deals</string>
+    <string name="register_successful_plz_login">You are Successfully Registered.\nPlease login with email and password</string>
+    <string name="retry">Retry</string>
 
     <array name="age_group">
         <item name="10-13">10_13</item>

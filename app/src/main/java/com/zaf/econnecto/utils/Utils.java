@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
@@ -255,6 +256,7 @@ public class Utils {
             data = (String) prefs.get(context.getString(R.string.key_otp_data));
         } catch (Exception e) {
             e.printStackTrace();
+            LogUtils.ERROR(e.getMessage());
             return data;
         }
         return data;
@@ -276,6 +278,7 @@ public class Utils {
             data = (String) prefs.get(context.getString(R.string.key_mobile_no));
         } catch (Exception e) {
             e.printStackTrace();
+            LogUtils.ERROR(e.getMessage());
             return data;
         }
         return data;
@@ -292,6 +295,7 @@ public class Utils {
             activity.startActivity(Intent.createChooser(shareIntent, activity.getString(R.string.select_app_to_share)));
         } catch (Exception e) {
             e.printStackTrace();
+            LogUtils.ERROR(e.getMessage());
             //e.toString();
         }
     }
@@ -306,6 +310,7 @@ public class Utils {
             address = coder.getFromLocationName(strAddress, 5);
         } catch (IOException e) {
             e.printStackTrace();
+            LogUtils.ERROR(e.getMessage());
         }
         if (address == null)
             return null;
@@ -326,6 +331,7 @@ public class Utils {
             data = (String) prefs.get(mContext.getString(R.string.key_user_email));
         } catch (Exception e) {
             e.printStackTrace();
+            LogUtils.ERROR(e.getMessage());
             return data;
         }
         return data;
@@ -380,6 +386,7 @@ public class Utils {
             data = (String) prefs.get(context.getString(R.string.key_new_order_data));
         } catch (Exception e) {
             e.printStackTrace();
+            LogUtils.ERROR(e.getMessage());
             return data;
         }
         return data;
@@ -392,6 +399,7 @@ public class Utils {
             data = (String) prefs.get(context.getString(R.string.key_login_data));
         } catch (Exception e) {
             e.printStackTrace();
+            LogUtils.ERROR(e.getMessage());
             return data;
         }
         return data;
@@ -413,6 +421,7 @@ public class Utils {
             data = (String) prefs.get(context.getString(R.string.key_pending_order_data));
         } catch (Exception e) {
             e.printStackTrace();
+            LogUtils.ERROR(e.getMessage());
             return data;
         }
         return data;
@@ -432,8 +441,19 @@ public class Utils {
             data = (String) prefs.get(context.getString(R.string.key_complete_order_data));
         } catch (Exception e) {
             e.printStackTrace();
+            LogUtils.ERROR(e.getMessage());
             return data;
         }
         return data;
+    }
+
+    public static void callPhone(Context mContext, String phone1) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone1, null));
+            mContext.startActivity(intent);
+        } catch (Exception e) {
+            LogUtils.ERROR(e.getMessage());
+            e.printStackTrace();
+        }
     }
 }

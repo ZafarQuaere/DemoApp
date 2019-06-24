@@ -37,4 +37,8 @@ public class AppLoaderFragment {
     public void dismiss() {
         progressFrag.dismiss();
     }
+
+    public boolean isProgressVisible(){
+     return progressFrag.isVisible();
+    }
 }
