@@ -34,6 +34,7 @@
         <activity android:name=".ui.activities.BizDetailsActivity"  android:theme="@style/BizDetailTheme"/>
           <!--  android:parentActivityName=".ui.activities.MainActivity"/>-->
         <activity android:name=".ui.activities.EnterNewPswdActivity" />
+        <activity android:name=".ui.activities.SplashActivity" />
     </application>
 
 </manifest>

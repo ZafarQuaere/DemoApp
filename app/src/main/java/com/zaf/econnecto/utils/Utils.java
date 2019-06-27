@@ -221,7 +221,7 @@ public class Utils {
         }
     }
 
-    public static void clearBackStackTillHomeFragment(Activity activity) {
+    public static void clearBackStackTillHomeFragment(Context activity) {
 
         LogUtils.DEBUG("Utils >> clearBackStackTillHomeFragment() >> activity : " + activity);
         if (activity == null) {
@@ -238,7 +238,7 @@ public class Utils {
                 break;
             }
         }
-        Utils.updateActionBar(activity, BizCategoryFragment.class.getSimpleName(), activity.getString(R.string.business_category), null, null);
+        Utils.updateActionBar(activity, BizCategoryFragment.class.getSimpleName(), activity.getString(R.string.business_list), null, null);
         // updateBottomBar(activity, new BizCategoryFragment().getClass().getSimpleName());
     }
 

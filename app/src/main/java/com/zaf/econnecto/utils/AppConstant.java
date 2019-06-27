@@ -4,11 +4,12 @@ public class AppConstant {
 
     public static final Integer SUCCESS = 1;
     public static final Integer FAILURE = 0;
+    public static final Integer FOLLOWING = 1;
     public static final String COMINGFROM = "ComingFrom";
     public static final int LOGIN = 1;
     public static final int HOME = 2;
     // Splash screen timer
-    public static int SPLASH_TIME_OUT = 2000;
+    public static int SPLASH_TIME_OUT = 1500;
     public static final String TIMESTAMP_FORMAT = "yyyyMMdd_HHmmss";
     public static final String TAG = "e-Connecto";
     public static final String RUPEES_SYMBOL = "₹ ";
@@ -19,7 +20,7 @@ public class AppConstant {
     public static final String URL_BASE = "http://econnecto.com/api/";
     public static final String URL_REGISTER = "register.php";
     public static final String URL_LOGIN = "login.php";
-    public static final String URL_BIZ_LIST = "business_list.php"; //(brandname,banner_image)
+    public static final String URL_BIZ_LIST = "business_list.php?email="; //(brandname,banner_image)
     public static final String URL_BIZ_DETAIL = "single_business.php?business_uid="; //(brandname,banner_image)
     public static final String URL_FOLLOW = "follow.php";
     public static final String URL_LOGOUT = "logout.php";

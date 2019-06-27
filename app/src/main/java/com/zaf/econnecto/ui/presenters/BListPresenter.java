@@ -34,7 +34,10 @@ public class BListPresenter extends BaseFragmentPresenter {
 
     public void callBListApi() {
         loader.show();
-        String url = AppConstant.URL_BASE + AppConstant.URL_BIZ_LIST;// + 3;
+        String url = AppConstant.URL_BASE + AppConstant.URL_BIZ_LIST;
+        if (Utils.isLoggedIn(mContext)){
+            url = AppConstant.URL_BASE + AppConstant.URL_BIZ_LIST+Utils.getUserEmail(mContext);
+        }
         LogUtils.DEBUG("URL : " + url + "\nRequest Body ::");
         MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override

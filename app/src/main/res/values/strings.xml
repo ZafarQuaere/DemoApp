@@ -173,6 +173,7 @@
     <string name="hot_deals">Hot Deals</string>
     <string name="register_successful_plz_login">You are Successfully Registered.\nPlease login with email and password</string>
     <string name="retry">Retry</string>
+    <string name="you_need_to_login_first_to_follow_a_business">You need to Login first to follow a Businness.</string>
 
     <array name="age_group">
         <item name="10-13">10_13</item>

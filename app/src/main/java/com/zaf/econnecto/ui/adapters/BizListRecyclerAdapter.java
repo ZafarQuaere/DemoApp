@@ -1,6 +1,7 @@
 package com.zaf.econnecto.ui.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.squareup.picasso.Picasso;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.MyJsonObjectRequest;
 import com.zaf.econnecto.network_call.response_model.biz_list.BizData;
+import com.zaf.econnecto.ui.activities.LoginActivity;
 import com.zaf.econnecto.ui.fragments.BListFragment;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.utils.AppConstant;
@@ -50,37 +52,61 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getBusinessName());
-        holder.mContentView.setText(mContext.getString(R.string.establish_date)+": "+mValues.get(position).getYearFounded());
-        holder.textFollowers.setText(mValues.get(position).getFollowers_count()+" "+mContext.getString(R.string.followers));
+        holder.mContentView.setText(mContext.getString(R.string.establish_date) + ": " + mValues.get(position).getYearFounded());
+        holder.textFollowers.setText(mValues.get(position).getFollowersCount() + " " + mContext.getString(R.string.followers));
+        //TODO default following ui updates have to do.
+        if (mValues.get(position).getIsFollowing() == AppConstant.FOLLOWING) {
+            updateFollowingUI(holder.textFollow);
+        } else {
+            updateUnfollowUI(holder.textFollow);
+        }
 
         Picasso.get().load(mValues.get(position).getBusinessPic()).placeholder(R.drawable.avatar_male).into(holder.imgItem);
 
         holder.textFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (holder.textFollow.getText().equals(mContext.getString(R.string.follow))){
-                    callFollowApi(holder,"follow",mValues.get(position).getBusinessUid());
-                    holder.textFollow.setBackground(mContext.getResources().getDrawable(R.drawable.btn_unfollow));
-                    holder.textFollow.setText(mContext.getString(R.string.following));
-                    holder.textFollowers.setText((Integer.parseInt(mValues.get(position).getFollowers_count())+1)+" "+mContext.getString(R.string.followers));
-                    int followerCount = Integer.parseInt(mValues.get(position).getFollowers_count()) + 1;
-                    mValues.get(position).setFollowers_count(followerCount+"");
-                }else {
+                if (Utils.isLoggedIn(mContext)) {
+                    if (holder.textFollow.getText().equals(mContext.getString(R.string.follow))) {
+                        callFollowApi(holder, "follow", mValues.get(position).getBusinessUid());
+                        holder.textFollowers.setText((Integer.parseInt(mValues.get(position).getFollowersCount()) + 1) + " " + mContext.getString(R.string.followers));
+                        int followerCount = Integer.parseInt(mValues.get(position).getFollowersCount()) + 1;
+                        mValues.get(position).setFollowersCount(followerCount + "");
+                        mValues.get(position).setIsFollowing(1);
+                        updateFollowingUI(holder.textFollow);
+                    } else {
+                        LogUtils.showDialogDoubleButton(mContext, mContext.getString(R.string.cancel), mContext.getString(R.string.ok),
+                                mContext.getString(R.string.do_you_want_to_unfollow) + " " + mValues.get(position).getBusinessName() + " ?", new DialogButtonClick() {
+                                    @Override
+                                    public void onOkClick() {
+                                        callFollowApi(holder, "unfollow", mValues.get(position).getBusinessUid());
+                                        updateUnfollowUI(holder.textFollow);
+                                        holder.textFollowers.setText((Integer.parseInt(mValues.get(position).getFollowersCount()) - 1) + " " + mContext.getString(R.string.followers));
+                                        int followerCount = Integer.parseInt(mValues.get(position).getFollowersCount()) - 1;
+                                        mValues.get(position).setFollowersCount(followerCount + "");
+                                        mValues.get(position).setIsFollowing(0);
+                                    }
+
+                                    @Override
+                                    public void onCancelClick() {
+                                    }
+                                });
+                    }
+                } else {
+
                     LogUtils.showDialogDoubleButton(mContext, mContext.getString(R.string.cancel), mContext.getString(R.string.ok),
-                            mContext.getString(R.string.do_you_want_to_unfollow )+" "+mValues.get(position).getBusinessName()+" ?", new DialogButtonClick() {
+                            mContext.getString(R.string.you_need_to_login_first_to_follow_a_business) , new DialogButtonClick() {
                                 @Override
                                 public void onOkClick() {
-                                    callFollowApi(holder, "unfollow", mValues.get(position).getBusinessUid());
-                                    holder.textFollow.setText(mContext.getString(R.string.follow));
-                                    holder.textFollow.setBackground(mContext.getResources().getDrawable(R.drawable.btn_follow));
-                                    holder.textFollowers.setText((Integer.parseInt(mValues.get(position).getFollowers_count())-1)+" "+mContext.getString(R.string.followers));
-                                    int followerCount = Integer.parseInt(mValues.get(position).getFollowers_count()) - 1;
-                                    mValues.get(position).setFollowers_count(followerCount+"");
+                                    mContext.startActivity(new Intent(mContext, LoginActivity.class));
                                 }
+
                                 @Override
-                                public void onCancelClick() { }
+                                public void onCancelClick() {
+                                }
                             });
                 }
+
             }
         });
 
@@ -97,6 +123,17 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
         });
     }
 
+    private void updateUnfollowUI(TextView textFollow) {
+        textFollow.setText(mContext.getString(R.string.follow));
+        textFollow.setBackground(mContext.getResources().getDrawable(R.drawable.btn_follow));
+    }
+
+    private void updateFollowingUI(TextView textFollow) {
+        textFollow.setBackground(mContext.getResources().getDrawable(R.drawable.btn_unfollow));
+        textFollow.setText(mContext.getString(R.string.following));
+
+    }
+
     private void callFollowApi(final ViewHolder holder, final String action, String businessUid) {
         String url = AppConstant.URL_BASE + AppConstant.URL_FOLLOW;// + 3;
 
@@ -110,7 +147,7 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
             e.printStackTrace();
             LogUtils.ERROR(e.getMessage());
         }
-        LogUtils.DEBUG("URL : " + url + "\nRequest Body :: "+requestObject.toString());
+        LogUtils.DEBUG("URL : " + url + "\nRequest Body :: " + requestObject.toString());
         final MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.POST, url, requestObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -120,14 +157,14 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
                     int status = response.optInt("status");
                     if (status != AppConstant.SUCCESS) {
                         LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.something_wrong_from_server_plz_try_again));
-                        if (action.equals("follow")){
+                        if (action.equals("follow")) {
                             holder.textFollow.setText(mContext.getString(R.string.follow));
                             holder.textFollow.setBackground(mContext.getResources().getDrawable(R.drawable.btn_follow));
-                        }else {
+                        } else {
                             holder.textFollow.setBackground(mContext.getResources().getDrawable(R.drawable.btn_unfollow));
                             holder.textFollow.setText(mContext.getString(R.string.following));
                         }
-                    }else{
+                    } else {
 
                     }
                 }

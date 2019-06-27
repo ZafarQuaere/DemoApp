@@ -8,6 +8,9 @@ public class BizData {
     @SerializedName("business_pic")
     @Expose
     private String businessPic;
+    @SerializedName("banner_pic")
+    @Expose
+    private String bannerPic;
     @SerializedName("business_name")
     @Expose
     private String businessName;
@@ -19,15 +22,10 @@ public class BizData {
     private String businessUid;
     @SerializedName("followers_count")
     @Expose
-    private String followers_count;
-
-    public String getFollowers_count() {
-        return followers_count;
-    }
-
-    public void setFollowers_count(String followers_count) {
-        this.followers_count = followers_count;
-    }
+    private String followersCount;
+    @SerializedName("is_following")
+    @Expose
+    private Integer isFollowing;
 
     public String getBusinessPic() {
         return businessPic;
@@ -35,6 +33,14 @@ public class BizData {
 
     public void setBusinessPic(String businessPic) {
         this.businessPic = businessPic;
+    }
+
+    public String getBannerPic() {
+        return bannerPic;
+    }
+
+    public void setBannerPic(String bannerPic) {
+        this.bannerPic = bannerPic;
     }
 
     public String getBusinessName() {
@@ -59,5 +65,21 @@ public class BizData {
 
     public void setBusinessUid(String businessUid) {
         this.businessUid = businessUid;
+    }
+
+    public String getFollowersCount() {
+        return followersCount;
+    }
+
+    public void setFollowersCount(String followersCount) {
+        this.followersCount = followersCount;
+    }
+
+    public Integer getIsFollowing() {
+        return isFollowing;
+    }
+
+    public void setIsFollowing(Integer isFollowing) {
+        this.isFollowing = isFollowing;
     }
 }

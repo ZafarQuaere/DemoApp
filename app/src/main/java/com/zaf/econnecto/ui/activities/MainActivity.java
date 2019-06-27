@@ -198,4 +198,9 @@ public class MainActivity extends BaseActivity<MainPresenter>
     }
 
 
+    @Override
+    public void onLogoutCall() {
+        Utils.clearBackStackTillHomeFragment(mContext);
+        getPresenter().moveToFragment(BListFragment.class.getSimpleName());
+    }
 }

@@ -70,6 +70,7 @@ public class MainPresenter extends BasePresenter {
                 mContext.getString(R.string.do_you_really_want_to_logout), new DialogButtonClick() {
                     @Override
                     public void onOkClick() {
+                        iMain.onLogoutCall();
                         callLogoutApi();
                     }
 
