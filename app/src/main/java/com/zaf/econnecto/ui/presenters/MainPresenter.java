@@ -13,7 +13,7 @@ import com.zaf.econnecto.network_call.MyJsonObjectRequest;
 import com.zaf.econnecto.ui.activities.ForgetPswdActivity;
 import com.zaf.econnecto.ui.activities.LoginActivity;
 import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
-import com.zaf.econnecto.ui.fragments.BListFragment;
+import com.zaf.econnecto.ui.fragments.BizListFragment;
 import com.zaf.econnecto.ui.fragments.BizCategoryFragment;
 import com.zaf.econnecto.ui.fragments.FragmentProfile;
 import com.zaf.econnecto.ui.fragments.HelpNFaqFragment;
@@ -49,9 +49,9 @@ public class MainPresenter extends BasePresenter {
                 Utils.moveToFragment(mContext, new AddBusinessFragment(), AddBusinessFragment.class.getSimpleName(), null);
                 Utils.updateActionBar(mContext, AddBusinessFragment.class.getSimpleName(), mContext.getString(R.string.add_business), null, null);
                 break;
-            case "BListFragment":
-                Utils.moveToFragment(mContext, new BListFragment(), BListFragment.class.getSimpleName(), null);
-                Utils.updateActionBar(mContext, BListFragment.class.getSimpleName(), mContext.getString(R.string.business_list), null, null);
+            case "BizListFragment":
+                Utils.moveToFragment(mContext, new BizListFragment(), BizListFragment.class.getSimpleName(), null);
+                Utils.updateActionBar(mContext, BizListFragment.class.getSimpleName(), mContext.getString(R.string.business_list), null, null);
                 break;
             case "FragmentProfile":
                 Utils.moveToFragment(mContext, new FragmentProfile(), FragmentProfile.class.getSimpleName(), null);
@@ -91,10 +91,12 @@ public class MainPresenter extends BasePresenter {
         if (baseFragment.getClass().getSimpleName().contains("Category")) {
             Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.business_category), null, null);
         } else if (baseFragment.getClass().getSimpleName().contains("List")) {
+            iMain.showAddBizFab(true);
             Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.business_list), null, null);
         } else if (baseFragment.getClass().getSimpleName().contains("Profile")) {
             Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.my_profile), null, null);
         } else if (baseFragment.getClass().getSimpleName().contains("Add")) {
+            iMain.showAddBizFab(false);
             Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.add_business), null, null);
         } else if (baseFragment.getClass().getSimpleName().contains("AddressData")) {
             Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.save_address), null, null);

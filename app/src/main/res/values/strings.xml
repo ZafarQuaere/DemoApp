@@ -32,7 +32,7 @@
     <string name="mobile_no">Mobile No.</string>
     <string name="email_id">Email ID</string>
     <string name="confirm_pswd">Confirm Password</string>
-    <string name="error_network_unavailable">Please check your network connection</string>
+    <string name="error_network_unavailable"><!--Oh no!--> No internet found,Check your connection and Try again.</string>
     <string name="please_enter_username">Please enter  username</string>
     <string name="please_enter_seller_name">Please enter  Seller/Business name</string>
     <string name="please_enter_password">Please enter password</string>
@@ -67,7 +67,7 @@
     <string name="enter_registered_mobile_no">Enter registered mobile no.</string>
     <string name="please_enter_otp">Please enter otp which is sent to your mobile number</string>
     <string name="enter_valid_otp">Enter valid otp</string>
-    <string name="please_check_your_network_connection">Please check your internet connection.</string>
+    <string name="please_check_your_network_connection">Please Check your internet connection and Try again.</string>
     <string name="save_address">Save Address</string>
     <string name="enter_address">Enter Address</string>
     <string name="enter_city">Enter City</string>
@@ -76,7 +76,7 @@
     <string name="sellername">Enter Seller/Business Name</string>
     <string name="enter_mobile_no">Enter Mobile No.</string>
     <string name="add_seller">Add Seller</string>
-    <string name="please_enter_address">Please enter addressData</string>
+    <string name="please_enter_address">Please enter address</string>
     <string name="please_enter_valid_pincode">Please Enter valid pincode.</string>
     <string name="please_enter_city_name">Please enter city</string>
     <string name="please_enter_state">Please enter state.</string>
@@ -174,6 +174,15 @@
     <string name="register_successful_plz_login">You are Successfully Registered.\nPlease login with email and password</string>
     <string name="retry">Retry</string>
     <string name="you_need_to_login_first_to_follow_a_business">You need to Login first to follow a Businness.</string>
+    <string name="please_enter_business_name">Please Enter Business Name</string>
+    <string name="please_enter_a_short_description">Please enter a short description of your business.</string>
+    <string name = "Select_Category">Select Category</string>
+    <string name="please_select_business_category">Please select business category</string>
+    <string name="please_enter_a_detail_description">Please enter detail description of your business.</string>
+    <string name="please_enter_foundation_year_of_business">Please enter Foundation Year of the business.</string>
+    <string name="add_business_success_msg">Congratulations !!  Your business is added Successfully.</string>
+    <string name="please_enable_your_network_connection_and_launch_again">Please enable your network connection and launch again.</string>
+    <string name="is_following">is_following</string>
 
     <array name="age_group">
         <item name="10-13">10_13</item>
@@ -183,5 +192,61 @@
         <item name="21-24">22_24</item>
         <item name="24-27">24_27</item>
         <item name="27-30">27_30</item>
+    </array>
+
+    <array name="charges_uniit">
+        <item name = "Select_Charges">Select Charges</item>
+        <item name="per_person">Per Person</item>
+        <item name="per_month">Per Month</item>
+        <item name="rupee_symbol">₹</item>
+    </array>
+
+    <array name="biz_category">
+        <item name = "Select_Category">Select Category</item>
+        <item name = "Automobiles_Showroom">Automobiles Showroom</item>
+        <item name = "Bags_and_Luggage">Bags and Luggage</item>
+        <item name = "Bakery">Bakery</item>
+        <item name = "Bank">Bank</item>
+        <item name = "Beauty_Parlour">Beauty Parlour</item>
+        <item name = "Book_Store">Book Store</item>
+        <item name = "Building_and_Materials">Building and Materials</item>
+        <item name = "Cab_and_Cars">Cab and Cars</item>
+        <item name = "Coaching_Institute">Coaching Institute</item>
+        <item name = "College_School">College/School</item>
+        <item name = "Courier_Services">Courier Services</item>
+        <item name = "Crockery">Crockery</item>
+        <item name = "Doctors">Doctors</item>
+        <item name = "Electric_Store">Electric Store</item>
+        <item name = "Entertainment">Entertainment</item>
+        <item name = "Florists">Florists</item>
+        <item name = "Foot_Wear_Shop">Foot Wear Shop</item>
+        <item name = "Fruits_Shops">Fruits Shops</item>
+        <item name = "Furniture_Store">Furniture Store</item>
+        <item name = "Garments_Shop">Garments Shop</item>
+        <item name = "Grocery">Grocery</item>
+        <item name = "Home_Decor">Home Decor</item>
+        <item name = "Hospital">Hospital</item>
+        <item name = "Hotel">Hotel</item>
+        <item name = "Internet_Cafe">Internet Cafe</item>
+        <item name = "Jewelry">Jewelry</item>
+        <item name = "Marriage_Hall">Marriage Hall</item>
+        <item name = "Medical_Store">Medical Store</item>
+        <item name = "Mobile_and_Mobile_Accessories_Store">Mobile and Mobile Accessories Store</item>
+        <item name = "Mobile_DTH_Recharge">Mobile/DTH Recharge</item>
+        <item name = "Motor_Bike_Showroom">Motor Bike Showroom</item>
+        <item name = "Packers_and_Movers">Packers and Movers</item>
+        <item name = "Petrol_Pump">Petrol Pump</item>
+        <item name = "Photocopy_Shop">Photocopy Shop</item>
+        <item name = "Poultry">Poultry</item>
+        <item name = "Real_State">Real State</item>
+        <item name = "Restaurant">Restaurant</item>
+        <item name = "Saloon">Saloon</item>
+        <item name = "Shopping_Mall">Shopping Mall</item>
+        <item name = "Sports">Sports</item>
+        <item name = "Stationary">Stationary</item>
+        <item name = "Sweet_Shop">Sweet Shop</item>
+        <item name = "Telecom">Telecom</item>
+        <item name = "Utensils_Shops">Utensils Shops</item>
+        <item name = "Others">Others</item>
     </array>
 </resources>

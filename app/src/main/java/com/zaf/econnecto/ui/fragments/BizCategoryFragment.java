@@ -3,10 +3,8 @@ package com.zaf.econnecto.ui.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,11 +19,9 @@ import com.smarteist.autoimageslider.SliderView;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.response_model.home.DetailData;
 import com.zaf.econnecto.network_call.response_model.home.Sales;
-import com.zaf.econnecto.network_call.response_model.product_list.ProductList;
 import com.zaf.econnecto.ui.adapters.CategoryRecylcerAdapter;
 import com.zaf.econnecto.ui.presenters.HomePresenter;
 import com.zaf.econnecto.ui.presenters.operations.IFragHome;
-import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.Utils;
 
 import java.util.List;
@@ -125,8 +121,8 @@ public class BizCategoryFragment extends BaseFragment<HomePresenter> implements 
         CategoryRecylcerAdapter adapter = new CategoryRecylcerAdapter(mContext, data, new OnCategoryItemClickListener() {
             @Override
             public void onCategoryItemClick(DetailData item) {
-                Utils.moveToFragment(mContext, new BListFragment(), BListFragment.class.getSimpleName(), null);
-                Utils.updateActionBar(mContext, BListFragment.class.getSimpleName(),mContext.getString(R.string.business_list),null,null);
+                Utils.moveToFragment(mContext, new BizListFragment(), BizListFragment.class.getSimpleName(), null);
+                Utils.updateActionBar(mContext, BizListFragment.class.getSimpleName(),mContext.getString(R.string.business_list),null,null);
                 //LogUtils.showToast(mContext,item.getFirstName());
             }
         });

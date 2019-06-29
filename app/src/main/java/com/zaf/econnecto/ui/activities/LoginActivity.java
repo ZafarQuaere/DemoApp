@@ -7,15 +7,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zaf.econnecto.R;
-import com.zaf.econnecto.network_call.request_model.Register;
 import com.zaf.econnecto.ui.presenters.LoginPresenter;
 import com.zaf.econnecto.ui.presenters.operations.ILogin;
-import com.zaf.econnecto.utils.KeyboardUtils;
 import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.Utils;
 
@@ -66,7 +62,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
         editPassword = (EditText) findViewById(R.id.editPassword);
         TextView textForgetPswd = (TextView) findViewById(R.id.textForgetPswd);
         TextView txtRegister = (TextView) findViewById(R.id.txtRegister);
-        Button btnLogin = (Button) findViewById(R.id.btnLogin);
+        Button btnLogin = (Button) findViewById(R.id.btnAddBizns);
 
 
 
@@ -106,7 +102,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
                 getPresenter().startActivity(mContext);
                 break;
 
-            case R.id.btnLogin:
+            case R.id.btnAddBizns:
                 validationField();
                 break;
 

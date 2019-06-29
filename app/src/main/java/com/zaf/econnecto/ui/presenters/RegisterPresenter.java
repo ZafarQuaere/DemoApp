@@ -87,15 +87,23 @@ public class RegisterPresenter extends BasePresenter {
             @Override
             public void onResponse(JSONObject response) {
                 LogUtils.DEBUG("Register Response ::" + response.toString());
-                loader.dismiss();
-                LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.register_successful_plz_login), new DialogButtonClick() {
-                    @Override
-                    public void onOkClick() {
-                        mRegister.doRegister();
+                if (response != null && !response.equals("")) {
+                    int status = response.optInt("status");
+                    if (status == AppConstant.SUCCESS) {
+                        LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.register_successful_plz_login), new DialogButtonClick() {
+                            @Override
+                            public void onOkClick() {
+                                mRegister.doRegister();
+                            }
+                            @Override
+                            public void onCancelClick() { }
+                        });
+                    } else {
+                        LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optString("message"));
                     }
-                    @Override
-                    public void onCancelClick() { }
-                });
+                }
+                loader.dismiss();
+
 
             }
 
@@ -103,7 +111,7 @@ public class RegisterPresenter extends BasePresenter {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loader.dismiss();
-                LogUtils.DEBUG("Register Error ::" + error.getMessage());
+                LogUtils.ERROR("Register Error ::" + error.getMessage());
             }
         });
         AppController.getInstance().addToRequestQueue(objectRequest, "Register");

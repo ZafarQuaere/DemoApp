@@ -92,7 +92,7 @@ public class LoginPresenter extends BasePresenter {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loader.dismiss();
-                LogUtils.DEBUG("Login Error ::" + error.getMessage());
+                LogUtils.ERROR("Login Error ::" + error.getMessage());
             }
         });
         AppController.getInstance().addToRequestQueue(objectRequest, "Login");

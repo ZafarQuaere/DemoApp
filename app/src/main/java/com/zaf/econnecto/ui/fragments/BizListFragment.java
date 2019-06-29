@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,7 +27,7 @@ import com.zaf.econnecto.utils.NetworkUtils;
 import java.util.List;
 
 
-public class BListFragment extends BaseFragment<BListPresenter> implements IFragListing {
+public class BizListFragment extends BaseFragment<BListPresenter> implements IFragListing {
 
     private RecyclerView recylcerProducts;
     private RecyclerView.LayoutManager layoutManager;
@@ -66,7 +67,7 @@ public class BListFragment extends BaseFragment<BListPresenter> implements IFrag
                    if (NetworkUtils.isNetworkEnabled(mContext)) {
                        getPresenter().callBListApi();
                    } else {
-                       LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.please_check_your_network_connection));
+                       LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.please_enable_your_network_connection_and_launch_again));
                    }
                }
                @Override
@@ -80,8 +81,6 @@ public class BListFragment extends BaseFragment<BListPresenter> implements IFrag
     }
 
     private void initUI(View view) {
-       /* FloatingActionButton fabAddBizness = (FloatingActionButton) view.getRootView().findViewById(R.id.fabAddBizness);
-        fabAddBizness.setVisibility(View.VISIBLE);*/
 
         recylcerProducts = (RecyclerView) view.findViewById(R.id.recyclerBusinessList);
         recylcerProducts.setHasFixedSize(true);
@@ -117,8 +116,12 @@ public class BListFragment extends BaseFragment<BListPresenter> implements IFrag
             BizListRecyclerAdapter adapter = new BizListRecyclerAdapter(mContext,data, new OnListFragmentInteractionListener() {
                 @Override
                 public void onListFragmentInteraction(BizData item) {
-                    if (item != null)
-                         startActivity(new Intent(getActivity(), BizDetailsActivity.class).putExtra(getString(R.string.key_biz_id),item.getBusinessUid()));
+                    if (item != null) {
+                        Intent intent = new Intent(getActivity(),BizDetailsActivity.class);
+                        intent.putExtra(getString(R.string.key_biz_id), item.getBusinessUid());
+                        intent.putExtra(getString(R.string.is_following),item.getIsFollowing()==1);
+                        startActivity(intent);
+                    }
                 }
             });
             recylcerProducts.setAdapter(adapter);

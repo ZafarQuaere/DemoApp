@@ -24,6 +24,7 @@ public class AppConstant {
     public static final String URL_BIZ_DETAIL = "single_business.php?business_uid="; //(brandname,banner_image)
     public static final String URL_FOLLOW = "follow.php";
     public static final String URL_LOGOUT = "logout.php";
+    public static final String URL_ADD_BUSINESS = "add_business.php";
 
 
     public static final String URL_DEALER_ADDRESS = "/insert-dealear-address"; //(brandname,banner_image)

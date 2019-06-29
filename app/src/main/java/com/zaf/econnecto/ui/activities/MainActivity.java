@@ -1,8 +1,10 @@
 package com.zaf.econnecto.ui.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -17,7 +19,7 @@ import android.widget.TextView;
 
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
-import com.zaf.econnecto.ui.fragments.BListFragment;
+import com.zaf.econnecto.ui.fragments.BizListFragment;
 import com.zaf.econnecto.ui.fragments.BizCategoryFragment;
 import com.zaf.econnecto.ui.presenters.MainPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IMain;
@@ -32,6 +34,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
     private DrawerLayout drawer;
     private Context mContext;
     private TextView textUserEmail;
+    private FloatingActionButton fabAddBizness;
 
     @Override
     protected MainPresenter initPresenter() {
@@ -54,8 +57,10 @@ public class MainActivity extends BaseActivity<MainPresenter>
         getPresenter().moveToFragment(BizCategoryFragment.class.getSimpleName());
     }
 
+    @SuppressLint("RestrictedApi")
     private void moveToBList() {
-        getPresenter().moveToFragment(BListFragment.class.getSimpleName());
+        getPresenter().moveToFragment(BizListFragment.class.getSimpleName());
+        fabAddBizness.setVisibility(View.VISIBLE);
     }
 
     private void setUpToolbar() {
@@ -64,14 +69,16 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     }
 
+    @SuppressLint("RestrictedApi")
     private void initUI() {
-//        textUserEmail = (TextView) findViewById(R.id.textUserEmail);
-//        textUserEmail.setText(Utils.getUserEmail(mContext)!= null ?Utils.getUserEmail(mContext):"");
+
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        fabAddBizness = (FloatingActionButton) findViewById(R.id.fabAddBizness);
+        fabAddBizness.setVisibility(View.GONE);
 
         //hide default drawer icon
         toggle.setDrawerIndicatorEnabled(false);
@@ -95,15 +102,19 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     }
 
+    @SuppressLint("RestrictedApi")
     public void addBusinessClick(View view) {
         getPresenter().moveToFragment(AddBusinessFragment.class.getSimpleName());
+        fabAddBizness.setVisibility(View.GONE);
         closeDrawer();
 
     }
 
 
+    @SuppressLint("RestrictedApi")
     public void onListingClick(View view) {
-        getPresenter().moveToFragment(BListFragment.class.getSimpleName());
+        getPresenter().moveToFragment(BizListFragment.class.getSimpleName());
+        fabAddBizness.setVisibility(View.VISIBLE);
         closeDrawer();
     }
 
@@ -201,6 +212,12 @@ public class MainActivity extends BaseActivity<MainPresenter>
     @Override
     public void onLogoutCall() {
         Utils.clearBackStackTillHomeFragment(mContext);
-        getPresenter().moveToFragment(BListFragment.class.getSimpleName());
+        getPresenter().moveToFragment(BizListFragment.class.getSimpleName());
+    }
+
+    @SuppressLint("RestrictedApi")
+    @Override
+    public void showAddBizFab(boolean show) {
+        fabAddBizness.setVisibility(show? View.VISIBLE:View.GONE);
     }
 }

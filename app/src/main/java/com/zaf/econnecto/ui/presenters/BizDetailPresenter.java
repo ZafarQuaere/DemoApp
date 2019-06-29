@@ -13,6 +13,7 @@ import com.zaf.econnecto.network_call.request_model.AddressData;
 import com.zaf.econnecto.network_call.response_model.biz_detail.BizDetailData;
 import com.zaf.econnecto.network_call.response_model.biz_detail.BizDetails;
 import com.zaf.econnecto.network_call.response_model.login.LoginPojo;
+import com.zaf.econnecto.ui.adapters.BizListRecyclerAdapter;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.ui.presenters.operations.IBizDetail;
 import com.zaf.econnecto.utils.AppConstant;
@@ -24,6 +25,7 @@ import com.zaf.econnecto.utils.Utils;
 import com.zaf.econnecto.utils.parser.ParseManager;
 
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class BizDetailPresenter extends BasePresenter {
@@ -84,4 +86,6 @@ public class BizDetailPresenter extends BasePresenter {
         });
         AppController.getInstance().addToRequestQueue(objectRequest, "BizDetail");
     }
+
+
 }

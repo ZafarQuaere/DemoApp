@@ -22,8 +22,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/_20dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/_20dp">
 
                 <TextView
                     style="@style/RegularTextview"
@@ -34,69 +34,92 @@
                     android:paddingVertical="@dimen/_5dp"
                     android:text="@string/basic_details" />
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:text="@string/business_name"
+                    android:textSize="@dimen/font_small_header" />
 
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/editFirstName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/business_name"
-                        android:maxLength="70"
-                        android:textSize="@dimen/font_regular_text" />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/editLastName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/business_dialog"
-                        android:maxLength="70"
-                        android:textSize="@dimen/font_regular_text" />
-                </android.support.design.widget.TextInputLayout>
-
-                <LinearLayout
+                <EditText
+                    android:id="@+id/editBizName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp">
+                    android:layout_marginHorizontal="@dimen/_5dp"
+                    android:background="@drawable/button_transparent_bg"
+                    android:maxLength="70"
+                    android:minHeight="@dimen/edit_field_height"
+                    android:paddingStart="@dimen/_5dp"
+                    android:text=" " />
 
-                    <TextView
-                        style="@style/TextView.InputLabel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/category" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:text="@string/business_dialog"
+                    android:textSize="@dimen/font_small_header" />
 
-                    <android.support.v7.widget.AppCompatSpinner
-                        android:id="@+id/categorySpinner"
-                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                <EditText
+                    android:id="@+id/editBizShortDescrip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5dp"
+                    android:background="@drawable/button_transparent_bg"
+                    android:maxLength="70"
+                    android:minHeight="@dimen/edit_field_height"
+                    android:paddingStart="@dimen/_5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:text="@string/category"
+                    android:textSize="@dimen/font_small_header" />
+
+                <LinearLayout
+                    android:id="@+id/lytCategorySpin"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edit_field_height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="@dimen/_5dp"
+                    android:background="@drawable/button_transparent_bg"
+                    android:paddingStart="@dimen/_5dp"
+                    android:paddingBottom="@dimen/_5dp"
+                    android:visibility="visible">
+
+                    <Spinner
+                        android:id="@+id/spinnerCategory"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/edit_field_height"
+                        android:layout_centerVertical="true"
                         android:backgroundTint="@color/colorPrimary"
-                        android:spinnerMode="dialog" />
-
+                        android:gravity="right"
+                        android:visibility="visible" />
                 </LinearLayout>
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:background="@drawable/button_transparent_bg"
-                    android:layout_margin="@dimen/_5dp"
-                    android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:text="@string/detailed_business_description"
+                    android:textSize="@dimen/font_small_header" />
 
-                    <android.support.design.widget.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/detailed_business_description"
-                        android:maxLength="1000"
-                        android:minHeight="@dimen/_100dp"
-                        android:textSize="@dimen/font_regular_text" />
-                </android.support.design.widget.TextInputLayout>
+                <EditText
+                    android:id="@+id/editBizDetailDescrip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5dp"
+                    android:background="@drawable/button_transparent_bg"
+                    android:gravity="top"
+                    android:maxLength="1000"
+                    android:minHeight="@dimen/_100dp"
+                    android:paddingStart="@dimen/_5dp"
+                    android:paddingTop="@dimen/_5dp"
+                    android:paddingBottom="@dimen/_5dp" />
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
@@ -111,8 +134,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/_20dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/_20dp">
 
                 <TextView
                     style="@style/RegularTextview"
@@ -123,53 +146,45 @@
                     android:paddingVertical="@dimen/_5dp"
                     android:text="@string/other_details" />
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:text="@string/year_founded"
+                    android:textSize="@dimen/font_small_header" />
 
-                    <android.support.design.widget.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/year_founded"
-                        android:inputType="number"
-                        android:maxLength="70"
-                        android:textSize="@dimen/font_regular_text" />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:background="@drawable/button_transparent_bg"
-                    android:layout_margin="@dimen/_5dp"
-                    android:layout_height="wrap_content">
-
-                    <android.support.design.widget.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/awards_n_achievement"
-                        android:maxLength="1000"
-                        android:minHeight="@dimen/_100dp"
-                        android:textSize="@dimen/font_regular_text" />
-                </android.support.design.widget.TextInputLayout>
-
-                <LinearLayout
-                    android:id="@+id/lytAccountIdSpinnerBg"
+                <EditText
+                    android:id="@+id/editFoundYear"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginHorizontal="@dimen/_5dp"
                     android:background="@drawable/button_transparent_bg"
-                    android:paddingBottom="@dimen/_5dp"
-                    android:visibility="visible">
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:minHeight="@dimen/edit_field_height"
+                    android:paddingStart="@dimen/_5dp" />
 
-                    <Spinner
-                        android:id="@+id/spinnerAccountId"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:gravity="right"
-                        android:visibility="visible" />
-                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:text="@string/awards_n_achievement"
+                    android:textSize="@dimen/font_small_header" />
+
+                <EditText
+                    android:id="@+id/editAwards"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5dp"
+                    android:background="@drawable/button_transparent_bg"
+                    android:gravity="top"
+                    android:paddingVertical="@dimen/_5dp"
+                    android:maxLength="70"
+                    android:minHeight="@dimen/_100dp"
+                    android:paddingStart="@dimen/_5dp" />
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
@@ -184,8 +199,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/_20dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/_20dp">
 
                 <TextView
                     style="@style/RegularTextview"
@@ -196,73 +211,103 @@
                     android:paddingVertical="@dimen/_5dp"
                     android:text="@string/contact_details" />
 
-                <android.support.design.widget.TextInputLayout
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:text="@string/address"
+                    android:textSize="@dimen/font_small_header" />
+
+                <EditText
+                    android:id="@+id/editAddress"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5dp"
+                    android:background="@drawable/button_transparent_bg"
+                    android:maxLength="120"
+                    android:maxLines="3"
+                    android:minHeight="@dimen/edit_field_height"
+                    android:paddingStart="@dimen/_5dp" />
 
-                    <android.support.design.widget.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/address"
-                        android:maxLength="70"
-                        android:textSize="@dimen/font_regular_text" />
-                </android.support.design.widget.TextInputLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:text="@string/phone"
+                    android:textSize="@dimen/font_small_header" />
 
-
-                <android.support.design.widget.TextInputLayout
+                <EditText
+                    android:id="@+id/editPhone1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5dp"
+                    android:background="@drawable/button_transparent_bg"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:maxLines="3"
+                    android:minHeight="@dimen/edit_field_height"
+                    android:paddingStart="@dimen/_5dp" />
 
-                    <android.support.design.widget.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/phone"
-                        android:inputType="phone"
-                        android:maxLength="10"
-                        android:textSize="@dimen/font_regular_text" />
-                </android.support.design.widget.TextInputLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:text="@string/alternate_phone"
+                    android:textSize="@dimen/font_small_header" />
 
-                <android.support.design.widget.TextInputLayout
+                <EditText
+                    android:id="@+id/editPhone2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <android.support.design.widget.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/alternate_phone"
-                        android:inputType="phone"
-                        android:maxLength="10"
-                        android:textSize="@dimen/font_regular_text" />
-                </android.support.design.widget.TextInputLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5dp"
+                    android:background="@drawable/button_transparent_bg"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:minHeight="@dimen/edit_field_height"
+                    android:paddingStart="@dimen/_5dp" />
 
 
-                <android.support.design.widget.TextInputLayout
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:text="@string/email_id"
+                    android:textSize="@dimen/font_small_header" />
+
+                <EditText
+                    android:id="@+id/editEmailId"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5dp"
+                    android:background="@drawable/button_transparent_bg"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="50"
+                    android:minHeight="@dimen/edit_field_height"
+                    android:paddingStart="@dimen/_5dp" />
 
-                    <android.support.design.widget.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/email_id"
-                        android:inputType="textEmailAddress"
-                        android:maxLength="80"
-                        android:textSize="@dimen/font_regular_text" />
-                </android.support.design.widget.TextInputLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:text="@string/website"
+                    android:textSize="@dimen/font_small_header" />
 
-                <android.support.design.widget.TextInputLayout
+                <EditText
+                    android:id="@+id/editBizWebsite"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <android.support.design.widget.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/website"
-                        android:inputType="phone"
-                        android:maxLength="10"
-                        android:textSize="@dimen/font_regular_text" />
-                </android.support.design.widget.TextInputLayout>
-
-
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5dp"
+                    android:background="@drawable/button_transparent_bg"
+                    android:inputType="textWebEditText"
+                    android:maxLength="60"
+                    android:minHeight="@dimen/edit_field_height"
+                    android:paddingStart="@dimen/_5dp" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -276,8 +321,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/_20dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/_20dp">
 
                 <TextView
                     style="@style/RegularTextview"
@@ -288,49 +333,54 @@
                     android:paddingVertical="@dimen/_5dp"
                     android:text="@string/service_details" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp">
-
-                    <TextView
-                        style="@style/TextView.InputLabel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/charges" />
-
-                    <android.support.v7.widget.AppCompatSpinner
-                        style="@style/Widget.AppCompat.Spinner.Underlined"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:spinnerMode="dialog" />
-
-                </LinearLayout>
+                    android:layout_marginHorizontal="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:text="@string/charges"
+                    android:textSize="@dimen/font_small_header" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp">
+                    android:layout_height="@dimen/edit_field_height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="@dimen/_5dp"
+                    android:background="@drawable/button_transparent_bg"
+                    android:paddingStart="@dimen/_5dp"
+                    android:paddingBottom="@dimen/_5dp"
+                    android:visibility="visible">
 
-                    <TextView
-                        style="@style/TextView.InputLabel"
+                    <Spinner
+                        android:id="@+id/spinnerCharges"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/amount" />
-
-                    <android.support.v7.widget.AppCompatSpinner
-                        style="@style/Widget.AppCompat.Spinner.Underlined"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/edit_field_height"
+                        android:layout_centerVertical="true"
                         android:backgroundTint="@color/colorPrimary"
-                        android:spinnerMode="dialog" />
-
+                        android:gravity="right"
+                        android:visibility="visible" />
                 </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:text="@string/amount"
+                    android:textSize="@dimen/font_small_header" />
+
+                <EditText
+                    android:id="@+id/editBizAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5dp"
+                    android:background="@drawable/button_transparent_bg"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:maxLines="3"
+                    android:minHeight="@dimen/edit_field_height"
+                    android:paddingStart="@dimen/_5dp" />
+
             </LinearLayout>
 
 
@@ -338,9 +388,9 @@
 
 
         <Button
-            android:id="@+id/btnLogin"
+            android:id="@+id/btnAddBizns"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/button_height"
             android:layout_marginLeft="@dimen/_10dp"
             android:layout_marginTop="@dimen/_10dp"
             android:layout_marginRight="@dimen/_10dp"

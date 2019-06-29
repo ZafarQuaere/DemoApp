@@ -32,7 +32,7 @@ import com.zaf.econnecto.ui.activities.EnterOTPActivity;
 import com.zaf.econnecto.ui.activities.ForgetPswdActivity;
 import com.zaf.econnecto.ui.activities.LoginActivity;
 import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
-import com.zaf.econnecto.ui.fragments.BListFragment;
+import com.zaf.econnecto.ui.fragments.BizListFragment;
 import com.zaf.econnecto.ui.fragments.BizCategoryFragment;
 import com.zaf.econnecto.ui.fragments.FragmentProfile;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
@@ -194,7 +194,7 @@ public class Utils {
                     ((Activity) activity).onBackPressed();
                 }
             });
-        } else if (className.equals(new BListFragment().getClass().getSimpleName())) {
+        } else if (className.equals(new BizListFragment().getClass().getSimpleName())) {
             imgActionBarDrawerIcon.setVisibility(View.VISIBLE);
             textBack.setOnClickListener(new View.OnClickListener() {
                 @Override

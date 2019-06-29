@@ -17,7 +17,7 @@ import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.MyJsonObjectRequest;
 import com.zaf.econnecto.network_call.response_model.biz_list.BizData;
 import com.zaf.econnecto.ui.activities.LoginActivity;
-import com.zaf.econnecto.ui.fragments.BListFragment;
+import com.zaf.econnecto.ui.fragments.BizListFragment;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppController;
@@ -32,10 +32,10 @@ import java.util.List;
 public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecyclerAdapter.ViewHolder> {
 
     private final List<BizData> mValues;
-    private final BListFragment.OnListFragmentInteractionListener mListener;
+    private final BizListFragment.OnListFragmentInteractionListener mListener;
     private Context mContext;
 
-    public BizListRecyclerAdapter(Context context, List<BizData> items, BListFragment.OnListFragmentInteractionListener listener) {
+    public BizListRecyclerAdapter(Context context, List<BizData> items, BizListFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
         mContext = context;
@@ -123,12 +123,12 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
         });
     }
 
-    private void updateUnfollowUI(TextView textFollow) {
+    public void updateUnfollowUI(TextView textFollow) {
         textFollow.setText(mContext.getString(R.string.follow));
         textFollow.setBackground(mContext.getResources().getDrawable(R.drawable.btn_follow));
     }
 
-    private void updateFollowingUI(TextView textFollow) {
+    public void updateFollowingUI(TextView textFollow) {
         textFollow.setBackground(mContext.getResources().getDrawable(R.drawable.btn_unfollow));
         textFollow.setText(mContext.getString(R.string.following));
 
