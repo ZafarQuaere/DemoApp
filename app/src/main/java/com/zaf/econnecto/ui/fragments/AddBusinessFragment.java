@@ -103,8 +103,7 @@ public class AddBusinessFragment extends BaseFragment<AddBizPresenter> implement
                 validateFields();
             }
         });
-      /*  FloatingActionButton fabAddBizness = (FloatingActionButton) view.findViewById(R.id.fabAddBizness);
-        fabAddBizness.setVisibility(View.GONE);*/
+
     }
 
 

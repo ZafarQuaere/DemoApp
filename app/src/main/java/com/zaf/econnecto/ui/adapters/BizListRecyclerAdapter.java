@@ -93,7 +93,6 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
                                 });
                     }
                 } else {
-
                     LogUtils.showDialogDoubleButton(mContext, mContext.getString(R.string.cancel), mContext.getString(R.string.ok),
                             mContext.getString(R.string.you_need_to_login_first_to_follow_a_business) , new DialogButtonClick() {
                                 @Override

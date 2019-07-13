@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient">
+    android:background="@color/colorWhite">
 
     <include
         android:id="@+id/lyHeader"
@@ -11,76 +11,85 @@
         android:layout_height="@dimen/actionbar_height"
         android:layout_alignParentTop="true" />
 
-    <TextView
-        android:id="@+id/textView17"
-        style="@style/LargeTextview"
-        android:layout_below="@+id/lyHeader"
-        android:layout_marginTop="@dimen/_20dp"
-        android:paddingHorizontal="@dimen/_10dp"
-        android:text="@string/enter_otp_below"
-        android:textAlignment="center"
-        android:layout_width="wrap_content" />
-
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_below="@+id/textView17"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/_30dp"
-        android:background="@drawable/shape_oval_white"
-        android:padding="20dp"
-        android:src="@drawable/icon_otp" />
-
-    <EditText
-        android:id="@+id/editOTP"
-        style="@style/NumberInputEdit"
-        android:layout_below="@+id/imageView3"
-        android:layout_marginTop="@dimen/_50dp"
-        android:layout_centerInParent="true"
-        android:layout_marginHorizontal="@dimen/_20dp"
-        android:hint="@string/enter_otp"
-        android:maxLength="6"
-        android:textAlignment="center" />
-
-
-    <Button
-        android:id="@+id/btnSubmit"
-        style="@style/ButtonTextStyle"
-        android:layout_below="@+id/editOTP"
-        android:layout_marginHorizontal="@dimen/_30dp"
-        android:layout_marginTop="@dimen/_20dp"
-        android:background="@drawable/btnsignin"
-        android:text="@string/submit" />
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:visibility="invisible">
+        android:layout_below="@+id/lyHeader"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btnResendOTP"
-            android:layout_width="180dp"
-            android:layout_height="@dimen/resend_otp_button_height"
-            android:layout_weight="1"
-            android:background="@drawable/btn_follow"
-            android:onClick="resendOTP"
-            android:text="@string/resend_otp"
-            android:textColor="@color/colorWhite" />
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_20dp"
+            android:background="@color/colorWhite"
+            android:padding="@dimen/_10dp">
 
-        <Button
-            android:id="@+id/btnEditNo"
-            android:layout_width="180dp"
-            android:layout_height="@dimen/edit_no_button_height"
-            android:layout_weight="1"
-            android:background="@drawable/btn_unfollow"
-            android:onClick="editNumber"
-            android:text="@string/edit_number"
-            android:textColor="@color/colorWhite" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:id="@+id/lytHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_10dp"
+                        android:text="@string/enter_otp"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/font_large_text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lytInputs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lytHeader"
+                    android:layout_marginTop="@dimen/_30dp"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/_20dp"
+                    android:paddingRight="@dimen/_20dp">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_20dp">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/editEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/enter_otp"
+                            android:maxLength="80"
+                            android:textSize="@dimen/font_regular_text" />
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <Button
+                        android:id="@+id/btnPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_20dp"
+                        android:layout_marginTop="@dimen/_30dp"
+                        android:layout_marginBottom="@dimen/_30dp"
+                        android:background="@drawable/rounded_background"
+                        android:text="@string/submit_otp"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/font_regular_text" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+
     </LinearLayout>
 
 </RelativeLayout>

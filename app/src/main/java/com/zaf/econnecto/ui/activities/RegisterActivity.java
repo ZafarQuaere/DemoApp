@@ -13,6 +13,7 @@ import android.widget.RadioGroup;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.ui.adapters.AgeGroupRecyclerAdapter;
 import com.zaf.econnecto.ui.interfaces.AgeSelectedListener;
+import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.ui.presenters.RegisterPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IRegister;
 import com.zaf.econnecto.utils.LogUtils;
@@ -117,8 +118,16 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 
     @Override
     public void doRegister() {
-        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-        finish();
+        LogUtils.showDialogSingleActionButton(mContext, getString(R.string.ok), getString(R.string.congratulations_your_registration_is_successfull), new DialogButtonClick() {
+            @Override
+            public void onOkClick() {
+                startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                finish();
+            }
+            @Override
+            public void onCancelClick() { }
+        });
+
     }
 
     @Override

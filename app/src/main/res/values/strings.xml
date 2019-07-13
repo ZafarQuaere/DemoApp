@@ -183,6 +183,10 @@
     <string name="add_business_success_msg">Congratulations !!  Your business is added Successfully.</string>
     <string name="please_enable_your_network_connection_and_launch_again">Please enable your network connection and launch again.</string>
     <string name="is_following">is_following</string>
+    <string name="you_need_to_login_first_to_add_a_business">You need to login first to add a Business.</string>
+    <string name="congratulations_your_registration_is_successfull">Congratulations!! Your registration is completed successfully.</string>
+    <string name="enter_new_pswd">Enter New Password</string>
+    <string name="submit_otp">Submit OTP</string>
 
     <array name="age_group">
         <item name="10-13">10_13</item>

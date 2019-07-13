@@ -1,6 +1,5 @@
 package com.zaf.econnecto.ui.presenters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -11,10 +10,9 @@ import com.android.volley.VolleyError;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.MyJsonObjectRequest;
 import com.zaf.econnecto.ui.activities.ForgetPswdActivity;
-import com.zaf.econnecto.ui.activities.LoginActivity;
 import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
-import com.zaf.econnecto.ui.fragments.BizListFragment;
 import com.zaf.econnecto.ui.fragments.BizCategoryFragment;
+import com.zaf.econnecto.ui.fragments.BizListFragment;
 import com.zaf.econnecto.ui.fragments.FragmentProfile;
 import com.zaf.econnecto.ui.fragments.HelpNFaqFragment;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
@@ -70,8 +68,8 @@ public class MainPresenter extends BasePresenter {
                 mContext.getString(R.string.do_you_really_want_to_logout), new DialogButtonClick() {
                     @Override
                     public void onOkClick() {
-                        iMain.onLogoutCall();
                         callLogoutApi();
+
                     }
 
                     @Override
@@ -119,9 +117,10 @@ public class MainPresenter extends BasePresenter {
                         AppSharedPrefs prefs = AppSharedPrefs.getInstance(mContext);
                         prefs.clear(mContext.getString(R.string.key_logged_in));
                         Utils.setLoggedIn(mContext, false);
-                        mContext.startActivity(new Intent(mContext, LoginActivity.class));
+                        // mContext.startActivity(new Intent(mContext, LoginActivity.class));
                         LogUtils.showToast(mContext, mContext.getString(R.string.you_are_sucessfully_logout));
-                        ((Activity) mContext).finish();
+                        iMain.onLogoutCall();
+                        // ((Activity) mContext).finish();
                     } else {
                         LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optString("message"));
                     }

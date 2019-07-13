@@ -19,8 +19,9 @@ import android.widget.TextView;
 
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
-import com.zaf.econnecto.ui.fragments.BizListFragment;
 import com.zaf.econnecto.ui.fragments.BizCategoryFragment;
+import com.zaf.econnecto.ui.fragments.BizListFragment;
+import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.ui.presenters.MainPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IMain;
 import com.zaf.econnecto.utils.LogUtils;
@@ -104,8 +105,22 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     @SuppressLint("RestrictedApi")
     public void addBusinessClick(View view) {
-        getPresenter().moveToFragment(AddBusinessFragment.class.getSimpleName());
-        fabAddBizness.setVisibility(View.GONE);
+        if (Utils.isLoggedIn(mContext)) {
+            getPresenter().moveToFragment(AddBusinessFragment.class.getSimpleName());
+            fabAddBizness.setVisibility(View.GONE);
+        } else {
+            LogUtils.showDialogDoubleButton(mContext, mContext.getString(R.string.cancel), mContext.getString(R.string.ok),
+                    mContext.getString(R.string.you_need_to_login_first_to_add_a_business), new DialogButtonClick() {
+                        @Override
+                        public void onOkClick() {
+                            mContext.startActivity(new Intent(mContext, LoginActivity.class));
+                        }
+
+                        @Override
+                        public void onCancelClick() {
+                        }
+                    });
+        }
         closeDrawer();
 
     }
@@ -120,7 +135,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     public void onProfileClick(View view) {
         closeDrawer();
-       // getPresenter().moveToFragment(FragmentProfile.class.getSimpleName());
+        // getPresenter().moveToFragment(FragmentProfile.class.getSimpleName());
         LogUtils.showToast(mContext, "Development under progress");
 
     }
@@ -195,7 +210,6 @@ public class MainActivity extends BaseActivity<MainPresenter>
     public void changePasswordClick(View view) {
         getPresenter().startActivity(mContext);
         closeDrawer();
-        //LogUtils.showToast(mContext, "Development under progress");
     }
 
     public void onShareClick(View view) {
@@ -218,6 +232,6 @@ public class MainActivity extends BaseActivity<MainPresenter>
     @SuppressLint("RestrictedApi")
     @Override
     public void showAddBizFab(boolean show) {
-        fabAddBizness.setVisibility(show? View.VISIBLE:View.GONE);
+        fabAddBizness.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 }
