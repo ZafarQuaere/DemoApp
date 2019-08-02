@@ -73,8 +73,8 @@ public class BizDetailsActivity extends BaseActivity<BizDetailPresenter> impleme
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
-                //onBackPressed();
+                //finish();
+                onBackPressed();
             }
         });
     }
@@ -162,6 +162,7 @@ public class BizDetailsActivity extends BaseActivity<BizDetailPresenter> impleme
             if (textFollow.getText().equals(mContext.getString(R.string.follow))) {
                 callFollowApi("follow", biz_uid);
                 textFollowers.setText((Integer.parseInt(mBizDetailsData.getFollowersCount()))+ 1 + " " + mContext.getString(R.string.followers));
+                AppConstant.NEW_FOLLOW = true;
                /* int followerCount = Integer.parseInt(mValues.get(position).getFollowersCount()) + 1;
                 mValues.get(position).setFollowersCount(followerCount + "");
                 mValues.get(position).setIsFollowing(1);*/
@@ -174,6 +175,7 @@ public class BizDetailsActivity extends BaseActivity<BizDetailPresenter> impleme
                                 callFollowApi("unfollow", biz_uid);
                                 updateUnfollowUI(textFollow);
                                 textFollowers.setText((Integer.parseInt(getFollowerCount(textFollowers)))- 1 + " " + mContext.getString(R.string.followers));
+                                AppConstant.NEW_FOLLOW = true;
                                /* int followerCount = Integer.parseInt(mValues.get(position).getFollowersCount()) - 1;
                                 mValues.get(position).setFollowersCount(followerCount + "");
                                 mValues.get(position).setIsFollowing(0);*/

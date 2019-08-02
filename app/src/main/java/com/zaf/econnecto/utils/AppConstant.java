@@ -8,6 +8,7 @@ public class AppConstant {
     public static final String COMINGFROM = "ComingFrom";
     public static final int LOGIN = 1;
     public static final int HOME = 2;
+    public static  boolean NEW_FOLLOW = false;
     // Splash screen timer
     public static int SPLASH_TIME_OUT = 1500;
     public static final String TIMESTAMP_FORMAT = "yyyyMMdd_HHmmss";

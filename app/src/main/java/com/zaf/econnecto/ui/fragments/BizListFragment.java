@@ -20,6 +20,7 @@ import com.zaf.econnecto.ui.adapters.BizListRecyclerAdapter;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.ui.presenters.BListPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IFragListing;
+import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppLoaderFragment;
 import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.NetworkUtils;
@@ -45,8 +46,15 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
     @Override
     public void onResume() {
         super.onResume();
+        LogUtils.DEBUG("OnResume List fragment ");
+        LogUtils.DEBUG("OnResume AppConstant.NEW_FOLLOW  "+AppConstant.NEW_FOLLOW);
+
+        if (AppConstant.NEW_FOLLOW){
+            callApi();
+        }
         //getPresenter().checkProgress();
     }
+
 
     @Override
     protected BListPresenter initPresenter() {
@@ -58,26 +66,29 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_listings, container, false);
         initUI(view);
+        callApi();
+
+        return view;
+    }
+
+    private void callApi() {
         if (NetworkUtils.isNetworkEnabled(mContext)) {
             getPresenter().callBListApi();
         } else {
-           LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.retry), mContext.getString(R.string.please_check_your_network_connection), new DialogButtonClick() {
-               @Override
-               public void onOkClick() {
-                   if (NetworkUtils.isNetworkEnabled(mContext)) {
-                       getPresenter().callBListApi();
-                   } else {
-                       LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.please_enable_your_network_connection_and_launch_again));
-                   }
-               }
-               @Override
-               public void onCancelClick() {
-               }
-           });
+            LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.retry), mContext.getString(R.string.please_check_your_network_connection), new DialogButtonClick() {
+                @Override
+                public void onOkClick() {
+                    if (NetworkUtils.isNetworkEnabled(mContext)) {
+                        getPresenter().callBListApi();
+                    } else {
+                        LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.please_enable_your_network_connection_and_launch_again));
+                    }
+                }
+                @Override
+                public void onCancelClick() {
+                }
+            });
         }
-
-
-        return view;
     }
 
     private void initUI(View view) {

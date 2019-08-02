@@ -234,4 +234,30 @@ public class MainActivity extends BaseActivity<MainPresenter>
     public void showAddBizFab(boolean show) {
         fabAddBizness.setVisibility(show ? View.VISIBLE : View.GONE);
     }
+
+    @Override
+    protected void onResume() {
+        LogUtils.DEBUG("Main Activity OnResume ");
+        super.onResume();
+
+    }
+
+    @Override
+    protected void onRestart() {
+        LogUtils.DEBUG("Main Activity OnRestart ");
+        super.onRestart();
+    }
+
+    @Override
+    protected void onResumeFragments() {
+        LogUtils.DEBUG("Main Activity OnResumeFragments ");
+        super.onResumeFragments();
+    }
+
+    @Override
+    protected void onPostResume() {
+        LogUtils.DEBUG("Main Activity OnPostResume ");
+        super.onPostResume();
+    }
+
 }
