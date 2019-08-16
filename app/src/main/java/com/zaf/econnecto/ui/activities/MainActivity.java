@@ -300,6 +300,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
         Utils.clearBackStackTillHomeFragment(mContext);
         getPresenter().moveToFragment(BizListFragment.class.getSimpleName());
         updateMyAccount();
+        updateUI();
     }
 
     @SuppressLint("RestrictedApi")

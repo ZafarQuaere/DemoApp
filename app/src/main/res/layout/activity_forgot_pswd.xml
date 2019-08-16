@@ -55,6 +55,7 @@
                         android:layout_height="wrap_content"
                         android:maxLength="80"
                         android:hint="@string/enter_registered_email"
+                        android:inputType="textEmailAddress"
                         android:textSize="@dimen/font_regular_text" />
                 </android.support.design.widget.TextInputLayout>
 

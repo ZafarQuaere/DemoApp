@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/lyHeader"
+        android:focusableInTouchMode="true"
         android:orientation="vertical">
 
         <android.support.v7.widget.CardView
@@ -24,7 +25,6 @@
             android:layout_margin="@dimen/_20dp"
             android:background="@color/colorWhite"
             android:padding="@dimen/_10dp">
-
 
             <RelativeLayout
                 android:layout_width="match_parent"
