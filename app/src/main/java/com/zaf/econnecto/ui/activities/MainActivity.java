@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -34,8 +35,8 @@ public class MainActivity extends BaseActivity<MainPresenter>
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private Context mContext;
-    private TextView textUserEmail;
     private FloatingActionButton fabAddBizness;
+    private NavigationView navigationView;
 
     @Override
     protected MainPresenter initPresenter() {
@@ -48,10 +49,26 @@ public class MainActivity extends BaseActivity<MainPresenter>
         setContentView(R.layout.activity_main);
         mContext = this;
         setUpToolbar();
+        updateUI();
         initUI();
+
         //moveToHome();
         moveToBList();
 
+    }
+
+    private void updateUI() {
+        navigationView = findViewById(R.id.navigationView);
+        View headerView = navigationView.getHeaderView(0);
+        TextView textVerifyEmail =  headerView.findViewById(R.id.textVerifyEmail);
+        TextView textUserName =  headerView.findViewById(R.id.textUserName);
+        if (Utils.isLoggedIn(mContext)) {
+            textUserName.setText(Utils.getUserName(mContext));
+            textVerifyEmail.setText(Utils.isEmailVerified(mContext) ? Utils.getUserEmail(mContext) : getString(R.string.verify_your_email));
+        } else {
+            textUserName.setText("");
+            textVerifyEmail.setText("");
+        }
     }
 
     private void moveToHome() {
@@ -72,7 +89,6 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     @SuppressLint("RestrictedApi")
     private void initUI() {
-
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -90,6 +106,8 @@ public class MainActivity extends BaseActivity<MainPresenter>
                 openDrawer();
             }
         });
+        updateUI();
+
     }
 
     private void openDrawer() {
@@ -106,8 +124,21 @@ public class MainActivity extends BaseActivity<MainPresenter>
     @SuppressLint("RestrictedApi")
     public void addBusinessClick(View view) {
         if (Utils.isLoggedIn(mContext)) {
-            getPresenter().moveToFragment(AddBusinessFragment.class.getSimpleName());
-            fabAddBizness.setVisibility(View.GONE);
+            if (Utils.isEmailVerified(mContext)) {
+                getPresenter().moveToFragment(AddBusinessFragment.class.getSimpleName());
+                fabAddBizness.setVisibility(View.GONE);
+            } else {
+                LogUtils.showDialogDoubleButton(mContext, mContext.getString(R.string.cancel), mContext.getString(R.string.ok),
+                        mContext.getString(R.string.you_need_to_verify_your_email_to_add_a_business), new DialogButtonClick() {
+                            @Override
+                            public void onOkClick() {
+                                mContext.startActivity(new Intent(mContext, LoginActivity.class));
+                            }
+                            @Override
+                            public void onCancelClick() {
+                            }
+                        });
+            }
         } else {
             LogUtils.showDialogDoubleButton(mContext, mContext.getString(R.string.cancel), mContext.getString(R.string.ok),
                     mContext.getString(R.string.you_need_to_login_first_to_add_a_business), new DialogButtonClick() {
@@ -115,14 +146,12 @@ public class MainActivity extends BaseActivity<MainPresenter>
                         public void onOkClick() {
                             mContext.startActivity(new Intent(mContext, LoginActivity.class));
                         }
-
                         @Override
                         public void onCancelClick() {
                         }
                     });
         }
         closeDrawer();
-
     }
 
 
@@ -138,6 +167,24 @@ public class MainActivity extends BaseActivity<MainPresenter>
         // getPresenter().moveToFragment(FragmentProfile.class.getSimpleName());
         LogUtils.showToast(mContext, "Development under progress");
 
+    }
+
+    public void verifyEmailClick(View view) {
+        showVerifyEmailDialog();
+    }
+
+    private void showVerifyEmailDialog() {
+        LogUtils.showDialogDoubleButton(mContext, getString(R.string.cancel), getString(R.string.ok), getString(R.string.otp_is_sent_to_your_registered_email_plz_enter_otp_for_verification), new DialogButtonClick() {
+            @Override
+            public void onOkClick() {
+                getPresenter().requestOtpApi();
+            }
+
+            @Override
+            public void onCancelClick() {
+
+            }
+        });
     }
 
     public void saveAddressClick(View view) {
@@ -156,10 +203,21 @@ public class MainActivity extends BaseActivity<MainPresenter>
     }
 
     public void expandMyAccount(View view) {
+        updateMyAccount();
+    }
+
+    private void updateMyAccount() {
         LinearLayout lytMyAccount = (LinearLayout) findViewById(R.id.lytMyAccount);
         ImageButton iconMyAccountExpand = (ImageButton) findViewById(R.id.iconMyAccountExpand);
-        lytMyAccount.setVisibility(lytMyAccount.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
-        iconMyAccountExpand.setBackground(lytMyAccount.getVisibility() == View.VISIBLE ? getResources().getDrawable(R.drawable.ic_minus) : getResources().getDrawable(R.drawable.ic_plus));
+        if (Utils.isLoggedIn(mContext)) {
+            lytMyAccount.setVisibility(lytMyAccount.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+            iconMyAccountExpand.setBackground(lytMyAccount.getVisibility() == View.VISIBLE ? getResources().getDrawable(R.drawable.ic_minus) :
+                    getResources().getDrawable(R.drawable.ic_plus));
+        } else {
+            lytMyAccount.setVisibility(View.GONE);
+            iconMyAccountExpand.setBackground(getResources().getDrawable(R.drawable.ic_plus));
+           // LogUtils.showToast(mContext, getString(R.string.please_login_first));
+        }
     }
 
     public void closeDrawer() {
@@ -208,8 +266,20 @@ public class MainActivity extends BaseActivity<MainPresenter>
     }
 
     public void changePasswordClick(View view) {
-        getPresenter().startActivity(mContext);
         closeDrawer();
+        LogUtils.showDialogDoubleButton(mContext, getString(R.string.cancel), getString(R.string.ok), getString(R.string.otp_is_sent_to_your_registered_email_plz_enter_same), new DialogButtonClick() {
+            @Override
+            public void onOkClick() {
+                //getPresenter().requestOtpApi();
+                getPresenter().startActivity(mContext);
+            }
+
+            @Override
+            public void onCancelClick() {
+
+            }
+        });
+
     }
 
     public void onShareClick(View view) {
@@ -225,14 +295,25 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     @Override
     public void onLogoutCall() {
+        /*mContext.startActivity(new Intent(mContext, LoginActivity.class));
+        ((Activity) mContext).finish();*/
         Utils.clearBackStackTillHomeFragment(mContext);
         getPresenter().moveToFragment(BizListFragment.class.getSimpleName());
+        updateMyAccount();
     }
 
     @SuppressLint("RestrictedApi")
     @Override
     public void showAddBizFab(boolean show) {
         fabAddBizness.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void updateVerifyEmailUI() {
+        TextView textVerifyEmail = (TextView) findViewById(R.id.textVerifyEmail);
+        if (Utils.isEmailVerified(mContext)) {
+            textVerifyEmail.setText(Utils.getUserEmail(mContext));
+        }
     }
 
     @Override

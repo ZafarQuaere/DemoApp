@@ -65,7 +65,7 @@
     <string name="cancel">Cancel</string>
     <string name="do_you_really_want_to_logout">Do you really wants to Logout ?</string>
     <string name="enter_registered_mobile_no">Enter registered mobile no.</string>
-    <string name="please_enter_otp">Please enter otp which is sent to your mobile number</string>
+    <string name="please_enter_otp">Please enter otp which is sent to your Email ID.</string>
     <string name="enter_valid_otp">Enter valid otp</string>
     <string name="please_check_your_network_connection">Please Check your internet connection and Try again.</string>
     <string name="save_address">Save Address</string>
@@ -187,6 +187,21 @@
     <string name="congratulations_your_registration_is_successfull">Congratulations!! Your registration is completed successfully.</string>
     <string name="enter_new_pswd">Enter New Password</string>
     <string name="submit_otp">Submit OTP</string>
+    <string name="verify_your_email">Verify your Email</string>
+    <string name="otp_is_sent_to_your_registered_email_plz_enter_same">An OTP will be sent to  your registered Email ID. Please enter OTP and New Password on the next screen.</string>
+    <string name="please_enter_otp_sent_on_your_email">Please enter OTP sent to your email id</string>
+    <string name="request_otp">request_otp</string>
+    <string name="enter_otp_sent_to_your_email">Enter OTP Sent to your Email</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="reset_pwd">reset_pwd</string>
+    <string name="please_enter_valid_OTP">Please enter valid OTP.</string>
+    <string name="your_password_is_changed_successfully">Your password is changed successfully</string>
+    <string name="otp_is_sent_to_your_registered_email_plz_enter_otp_for_verification">An OTP wii be sent to your registered Email ID. Please enter the OTP to verify the Email</string>
+    <string name="activate_account">activate_account</string>
+    <string name="congrats_your_account_is_verified_now">Congrats !! Your account is verfied now.</string>
+    <string name="key_email_verified">key_email_verified</string>
+    <string name="please_login_first">Please login first.</string>
+    <string name="you_need_to_verify_your_email_to_add_a_business">You need to Verfiy your email to add a bussiness</string>
 
     <array name="age_group">
         <item name="10-13">10_13</item>

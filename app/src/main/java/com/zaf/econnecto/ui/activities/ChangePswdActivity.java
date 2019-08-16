@@ -3,8 +3,8 @@ package com.zaf.econnecto.ui.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.view.View;
-import android.widget.EditText;
 
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.ui.presenters.OtpPresenter;
@@ -13,9 +13,10 @@ import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.Utils;
 
 
-public class EnterOTPActivity extends BaseActivity<OtpPresenter> implements IOtp {
+public class ChangePswdActivity extends BaseActivity<OtpPresenter> implements IOtp {
 
     private Context mContext;
+    private String email;
 
     @Override
     protected OtpPresenter initPresenter() {
@@ -25,10 +26,11 @@ public class EnterOTPActivity extends BaseActivity<OtpPresenter> implements IOtp
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_otp);
+        setContentView(R.layout.activity_change_pswd);
         mContext = this;
-        Utils.updateActionBar(this,new EnterOTPActivity().getClass().getSimpleName(),getString(R.string.enter_otp),
-                null,null);
+        email = getIntent().getStringExtra("email");
+        Utils.updateActionBar(this, new ChangePswdActivity().getClass().getSimpleName(), getString(R.string.enter_otp),
+                null, null);
         findViewById(R.id.btnSubmit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,13 +41,15 @@ public class EnterOTPActivity extends BaseActivity<OtpPresenter> implements IOtp
 
 
     private void validationField() {
-        EditText editOTP = (EditText) findViewById(R.id.editOTP);
-        getPresenter().validateOtp(editOTP.getText().toString().trim());
+        TextInputEditText editOTP = (TextInputEditText) findViewById(R.id.editOTP);
+        TextInputEditText editPassword = (TextInputEditText) findViewById(R.id.editPassword);
+        TextInputEditText editConfirmPassword = (TextInputEditText) findViewById(R.id.editConfirmPassword);
+        getPresenter().validateInputs(editOTP.getText().toString().trim(), editPassword.getText().toString().trim(), editConfirmPassword.getText().toString().trim(), email);
     }
 
     @Override
-    public void submitOtp() {
-        startActivity(new Intent(EnterOTPActivity.this, EnterNewPswdActivity.class));
+    public void changePassword() {
+        startActivity(new Intent(ChangePswdActivity.this, LoginActivity.class));
         finishAffinity();
     }
 
@@ -54,10 +58,4 @@ public class EnterOTPActivity extends BaseActivity<OtpPresenter> implements IOtp
         LogUtils.showErrorDialog(mContext, getString(R.string.ok), msg);
     }
 
-
-    public void resendOTP(View view) {
-    }
-
-    public void editNumber(View view) {
-    }
 }

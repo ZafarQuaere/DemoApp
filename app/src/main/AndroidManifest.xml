@@ -29,7 +29,7 @@
         <activity android:name=".ui.activities.LoginActivity" />
         <activity android:name=".ui.activities.RegisterActivity" />
         <activity android:name=".ui.activities.MainActivity"/>
-        <activity android:name=".ui.activities.EnterOTPActivity" />
+        <activity android:name=".ui.activities.ChangePswdActivity" />
         <activity android:name=".ui.activities.ForgetPswdActivity" />
         <activity android:name=".ui.activities.BizDetailsActivity"  android:theme="@style/BizDetailTheme"/>
           <!--  android:parentActivityName=".ui.activities.MainActivity"/>-->

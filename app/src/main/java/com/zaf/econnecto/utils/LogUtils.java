@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.zaf.econnecto.BuildConfig;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 
@@ -30,21 +31,27 @@ public class LogUtils {
     }
 
     public static void DEBUG(String sb) {
-        if (sb.length() > 4000) {
-            int chunkCount = sb.length() / 4000;
-            for (int i = 0; i <= chunkCount; i++) {
-                int max = 4000 * (i + 1);
-                if (max >= sb.length()) {
-                    Log.d(AppConstant.TAG, " >> " + sb.substring(4000 * i));
-                } else {
-                    Log.d(AppConstant.TAG, " >> " + sb.substring(4000 * i, max));
+        //To print the log on debug mode only
+        if (BuildConfig.DEBUG) {
+            if (sb.length() > 4000) {
+                int chunkCount = sb.length() / 4000;
+                for (int i = 0; i <= chunkCount; i++) {
+                    int max = 4000 * (i + 1);
+                    if (max >= sb.length()) {
+                        Log.d(AppConstant.TAG, " >> " + sb.substring(4000 * i));
+                    } else {
+                        Log.d(AppConstant.TAG, " >> " + sb.substring(4000 * i, max));
+                    }
                 }
+            } else {
+                Log.d(AppConstant.TAG, " >> " + sb.toString());
             }
-        } else {
-            Log.d(AppConstant.TAG, " >> " + sb.toString());
         }
     }
 
+    /**
+     * @param message
+     */
     public static void ERROR(String message) {
         Log.e(AppConstant.TAG, " >> " + message);
     }

@@ -22,20 +22,19 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
 import com.zaf.econnecto.BuildConfig;
 import com.zaf.econnecto.R;
-import com.zaf.econnecto.network_call.response_model.login.LoginPojo;
+import com.zaf.econnecto.network_call.response_model.login.LoginData;
 import com.zaf.econnecto.ui.activities.BizDetailsActivity;
+import com.zaf.econnecto.ui.activities.ChangePswdActivity;
 import com.zaf.econnecto.ui.activities.EnterNewPswdActivity;
-import com.zaf.econnecto.ui.activities.EnterOTPActivity;
 import com.zaf.econnecto.ui.activities.ForgetPswdActivity;
 import com.zaf.econnecto.ui.activities.LoginActivity;
 import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
-import com.zaf.econnecto.ui.fragments.BizListFragment;
 import com.zaf.econnecto.ui.fragments.BizCategoryFragment;
+import com.zaf.econnecto.ui.fragments.BizListFragment;
 import com.zaf.econnecto.ui.fragments.FragmentProfile;
-import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
+import com.zaf.econnecto.ui.interfaces.ActionBarItemClick;
 import com.zaf.econnecto.utils.parser.ParseManager;
 import com.zaf.econnecto.utils.storage.AppSharedPrefs;
 
@@ -106,6 +105,22 @@ public class Utils {
         return isLogIn;
     }
 
+    public static void setEmailVerified(Context mContext, boolean b) {
+        if (mContext == null)
+            return;
+        AppSharedPrefs prefs = AppSharedPrefs.getInstance(mContext);
+        prefs.put(mContext.getString(R.string.key_email_verified), b);
+    }
+
+    public static boolean isEmailVerified(Context context) {
+        AppSharedPrefs prefs = AppSharedPrefs.getInstance(context);
+        boolean isLogIn = false;
+        if (prefs.get(context.getString(R.string.key_email_verified)) != null) {
+            isLogIn = (boolean) prefs.get(context.getString(R.string.key_email_verified));
+        }
+        return isLogIn;
+    }
+
     public static void moveToFragment(Context context, Fragment fragment, String fragName, Object data) {
         LogUtils.DEBUG("moveToFragment() called : " + fragment.getClass().getSimpleName());
         if (context == null || fragment == null)
@@ -143,7 +158,7 @@ public class Utils {
     }
 
     public static void updateActionBar(final Context activity, final String className,
-                                       String dynamicTitle, Object customHeaderData, final DialogButtonClick actionBarItemClickListener) {
+                                       String dynamicTitle, Object customHeaderData, final ActionBarItemClick actionBarListener) {
 
         if (activity == null)
             return;
@@ -151,15 +166,22 @@ public class Utils {
         LogUtils.DEBUG(AppConstant.TAG + " Utils >> updateActionBar() called : " + className + "/" + dynamicTitle);
 
         RelativeLayout toolbarLayout = (RelativeLayout) ((Activity) activity).findViewById(R.id.lytToolbar);
-        TextView textTitle = (TextView) toolbarLayout.findViewById(R.id.textTitle);
-        TextView textBack = (TextView) toolbarLayout.findViewById(R.id.textBack);
-        ImageView imgActionBarDrawerIcon = (ImageView) toolbarLayout.findViewById(R.id.imgActionBarDrawerIcon);
+        final RelativeLayout rlytSearch = (RelativeLayout) toolbarLayout.findViewById(R.id.rlytSearch);
+        final TextView textTitle = (TextView) toolbarLayout.findViewById(R.id.textTitle);
+        final TextView textBack = (TextView) toolbarLayout.findViewById(R.id.textBack);
+        final TextView txtSearch = (TextView) toolbarLayout.findViewById(R.id.txtSearch);
+        final TextView txtSearchBack = (TextView) toolbarLayout.findViewById(R.id.txtSearchBack);
+        final ImageView imgActionBarDrawerIcon = (ImageView) toolbarLayout.findViewById(R.id.imgActionBarDrawerIcon);
 
         textBack.setVisibility(View.GONE);
+        txtSearch.setVisibility(View.GONE);
+        rlytSearch.setVisibility(View.GONE);
+      //  txtSearchBack.setVisibility(View.GONE);
+
         textTitle.setText(dynamicTitle);
         if (className.equals(new LoginActivity().getClass().getSimpleName())) {
 
-        } else if (className.equals(new EnterOTPActivity().getClass().getSimpleName())) {
+        } else if (className.equals(new ChangePswdActivity().getClass().getSimpleName())) {
             textBack.setVisibility(View.VISIBLE);
             textBack.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -196,10 +218,26 @@ public class Utils {
             });
         } else if (className.equals(new BizListFragment().getClass().getSimpleName())) {
             imgActionBarDrawerIcon.setVisibility(View.VISIBLE);
-            textBack.setOnClickListener(new View.OnClickListener() {
+            txtSearch.setVisibility(View.VISIBLE);
+            txtSearchBack.bringToFront();
+            txtSearch.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((Activity) activity).onBackPressed();
+                    //actionBarListener.onSearchClick();
+                   /* rlytSearch.setVisibility( View.VISIBLE);
+                    imgActionBarDrawerIcon.setVisibility( View.GONE);
+                    textBack.setVisibility( View.GONE);
+                    textTitle.setVisibility( View.GONE);
+                    txtSearch.setVisibility( View.GONE);*/
+                }
+            });
+            txtSearchBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                  /*  rlytSearch.setVisibility(View.GONE);
+                    imgActionBarDrawerIcon.setVisibility( View.VISIBLE);
+                    textTitle.setVisibility( View.VISIBLE);
+                    txtSearch.setVisibility( View.VISIBLE);*/
                 }
             });
         } else if (className.equals(new FragmentProfile().getClass().getSimpleName())) {
@@ -343,15 +381,15 @@ public class Utils {
         prefs.put(mContext.getString(R.string.key_user_email), newOrderData);
     }
 
-    public static String getDealerId(Context mContext) {
+    public static String getUserName(Context mContext) {
         //return "111";
-       String loginStringData = getLoginData(mContext);
-        String dealerId = "";
-        LoginPojo loginData = ParseManager.getInstance().fromJSON(loginStringData,LoginPojo.class);
-        if (loginData != null ){
-            return loginData.getData().getDealerId();
+        String loginStringData = getLoginData(mContext);
+        String username = "";
+        LoginData loginData = ParseManager.getInstance().fromJSON(loginStringData, LoginData.class);
+        if (loginData != null) {
+            return loginData.getData().getUsername();
         }
-        return dealerId;
+        return username;
     }
 
     public static void setFirstTimeLaunch(Context mContext,boolean isFirstTime) {
@@ -407,25 +445,6 @@ public class Utils {
 
 
 
-    public static void savePendingOrderData(Context mContext, String pendingOrderData) {
-        if (mContext == null)
-            return;
-        AppSharedPrefs prefs = AppSharedPrefs.getInstance(mContext);
-        prefs.put(mContext.getString(R.string.key_pending_order_data), pendingOrderData);
-    }
-
-    public static String getPendingOrderData(Context context) {
-        AppSharedPrefs prefs = AppSharedPrefs.getInstance(context);
-        String data = "";
-        try {
-            data = (String) prefs.get(context.getString(R.string.key_pending_order_data));
-        } catch (Exception e) {
-            e.printStackTrace();
-            LogUtils.ERROR(e.getMessage());
-            return data;
-        }
-        return data;
-    }
 
     public static void saveCompleteOrderData(Context mContext, String completeOrderData) {
         if (mContext == null)

@@ -15,6 +15,7 @@ import com.zaf.econnecto.utils.LogUtils;
 public class ForgetPswdActivity extends BaseActivity<ForgotPswdPresenter> implements IFrgtPswd {
 
     private Context mContext;
+    private String email;
 
 
     @Override
@@ -40,13 +41,14 @@ public class ForgetPswdActivity extends BaseActivity<ForgotPswdPresenter> implem
 
     private void validationField() {
         EditText editEmail = (EditText)findViewById(R.id.editEmail);
-        getPresenter().validMobileNo(editEmail.getText().toString().trim());
+        email = editEmail.getText().toString().trim();
+        getPresenter().validateInput(email);
     }
 
 
     @Override
-    public void submitMobile() {
-        startActivity(new Intent(ForgetPswdActivity.this,EnterOTPActivity.class));
+    public void startOTPActivity() {
+        startActivity(new Intent(ForgetPswdActivity.this, ChangePswdActivity.class).putExtra("email",email));
         finish();
     }
 
@@ -56,7 +58,7 @@ public class ForgetPswdActivity extends BaseActivity<ForgotPswdPresenter> implem
     }
 
     @Override
-    public void callSubmitMobileApi(String mobile) {
-        getPresenter().callSubmitMobileApi(mobile);
+    public void callOtpApi(String mobile) {
+        getPresenter().callOtpApi(mobile);
     }
 }

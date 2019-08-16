@@ -1,7 +1,10 @@
 package com.zaf.econnecto.ui.presenters.operations;
 
 public interface IFrgtPswd {
-    void submitMobile();
+
+    void startOTPActivity();
+
     void onValidationError(String msg);
-    void callSubmitMobileApi(String mobile);
+
+    void callOtpApi(String mobile);
 }

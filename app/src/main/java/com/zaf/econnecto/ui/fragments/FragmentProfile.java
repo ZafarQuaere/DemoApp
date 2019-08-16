@@ -43,10 +43,10 @@ public class FragmentProfile extends BaseFragment<ProfilePresenter> implements I
             EditText editMobile = (EditText)view.findViewById(R.id.editMobile);
             EditText editEmailId = (EditText)view.findViewById(R.id.editEmailId);
             EditText editDealerId = (EditText)view.findViewById(R.id.editDealerId);
-            editName.setText(data.getName());
-            editMobile.setText(data.getMobile());
-            editEmailId.setText(data.getEmail());
-            editDealerId.setText(getString(R.string.dealerId)+": "+data.getDealerId());
+            editName.setText(data.getFirstName());
+            editMobile.setText(data.getActive()+"");
+            editEmailId.setText(data.getBusinessStatus()+"");
+            editDealerId.setText(getString(R.string.dealerId)+": "+data.getLastName());
         }
     }
 

@@ -96,6 +96,7 @@
         <item name="android:background">@drawable/rectangle_bg</item>
     </style>
 
+
     <!-- XLarge TextView -->
     <style name="XLargeTextview">
         <item name="android:layout_width">wrap_content</item>

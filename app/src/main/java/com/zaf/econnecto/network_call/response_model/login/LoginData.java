@@ -4,7 +4,8 @@ package com.zaf.econnecto.network_call.response_model.login;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class LoginPojo {
+public class LoginData {
+
     @SerializedName("message")
     @Expose
     private String message;

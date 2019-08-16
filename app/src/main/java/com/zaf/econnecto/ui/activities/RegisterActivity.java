@@ -43,7 +43,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         findViewById(R.id.btnRegister).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // startActivity(new Intent(RegisterActivity.this, EnterOTPActivity.class));
+                // startActivity(new Intent(RegisterActivity.this, ChangePswdActivity.class));
                 validateFields();
             }
         });
@@ -105,9 +105,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         EditText editPassword = (EditText) findViewById(R.id.editPassword);
         EditText editConfirmPassword = (EditText) findViewById(R.id.editConfirmPassword);
 
-
         //String ageGroup = getPresenter().getAgeGroup(mSelectedAge);
-
         getPresenter().validateFields(editFirstName.getText().toString().trim(),
                 editLastName.getText().toString().trim(),
                 editUserName.getText().toString().trim(),

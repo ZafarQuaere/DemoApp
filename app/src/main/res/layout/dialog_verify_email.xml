@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_round_corner_bg">
+
+    <LinearLayout
+        android:id="@+id/lytInputs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dialog_text_margin"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/please_enter_otp_sent_on_your_email"
+            android:textColor="@color/dialog_text_color"
+            android:textSize="@dimen/dialog_btn_text_small" />
+
+        <EditText
+            android:id="@+id/editVerifyOtp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30dp"
+            android:backgroundTint="@color/dialog_separator_color"
+            android:hint="@string/enter_otp_sent_to_your_email"
+            android:inputType="number"
+            android:maxLength="8"
+            android:paddingStart="@dimen/_10dp"
+            android:textSize="@dimen/font_regular_text" />
+
+
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dialog_separator_height"
+        android:layout_below="@+id/lytInputs"
+        android:layout_marginTop="@dimen/dialog_separator_margin_top"
+        android:background="@color/dialog_separator_color" />
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dialog_btn_ok_height"
+        android:layout_below="@+id/separator"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:text="@string/submit"
+        android:textColor="@color/dialog_btn_text_color"
+        android:textSize="@dimen/dialog_btn_text_size" />
+
+
+</RelativeLayout>

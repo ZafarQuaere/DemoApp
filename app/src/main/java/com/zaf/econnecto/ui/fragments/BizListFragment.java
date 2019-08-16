@@ -17,6 +17,7 @@ import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.response_model.biz_list.BizData;
 import com.zaf.econnecto.ui.activities.BizDetailsActivity;
 import com.zaf.econnecto.ui.adapters.BizListRecyclerAdapter;
+import com.zaf.econnecto.ui.interfaces.ActionBarItemClick;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.ui.presenters.BListPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IFragListing;
@@ -24,23 +25,26 @@ import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppLoaderFragment;
 import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.NetworkUtils;
+import com.zaf.econnecto.utils.Utils;
 
 import java.util.List;
 
 
-public class BizListFragment extends BaseFragment<BListPresenter> implements IFragListing {
+public class BizListFragment extends BaseFragment<BListPresenter> implements IFragListing, ActionBarItemClick {
 
     private RecyclerView recylcerProducts;
     private RecyclerView.LayoutManager layoutManager;
     private AppLoaderFragment loader;
     private Context mContext;
     private TextView emptyTextView;
+    private ActionBarItemClick actionBarItemClick;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mContext = getActivity();
+        actionBarItemClick = this;
     }
 
     @Override
@@ -52,7 +56,6 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
         if (AppConstant.NEW_FOLLOW){
             callApi();
         }
-        //getPresenter().checkProgress();
     }
 
 
@@ -101,6 +104,8 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
         recylcerProducts.setItemAnimator(new DefaultItemAnimator());
         emptyTextView = (TextView) view.findViewById(R.id.emptyTextView);
 
+        Utils.updateActionBar(mContext, BizListFragment.class.getSimpleName(), mContext.getString(R.string.business_list), null, this);
+
     }
 
 
@@ -139,6 +144,20 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
         }
     }
 
+    @Override
+    public void onSearchClick() {
+        LogUtils.showToast(mContext,"search click");
+    }
+
+    @Override
+    public void onBackClick() {
+
+    }
+
+    @Override
+    public void onClearClick() {
+
+    }
 
 
     public interface OnListFragmentInteractionListener {

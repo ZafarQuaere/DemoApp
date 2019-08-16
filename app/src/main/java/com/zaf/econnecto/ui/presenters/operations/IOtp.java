@@ -2,7 +2,7 @@ package com.zaf.econnecto.ui.presenters.operations;
 
 public interface IOtp {
 
-    void submitOtp();
+    void changePassword();
     void onValidationError(String msg);
 
 }

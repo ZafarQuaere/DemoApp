@@ -45,7 +45,7 @@ public class PendingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pendings, container, false);
 
-        String pendingOrderData = Utils.getPendingOrderData(mContext);
+        String pendingOrderData = "";// Utils.getPendingOrderData(mContext);
         LogUtils.DEBUG("pendingOrderData >>>> " + pendingOrderData);
         orderData = ParseManager.getInstance().fromJSON(pendingOrderData, BizListData.class);
         initUI(view);

@@ -5,93 +5,93 @@ import com.google.gson.annotations.SerializedName;
 
 public class Data {
 
-    @SerializedName("id")
+    @SerializedName("username")
     @Expose
-    private String id;
-    @SerializedName("name")
+    private String username;
+    @SerializedName("first_name")
     @Expose
-    private String name;
-    @SerializedName("password")
+    private String firstName;
+    @SerializedName("last_name")
     @Expose
-    private String password;
-    @SerializedName("mobile")
+    private String lastName;
+    @SerializedName("sex")
     @Expose
-    private String mobile;
-    @SerializedName("email")
+    private String sex;
+    @SerializedName("profile_pic")
     @Expose
-    private String email;
-    @SerializedName("token")
+    private String profilePic;
+    @SerializedName("active")
     @Expose
-    private String token;
-    @SerializedName("userType")
+    private String active;
+    @SerializedName("business_status")
     @Expose
-    private String userType;
-    @SerializedName("dealerId")
+    private String businessStatus;
+    @SerializedName("following_count")
     @Expose
-    private String dealerId;
+    private String followingCount;
 
-    public String getId() {
-        return id;
+    public String getUsername() {
+        return username;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getSex() {
+        return sex;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
-    public String getEmail() {
-        return email;
+    public String getProfilePic() {
+        return profilePic;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
     }
 
-    public String getToken() {
-        return token;
+    public String getActive() {
+        return active;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setActive(String active) {
+        this.active = active;
     }
 
-    public String getUserType() {
-        return userType;
+    public String getBusinessStatus() {
+        return businessStatus;
     }
 
-    public void setUserType(String userType) {
-        this.userType = userType;
+    public void setBusinessStatus(String businessStatus) {
+        this.businessStatus = businessStatus;
     }
 
-    public String getDealerId() {
-        return dealerId;
+    public String getFollowingCount() {
+        return followingCount;
     }
 
-    public void setDealerId(String dealerId) {
-        this.dealerId = dealerId;
+    public void setFollowingCount(String followingCount) {
+        this.followingCount = followingCount;
     }
 
 }

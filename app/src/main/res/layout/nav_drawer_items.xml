@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:id="@+id/navigationView"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     tools:showIn="@layout/activity_main">
 
@@ -32,13 +33,24 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <TextView
+            android:id="@+id/textVerifyEmail"
+            style="@style/RegularTextview"
+            android:paddingVertical="@dimen/_5dp"
+            android:paddingHorizontal="@dimen/_10dp"
+            android:textStyle="bold|italic"
+            android:onClick="verifyEmailClick"
+            android:textColor="@color/colorWhite"
+            android:text="@string/verify_your_email" />
+
+        <TextView
+            android:visibility="gone"
             android:id="@+id/textUserEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/nav_header_subtitle" />
 
         <TextView
-            android:id="@+id/textVie2w"
+            android:id="@+id/textUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Username125" />

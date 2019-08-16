@@ -8,7 +8,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.MyJsonObjectRequest;
-import com.zaf.econnecto.network_call.response_model.login.LoginPojo;
+import com.zaf.econnecto.network_call.response_model.login.LoginData;
 import com.zaf.econnecto.ui.activities.ForgetPswdActivity;
 import com.zaf.econnecto.ui.presenters.operations.ILogin;
 import com.zaf.econnecto.utils.AppConstant;
@@ -69,23 +69,21 @@ public class LoginPresenter extends BasePresenter {
             @Override
             public void onResponse(JSONObject response) {
                 LogUtils.DEBUG("Login Response ::" + response.toString());
-
                 if (response != null && !response.equals("")){
                     int status = response.optInt("status");
                     if (status == AppConstant.SUCCESS){
+                        LoginData loginData = ParseManager.getInstance().fromJSON(response.toString(),LoginData.class);
                         Utils.setLoggedIn(mContext, true);
-                        //Utils.saveLoginData(mContext,response.toString());
+                        Utils.saveLoginData(mContext,response.toString());
                         Utils.saveUserEmail(mContext,userId);
+                        Utils.setEmailVerified(mContext, loginData.getData().getActive().equals("1"));
                         mLogin.doLogin();
                     }else {
                         LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optString("message"));
                     }
-
                 }
                 loader.dismiss();
-              //  LoginPojo loginData = ParseManager.getInstance().fromJSON(response.toString(),LoginPojo.class);
-
-
+              //  LoginData loginData = ParseManager.getInstance().fromJSON(response.toString(),LoginData.class);
             }
 
         }, new Response.ErrorListener() {

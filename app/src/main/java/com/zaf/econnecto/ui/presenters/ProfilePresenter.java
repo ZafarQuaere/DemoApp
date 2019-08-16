@@ -8,7 +8,7 @@ import com.android.volley.VolleyError;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.MyJsonObjectRequest;
 import com.zaf.econnecto.network_call.request_model.AddressData;
-import com.zaf.econnecto.network_call.response_model.login.LoginPojo;
+import com.zaf.econnecto.network_call.response_model.login.LoginData;
 import com.zaf.econnecto.ui.presenters.operations.IFragProfile;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppController;
@@ -84,7 +84,7 @@ public class ProfilePresenter extends BaseFragmentPresenter {
 
 
     public void updateUI() {
-        LoginPojo loginData = ParseManager.getInstance().fromJSON(Utils.getLoginData(mContext),LoginPojo.class);
+        LoginData loginData = ParseManager.getInstance().fromJSON(Utils.getLoginData(mContext), LoginData.class);
         iFragProfile.updateUI(loginData.getData());
     }
 }

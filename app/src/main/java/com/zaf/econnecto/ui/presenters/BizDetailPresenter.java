@@ -2,30 +2,23 @@ package com.zaf.econnecto.ui.presenters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.location.Address;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.MyJsonObjectRequest;
-import com.zaf.econnecto.network_call.request_model.AddressData;
 import com.zaf.econnecto.network_call.response_model.biz_detail.BizDetailData;
 import com.zaf.econnecto.network_call.response_model.biz_detail.BizDetails;
-import com.zaf.econnecto.network_call.response_model.login.LoginPojo;
-import com.zaf.econnecto.ui.adapters.BizListRecyclerAdapter;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.ui.presenters.operations.IBizDetail;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppController;
 import com.zaf.econnecto.utils.AppLoaderFragment;
 import com.zaf.econnecto.utils.LogUtils;
-import com.zaf.econnecto.utils.NetworkUtils;
-import com.zaf.econnecto.utils.Utils;
 import com.zaf.econnecto.utils.parser.ParseManager;
 
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public class BizDetailPresenter extends BasePresenter {
