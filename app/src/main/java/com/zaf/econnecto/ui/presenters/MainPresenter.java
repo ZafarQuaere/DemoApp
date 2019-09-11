@@ -62,7 +62,7 @@ public class MainPresenter extends BasePresenter {
                 break;
             case "FragmentProfile":
                 Utils.moveToFragment(mContext, new FragmentProfile(), FragmentProfile.class.getSimpleName(), null);
-                Utils.updateActionBar(mContext, FragmentProfile.class.getSimpleName(), mContext.getString(R.string.my_profile), null, null);
+                Utils.updateActionBar(mContext, FragmentProfile.class.getSimpleName(), mContext.getString(R.string.my_business), null, null);
                 break;
             case "HelpNFaqFragment":
                 Utils.moveToFragment(mContext, new HelpNFaqFragment(), HelpNFaqFragment.class.getSimpleName(), null);
@@ -101,7 +101,7 @@ public class MainPresenter extends BasePresenter {
             iMain.showAddBizFab(true);
             Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.business_list), null, null);
         } else if (baseFragment.getClass().getSimpleName().contains("Profile")) {
-            Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.my_profile), null, null);
+            Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.my_business), null, null);
         } else if (baseFragment.getClass().getSimpleName().contains("Add")) {
             iMain.showAddBizFab(false);
             Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.add_business), null, null);

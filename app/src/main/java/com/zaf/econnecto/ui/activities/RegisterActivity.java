@@ -40,7 +40,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         setContentView(R.layout.activity_register);
         mContext = this;
         scrollViewImplementation();
-        findViewById(R.id.btnRegister).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.txtRegister).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // startActivity(new Intent(RegisterActivity.this, ChangePswdActivity.class));

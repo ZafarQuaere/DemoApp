@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.response_model.login.Data;
@@ -31,14 +30,14 @@ public class FragmentProfile extends BaseFragment<ProfilePresenter> implements I
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-         view = inflater.inflate(R.layout.fragment_profile, container, false);
+         view = inflater.inflate(R.layout.activity_my_business, container, false);
         getPresenter().updateUI();
         return view;
     }
 
     @Override
     public void updateUI(Data data) {
-        if (data != null){
+       /* if (data != null){
             EditText editName = (EditText)view.findViewById(R.id.editUserName);
             EditText editMobile = (EditText)view.findViewById(R.id.editMobile);
             EditText editEmailId = (EditText)view.findViewById(R.id.editEmailId);
@@ -47,7 +46,7 @@ public class FragmentProfile extends BaseFragment<ProfilePresenter> implements I
             editMobile.setText(data.getActive()+"");
             editEmailId.setText(data.getBusinessStatus()+"");
             editDealerId.setText(getString(R.string.dealerId)+": "+data.getLastName());
-        }
+        }*/
     }
 
     @Override

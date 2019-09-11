@@ -205,13 +205,15 @@
                         app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
 
-                    <Button
-                        android:id="@+id/btnRegister"
+                    <TextView
+                        android:id="@+id/txtRegister"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_20dp"
                         android:background="@drawable/rounded_background"
                         android:text="@string/register"
+                        android:gravity="center_horizontal"
+                        android:padding="@dimen/_10dp"
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/font_regular_text" />
 

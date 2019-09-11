@@ -3,7 +3,6 @@ package com.zaf.econnecto.ui.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
@@ -24,8 +22,8 @@ import com.zaf.econnecto.utils.LogUtils;
 public class AddBusinessFragment extends BaseFragment<AddBizPresenter> implements IAddBiz, AdapterView.OnItemSelectedListener {
 
     private View view;
-    private String [] categoryArray ;
-    private String [] chargesArray ;
+    private String[] categoryArray;
+    private String[] chargesArray;
     private Spinner spinnerCategory;
     private Spinner spinnerCharges;
     private Context mContext;
@@ -70,15 +68,15 @@ public class AddBusinessFragment extends BaseFragment<AddBizPresenter> implement
     }
 
     private void initSpinners(View view) {
-        spinnerCategory = (Spinner)view.findViewById(R.id.spinnerCategory);
-        spinnerCharges = (Spinner)view.findViewById(R.id.spinnerCharges);
+        spinnerCategory = (Spinner) view.findViewById(R.id.spinnerCategory);
+        spinnerCharges = (Spinner) view.findViewById(R.id.spinnerCharges);
         spinnerCategory.setOnItemSelectedListener(this);
         spinnerCharges.setOnItemSelectedListener(this);
-        ArrayAdapter categoryAdapter = new ArrayAdapter(getActivity(),android.R.layout.simple_spinner_item,categoryArray);
+        ArrayAdapter categoryAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, categoryArray);
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategory.setAdapter(categoryAdapter);
 
-        ArrayAdapter chargesdapter = new ArrayAdapter(getActivity(),android.R.layout.simple_spinner_item,chargesArray);
+        ArrayAdapter chargesdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, chargesArray);
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCharges.setAdapter(chargesdapter);
     }
@@ -115,8 +113,10 @@ public class AddBusinessFragment extends BaseFragment<AddBizPresenter> implement
                 //Todo
                 getActivity().onBackPressed();
             }
+
             @Override
-            public void onCancelClick() { }
+            public void onCancelClick() {
+            }
         });
     }
 
@@ -131,11 +131,11 @@ public class AddBusinessFragment extends BaseFragment<AddBizPresenter> implement
         switch (parent.getId()) {
             case R.id.spinnerCategory:
                 bizCategory = parent.getItemAtPosition(position).toString();
-              //  LogUtils.showToast(mContext,bizCategory );
+                //  LogUtils.showToast(mContext,bizCategory );
                 break;
             case R.id.spinnerCharges:
                 bizCharges = parent.getItemAtPosition(position).toString();
-               // LogUtils.showToast(mContext,bizCharges );
+                // LogUtils.showToast(mContext,bizCharges );
                 break;
         }
 
@@ -159,7 +159,7 @@ public class AddBusinessFragment extends BaseFragment<AddBizPresenter> implement
         String website = editBizWebsite.getText().toString().trim();
         String amount = editBizAmount.getText().toString().trim();
 
-        getPresenter().validateFields(bizName,shortDesc,bizCategory,detailDesc,foundYear,awards,address,phone1,phone2,email,website,bizCharges,amount);
+        getPresenter().validateFields(bizName, shortDesc, bizCategory, detailDesc, foundYear, awards, address, phone1, phone2, email, website, bizCharges, amount);
 
     }
 }

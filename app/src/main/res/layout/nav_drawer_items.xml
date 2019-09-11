@@ -137,7 +137,7 @@
                         style="@style/NavigationDrawerText"
                         android:drawableLeft="@drawable/ic_support"
                         android:onClick="onProfileClick"
-                        android:text="@string/my_profile" />
+                        android:text="@string/my_business" />
 
                     <TextView
                         style="@style/NavigationDrawerText"

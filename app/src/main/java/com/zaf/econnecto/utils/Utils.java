@@ -30,6 +30,7 @@ import com.zaf.econnecto.ui.activities.ChangePswdActivity;
 import com.zaf.econnecto.ui.activities.EnterNewPswdActivity;
 import com.zaf.econnecto.ui.activities.ForgetPswdActivity;
 import com.zaf.econnecto.ui.activities.LoginActivity;
+import com.zaf.econnecto.ui.activities.MyBusinessActivity;
 import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
 import com.zaf.econnecto.ui.fragments.BizCategoryFragment;
 import com.zaf.econnecto.ui.fragments.BizListFragment;
@@ -198,6 +199,14 @@ public class Utils {
                 }
             });
         } else if (className.equals(new BizDetailsActivity().getClass().getSimpleName())) {
+            textBack.setVisibility(View.VISIBLE);
+            textBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((Activity) activity).onBackPressed();
+                }
+            });
+        } else if (className.equals(new MyBusinessActivity().getClass().getSimpleName())) {
             textBack.setVisibility(View.VISIBLE);
             textBack.setOnClickListener(new View.OnClickListener() {
                 @Override

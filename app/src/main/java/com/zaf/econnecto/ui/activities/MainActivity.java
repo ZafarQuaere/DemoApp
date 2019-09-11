@@ -22,6 +22,7 @@ import com.zaf.econnecto.R;
 import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
 import com.zaf.econnecto.ui.fragments.BizCategoryFragment;
 import com.zaf.econnecto.ui.fragments.BizListFragment;
+import com.zaf.econnecto.ui.fragments.FragmentProfile;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.ui.presenters.MainPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IMain;
@@ -165,12 +166,14 @@ public class MainActivity extends BaseActivity<MainPresenter>
     public void onProfileClick(View view) {
         closeDrawer();
         // getPresenter().moveToFragment(FragmentProfile.class.getSimpleName());
-        LogUtils.showToast(mContext, "Development under progress");
+        startActivity(new Intent(MainActivity.this, MyBusinessActivity.class));
+        //LogUtils.showToast(mContext, "Development under progress");
 
     }
 
     public void verifyEmailClick(View view) {
-        showVerifyEmailDialog();
+        if (!Utils.isEmailVerified(mContext))
+            showVerifyEmailDialog();
     }
 
     private void showVerifyEmailDialog() {
