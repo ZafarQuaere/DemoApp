@@ -12,16 +12,22 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:layout_marginStart="@dimen/_5dp"
+        android:layout_marginRight="@dimen/_10dp"
+        android:paddingRight="@dimen/_10dp"
         android:paddingBottom="@dimen/_10dp"
         android:background="@drawable/ic_arrow_back"
         android:visibility="visible" />
 
     <EditText
+        android:id="@+id/editSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="@dimen/_20dp"
+        android:layout_marginLeft="@dimen/_20dp"
+        android:layout_marginRight="@dimen/_10dp"
+        android:paddingStart="@dimen/_10dp"
         android:layout_weight="1"
+        android:textCursorDrawable="@xml/color_cursor"
+        android:textColor="@color/colorWhite"
         android:backgroundTint="@color/colorWhite" />
 
     <TextView
@@ -31,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="@dimen/_20dp"
+        android:layout_marginEnd="@dimen/_10dp"
         android:paddingBottom="@dimen/_10dp"
         android:background="@drawable/ic_clear"
         android:visibility="visible" />

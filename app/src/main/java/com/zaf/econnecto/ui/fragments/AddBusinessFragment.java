@@ -110,7 +110,6 @@ public class AddBusinessFragment extends BaseFragment<AddBizPresenter> implement
         LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.ok), msg, new DialogButtonClick() {
             @Override
             public void onOkClick() {
-                //Todo
                 getActivity().onBackPressed();
             }
 

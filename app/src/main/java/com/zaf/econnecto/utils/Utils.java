@@ -18,6 +18,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -172,6 +173,8 @@ public class Utils {
         final TextView textBack = (TextView) toolbarLayout.findViewById(R.id.textBack);
         final TextView txtSearch = (TextView) toolbarLayout.findViewById(R.id.txtSearch);
         final TextView txtSearchBack = (TextView) toolbarLayout.findViewById(R.id.txtSearchBack);
+        final TextView txtSearchClear = (TextView) toolbarLayout.findViewById(R.id.txtSearchClear);
+        final EditText editSearch = (EditText) toolbarLayout.findViewById(R.id.editSearch);
         final ImageView imgActionBarDrawerIcon = (ImageView) toolbarLayout.findViewById(R.id.imgActionBarDrawerIcon);
 
         textBack.setVisibility(View.GONE);
@@ -232,21 +235,27 @@ public class Utils {
             txtSearch.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //actionBarListener.onSearchClick();
-                   /* rlytSearch.setVisibility( View.VISIBLE);
-                    imgActionBarDrawerIcon.setVisibility( View.GONE);
-                    textBack.setVisibility( View.GONE);
-                    textTitle.setVisibility( View.GONE);
-                    txtSearch.setVisibility( View.GONE);*/
+                    actionBarListener.onSearchClick();
+                    rlytSearch.setVisibility(View.VISIBLE);
+                    imgActionBarDrawerIcon.setVisibility(View.GONE);
+                    textBack.setVisibility(View.GONE);
+                    textTitle.setVisibility(View.GONE);
+                    txtSearch.setVisibility(View.GONE);
+                    txtSearchClear.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            editSearch.setText("");
+                        }
+                    });
                 }
             });
             txtSearchBack.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                  /*  rlytSearch.setVisibility(View.GONE);
-                    imgActionBarDrawerIcon.setVisibility( View.VISIBLE);
-                    textTitle.setVisibility( View.VISIBLE);
-                    txtSearch.setVisibility( View.VISIBLE);*/
+                    rlytSearch.setVisibility(View.GONE);
+                    imgActionBarDrawerIcon.setVisibility(View.VISIBLE);
+                    textTitle.setVisibility(View.VISIBLE);
+                    txtSearch.setVisibility(View.VISIBLE);
                 }
             });
         } else if (className.equals(new FragmentProfile().getClass().getSimpleName())) {
