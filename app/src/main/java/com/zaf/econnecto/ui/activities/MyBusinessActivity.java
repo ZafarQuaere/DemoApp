@@ -1,45 +1,67 @@
 package com.zaf.econnecto.ui.activities;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.squareup.picasso.Picasso;
 import com.zaf.econnecto.R;
-import com.zaf.econnecto.network_call.MyJsonObjectRequest;
 import com.zaf.econnecto.network_call.response_model.biz_detail.BizDetails;
-import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.ui.presenters.BizDetailPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IBizDetail;
-import com.zaf.econnecto.utils.AppConstant;
-import com.zaf.econnecto.utils.AppController;
 import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.Utils;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.io.File;
+import java.io.IOException;
+
+import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+//import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 
 public class MyBusinessActivity extends BaseActivity<BizDetailPresenter> implements IBizDetail, View.OnClickListener {
 
     private Context mContext;
-    private String biz_uid;
     private BizDetails mBizDetailsData;
-    private boolean isFollowing;
-    private TextView textFollow;
     private TextView textFollowers;
+    private ImageButton imgBannerUpload;
+    private ImageButton imgProfileUpload;
+    private ImageView imgProfile;
+    private ImageView imgBanner;
+    private static final int STORAGE_PERMISSION_REQUEST_CODE = 200;
+    private static int IMG_PROFILE_RESULT = 1;
+    private static int IMG_BANNER_RESULT = 2;
+    private static int IMG_SELECTED_FOR ;
+    private Uri selectedImageUri;
 
     @Override
     protected BizDetailPresenter initPresenter() {
@@ -48,16 +70,12 @@ public class MyBusinessActivity extends BaseActivity<BizDetailPresenter> impleme
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //ToDo have to make app bar transparent.
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_business);
         mContext = this;
-        biz_uid = getIntent().getStringExtra(getResources().getString(R.string.key_biz_id));
-        isFollowing = getIntent().getBooleanExtra(getResources().getString(R.string.is_following), false);
         initUI();
 
-        getPresenter().callBizDetailApi(biz_uid);
         //Utils.updateActionBar(this,new BizDetailsActivity().getClass().getSimpleName(),getString(R.string.biz_details), null,null);
 
 
@@ -67,9 +85,7 @@ public class MyBusinessActivity extends BaseActivity<BizDetailPresenter> impleme
         final Toolbar toolbar = findViewById(R.id.toolbarBd);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //Todo have to make app bar transparent
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,6 +93,17 @@ public class MyBusinessActivity extends BaseActivity<BizDetailPresenter> impleme
                 onBackPressed();
             }
         });
+
+        imgBannerUpload = (ImageButton) findViewById(R.id.imgBannerUpload);
+        imgProfileUpload = (ImageButton) findViewById(R.id.imgProfileUpload);
+
+
+        imgProfile = (ImageView) findViewById(R.id.imgProfile);
+        imgBanner = (ImageView) findViewById(R.id.imgBanner);
+
+
+        imgBannerUpload.setOnClickListener(this);
+        imgProfileUpload.setOnClickListener(this);
     }
 
     @Override
@@ -94,11 +121,7 @@ public class MyBusinessActivity extends BaseActivity<BizDetailPresenter> impleme
         ImageView imgProfile = (ImageView) findViewById(R.id.imgProfile);
         ImageView imgBanner = (ImageView) findViewById(R.id.imgBanner);
         TextView textShortDescription = (TextView) findViewById(R.id.textShortDescription);
-        TextView bizNameTitle = (TextView) findViewById(R.id.bizNameTitle);
-        TextView bizDetailDescription = (TextView) findViewById(R.id.bizDetailDescription);
-        textFollow = (TextView) findViewById(R.id.textFollow);
         textFollowers = (TextView) findViewById(R.id.textFollowers);
-        TextView textEstablishedDate = (TextView) findViewById(R.id.textEstablishedDate);
         TextView textAddress = (TextView) findViewById(R.id.textAddress);
         TextView textPhone = (TextView) findViewById(R.id.textPhone);
         TextView textEmail = (TextView) findViewById(R.id.textEmail);
@@ -107,9 +130,6 @@ public class MyBusinessActivity extends BaseActivity<BizDetailPresenter> impleme
         Picasso.get().load(mBizDetailsData.getBusinessPic()).placeholder(R.drawable.avatar_male).into(imgProfile);
         Picasso.get().load(mBizDetailsData.getBannerPic()).placeholder(R.drawable.avatar_male).into(imgBanner);
         textShortDescription.setText(mBizDetailsData.getShortDescription().trim());
-        bizNameTitle.setText(mBizDetailsData.getBusinessName().trim());
-        bizDetailDescription.setText(mBizDetailsData.getDetailedDescription().trim());
-        textEstablishedDate.setText(mContext.getString(R.string.establish_date) + ": " + mBizDetailsData.getYearFounded());
         textFollowers.setText(mBizDetailsData.getFollowersCount() + " " + mContext.getString(R.string.followers));
         textAddress.setText(mBizDetailsData.getAddress());
         textPhone.setText(mBizDetailsData.getPhone1());
@@ -117,8 +137,6 @@ public class MyBusinessActivity extends BaseActivity<BizDetailPresenter> impleme
         textWebsite.setVisibility(mBizDetailsData.getWebsite().isEmpty() || mBizDetailsData.getWebsite() == null ? View.GONE : View.VISIBLE);
         textWebsite.setText(mBizDetailsData.getWebsite());
         textPhone.setOnClickListener(this);
-        textFollow.setOnClickListener(this);
-
 
     }
 
@@ -145,105 +163,130 @@ public class MyBusinessActivity extends BaseActivity<BizDetailPresenter> impleme
                 Utils.callPhone(mContext, mBizDetailsData.getPhone1());
                 break;
 
-            case R.id.textFollow:
-                validateFollow();
+
+            case R.id.imgBannerUpload:
+                IMG_SELECTED_FOR = IMG_BANNER_RESULT;
+                if (checkPermission()) {
+                    selectImgFromGallery();
+                } else {
+                    requestPermission();
+                }
+
+                break;
+
+            case R.id.imgProfileUpload:
+                IMG_SELECTED_FOR = IMG_PROFILE_RESULT;
+                if (checkPermission()) {
+                    selectImgFromGallery();
+                } else {
+                    requestPermission();
+                }
+
                 break;
         }
     }
 
-    private void validateFollow() {
-        if (Utils.isLoggedIn(mContext)) {
-            if (textFollow.getText().equals(mContext.getString(R.string.follow))) {
-                callFollowApi("follow", biz_uid);
-                textFollowers.setText((Integer.parseInt(mBizDetailsData.getFollowersCount()))+ 1 + " " + mContext.getString(R.string.followers));
-                AppConstant.NEW_FOLLOW = true;
-               /* int followerCount = Integer.parseInt(mValues.get(position).getFollowersCount()) + 1;
-                mValues.get(position).setFollowersCount(followerCount + "");
-                mValues.get(position).setIsFollowing(1);*/
-                updateFollowingUI(textFollow);
-            } else {
-                LogUtils.showDialogDoubleButton(mContext, mContext.getString(R.string.cancel), mContext.getString(R.string.ok),
-                        mContext.getString(R.string.do_you_want_to_unfollow) + " " + mBizDetailsData.getBusinessName() + " ?", new DialogButtonClick() {
-                            @Override
-                            public void onOkClick() {
-                                callFollowApi("unfollow", biz_uid);
-                                updateUnfollowUI(textFollow);
-                                textFollowers.setText((Integer.parseInt(getFollowerCount(textFollowers)))- 1 + " " + mContext.getString(R.string.followers));
-                                AppConstant.NEW_FOLLOW = true;
-                               /* int followerCount = Integer.parseInt(mValues.get(position).getFollowersCount()) - 1;
-                                mValues.get(position).setFollowersCount(followerCount + "");
-                                mValues.get(position).setIsFollowing(0);*/
-                            }
+    private void selectImgFromGallery() {
+      Intent  intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, IMG_SELECTED_FOR);
+    }
 
-                            @Override
-                            public void onCancelClick() {
-                            }
-                        });
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == RESULT_OK && null != data) {
+            selectedImageUri = data.getData();
+            if (requestCode == IMG_PROFILE_RESULT ){
+                Bitmap bitmap = getBitmap(data);
+                imgProfile.setImageBitmap(getCircledBitmap(bitmap));
+                    //imgProfile.setImageURI(selectedImageUri);
+            }else {
+                imgBanner.setImageURI(selectedImageUri);
             }
-        } else {
-
-            LogUtils.showDialogDoubleButton(mContext, mContext.getString(R.string.cancel), mContext.getString(R.string.ok),
-                    mContext.getString(R.string.you_need_to_login_first_to_follow_a_business), new DialogButtonClick() {
-                        @Override
-                        public void onOkClick() {
-                            mContext.startActivity(new Intent(mContext, LoginActivity.class));
-                        }
-
-                        @Override
-                        public void onCancelClick() {
-                        }
-                    });
         }
     }
 
-    private String getFollowerCount(TextView textFollowers) {
-        String followerCount = textFollowers.getText().toString().trim();
-        String[] count = followerCount.split(" ");
-        return count[0];
+    private Bitmap getBitmap(Intent data) {
+        String[] FILE = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(selectedImageUri,
+                FILE, null, null, null);
+        cursor.moveToFirst();
+        int columnIndex = cursor.getColumnIndex(FILE[0]);
+        String decodedImage = cursor.getString(columnIndex);
+        cursor.close();
+
+        Bitmap bitmap = BitmapFactory.decodeFile(decodedImage);
+        return bitmap;
     }
 
-    public void callFollowApi(final String action, String businessUid) {
-        String url = AppConstant.URL_BASE + AppConstant.URL_FOLLOW;// + 3;
+    private boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(getApplicationContext(), READ_EXTERNAL_STORAGE);
+        int result1 = ContextCompat.checkSelfPermission(getApplicationContext(), CAMERA);
+        return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED;
+    }
 
-        JSONObject requestObject = new JSONObject();
-        try {
-            requestObject.put("action", action);
-            requestObject.put("user_email", Utils.getUserEmail(mContext));
-            requestObject.put("business_uid", businessUid);
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{READ_EXTERNAL_STORAGE, CAMERA}, STORAGE_PERMISSION_REQUEST_CODE);
+    }
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-            LogUtils.ERROR(e.getMessage());
-        }
-        LogUtils.DEBUG("URL : " + url + "\nRequest Body :: " + requestObject.toString());
-        final MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.POST, url, requestObject, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                LogUtils.DEBUG("Follow Response ::" + response.toString());
-
-                if (response != null && !response.equals("")) {
-                    int status = response.optInt("status");
-                    if (status != AppConstant.SUCCESS) {
-                        LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.something_wrong_from_server_plz_try_again));
-                        if (action.equals("follow")) {
-                            textFollow.setText(mContext.getString(R.string.follow));
-                            textFollow.setBackground(mContext.getResources().getDrawable(R.drawable.btn_follow));
-                        } else {
-                            textFollow.setBackground(mContext.getResources().getDrawable(R.drawable.btn_unfollow));
-                            textFollow.setText(mContext.getString(R.string.following));
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case STORAGE_PERMISSION_REQUEST_CODE:
+                    if (grantResults.length > 0){
+                        boolean readAccpeted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                        boolean cameraPermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                        if (readAccpeted /*&& writeAccepted*/){
+                            selectImgFromGallery();
+                        }else if (cameraPermission){
+                            captureFromCamera();
                         }
-                    } else {
-
+                        else {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                if (shouldShowRequestPermissionRationale(READ_EXTERNAL_STORAGE)) {
+                                    showMessageOKCancel("You need to allow access to of Read Permission to upload Banner and Profile",
+                                            new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                                        requestPermissions(new String[]{READ_EXTERNAL_STORAGE/*, WRITE_EXTERNAL_STORAGE*/},
+                                                                STORAGE_PERMISSION_REQUEST_CODE);
+                                                    }
+                                                }
+                                            });
+                                    return;
+                                }
+                            }
+                        }
                     }
-                }
-            }
+                break;
+        }
+    }
 
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                LogUtils.DEBUG("Follow Error ::" + error.getMessage());
-            }
-        });
-        AppController.getInstance().addToRequestQueue(objectRequest, "Follow");
+    private void captureFromCamera() {
+
+    }
+
+    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(mContext)
+                .setMessage(message)
+                .setPositiveButton("OK", okListener)
+                .setNegativeButton("Cancel", null)
+                .create()
+                .show();
+    }
+
+    public static Bitmap getCircledBitmap(Bitmap bitmap) {
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        canvas.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+
+        return output;
     }
 }

@@ -22,7 +22,6 @@ import com.zaf.econnecto.R;
 import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
 import com.zaf.econnecto.ui.fragments.BizCategoryFragment;
 import com.zaf.econnecto.ui.fragments.BizListFragment;
-import com.zaf.econnecto.ui.fragments.FragmentProfile;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.ui.presenters.MainPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IMain;
@@ -166,8 +165,8 @@ public class MainActivity extends BaseActivity<MainPresenter>
     public void onProfileClick(View view) {
         closeDrawer();
         // getPresenter().moveToFragment(FragmentProfile.class.getSimpleName());
+        updateMyAccountUI(false);
         startActivity(new Intent(MainActivity.this, MyBusinessActivity.class));
-        //LogUtils.showToast(mContext, "Development under progress");
 
     }
 
@@ -206,13 +205,13 @@ public class MainActivity extends BaseActivity<MainPresenter>
     }
 
     public void expandMyAccount(View view) {
-        updateMyAccount();
+        updateMyAccountUI(true);
     }
 
-    private void updateMyAccount() {
+    private void updateMyAccountUI(boolean isExpand) {
         LinearLayout lytMyAccount = (LinearLayout) findViewById(R.id.lytMyAccount);
         ImageButton iconMyAccountExpand = (ImageButton) findViewById(R.id.iconMyAccountExpand);
-        if (Utils.isLoggedIn(mContext)) {
+        if (Utils.isLoggedIn(mContext) && isExpand) {
             lytMyAccount.setVisibility(lytMyAccount.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
             iconMyAccountExpand.setBackground(lytMyAccount.getVisibility() == View.VISIBLE ? getResources().getDrawable(R.drawable.ic_minus) :
                     getResources().getDrawable(R.drawable.ic_plus));
@@ -302,7 +301,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
         ((Activity) mContext).finish();*/
         Utils.clearBackStackTillHomeFragment(mContext);
         getPresenter().moveToFragment(BizListFragment.class.getSimpleName());
-        updateMyAccount();
+        updateMyAccountUI(false);
         updateUI();
     }
 
