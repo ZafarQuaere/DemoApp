@@ -1,5 +1,7 @@
 package com.zaf.econnecto.utils;
 
+import com.zaf.econnecto.BuildConfig;
+
 public class AppConstant {
 
     public static final Integer SUCCESS = 1;
@@ -14,11 +16,9 @@ public class AppConstant {
     public static final String TIMESTAMP_FORMAT = "yyyyMMdd_HHmmss";
     public static final String TAG = "e-Connecto";
     public static final String RUPEES_SYMBOL = "₹ ";
-    public static final String ORDER_STATUS_NEW = "2";
-    public static final String ORDER_STATUS_COMPLETED = "1";
-    public static final String ORDER_STATUS_PENDING = "0";
 
-    public static final String URL_BASE = "http://econnecto.com/api/";
+
+    public static final String URL_BASE = BuildConfig.BASE_URL;  //"http://econnecto.com/api/";
     public static final String URL_REGISTER = "register.php";
     public static final String URL_LOGIN = "login.php";
     public static final String URL_BIZ_LIST = "business_list.php?email="; //(brandname,banner_image)
@@ -28,11 +28,11 @@ public class AppConstant {
     public static final String URL_FORGOT_PSWD = "forgot_pwd.php";
     public static final String URL_EMAIL_VERIFY = "email_verification.php";
     public static final String URL_ADD_BUSINESS = "add_business.php";
+    public static final String URL_MY_BUSINESS = "mybusiness.php";
 
 
     public static final String URL_DEALER_ADDRESS = "/insert-dealear-address"; //(brandname,banner_image)
-    public static final String URL_INSERT_DELAER = "/insert-dealer"; //(dName,mobile,brandIds,rating,addressId)
-    public static final String URL_INSERT_PRODUCT = "/insert-product"; //{pName,imagePath,dealerId,name,price,productType,isBrand}
+
     public static final String URL_VERIFY_MOBILE = "/mobile-verify?mobile=";
     public static final String URL_OTP_SERVICE = "/otp_service?mobile=";
     public static final String URL_CHANGE_PASSWORD = "/change-password?mobile=";

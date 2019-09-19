@@ -1,25 +1,24 @@
 <resources>
-    <string name="app_name">e-Connecto</string>
 
+    <string name="app_name">e-Connecto</string>
     <string name="title_activity_welcome">Home Screen</string>
+
     <string name="next">NEXT</string>
     <string name="skip">SKIP</string>
+
     <string name="start">GOT IT</string>
-
     <string name="slide_1_title">e-Connecto</string>
+
     <string name="slide_1_desc"><b>Connect</b> your <b>Business Socially</b></string>
-
     <string name="slide_2_title">e-Connecto</string>
+
     <string name="slide_2_desc">Create your account on e-Connecto</string>
-
     <string name="slide_3_title">e-Connecto</string>
-    <string name="slide_3_desc">Get connected to latest biz trends</string>
 
+
+    <string name="slide_3_desc">Get connected to latest biz trends</string>
     <string name="slide_4_title">e-Connecto</string>
     <string name="slide_4_desc">Grow your business socially</string>
-
-
-
     <string name="aqua_hey">AquaHey!</string>
     <string name="key_shared_prefs">key_shared_prefs</string>
     <string name="key_logged_in">key_logged_in</string>
@@ -106,16 +105,16 @@
     <string name="key_complete_order_data">key_complete_order_data</string>
     <string name="key_pending_order_data">key_pending_order_data</string>
     <string name="no_data_available">Oops! No data available.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="no_new_order_available">No Order available right now.</string>
     <string name="no_pending_order">No Order is pending.</string>
     <string name="units">Units</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="contact_us">Contact Us</string>
+
     <string name="no_product_added">No Product is added yet.</string>
     <string name="dealerId">Dealer ID</string>
     <string name="price">Price</string>
-
     <string name="website_link"><a href="http://aquahey.com/website/index.html"> www.aquahey.com</a></string>
     <string name="fb_link"><a href="https://www.facebook.com/AquaHeyApp/?modal=admin_todo_tour"> facebook.com/aquahey</a></string>
     <string name="insta_link"><a href="https://www.instagram.com/aquaheyapp/"> instagram.com/aquahey</a></string>
@@ -176,7 +175,7 @@
     <string name="you_need_to_login_first_to_follow_a_business">You need to Login first to follow a Businness.</string>
     <string name="please_enter_business_name">Please Enter Business Name</string>
     <string name="please_enter_a_short_description">Please enter a short description of your business.</string>
-    <string name = "Select_Category">Select Category</string>
+    <string name="Select_Category">Select Category</string>
     <string name="please_select_business_category">Please select business category</string>
     <string name="please_enter_a_detail_description">Please enter detail description of your business.</string>
     <string name="please_enter_foundation_year_of_business">Please enter Foundation Year of the business.</string>
@@ -200,8 +199,12 @@
     <string name="activate_account">activate_account</string>
     <string name="congrats_your_account_is_verified_now">Congrats !! Your account is verfied now.</string>
     <string name="key_email_verified">key_email_verified</string>
+
     <string name="please_login_first">Please login first.</string>
+
     <string name="you_need_to_verify_your_email_to_add_a_business">You need to Verfiy your email to add a bussiness</string>
+
+    <string name="button">Button</string>
 
     <array name="age_group">
         <item name="10-13">10_13</item>
@@ -214,58 +217,57 @@
     </array>
 
     <array name="charges_uniit">
-        <item name = "Select_Charges">Select Charges</item>
+        <item name="Select_Charges">Select Charges</item>
         <item name="per_person">Per Person</item>
         <item name="per_month">Per Month</item>
         <item name="rupee_symbol">₹</item>
     </array>
-
     <array name="biz_category">
-        <item name = "Select_Category">Select Category</item>
-        <item name = "Automobiles_Showroom">Automobiles Showroom</item>
-        <item name = "Bags_and_Luggage">Bags and Luggage</item>
-        <item name = "Bakery">Bakery</item>
-        <item name = "Bank">Bank</item>
-        <item name = "Beauty_Parlour">Beauty Parlour</item>
-        <item name = "Book_Store">Book Store</item>
-        <item name = "Building_and_Materials">Building and Materials</item>
-        <item name = "Cab_and_Cars">Cab and Cars</item>
-        <item name = "Coaching_Institute">Coaching Institute</item>
-        <item name = "College_School">College/School</item>
-        <item name = "Courier_Services">Courier Services</item>
-        <item name = "Crockery">Crockery</item>
-        <item name = "Doctors">Doctors</item>
-        <item name = "Electric_Store">Electric Store</item>
-        <item name = "Entertainment">Entertainment</item>
-        <item name = "Florists">Florists</item>
-        <item name = "Foot_Wear_Shop">Foot Wear Shop</item>
-        <item name = "Fruits_Shops">Fruits Shops</item>
-        <item name = "Furniture_Store">Furniture Store</item>
-        <item name = "Garments_Shop">Garments Shop</item>
-        <item name = "Grocery">Grocery</item>
-        <item name = "Home_Decor">Home Decor</item>
-        <item name = "Hospital">Hospital</item>
-        <item name = "Hotel">Hotel</item>
-        <item name = "Internet_Cafe">Internet Cafe</item>
-        <item name = "Jewelry">Jewelry</item>
-        <item name = "Marriage_Hall">Marriage Hall</item>
-        <item name = "Medical_Store">Medical Store</item>
-        <item name = "Mobile_and_Mobile_Accessories_Store">Mobile and Mobile Accessories Store</item>
-        <item name = "Mobile_DTH_Recharge">Mobile/DTH Recharge</item>
-        <item name = "Motor_Bike_Showroom">Motor Bike Showroom</item>
-        <item name = "Packers_and_Movers">Packers and Movers</item>
-        <item name = "Petrol_Pump">Petrol Pump</item>
-        <item name = "Photocopy_Shop">Photocopy Shop</item>
-        <item name = "Poultry">Poultry</item>
-        <item name = "Real_State">Real State</item>
-        <item name = "Restaurant">Restaurant</item>
-        <item name = "Saloon">Saloon</item>
-        <item name = "Shopping_Mall">Shopping Mall</item>
-        <item name = "Sports">Sports</item>
-        <item name = "Stationary">Stationary</item>
-        <item name = "Sweet_Shop">Sweet Shop</item>
-        <item name = "Telecom">Telecom</item>
-        <item name = "Utensils_Shops">Utensils Shops</item>
-        <item name = "Others">Others</item>
+        <item name="Select_Category">Select Category</item>
+        <item name="Automobiles_Showroom">Automobiles Showroom</item>
+        <item name="Bags_and_Luggage">Bags and Luggage</item>
+        <item name="Bakery">Bakery</item>
+        <item name="Bank">Bank</item>
+        <item name="Beauty_Parlour">Beauty Parlour</item>
+        <item name="Book_Store">Book Store</item>
+        <item name="Building_and_Materials">Building and Materials</item>
+        <item name="Cab_and_Cars">Cab and Cars</item>
+        <item name="Coaching_Institute">Coaching Institute</item>
+        <item name="College_School">College/School</item>
+        <item name="Courier_Services">Courier Services</item>
+        <item name="Crockery">Crockery</item>
+        <item name="Doctors">Doctors</item>
+        <item name="Electric_Store">Electric Store</item>
+        <item name="Entertainment">Entertainment</item>
+        <item name="Florists">Florists</item>
+        <item name="Foot_Wear_Shop">Foot Wear Shop</item>
+        <item name="Fruits_Shops">Fruits Shops</item>
+        <item name="Furniture_Store">Furniture Store</item>
+        <item name="Garments_Shop">Garments Shop</item>
+        <item name="Grocery">Grocery</item>
+        <item name="Home_Decor">Home Decor</item>
+        <item name="Hospital">Hospital</item>
+        <item name="Hotel">Hotel</item>
+        <item name="Internet_Cafe">Internet Cafe</item>
+        <item name="Jewelry">Jewelry</item>
+        <item name="Marriage_Hall">Marriage Hall</item>
+        <item name="Medical_Store">Medical Store</item>
+        <item name="Mobile_and_Mobile_Accessories_Store">Mobile and Mobile Accessories Store</item>
+        <item name="Mobile_DTH_Recharge">Mobile/DTH Recharge</item>
+        <item name="Motor_Bike_Showroom">Motor Bike Showroom</item>
+        <item name="Packers_and_Movers">Packers and Movers</item>
+        <item name="Petrol_Pump">Petrol Pump</item>
+        <item name="Photocopy_Shop">Photocopy Shop</item>
+        <item name="Poultry">Poultry</item>
+        <item name="Real_State">Real State</item>
+        <item name="Restaurant">Restaurant</item>
+        <item name="Saloon">Saloon</item>
+        <item name="Shopping_Mall">Shopping Mall</item>
+        <item name="Sports">Sports</item>
+        <item name="Stationary">Stationary</item>
+        <item name="Sweet_Shop">Sweet Shop</item>
+        <item name="Telecom">Telecom</item>
+        <item name="Utensils_Shops">Utensils Shops</item>
+        <item name="Others">Others</item>
     </array>
 </resources>

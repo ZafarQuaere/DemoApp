@@ -2,12 +2,13 @@ package com.zaf.econnecto.ui.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.NetworkUtils;
 import com.zaf.econnecto.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -37,14 +39,14 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
     private AppLoaderFragment loader;
     private Context mContext;
     private TextView emptyTextView;
-    private ActionBarItemClick actionBarItemClick;
+    private ActionBarItemClick searchListener;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mContext = getActivity();
-        actionBarItemClick = this;
+        searchListener = this;
     }
 
     @Override
@@ -95,7 +97,6 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
     }
 
     private void initUI(View view) {
-
         recylcerProducts = (RecyclerView) view.findViewById(R.id.recyclerBusinessList);
         recylcerProducts.setHasFixedSize(true);
 
@@ -105,22 +106,6 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
         emptyTextView = (TextView) view.findViewById(R.id.emptyTextView);
 
         Utils.updateActionBar(mContext, BizListFragment.class.getSimpleName(), mContext.getString(R.string.business_list), null, this);
-
-    }
-
-
-    @Override
-    public void onResponseSuccess() {
-
-    }
-
-    @Override
-    public void onResponseFailure(String msg) {
-
-    }
-
-    @Override
-    public void editItem() {
 
     }
 
@@ -145,18 +130,24 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
     }
 
     @Override
-    public void onSearchClick() {
-        LogUtils.showToast(mContext,"search click");
-    }
-
-    @Override
-    public void onBackClick() {
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
     }
 
     @Override
-    public void onClearClick() {
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
 
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+        filter(editable.toString());
+        LogUtils.showToast(mContext,editable.toString());
+
+    }
+
+    private void filter(String string) {
+       getPresenter().filterList(string);
     }
 
 

@@ -25,6 +25,7 @@ import com.zaf.econnecto.ui.fragments.BizListFragment;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.ui.presenters.MainPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IMain;
+import com.zaf.econnecto.utils.AppLoaderFragment;
 import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.Utils;
 
@@ -341,7 +342,13 @@ public class MainActivity extends BaseActivity<MainPresenter>
     @Override
     protected void onPostResume() {
         LogUtils.DEBUG("Main Activity OnPostResume ");
+       /* if(AppLoaderFragment.getInstance(mContext).isProgressVisible()){
+            AppLoaderFragment.getInstance(mContext).dismiss();
+        }*/
         super.onPostResume();
     }
 
+    public void uploadImage(View view) {
+        startActivity(new Intent(MainActivity.this,UploadImageActivity.class));
+    }
 }

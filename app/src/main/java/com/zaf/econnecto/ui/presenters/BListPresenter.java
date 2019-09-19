@@ -6,6 +6,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.zaf.econnecto.network_call.MyJsonObjectRequest;
+import com.zaf.econnecto.network_call.response_model.biz_list.BizData;
 import com.zaf.econnecto.network_call.response_model.biz_list.BizListData;
 import com.zaf.econnecto.network_call.response_model.home.SalesData;
 import com.zaf.econnecto.network_call.response_model.product_list.MyProductsData;
@@ -20,10 +21,13 @@ import com.zaf.econnecto.utils.parser.ParseManager;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class BListPresenter extends BaseFragmentPresenter {
     private Context mContext;
     private IFragListing mProductFrag;
     private AppLoaderFragment loader;
+    private BizListData data;
 
     public BListPresenter(Context context, IFragListing productList) {
         super(context);
@@ -44,7 +48,7 @@ public class BListPresenter extends BaseFragmentPresenter {
             public void onResponse(JSONObject response) {
                 LogUtils.DEBUG("ProductList Response ::" + response.toString());
 
-                BizListData data = ParseManager.getInstance().fromJSON(response.toString(), BizListData.class);
+                 data = ParseManager.getInstance().fromJSON(response.toString(), BizListData.class);
                 if (data.getStatus() == AppConstant.SUCCESS) {
                     try {
                         mProductFrag.updateList(data.getData());
@@ -69,6 +73,17 @@ public class BListPresenter extends BaseFragmentPresenter {
             }
         });
         AppController.getInstance().addToRequestQueue(objectRequest, "ProductList");
+    }
+
+        public void filterList(String bizName) {
+            ArrayList<BizData> filterData = new ArrayList<>();
+
+            for (BizData bizData : data.getData()){
+            if (bizData.getBusinessName().toLowerCase().trim().contains(bizName.toLowerCase())){
+                filterData.add(bizData);
+            }
+        }
+            mProductFrag.updateList(filterData);
     }
 
     /*public void checkProgress() {

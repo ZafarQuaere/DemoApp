@@ -29,6 +29,7 @@ public class SplashActivity extends Activity {
             public void run() {
                 progress.setVisibility(View.GONE);
                 Intent i = new Intent(SplashActivity.this, MainActivity.class);
+               // Intent i = new Intent(SplashActivity.this, SplashActivity.class);
                 startActivity(i);
                 finish();
             }

@@ -30,7 +30,6 @@ public class MyJsonObjectRequest extends JsonObjectRequest {
     private final SharedPreferences preferences;
     private Context mContext;
 
-
     public MyJsonObjectRequest(Context context,int method, String url, JSONObject requestBody,
                                Response.Listener<JSONObject> listener,
                                Response.ErrorListener errorListener) {
@@ -48,6 +47,10 @@ public class MyJsonObjectRequest extends JsonObjectRequest {
             else if(url.contains(AppConstant.URL_REGISTER))
             {
                 fileName = "register.txt";
+            }
+            else if(url.contains(AppConstant.URL_BIZ_LIST))
+            {
+                fileName = "business_list.txt";
             }
 
             try {
@@ -106,4 +109,5 @@ public class MyJsonObjectRequest extends JsonObjectRequest {
     protected Map<String, String> getParams() throws AuthFailureError {
         return super.getParams();
     }
+
 }

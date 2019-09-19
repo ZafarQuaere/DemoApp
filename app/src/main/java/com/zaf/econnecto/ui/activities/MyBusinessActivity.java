@@ -36,7 +36,9 @@ import com.squareup.picasso.Picasso;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.response_model.biz_detail.BizDetails;
 import com.zaf.econnecto.ui.presenters.BizDetailPresenter;
+import com.zaf.econnecto.ui.presenters.MyBusinessPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IBizDetail;
+import com.zaf.econnecto.ui.presenters.operations.IMyBusiness;
 import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.Utils;
 
@@ -48,7 +50,7 @@ import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 //import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 
-public class MyBusinessActivity extends BaseActivity<BizDetailPresenter> implements IBizDetail, View.OnClickListener {
+public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implements IMyBusiness, View.OnClickListener {
 
     private Context mContext;
     private BizDetails mBizDetailsData;
@@ -64,8 +66,8 @@ public class MyBusinessActivity extends BaseActivity<BizDetailPresenter> impleme
     private Uri selectedImageUri;
 
     @Override
-    protected BizDetailPresenter initPresenter() {
-        return new BizDetailPresenter(this, this);
+    protected MyBusinessPresenter initPresenter() {
+        return new MyBusinessPresenter(this, this);
     }
 
     @Override
@@ -75,7 +77,7 @@ public class MyBusinessActivity extends BaseActivity<BizDetailPresenter> impleme
         setContentView(R.layout.activity_my_business);
         mContext = this;
         initUI();
-
+        getPresenter().callBizDetailApi();
         //Utils.updateActionBar(this,new BizDetailsActivity().getClass().getSimpleName(),getString(R.string.biz_details), null,null);
 
 
@@ -113,31 +115,11 @@ public class MyBusinessActivity extends BaseActivity<BizDetailPresenter> impleme
     }
 
 
+
+
     @Override
-    public void updateUI(BizDetails bizDetails) {
-        mBizDetailsData = bizDetails;
-        CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle(mBizDetailsData != null ? mBizDetailsData.getBusinessName() : getString(R.string.business_details));
-        ImageView imgProfile = (ImageView) findViewById(R.id.imgProfile);
-        ImageView imgBanner = (ImageView) findViewById(R.id.imgBanner);
-        TextView textShortDescription = (TextView) findViewById(R.id.textShortDescription);
-        textFollowers = (TextView) findViewById(R.id.textFollowers);
-        TextView textAddress = (TextView) findViewById(R.id.textAddress);
-        TextView textPhone = (TextView) findViewById(R.id.textPhone);
-        TextView textEmail = (TextView) findViewById(R.id.textEmail);
-        TextView textWebsite = (TextView) findViewById(R.id.textWebsite);
-
-        Picasso.get().load(mBizDetailsData.getBusinessPic()).placeholder(R.drawable.avatar_male).into(imgProfile);
-        Picasso.get().load(mBizDetailsData.getBannerPic()).placeholder(R.drawable.avatar_male).into(imgBanner);
-        textShortDescription.setText(mBizDetailsData.getShortDescription().trim());
-        textFollowers.setText(mBizDetailsData.getFollowersCount() + " " + mContext.getString(R.string.followers));
-        textAddress.setText(mBizDetailsData.getAddress());
-        textPhone.setText(mBizDetailsData.getPhone1());
-        textEmail.setText(mBizDetailsData.getBusinessEmail());
-        textWebsite.setVisibility(mBizDetailsData.getWebsite().isEmpty() || mBizDetailsData.getWebsite() == null ? View.GONE : View.VISIBLE);
-        textWebsite.setText(mBizDetailsData.getWebsite());
-        textPhone.setOnClickListener(this);
-
+    public void updateUI(String bizDetails) {
+        LogUtils.showToast(mContext,"My business Data");
     }
 
     @Override
@@ -187,7 +169,7 @@ public class MyBusinessActivity extends BaseActivity<BizDetailPresenter> impleme
     }
 
     private void selectImgFromGallery() {
-      Intent  intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent  intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, IMG_SELECTED_FOR);
     }
 
@@ -218,7 +200,7 @@ public class MyBusinessActivity extends BaseActivity<BizDetailPresenter> impleme
         return bitmap;
     }
 
-    private boolean checkPermission() {
+   public boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission(getApplicationContext(), READ_EXTERNAL_STORAGE);
         int result1 = ContextCompat.checkSelfPermission(getApplicationContext(), CAMERA);
         return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED;

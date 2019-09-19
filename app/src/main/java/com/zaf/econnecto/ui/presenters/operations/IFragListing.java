@@ -10,9 +10,6 @@ import java.util.List;
 
 public interface IFragListing {
 
-    void onResponseSuccess();
-    void onResponseFailure(String msg);
-    void editItem();
 
     void updateList(List<BizData> data);
 }

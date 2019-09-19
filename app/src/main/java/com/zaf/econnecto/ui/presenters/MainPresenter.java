@@ -78,7 +78,6 @@ public class MainPresenter extends BasePresenter {
                     @Override
                     public void onOkClick() {
                         callLogoutApi();
-
                     }
 
                     @Override

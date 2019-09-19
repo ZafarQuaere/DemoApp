@@ -5,17 +5,25 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
@@ -235,7 +243,6 @@ public class Utils {
             txtSearch.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    actionBarListener.onSearchClick();
                     rlytSearch.setVisibility(View.VISIBLE);
                     imgActionBarDrawerIcon.setVisibility(View.GONE);
                     textBack.setVisibility(View.GONE);
@@ -256,6 +263,22 @@ public class Utils {
                     imgActionBarDrawerIcon.setVisibility(View.VISIBLE);
                     textTitle.setVisibility(View.VISIBLE);
                     txtSearch.setVisibility(View.VISIBLE);
+                }
+            });
+            editSearch.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    actionBarListener.afterTextChanged(s);
                 }
             });
         } else if (className.equals(new FragmentProfile().getClass().getSimpleName())) {
@@ -493,4 +516,17 @@ public class Utils {
             e.printStackTrace();
         }
     }
+
+    public static Bitmap getBitmap(Context mContext,Intent data,Uri selectedImageUri) {
+        String[] FILE = {MediaStore.Images.Media.DATA};
+        Cursor cursor = mContext.getContentResolver().query(selectedImageUri,FILE, null, null, null);
+        cursor.moveToFirst();
+        int columnIndex = cursor.getColumnIndex(FILE[0]);
+        String decodedImage = cursor.getString(columnIndex);
+        cursor.close();
+
+        Bitmap bitmap = BitmapFactory.decodeFile(decodedImage);
+        return bitmap;
+    }
+
 }
