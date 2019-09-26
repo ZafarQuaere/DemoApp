@@ -1,23 +1,23 @@
 {
-    "message": "Business found successfully",
-    "status": 1,
-    "data": [
-        {
-            "business_name": "Business 1",
-            "short_description": "Short description",
-            "business_category": "Building and Materials",
-            "detailed_description": "detailed description 1",
-            "year_founded": "1990",
-            "awards": "",
-            "address": "Address address address address address address address",
-            "phone1": "9988776655",
-            "phone2": "",
-            "business_email": "zafima20@gmail.com",
-            "website": "",
-            "charges": "500000 Per Month",
-            "followers_count": "1",
-            "banner_pic": "http://econnecto.com/profile-business/images/banner_pics/1561845099.png",
-            "business_pic": "http://econnecto.com/profile-business/images/business_pics/1561845138.png"
-        }
-    ]
+  "message": "Business found successfully",
+  "status": 1,
+  "data": [
+    {
+      "business_name": "Business 1",
+      "short_description": "Short description",
+      "business_category": "Building and Materials",
+      "detailed_description": "detailed description 1",
+      "year_founded": "1990",
+      "awards": "",
+      "address": "Address address address address address address address",
+      "phone1": "9988776655",
+      "phone2": "",
+      "business_email": "zafima20@gmail.com",
+      "website": "",
+      "charges": "500000 Per Month",
+      "followers_count": "1",
+      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1561845099.png",
+      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1561845138.png"
+    }
+  ]
 }

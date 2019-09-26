@@ -142,8 +142,6 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
     @Override
     public void afterTextChanged(Editable editable) {
         filter(editable.toString());
-        LogUtils.showToast(mContext,editable.toString());
-
     }
 
     private void filter(String string) {

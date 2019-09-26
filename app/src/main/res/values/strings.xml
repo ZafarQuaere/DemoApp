@@ -205,6 +205,7 @@
     <string name="you_need_to_verify_your_email_to_add_a_business">You need to Verfiy your email to add a bussiness</string>
 
     <string name="button">Button</string>
+    <string name="description">Description</string>
 
     <array name="age_group">
         <item name="10-13">10_13</item>

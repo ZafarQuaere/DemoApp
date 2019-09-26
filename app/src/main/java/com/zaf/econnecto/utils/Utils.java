@@ -278,7 +278,8 @@ public class Utils {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    actionBarListener.afterTextChanged(s);
+                    if (s != null && !s.toString().isEmpty())
+                        actionBarListener.afterTextChanged(s);
                 }
             });
         } else if (className.equals(new FragmentProfile().getClass().getSimpleName())) {

@@ -51,7 +51,7 @@ public class MainPresenter extends BasePresenter {
         switch (fragName) {
             case "BizCategoryFragment":
                 Utils.moveToFragment(mContext, new BizCategoryFragment(), BizCategoryFragment.class.getSimpleName(), null);
-                Utils.updateActionBar(mContext, BizCategoryFragment.class.getSimpleName(), mContext.getString(R.string.business_category), null, null);
+                Utils.updateActionBar(mContext, BizCategoryFragment.class.getSimpleName(), mContext.getString(R.string.hot_deals), null, null);
                 break;
             case "AddBusinessFragment":
                 Utils.moveToFragment(mContext, new AddBusinessFragment(), AddBusinessFragment.class.getSimpleName(), null);
@@ -95,7 +95,7 @@ public class MainPresenter extends BasePresenter {
 
     public void updateActionBarTitleOnBackPress(Context mContext, Fragment baseFragment) {
         if (baseFragment.getClass().getSimpleName().contains("Category")) {
-            Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.business_category), null, null);
+            Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.hot_deals), null, null);
         } else if (baseFragment.getClass().getSimpleName().contains("List")) {
             iMain.showAddBizFab(true);
             Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.business_list), null, null);

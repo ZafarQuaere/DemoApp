@@ -20,7 +20,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -35,15 +34,13 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.response_model.biz_detail.BizDetails;
-import com.zaf.econnecto.ui.presenters.BizDetailPresenter;
+import com.zaf.econnecto.network_call.response_model.my_business.MyBusinessData;
 import com.zaf.econnecto.ui.presenters.MyBusinessPresenter;
-import com.zaf.econnecto.ui.presenters.operations.IBizDetail;
 import com.zaf.econnecto.ui.presenters.operations.IMyBusiness;
 import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.Utils;
 
-import java.io.File;
-import java.io.IOException;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
@@ -53,17 +50,17 @@ import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implements IMyBusiness, View.OnClickListener {
 
     private Context mContext;
-    private BizDetails mBizDetailsData;
     private TextView textFollowers;
     private ImageButton imgBannerUpload;
     private ImageButton imgProfileUpload;
-    private ImageView imgProfile;
+    private CircleImageView imgProfile;
     private ImageView imgBanner;
     private static final int STORAGE_PERMISSION_REQUEST_CODE = 200;
     private static int IMG_PROFILE_RESULT = 1;
     private static int IMG_BANNER_RESULT = 2;
     private static int IMG_SELECTED_FOR ;
     private Uri selectedImageUri;
+    private TextView textPhone;
 
     @Override
     protected MyBusinessPresenter initPresenter() {
@@ -77,7 +74,7 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         setContentView(R.layout.activity_my_business);
         mContext = this;
         initUI();
-        getPresenter().callBizDetailApi();
+        getPresenter().callMyBizApi();
         //Utils.updateActionBar(this,new BizDetailsActivity().getClass().getSimpleName(),getString(R.string.biz_details), null,null);
 
 
@@ -100,7 +97,7 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         imgProfileUpload = (ImageButton) findViewById(R.id.imgProfileUpload);
 
 
-        imgProfile = (ImageView) findViewById(R.id.imgProfile);
+        imgProfile = (CircleImageView) findViewById(R.id.imgProfile);
         imgBanner = (ImageView) findViewById(R.id.imgBanner);
 
 
@@ -115,11 +112,27 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
     }
 
 
-
-
     @Override
-    public void updateUI(String bizDetails) {
-        LogUtils.showToast(mContext,"My business Data");
+    public void updateUI(MyBusinessData bizDetails) {
+        CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsing_toolbar);
+        collapsingToolbar.setTitle(bizDetails != null ? bizDetails.getBusinessName() : getString(R.string.business_details));
+        textFollowers = (TextView) findViewById(R.id.textFollowers);
+        TextView textAddress = (TextView) findViewById(R.id.textAddress);
+        textPhone = (TextView) findViewById(R.id.textPhone);
+        TextView textEmail = (TextView) findViewById(R.id.textEmail);
+        TextView textWebsite = (TextView) findViewById(R.id.textWebsite);
+        TextView textShortDescription = (TextView) findViewById(R.id.textShortDescription);
+        TextView textDetailDescription = (TextView) findViewById(R.id.textDetailDescription);
+        textFollowers.setText(bizDetails.getFollowersCount());
+        textAddress.setText(bizDetails.getAddress());
+        textPhone.setText(bizDetails.getPhone1());
+        textEmail.setText(bizDetails.getBusinessEmail());
+        textWebsite.setText(bizDetails.getWebsite());
+        textShortDescription.setText(bizDetails.getShortDescription());
+        textDetailDescription.setText(bizDetails.getDetailedDescription());
+        Picasso.get().load(bizDetails.getBusinessPic()).placeholder(R.drawable.avatar_male).into(imgProfile);
+        Picasso.get().load(bizDetails.getBannerPic()).placeholder(R.drawable.gradient).into(imgBanner);
+        imgBannerUpload.bringToFront();
     }
 
     @Override
@@ -127,22 +140,12 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         LogUtils.showErrorDialog(mContext, getString(R.string.ok), msg);
     }
 
-    public void updateUnfollowUI(TextView textFollow) {
-        textFollow.setText(mContext.getString(R.string.follow));
-        textFollow.setBackground(mContext.getResources().getDrawable(R.drawable.btn_follow));
-    }
-
-    public void updateFollowingUI(TextView textFollow) {
-        textFollow.setBackground(mContext.getResources().getDrawable(R.drawable.btn_unfollow));
-        textFollow.setText(mContext.getString(R.string.following));
-
-    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.textPhone:
-                Utils.callPhone(mContext, mBizDetailsData.getPhone1());
+               // Utils.callPhone(mContext, .getPhone1());
                 break;
 
 

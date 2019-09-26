@@ -30,6 +30,10 @@ public class AppConstant {
     public static final String URL_ADD_BUSINESS = "add_business.php";
     public static final String URL_MY_BUSINESS = "mybusiness.php";
 
+    public static final String URL_MY_BUSINESS1 = "http://econnecto.com/api/user_profile_pic.php\n" +
+            "http://econnecto.com/api/business_profile_pic.php" +
+            ": http://econnecto.com/api/business_banner_pic.php";
+
 
     public static final String URL_DEALER_ADDRESS = "/insert-dealear-address"; //(brandname,banner_image)
 
