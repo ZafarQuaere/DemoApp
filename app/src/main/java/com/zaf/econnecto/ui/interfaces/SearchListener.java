@@ -10,4 +10,5 @@ public interface SearchListener {
 
     void afterTextChanged(Editable s);
 
+    void clearSearch();
 }

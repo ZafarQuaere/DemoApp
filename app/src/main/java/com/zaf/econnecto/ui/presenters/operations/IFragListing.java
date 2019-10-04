@@ -12,4 +12,6 @@ public interface IFragListing {
 
 
     void updateList(List<BizData> data);
+
+   // void clearSearch();
 }

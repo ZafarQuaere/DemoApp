@@ -101,8 +101,7 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
                                 }
 
                                 @Override
-                                public void onCancelClick() {
-                                }
+                                public void onCancelClick() { }
                             });
                 }
 

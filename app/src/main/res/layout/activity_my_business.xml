@@ -38,7 +38,7 @@
                 android:id="@+id/imgBanner"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:background="@drawable/ic_travel"
+                android:background="@drawable/gradient"
                 android:contentDescription="@string/app_name"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
@@ -58,7 +58,7 @@
                     android:cropToPadding="true"
                     android:clickable="true"
                     app:civ_border_width="2dp"
-                    app:civ_border_color="#FF000000"
+                    app:civ_border_color="@color/colorPrimary"
                     app:elevation="6dp"
                     app:layout_collapseMode="parallax" />
 

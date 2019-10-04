@@ -130,6 +130,11 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
     }
 
     @Override
+    public void clearSearch() {
+
+    }
+
+    @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
     }

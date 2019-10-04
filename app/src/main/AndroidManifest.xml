@@ -8,7 +8,6 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
@@ -37,6 +36,8 @@
             android:theme="@style/BizDetailTheme" />
         <activity android:name=".ui.activities.EnterNewPswdActivity" /> <!-- android:parentActivityName=".ui.activities.MainActivity"/> -->
         <activity android:name=".ui.activities.SplashActivity" />
+        <activity android:name=".ui.activities.MultipartUploadActivity" />
+
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />

@@ -50,6 +50,7 @@ import com.zaf.econnecto.utils.storage.AppSharedPrefs;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
@@ -252,6 +253,7 @@ public class Utils {
                         @Override
                         public void onClick(View v) {
                             editSearch.setText("");
+                           // actionBarListener.onClearSearch();
                         }
                     });
                 }
@@ -518,16 +520,5 @@ public class Utils {
         }
     }
 
-    public static Bitmap getBitmap(Context mContext,Intent data,Uri selectedImageUri) {
-        String[] FILE = {MediaStore.Images.Media.DATA};
-        Cursor cursor = mContext.getContentResolver().query(selectedImageUri,FILE, null, null, null);
-        cursor.moveToFirst();
-        int columnIndex = cursor.getColumnIndex(FILE[0]);
-        String decodedImage = cursor.getString(columnIndex);
-        cursor.close();
-
-        Bitmap bitmap = BitmapFactory.decodeFile(decodedImage);
-        return bitmap;
-    }
 
 }

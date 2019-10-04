@@ -349,6 +349,6 @@ public class MainActivity extends BaseActivity<MainPresenter>
     }
 
     public void uploadImage(View view) {
-        startActivity(new Intent(MainActivity.this,UploadImageActivity.class));
+        startActivity(new Intent(MainActivity.this,MultipartUploadActivity.class));
     }
 }

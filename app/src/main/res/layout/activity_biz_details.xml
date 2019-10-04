@@ -29,14 +29,16 @@
                 android:contentDescription="@string/app_name"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_travel"
+                android:src="@drawable/gradient"
                 app:layout_collapseMode="parallax" />
 
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgProfile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                app:civ_border_width="2dp"
+                app:civ_border_color="@color/colorPrimary"
+                android:layout_width="@dimen/_100dp"
+                android:layout_height="@dimen/_100dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/_10dp"
                 android:clickable="true"

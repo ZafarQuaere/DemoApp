@@ -48,7 +48,6 @@ public class MyBusinessPresenter extends BasePresenter {
             public void onResponse(JSONObject response) {
                 LogUtils.DEBUG("MyBusiness Response ::" + response.toString());
                 try {
-                    LogUtils.DEBUG("AddBusiness Response ::" + response.toString());
                     if (response != null && !response.equals("")) {
                         int status = response.optInt("status");
                         if (status == AppConstant.SUCCESS) {

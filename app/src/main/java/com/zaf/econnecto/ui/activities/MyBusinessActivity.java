@@ -4,20 +4,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ActivityCompat;
@@ -30,35 +22,52 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
 import com.zaf.econnecto.R;
-import com.zaf.econnecto.network_call.response_model.biz_detail.BizDetails;
+import com.zaf.econnecto.network_call.VolleyMultipartRequest;
 import com.zaf.econnecto.network_call.response_model.my_business.MyBusinessData;
 import com.zaf.econnecto.ui.presenters.MyBusinessPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IMyBusiness;
+import com.zaf.econnecto.utils.AppConstant;
+import com.zaf.econnecto.utils.BitmapUtils;
 import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.Utils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static com.zaf.econnecto.utils.BitmapUtils.resizeBitmapBanner;
 //import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 
 public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implements IMyBusiness, View.OnClickListener {
 
+    private static final int STORAGE_PERMISSION_REQUEST_CODE = 200;
+    private static int IMG_PROFILE_RESULT = 1;
+    private static int IMG_BANNER_RESULT = 2;
+    private static int IMG_SELECTED_FOR;
     private Context mContext;
     private TextView textFollowers;
     private ImageButton imgBannerUpload;
     private ImageButton imgProfileUpload;
     private CircleImageView imgProfile;
     private ImageView imgBanner;
-    private static final int STORAGE_PERMISSION_REQUEST_CODE = 200;
-    private static int IMG_PROFILE_RESULT = 1;
-    private static int IMG_BANNER_RESULT = 2;
-    private static int IMG_SELECTED_FOR ;
     private Uri selectedImageUri;
     private TextView textPhone;
 
@@ -76,7 +85,6 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         initUI();
         getPresenter().callMyBizApi();
         //Utils.updateActionBar(this,new BizDetailsActivity().getClass().getSimpleName(),getString(R.string.biz_details), null,null);
-
 
     }
 
@@ -96,10 +104,8 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         imgBannerUpload = (ImageButton) findViewById(R.id.imgBannerUpload);
         imgProfileUpload = (ImageButton) findViewById(R.id.imgProfileUpload);
 
-
         imgProfile = (CircleImageView) findViewById(R.id.imgProfile);
         imgBanner = (ImageView) findViewById(R.id.imgBanner);
-
 
         imgBannerUpload.setOnClickListener(this);
         imgProfileUpload.setOnClickListener(this);
@@ -145,7 +151,7 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.textPhone:
-               // Utils.callPhone(mContext, .getPhone1());
+                // Utils.callPhone(mContext, .getPhone1());
                 break;
 
 
@@ -172,7 +178,7 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
     }
 
     private void selectImgFromGallery() {
-        Intent  intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, IMG_SELECTED_FOR);
     }
 
@@ -180,30 +186,25 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (resultCode == RESULT_OK && null != data) {
             selectedImageUri = data.getData();
-            if (requestCode == IMG_PROFILE_RESULT ){
-                Bitmap bitmap = getBitmap(data);
-                imgProfile.setImageBitmap(getCircledBitmap(bitmap));
-                    //imgProfile.setImageURI(selectedImageUri);
-            }else {
-                imgBanner.setImageURI(selectedImageUri);
+            if (requestCode == IMG_PROFILE_RESULT) {
+                Bitmap bitmap = BitmapUtils.getBitmap(mContext, data, selectedImageUri);
+                Bitmap resizedBmp = BitmapUtils.resizeBitmapProfile(bitmap);
+                //imgProfile.setImageBitmap(getCircledBitmap(resizedBmp));
+                uploadBitmap(resizedBmp, IMG_PROFILE_RESULT);
+                imgProfile.setImageBitmap(resizedBmp);
+
+            } else if (requestCode == IMG_BANNER_RESULT) {
+
+                Bitmap bitmap = BitmapUtils.getBitmap(mContext, data, selectedImageUri);
+                Bitmap resizedBmp = resizeBitmapBanner(bitmap);
+                uploadBitmap(resizedBmp, IMG_BANNER_RESULT);
+                imgBanner.setImageBitmap(resizedBmp);
+                // imgBanner.setImageURI(selectedImageUri);
             }
         }
     }
 
-    private Bitmap getBitmap(Intent data) {
-        String[] FILE = {MediaStore.Images.Media.DATA};
-        Cursor cursor = getContentResolver().query(selectedImageUri,
-                FILE, null, null, null);
-        cursor.moveToFirst();
-        int columnIndex = cursor.getColumnIndex(FILE[0]);
-        String decodedImage = cursor.getString(columnIndex);
-        cursor.close();
-
-        Bitmap bitmap = BitmapFactory.decodeFile(decodedImage);
-        return bitmap;
-    }
-
-   public boolean checkPermission() {
+    public boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission(getApplicationContext(), READ_EXTERNAL_STORAGE);
         int result1 = ContextCompat.checkSelfPermission(getApplicationContext(), CAMERA);
         return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED;
@@ -217,32 +218,31 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case STORAGE_PERMISSION_REQUEST_CODE:
-                    if (grantResults.length > 0){
-                        boolean readAccpeted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                        boolean cameraPermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-                        if (readAccpeted /*&& writeAccepted*/){
-                            selectImgFromGallery();
-                        }else if (cameraPermission){
-                            captureFromCamera();
-                        }
-                        else {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                if (shouldShowRequestPermissionRationale(READ_EXTERNAL_STORAGE)) {
-                                    showMessageOKCancel("You need to allow access to of Read Permission to upload Banner and Profile",
-                                            new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                                        requestPermissions(new String[]{READ_EXTERNAL_STORAGE/*, WRITE_EXTERNAL_STORAGE*/},
-                                                                STORAGE_PERMISSION_REQUEST_CODE);
-                                                    }
+                if (grantResults.length > 0) {
+                    boolean readAccpeted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    boolean cameraPermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                    if (readAccpeted /*&& writeAccepted*/) {
+                        selectImgFromGallery();
+                    } else if (cameraPermission) {
+                        captureFromCamera();
+                    } else {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            if (shouldShowRequestPermissionRationale(READ_EXTERNAL_STORAGE)) {
+                                showMessageOKCancel("You need to allow access to of Read Permission to upload Banner and Profile",
+                                        new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                                    requestPermissions(new String[]{READ_EXTERNAL_STORAGE/*, WRITE_EXTERNAL_STORAGE*/},
+                                                            STORAGE_PERMISSION_REQUEST_CODE);
                                                 }
-                                            });
-                                    return;
-                                }
+                                            }
+                                        });
+                                return;
                             }
                         }
                     }
+                }
                 break;
         }
     }
@@ -260,18 +260,70 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
                 .show();
     }
 
-    public static Bitmap getCircledBitmap(Bitmap bitmap) {
-        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(output);
-        final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
 
-        paint.setAntiAlias(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        canvas.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint);
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(bitmap, rect, rect, paint);
+    private void uploadBitmap(final Bitmap bitmapUpload, int imageType) {
+        String uploadUrl = "";
+        String upload_type = "";
+        if (imageType == IMG_BANNER_RESULT) {
+            uploadUrl = AppConstant.URL_UPLOAD_BUSINESS_BANNER_PIC;
+            upload_type = "banner_image";
+        } else {
+            uploadUrl = AppConstant.URL_UPLOAD_BUSINESS_PROFILE_PIC;
+            upload_type = "business_profile_image";
+        }
+        LogUtils.DEBUG("URL : " + uploadUrl);
+        //our custom volley request
+        final String finalUpload_type = upload_type;
+        VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, uploadUrl,
+                new Response.Listener<NetworkResponse>() {
+                    @Override
+                    public void onResponse(NetworkResponse response) {
+                        try {
+                            JSONObject obj = new JSONObject(new String(response.data));
+                            LogUtils.DEBUG("Message : " + obj.getString("message"));
+                            Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                        LogUtils.ERROR("Upload profile pic Error " + error);
+                    }
+                }) {
 
-        return output;
+            /*
+             * If you want to add more parameters with the image
+             * you can do it here
+             * here we have only one parameter with the image
+             * which is tags
+             * */
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("user_email", Utils.getUserEmail(mContext));
+                LogUtils.DEBUG("user_email "+Utils.getUserEmail(mContext));
+                return params;
+            }
+
+            /*
+             * Here we are passing image by renaming it with a unique name
+             * */
+            @Override
+            protected Map<String, DataPart> getByteData() {
+                Map<String, DataPart> params = new HashMap<>();
+                long imagename = System.currentTimeMillis();
+                params.put(finalUpload_type, new DataPart(imagename + ".png", BitmapUtils.getFileDataFromDrawable(bitmapUpload)));
+                LogUtils.DEBUG("image " + new DataPart(imagename + ".png", BitmapUtils.getFileDataFromDrawable(bitmapUpload)));
+                return params;
+            }
+
+        };
+        volleyMultipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //adding the request to volley
+        Volley.newRequestQueue(this).add(volleyMultipartRequest);
     }
 }

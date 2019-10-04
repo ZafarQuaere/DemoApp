@@ -29,8 +29,11 @@ public class AppConstant {
     public static final String URL_EMAIL_VERIFY = "email_verification.php";
     public static final String URL_ADD_BUSINESS = "add_business.php";
     public static final String URL_MY_BUSINESS = "mybusiness.php";
+    public static final String URL_UPLOAD_USER_PROFILE_PIC = "http://econnecto.com/api/user_profile_pic.php";
+    public static final String URL_UPLOAD_BUSINESS_PROFILE_PIC = "http://econnecto.com/api/business_profile_pic.php";
+    public static final String URL_UPLOAD_BUSINESS_BANNER_PIC = "http://econnecto.com/api/business_banner_pic.php";
 
-    public static final String URL_MY_BUSINESS1 = "http://econnecto.com/api/user_profile_pic.php\n" +
+    public static final String URL_MY_BUSINESS1 = "\n" +
             "http://econnecto.com/api/business_profile_pic.php" +
             ": http://econnecto.com/api/business_banner_pic.php";
 
@@ -50,5 +53,6 @@ public class AppConstant {
     public static final String userByIdUrl = "/api/users/2";
     public static final String registerUrl = "/api/register";
     public static final String loginUrl = "/api/login";
+
 
 }

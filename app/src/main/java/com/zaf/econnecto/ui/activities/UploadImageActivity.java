@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.zaf.econnecto.R;
+import com.zaf.econnecto.utils.BitmapUtils;
 import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.PermissionUtils;
 import com.zaf.econnecto.utils.Utils;
@@ -92,7 +93,7 @@ public class UploadImageActivity extends AppCompatActivity implements View.OnCli
         if (resultCode == RESULT_OK && null != data) {
             selectedImageUri = data.getData();
             if (requestCode == IMG_SELECT_GALLERY_REQUEST ){
-                Bitmap bitmap = Utils.getBitmap(mContext,data,selectedImageUri);
+                Bitmap bitmap = BitmapUtils.getBitmap(mContext,data,selectedImageUri);
                // imgProfile.setImageBitmap(bitmap);
                 imageView.setImageURI(selectedImageUri);
             }else {
