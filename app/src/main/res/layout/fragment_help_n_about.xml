@@ -7,7 +7,7 @@
     android:clickable="true"
     android:orientation="vertical"
     android:padding="@dimen/_20dp"
-    tools:context=".ui.fragments.HelpNFaqFragment">
+    tools:context=".ui.fragments.HelpNAboutFragment">
 
 
     <TextView
@@ -25,7 +25,7 @@
         android:drawableStart="@drawable/ic_settings"
         android:drawablePadding="@dimen/drawable_padding"
         android:gravity="center_vertical"
-        android:text="Contact : +91-8444040514"
+        android:text="Contact : +91-7834908329"
         android:textColor="@color/colorBlack"
         android:textColorLink="@color/colorPrimary" />
 
@@ -36,7 +36,7 @@
         android:drawableStart="@drawable/ic_settings"
         android:drawablePadding="@dimen/drawable_padding"
         android:gravity="center_vertical"
-        android:text="Email : support@aquahey.com"
+        android:text="Email : support@econnecto.com"
         android:textColor="@color/colorBlack"
         android:textColorLink="@color/colorPrimary" />
 
@@ -67,7 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_20dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
             style="@style/RegularTextview"
@@ -81,6 +81,7 @@
             android:id="@+id/text_fb_link"
             style="@style/RegularTextview"
             android:linksClickable="true"
+            android:paddingStart="@dimen/_30dp"
             android:text="@string/fb_link"
             android:textColorLink="@color/colorPrimary"
             android:textStyle="bold" />
@@ -92,7 +93,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_20dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
             style="@style/RegularTextview"
@@ -107,6 +108,7 @@
             style="@style/RegularTextview"
             android:linksClickable="true"
             android:text="@string/insta_link"
+            android:paddingStart="@dimen/_30dp"
             android:textColorLink="@color/colorPrimary"
             android:textStyle="bold" />
 

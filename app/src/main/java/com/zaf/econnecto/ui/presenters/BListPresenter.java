@@ -86,6 +86,10 @@ public class BListPresenter extends BaseFragmentPresenter {
             mProductFrag.updateList(filterData);
     }
 
+    public void clearSearch() {
+        mProductFrag.updateList(data.getData());
+    }
+
     /*public void checkProgress() {
         if (loader != null &&loader.isProgressVisible()){
             loader.dismiss();

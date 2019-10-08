@@ -1,13 +1,10 @@
 //TODO
 1) Ask for the profile detail in login response.
-2) Upload profile pic.
-3) Biz List follow/un-follow flag.
-4) Change password functionality have to implement.
-5) Forget Password functionality implementation.
-6) Profile functionality implementation.
-7) Add Business Api integration.
-8) Please share all the validation msg for register, Separate the error msg with, (comma)
-9) Update the Email on Drawer below profile image
+2) Create Help and About us.
+3) Upload User Profile image.
+4) Crop Banner image to banner size.
+5) Remove feedback.
+
 
 23 June.
 1) Login request model class removed.

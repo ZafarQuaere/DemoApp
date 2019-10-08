@@ -38,6 +38,7 @@ import com.zaf.econnecto.network_call.response_model.my_business.MyBusinessData;
 import com.zaf.econnecto.ui.presenters.MyBusinessPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IMyBusiness;
 import com.zaf.econnecto.utils.AppConstant;
+import com.zaf.econnecto.utils.AppLoaderFragment;
 import com.zaf.econnecto.utils.BitmapUtils;
 import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.Utils;
@@ -70,6 +71,7 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
     private ImageView imgBanner;
     private Uri selectedImageUri;
     private TextView textPhone;
+    private AppLoaderFragment loader;
 
     @Override
     protected MyBusinessPresenter initPresenter() {
@@ -82,6 +84,7 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_business);
         mContext = this;
+        loader = AppLoaderFragment.getInstance(mContext);
         initUI();
         getPresenter().callMyBizApi();
         //Utils.updateActionBar(this,new BizDetailsActivity().getClass().getSimpleName(),getString(R.string.biz_details), null,null);
@@ -191,14 +194,13 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
                 Bitmap resizedBmp = BitmapUtils.resizeBitmapProfile(bitmap);
                 //imgProfile.setImageBitmap(getCircledBitmap(resizedBmp));
                 uploadBitmap(resizedBmp, IMG_PROFILE_RESULT);
-                imgProfile.setImageBitmap(resizedBmp);
+
 
             } else if (requestCode == IMG_BANNER_RESULT) {
 
                 Bitmap bitmap = BitmapUtils.getBitmap(mContext, data, selectedImageUri);
                 Bitmap resizedBmp = resizeBitmapBanner(bitmap);
                 uploadBitmap(resizedBmp, IMG_BANNER_RESULT);
-                imgBanner.setImageBitmap(resizedBmp);
                 // imgBanner.setImageURI(selectedImageUri);
             }
         }
@@ -261,7 +263,8 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
     }
 
 
-    private void uploadBitmap(final Bitmap bitmapUpload, int imageType) {
+    private void uploadBitmap(final Bitmap bitmapUpload, final int imageType) {
+        loader.show();
         String uploadUrl = "";
         String upload_type = "";
         if (imageType == IMG_BANNER_RESULT) {
@@ -272,19 +275,28 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
             upload_type = "business_profile_image";
         }
         LogUtils.DEBUG("URL : " + uploadUrl);
-        //our custom volley request
         final String finalUpload_type = upload_type;
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, uploadUrl,
                 new Response.Listener<NetworkResponse>() {
                     @Override
                     public void onResponse(NetworkResponse response) {
+                        String s = new String(response.data);
+                        LogUtils.DEBUG("Upload Pic Response : " + s);
                         try {
                             JSONObject obj = new JSONObject(new String(response.data));
-                            LogUtils.DEBUG("Message : " + obj.getString("message"));
+                            int status = obj.optInt("status");
+                            if (status == AppConstant.SUCCESS){
+                                if (imageType == IMG_BANNER_RESULT){
+                                    imgBanner.setImageBitmap(bitmapUpload);
+                                }else {
+                                    imgProfile.setImageBitmap(bitmapUpload);
+                                }
+                            }
                             Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        loader.dismiss();
                     }
                 },
                 new Response.ErrorListener() {
@@ -292,15 +304,9 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                         LogUtils.ERROR("Upload profile pic Error " + error);
+                        loader.dismiss();
                     }
                 }) {
-
-            /*
-             * If you want to add more parameters with the image
-             * you can do it here
-             * here we have only one parameter with the image
-             * which is tags
-             * */
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
@@ -309,9 +315,7 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
                 return params;
             }
 
-            /*
-             * Here we are passing image by renaming it with a unique name
-             * */
+
             @Override
             protected Map<String, DataPart> getByteData() {
                 Map<String, DataPart> params = new HashMap<>();

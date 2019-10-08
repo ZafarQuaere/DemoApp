@@ -5,22 +5,16 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -50,7 +44,6 @@ import com.zaf.econnecto.utils.storage.AppSharedPrefs;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
@@ -64,6 +57,7 @@ import java.util.zip.GZIPInputStream;
 
 public class Utils {
 
+    public static final int USER_PROFILE_IMG = 100;
 
     public static boolean isValidMobileNumber(String mobileNo) {
         return Patterns.PHONE.matcher(mobileNo)
@@ -253,7 +247,7 @@ public class Utils {
                         @Override
                         public void onClick(View v) {
                             editSearch.setText("");
-                           // actionBarListener.onClearSearch();
+                            actionBarListener.clearSearch();
                         }
                     });
                 }
@@ -520,5 +514,10 @@ public class Utils {
         }
     }
 
+
+   /* public static void selectImageFromGallery(Activity mContext) {
+        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        mContext.startActivityForResult(intent, USER_PROFILE_IMG);
+    }*/
 
 }

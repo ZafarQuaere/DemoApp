@@ -3,35 +3,46 @@ package com.zaf.econnecto.ui.presenters;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.MyJsonObjectRequest;
+import com.zaf.econnecto.network_call.VolleyMultipartRequest;
 import com.zaf.econnecto.ui.activities.ChangePswdActivity;
 import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
 import com.zaf.econnecto.ui.fragments.BizCategoryFragment;
 import com.zaf.econnecto.ui.fragments.BizListFragment;
 import com.zaf.econnecto.ui.fragments.FragmentProfile;
-import com.zaf.econnecto.ui.fragments.HelpNFaqFragment;
+import com.zaf.econnecto.ui.fragments.HelpNAboutFragment;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.ui.presenters.operations.IMain;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppController;
 import com.zaf.econnecto.utils.AppLoaderFragment;
+import com.zaf.econnecto.utils.BitmapUtils;
 import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.Utils;
 import com.zaf.econnecto.utils.storage.AppSharedPrefs;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MainPresenter extends BasePresenter {
@@ -64,9 +75,9 @@ public class MainPresenter extends BasePresenter {
                 Utils.moveToFragment(mContext, new FragmentProfile(), FragmentProfile.class.getSimpleName(), null);
                 Utils.updateActionBar(mContext, FragmentProfile.class.getSimpleName(), mContext.getString(R.string.my_business), null, null);
                 break;
-            case "HelpNFaqFragment":
-                Utils.moveToFragment(mContext, new HelpNFaqFragment(), HelpNFaqFragment.class.getSimpleName(), null);
-                Utils.updateActionBar(mContext, HelpNFaqFragment.class.getSimpleName(), mContext.getString(R.string.help_faq), null, null);
+            case "HelpNAboutFragment":
+                Utils.moveToFragment(mContext, new HelpNAboutFragment(), HelpNAboutFragment.class.getSimpleName(), null);
+                Utils.updateActionBar(mContext, HelpNAboutFragment.class.getSimpleName(), mContext.getString(R.string.help_faq), null, null);
                 break;
         }
         //LogUtils.showToast(mContext, fragName);
@@ -254,4 +265,56 @@ public class MainPresenter extends BasePresenter {
         AppController.getInstance().addToRequestQueue(objectRequest, "Verify Email");
     }
 
+    public void uploadBitmap(final Bitmap bitmapUpload) {
+        loader.show();
+        LogUtils.DEBUG("Upload URL : " +  AppConstant.URL_UPLOAD_USER_PROFILE_PIC);
+        VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, AppConstant.URL_UPLOAD_USER_PROFILE_PIC,
+                new Response.Listener<NetworkResponse>() {
+                    @Override
+                    public void onResponse(NetworkResponse response) {
+                        String uploadResponse = new String(response.data);
+                        LogUtils.DEBUG("Upload Profile Pic Response : " + uploadResponse);
+                        try {
+                            JSONObject obj = new JSONObject(new String(response.data));
+                            int status = obj.optInt("status");
+                            if (status == AppConstant.SUCCESS){
+                              iMain.updateProfilePic(bitmapUpload);
+                            }
+                            Toast.makeText(mContext.getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        loader.dismiss();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(mContext.getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                        LogUtils.ERROR("Upload profile pic Error " + error);
+                        loader.dismiss();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("user_email", Utils.getUserEmail(mContext));
+                LogUtils.DEBUG("user_email "+Utils.getUserEmail(mContext));
+                return params;
+            }
+
+
+            @Override
+            protected Map<String, DataPart> getByteData() {
+                Map<String, DataPart> params = new HashMap<>();
+                long imagename = System.currentTimeMillis();
+                params.put("user_image", new DataPart(imagename + ".png", BitmapUtils.getFileDataFromDrawable(bitmapUpload)));
+                return params;
+            }
+
+        };
+        volleyMultipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //adding the request to volley
+        Volley.newRequestQueue(mContext).add(volleyMultipartRequest);
+    }
 }

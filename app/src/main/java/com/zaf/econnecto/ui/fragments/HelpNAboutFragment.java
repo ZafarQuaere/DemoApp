@@ -13,7 +13,7 @@ import com.zaf.econnecto.ui.presenters.HelpNAboutPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IHelpAbout;
 
 
-public class HelpNFaqFragment extends BaseFragment<HelpNAboutPresenter> implements IHelpAbout {
+public class HelpNAboutFragment extends BaseFragment<HelpNAboutPresenter> implements IHelpAbout {
 
     private View view;
 
@@ -29,7 +29,7 @@ public class HelpNFaqFragment extends BaseFragment<HelpNAboutPresenter> implemen
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_help_nfaq, container, false);
+        view = inflater.inflate(R.layout.fragment_help_n_about, container, false);
         initUi();
         return view;
     }

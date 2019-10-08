@@ -3,7 +3,12 @@ package com.zaf.econnecto.ui.activities;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -22,12 +27,20 @@ import com.zaf.econnecto.R;
 import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
 import com.zaf.econnecto.ui.fragments.BizCategoryFragment;
 import com.zaf.econnecto.ui.fragments.BizListFragment;
+import com.zaf.econnecto.ui.fragments.HelpNAboutFragment;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.ui.presenters.MainPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IMain;
-import com.zaf.econnecto.utils.AppLoaderFragment;
+import com.zaf.econnecto.utils.BitmapUtils;
 import com.zaf.econnecto.utils.LogUtils;
+import com.zaf.econnecto.utils.PermissionUtils;
 import com.zaf.econnecto.utils.Utils;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static com.zaf.econnecto.utils.PermissionUtils.STORAGE_PERMISSION_REQUEST_CODE;
+import static com.zaf.econnecto.utils.Utils.USER_PROFILE_IMG;
 
 
 public class MainActivity extends BaseActivity<MainPresenter>
@@ -61,8 +74,8 @@ public class MainActivity extends BaseActivity<MainPresenter>
     private void updateUI() {
         navigationView = findViewById(R.id.navigationView);
         View headerView = navigationView.getHeaderView(0);
-        TextView textVerifyEmail =  headerView.findViewById(R.id.textVerifyEmail);
-        TextView textUserName =  headerView.findViewById(R.id.textUserName);
+        TextView textVerifyEmail = headerView.findViewById(R.id.textVerifyEmail);
+        TextView textUserName = headerView.findViewById(R.id.textUserName);
         if (Utils.isLoggedIn(mContext)) {
             textUserName.setText(Utils.getUserName(mContext));
             textVerifyEmail.setText(Utils.isEmailVerified(mContext) ? Utils.getUserEmail(mContext) : getString(R.string.verify_your_email));
@@ -135,6 +148,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
                             public void onOkClick() {
                                 mContext.startActivity(new Intent(mContext, LoginActivity.class));
                             }
+
                             @Override
                             public void onCancelClick() {
                             }
@@ -147,6 +161,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
                         public void onOkClick() {
                             mContext.startActivity(new Intent(mContext, LoginActivity.class));
                         }
+
                         @Override
                         public void onCancelClick() {
                         }
@@ -219,7 +234,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
         } else {
             lytMyAccount.setVisibility(View.GONE);
             iconMyAccountExpand.setBackground(getResources().getDrawable(R.drawable.ic_plus));
-           // LogUtils.showToast(mContext, getString(R.string.please_login_first));
+            // LogUtils.showToast(mContext, getString(R.string.please_login_first));
         }
     }
 
@@ -290,9 +305,9 @@ public class MainActivity extends BaseActivity<MainPresenter>
     }
 
     public void helpNFaqClick(View view) {
-        //getPresenter().moveToFragment(HelpNFaqFragment.class.getSimpleName());
         closeDrawer();
-        LogUtils.showToast(mContext, "Development under progress");
+        getPresenter().moveToFragment(HelpNAboutFragment.class.getSimpleName());
+        //LogUtils.showToast(mContext, "Development under progress");
     }
 
 
@@ -321,6 +336,12 @@ public class MainActivity extends BaseActivity<MainPresenter>
     }
 
     @Override
+    public void updateProfilePic(Bitmap bitmap) {
+        CircleImageView imageView = findViewById(R.id.imgUserProfile);
+        imageView.setImageBitmap(bitmap);
+    }
+
+    @Override
     protected void onResume() {
         LogUtils.DEBUG("Main Activity OnResume ");
         super.onResume();
@@ -342,13 +363,82 @@ public class MainActivity extends BaseActivity<MainPresenter>
     @Override
     protected void onPostResume() {
         LogUtils.DEBUG("Main Activity OnPostResume ");
-       /* if(AppLoaderFragment.getInstance(mContext).isProgressVisible()){
-            AppLoaderFragment.getInstance(mContext).dismiss();
-        }*/
         super.onPostResume();
     }
 
     public void uploadImage(View view) {
-        startActivity(new Intent(MainActivity.this,MultipartUploadActivity.class));
+        if (Utils.isLoggedIn(mContext)) {
+            if (PermissionUtils.checkPermission(mContext)) {
+                selectImageFromGallery();
+            } else {
+                PermissionUtils.requestPermission(MainActivity.this);
+            }
+        } else {
+            LogUtils.showDialogDoubleButton(mContext, mContext.getString(R.string.cancel), mContext.getString(R.string.ok),
+                    mContext.getString(R.string.you_need_to_login_first_to_upload_profile), new DialogButtonClick() {
+                        @Override
+                        public void onOkClick() {
+                            mContext.startActivity(new Intent(mContext, LoginActivity.class));
+                        }
+
+                        @Override
+                        public void onCancelClick() {
+                        }
+                    });
+        }
+        // startActivity(new Intent(MainActivity.this,MultipartUploadActivity.class));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == RESULT_OK && null != data) {
+            Uri selectedImageUri = data.getData();
+            if (requestCode == USER_PROFILE_IMG) {
+                Bitmap bitmap = BitmapUtils.getBitmap(mContext, data, selectedImageUri);
+                Bitmap resizedBmp = BitmapUtils.resizeBitmapProfile(bitmap);
+                //imgProfile.setImageBitmap(getCircledBitmap(resizedBmp));
+                getPresenter().uploadBitmap(resizedBmp);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case STORAGE_PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0) {
+                    boolean readAccpeted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    boolean cameraPermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                    if (readAccpeted /*&& writeAccepted*/) {
+                       selectImageFromGallery();
+                    } else if (cameraPermission) {
+                        //  captureFromCamera();
+                    } else {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            if (shouldShowRequestPermissionRationale(READ_EXTERNAL_STORAGE)) {
+                                LogUtils.showDialogDoubleButton(mContext, getString(R.string.cancel), getString(R.string.ok), getString(R.string.need_permission_upload_image),
+                                        new DialogButtonClick() {
+                                            @Override
+                                            public void onOkClick() {
+                                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                                    requestPermissions(new String[]{READ_EXTERNAL_STORAGE/*, WRITE_EXTERNAL_STORAGE*/},
+                                                            STORAGE_PERMISSION_REQUEST_CODE);
+                                                }
+                                            }
+                                            @Override
+                                            public void onCancelClick() {}
+                                        });
+                            }
+                        }
+                    }
+                    break;
+                }
+        }
+
+    }
+
+    public  void selectImageFromGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, USER_PROFILE_IMG);
     }
 }

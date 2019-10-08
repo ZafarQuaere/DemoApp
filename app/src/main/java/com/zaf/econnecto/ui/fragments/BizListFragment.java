@@ -125,13 +125,14 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
                     }
                 }
             });
+            adapter.notifyDataSetChanged();
             recylcerProducts.setAdapter(adapter);
         }
     }
 
     @Override
     public void clearSearch() {
-
+        getPresenter().clearSearch();
     }
 
     @Override

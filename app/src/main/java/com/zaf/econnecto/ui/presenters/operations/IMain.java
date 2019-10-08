@@ -1,5 +1,7 @@
 package com.zaf.econnecto.ui.presenters.operations;
 
+import android.graphics.Bitmap;
+
 public interface IMain {
 
    void onLogoutCall();
@@ -7,4 +9,6 @@ public interface IMain {
     void showAddBizFab(boolean show);
 
     void updateVerifyEmailUI();
+
+    void updateProfilePic(Bitmap bitmap);
 }

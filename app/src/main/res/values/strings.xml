@@ -115,9 +115,9 @@
     <string name="no_product_added">No Product is added yet.</string>
     <string name="dealerId">Dealer ID</string>
     <string name="price">Price</string>
-    <string name="website_link"><a href="http://aquahey.com/website/index.html"> www.aquahey.com</a></string>
-    <string name="fb_link"><a href="https://www.facebook.com/AquaHeyApp/?modal=admin_todo_tour"> facebook.com/aquahey</a></string>
-    <string name="insta_link"><a href="https://www.instagram.com/aquaheyapp/"> instagram.com/aquahey</a></string>
+    <string name="website_link"><a href="http://econnecto.com/"> www.econnecto.com</a></string>
+    <string name="fb_link"><a href="https://www.facebook.com/mzafarimam"> facebook.com/econnecto</a></string>
+    <string name="insta_link"><a href="https://www.instagram.com/imz_zafar/"> instagram.com/econnecto</a></string>
     <string name="text_visit_our_website">Visit Our Website : </string>
     <string name="text_like_on_fb">Like Us on Facebook :</string>
     <string name="text_follow_us_on_insta">Follow Us on Instagram :</string>
@@ -206,6 +206,8 @@
 
     <string name="button">Button</string>
     <string name="description">Description</string>
+    <string name="you_need_to_login_first_to_upload_profile">You need to login first to upload profile pic.</string>
+    <string name="need_permission_upload_image">You need to allow access to of Read Permission to upload Banner and Profile</string>
 
     <array name="age_group">
         <item name="10-13">10_13</item>
@@ -221,9 +223,9 @@
         <item name="Select_Charges">Select Charges</item>
         <item name="per_person">Per Person</item>
         <item name="per_month">Per Month</item>
-        <item name="rupee_symbol">₹</item>
+        <item name="rupee_symbol"> ₹ </item>
     </array>
-    <array name="biz_category">
+    <!--<array name="biz_category">
         <item name="Select_Category">Select Category</item>
         <item name="Automobiles_Showroom">Automobiles Showroom</item>
         <item name="Bags_and_Luggage">Bags and Luggage</item>
@@ -269,6 +271,28 @@
         <item name="Sweet_Shop">Sweet Shop</item>
         <item name="Telecom">Telecom</item>
         <item name="Utensils_Shops">Utensils Shops</item>
+        <item name="Others">Others</item>
+    </array>-->
+
+    <array name="biz_category">
+        <item name="Select_Category">Select Category</item>
+        <item name="Beauty">Beauty </item>
+        <item name="Commute">Commute</item>
+        <item name="Education">Education</item>
+        <item name="Entertainment">Entertainment</item>
+        <item name="Fashion">Fashion </item>
+        <item name="Fitness">Fitness</item>
+        <item name="Food">Food</item>
+        <item name="Grocery">Grocery</item>
+        <item name="HealthCare">Health Care</item>
+        <item name="HomeServices">Home Services</item>
+        <item name="Hotel">Hotel</item>
+        <item name="Manufacturer">Manufacturer</item>
+        <item name="Real_State">Real State</item>
+        <item name="Sports">Sports</item>
+        <item name="ShopWholesale">Shop Wholesale</item>
+        <item name="ShopRetail">Shop Retail</item>
+        <item name="Travel">Travel</item>
         <item name="Others">Others</item>
     </array>
 </resources>
