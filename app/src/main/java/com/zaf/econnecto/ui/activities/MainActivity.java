@@ -212,7 +212,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     public void item3Click(View view) {
         closeDrawer();
-        LogUtils.showToast(mContext, "Development under progress");
+       // LogUtils.showToast(mContext, "Development under progress");
     }
 
     public void onLogoutClick(View view) {

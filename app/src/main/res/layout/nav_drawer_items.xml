@@ -195,10 +195,12 @@
             <TextView
                 style="@style/NavigationDrawerText"
                 android:drawableLeft="@drawable/ic_settings"
+                android:autoSizeTextType="none"
                 android:onClick="helpNFaqClick"
                 android:text="@string/help_faq" />
 
             <TextView
+                android:visibility="gone"
                 style="@style/NavigationDrawerText"
                 android:drawableLeft="@drawable/ic_feedback"
                 android:onClick="item3Click"

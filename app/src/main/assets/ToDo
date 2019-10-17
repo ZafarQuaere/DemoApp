@@ -6,12 +6,6 @@
 5) Remove feedback.
 
 
-23 June.
-1) Login request model class removed.
-2) Logout api integration.
-3) Home Screen changed to Biz Category Screen.
-4) Follow and unFollow api and working functionality.
-
 "address":"Address cannot be more then 55 characters"
 
 
@@ -22,4 +16,5 @@ https://github.com/UdiOshi85/SearchToolbarExample
 upload Image :
 http://sachinverma.co.in/upload-image-to-server-using-volley-android/
 
-
+for progress loader.
+https://github.com/agrawalsuneet/SquareLoadersPack-Android

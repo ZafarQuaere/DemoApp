@@ -27,7 +27,7 @@
         <activity android:name=".ui.activities.MainActivity" />
         <activity android:name=".ui.activities.ChangePswdActivity" />
         <activity android:name=".ui.activities.ForgetPswdActivity" />
-        <activity android:name=".ui.activities.UploadImageActivity"></activity>
+        <activity android:name=".ui.activities.UploadImageActivity" />
         <activity
             android:name=".ui.activities.BizDetailsActivity"
             android:theme="@style/BizDetailTheme" />
@@ -42,9 +42,10 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
     </application>
+
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

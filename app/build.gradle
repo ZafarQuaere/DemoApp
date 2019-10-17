@@ -10,22 +10,6 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    /* compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-*/
-/*
-    sourceSets {
-        main {
-            res.srcDirs =
-                    [
-                            'src/main/java/com/zaf/newdemo/res/layouts',
-                            'src/main/res/layouts',
-                            'src/main/res'
-                    ]
-        }
-    }*/
 
     buildTypes {
         debug {
@@ -61,10 +45,25 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     implementation 'de.hdodenhof:circleimageview:3.0.1'
 
+    //crop image library
+    //api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+
+    def paging_version = "1.0.0"
+    def view_model_version = "1.1.0"
+
+
+    //adding view model
+//    implementation "android.arch.lifecycle:extensions:$view_model_version"
+//    implementation "android.arch.lifecycle:viewmodel:$view_model_version"
+
+    //adding paging
+//    implementation "android.arch.paging:runtime:$paging_version"
+    // implementation 'com.github.yalantis:ucrop:2.2.4'
+
     // Required -- JUnit 4 framework
     testImplementation 'junit:junit:4.12'
     // Optional -- Robolectric environment
-//    testImplementation 'android.test:core:1.0.0' creating build issue
+    //testImplementation 'android.test:core:1.0.0' creating build issue
     // Optional -- Mockito framework
     testImplementation 'org.mockito:mockito-core:2.28.2'
 }
