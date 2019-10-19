@@ -7,9 +7,9 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
@@ -21,7 +21,6 @@ import com.zaf.econnecto.R;
 import com.zaf.econnecto.utils.BitmapUtils;
 import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.PermissionUtils;
-import com.zaf.econnecto.utils.Utils;
 
 import java.io.ByteArrayOutputStream;
 

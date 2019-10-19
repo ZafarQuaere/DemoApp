@@ -12,7 +12,7 @@
         android:layout_alignParentTop="true"
         android:id="@+id/imageSlider"/>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@+id/imageSlider"
         android:id="@+id/recyclerCategory"
         android:layout_width="match_parent"

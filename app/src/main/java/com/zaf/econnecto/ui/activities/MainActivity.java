@@ -8,21 +8,23 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
 import com.zaf.econnecto.ui.fragments.BizCategoryFragment;
@@ -76,12 +78,16 @@ public class MainActivity extends BaseActivity<MainPresenter>
         View headerView = navigationView.getHeaderView(0);
         TextView textVerifyEmail = headerView.findViewById(R.id.textVerifyEmail);
         TextView textUserName = headerView.findViewById(R.id.textUserName);
+        CircleImageView imgUserProfile = headerView.findViewById(R.id.imgUserProfile);
         if (Utils.isLoggedIn(mContext)) {
             textUserName.setText(Utils.getUserName(mContext));
             textVerifyEmail.setText(Utils.isEmailVerified(mContext) ? Utils.getUserEmail(mContext) : getString(R.string.verify_your_email));
+            Picasso.get().load( Utils.getProfilePic(mContext)).placeholder(R.drawable.avatar_male).into(imgUserProfile);
+           // Utils.getProfilePic(mContext);
         } else {
             textUserName.setText("");
             textVerifyEmail.setText("");
+            imgUserProfile.setImageDrawable(getResources().getDrawable(R.drawable.avatar_male));
         }
     }
 
@@ -221,7 +227,20 @@ public class MainActivity extends BaseActivity<MainPresenter>
     }
 
     public void expandMyAccount(View view) {
-        updateMyAccountUI(true);
+        if (Utils.isLoggedIn(mContext)) {
+            updateMyAccountUI(true);
+        } else {
+            LogUtils.showDialogDoubleButton(mContext, mContext.getString(R.string.cancel), mContext.getString(R.string.ok),
+                    mContext.getString(R.string.you_need_to_login_first_to_check_account), new DialogButtonClick() {
+                        @Override
+                        public void onOkClick() {
+                            mContext.startActivity(new Intent(mContext, LoginActivity.class));
+                        }
+                        @Override
+                        public void onCancelClick() {
+                        }
+                    });
+        }
     }
 
     private void updateMyAccountUI(boolean isExpand) {
@@ -337,8 +356,8 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     @Override
     public void updateProfilePic(Bitmap bitmap) {
-        CircleImageView imageView = findViewById(R.id.imgUserProfile);
-        imageView.setImageBitmap(bitmap);
+        //CircleImageView imageView = findViewById(R.id.imgUserProfile);
+       // imageView.setImageBitmap(bitmap);
     }
 
     @Override

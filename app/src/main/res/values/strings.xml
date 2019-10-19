@@ -208,6 +208,7 @@
     <string name="description">Description</string>
     <string name="you_need_to_login_first_to_upload_profile">You need to login first to upload profile pic.</string>
     <string name="need_permission_upload_image">You need to allow access to of Read Permission to upload Banner and Profile</string>
+    <string name="you_need_to_login_first_to_check_account">You need to login first to check the account.</string>
 
     <array name="age_group">
         <item name="10-13">10_13</item>

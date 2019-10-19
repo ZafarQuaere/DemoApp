@@ -2,11 +2,11 @@ package com.zaf.econnecto.ui.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +15,10 @@ import android.widget.TextView;
 
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.response_model.biz_list.BizListData;
-import com.zaf.econnecto.network_call.response_model.biz_list.OrderList;
-import com.zaf.econnecto.ui.adapters.OrdersRecylcerAdapter;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.Utils;
 import com.zaf.econnecto.utils.parser.ParseManager;
-
-import java.util.ArrayList;
 
 public class NewOrderFragment extends Fragment {
 

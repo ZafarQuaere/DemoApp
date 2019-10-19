@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -124,6 +124,7 @@ public class MainPresenter extends BasePresenter {
 
 
     private void callLogoutApi() {
+        loader.show();
         String url = AppConstant.URL_BASE + AppConstant.URL_LOGOUT;
         LogUtils.DEBUG("URL : " + url + "\nRequest Body ::" /*+ requestObject.toString()*/);
         MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
@@ -142,12 +143,14 @@ public class MainPresenter extends BasePresenter {
                         LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optString("message"));
                     }
                 }
+                loader.dismiss();
             }
 
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 LogUtils.DEBUG("Logout Error ::" + error.getMessage());
+                loader.dismiss();
             }
         });
         AppController.getInstance().addToRequestQueue(objectRequest, "Logout");

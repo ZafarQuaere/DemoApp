@@ -12,10 +12,10 @@ import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
@@ -429,6 +429,18 @@ public class Utils {
         }
         return username;
     }
+
+    public static String getProfilePic(Context mContext) {
+        //return "111";
+        String loginStringData = getLoginData(mContext);
+        String profilePic = "";
+        LoginData loginData = ParseManager.getInstance().fromJSON(loginStringData, LoginData.class);
+        if (loginData != null) {
+            return loginData.getData().getProfilePic();
+        }
+        return profilePic;
+    }
+
 
     public static void setFirstTimeLaunch(Context mContext,boolean isFirstTime) {
         if (mContext == null)

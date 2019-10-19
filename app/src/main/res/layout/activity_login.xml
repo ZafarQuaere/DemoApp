@@ -13,7 +13,7 @@
         android:layout_alignParentTop="true"
         android:visibility="gone" />
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="@dimen/_20dp"
@@ -65,11 +65,11 @@
                 android:paddingLeft="@dimen/_20dp"
                 android:paddingRight="@dimen/_20dp">
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <android.support.design.widget.TextInputEditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editUserName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -78,16 +78,16 @@
                         android:maxLength="70"
                         android:text=""
                         android:textSize="@dimen/font_regular_text" />
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10dp"
                     app:passwordToggleEnabled="true"
                     app:passwordToggleTint="@color/colorPrimary">
 
-                    <android.support.design.widget.TextInputEditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
                         android:maxLength="50"
                         android:text=""
                         android:textSize="@dimen/font_regular_text" />
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
                     android:id="@+id/textForgetPswd"
@@ -135,7 +135,7 @@
 
         </RelativeLayout>
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 
 </LinearLayout>
