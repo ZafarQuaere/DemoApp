@@ -114,8 +114,8 @@ public class BizDetailsActivity extends BaseActivity<BizDetailPresenter> impleme
         textAddress.setText(mBizDetailsData.getAddress());
         textPhone.setText(mBizDetailsData.getPhone1());
         textEmail.setText(mBizDetailsData.getBusinessEmail());
-        textWebsite.setVisibility(mBizDetailsData.getWebsite().isEmpty() || mBizDetailsData.getWebsite() == null ? View.GONE : View.VISIBLE);
         textWebsite.setText(mBizDetailsData.getWebsite());
+        textWebsite.setVisibility(mBizDetailsData.getWebsite().isEmpty() || mBizDetailsData.getWebsite() == null ? View.GONE : View.VISIBLE);
         textPhone.setOnClickListener(this);
         textFollow.setOnClickListener(this);
 

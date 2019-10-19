@@ -137,6 +137,9 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         textPhone.setText(bizDetails.getPhone1());
         textEmail.setText(bizDetails.getBusinessEmail());
         textWebsite.setText(bizDetails.getWebsite());
+
+        //textWebsite.setVisibility(bizDetails.getWebsite().isEmpty() || bizDetails.getWebsite()== null ? View.GONE : View.VISIBLE);
+
         textShortDescription.setText(bizDetails.getShortDescription());
         textDetailDescription.setText(bizDetails.getDetailedDescription());
         Picasso.get().load(bizDetails.getBusinessPic()).placeholder(R.drawable.avatar_male).into(imgProfile);
@@ -192,16 +195,12 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
             if (requestCode == IMG_PROFILE_RESULT) {
                 Bitmap bitmap = BitmapUtils.getBitmap(mContext, data, selectedImageUri);
                 Bitmap resizedBmp = BitmapUtils.resizeBitmapProfile(bitmap);
-                //imgProfile.setImageBitmap(getCircledBitmap(resizedBmp));
                 uploadBitmap(resizedBmp, IMG_PROFILE_RESULT);
 
-
             } else if (requestCode == IMG_BANNER_RESULT) {
-
                 Bitmap bitmap = BitmapUtils.getBitmap(mContext, data, selectedImageUri);
                 Bitmap resizedBmp = resizeBitmapBanner(bitmap);
                 uploadBitmap(resizedBmp, IMG_BANNER_RESULT);
-                // imgBanner.setImageURI(selectedImageUri);
             }
         }
     }
@@ -329,5 +328,9 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         volleyMultipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         //adding the request to volley
         Volley.newRequestQueue(this).add(volleyMultipartRequest);
+    }
+
+    public void editBusinessClick(View view) {
+
     }
 }

@@ -134,14 +134,14 @@
 
 
                         <ImageButton
-                            android:id="@+id/textEstablishedDate"
+                            android:id="@+id/imgEditBusiness"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_marginTop="@dimen/_10dp"
                             android:layout_marginRight="@dimen/_10dp"
+                            android:onClick="editBusinessClick"
                             android:background="@drawable/ic_edit_black"
-                            android:text="@string/establish_date"
                             android:textColor="@color/colorBlack" />
 
 
