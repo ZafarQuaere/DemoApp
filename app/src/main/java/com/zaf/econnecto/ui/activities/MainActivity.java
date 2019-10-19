@@ -356,8 +356,8 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     @Override
     public void updateProfilePic(Bitmap bitmap) {
-        //CircleImageView imageView = findViewById(R.id.imgUserProfile);
-       // imageView.setImageBitmap(bitmap);
+        CircleImageView imageView = findViewById(R.id.imgUserProfile);
+        imageView.setImageBitmap(bitmap);
     }
 
     @Override
@@ -415,8 +415,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
             if (requestCode == USER_PROFILE_IMG) {
                 Bitmap bitmap = BitmapUtils.getBitmap(mContext, data, selectedImageUri);
                 Bitmap resizedBmp = BitmapUtils.resizeBitmapProfile(bitmap);
-                //imgProfile.setImageBitmap(getCircledBitmap(resizedBmp));
-                getPresenter().uploadBitmap(resizedBmp);
+                getPresenter().uploadBitmap(resizedBmp/*,imgUserProfile*/);
             }
         }
     }

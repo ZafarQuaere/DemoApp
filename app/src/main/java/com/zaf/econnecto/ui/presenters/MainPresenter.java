@@ -44,6 +44,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class MainPresenter extends BasePresenter {
     Context mContext;
@@ -268,7 +270,7 @@ public class MainPresenter extends BasePresenter {
         AppController.getInstance().addToRequestQueue(objectRequest, "Verify Email");
     }
 
-    public void uploadBitmap(final Bitmap bitmapUpload) {
+    public void uploadBitmap(final Bitmap bitmapUpload/*, CircleImageView imgUserProfile*/) {
         loader.show();
         LogUtils.DEBUG("Upload URL : " +  AppConstant.URL_UPLOAD_USER_PROFILE_PIC);
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, AppConstant.URL_UPLOAD_USER_PROFILE_PIC,
