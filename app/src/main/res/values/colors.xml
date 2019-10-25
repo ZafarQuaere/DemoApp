@@ -6,8 +6,6 @@
 
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
-    <color name="colorGrey">#949292</color>
-    <color name="colorDarkGrey">#111111</color>
 
     <color name="colorTransparent">#00000000</color>
     <color name="home_img_text">#434B3333</color>
@@ -18,15 +16,9 @@
     <color name="dialog_separator_color">@color/colorPrimary</color>
     <color name="dialog_btn_text_color">@color/colorPrimary</color>
 
-    <color name="colorButtonSignin">#FFD600</color>
-    <color name="colorButtonSignUp">@color/colorPrimary</color>
-
     <!-- Home Screen -->
-    <color name="colorTextHome">@color/colorPrimary</color>
-    <color name="colorCircleSmall">#6D96FFF5</color>
 
     <color name="colorInputText">#111111</color>
-    <color name="colorHintText">@color/colorGrey</color>
     <color name="colorSplash">#b7b7b7</color>
 
     <!--Welcome Screen-->

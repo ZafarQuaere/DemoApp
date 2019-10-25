@@ -118,14 +118,11 @@ public class BizDetailsActivity extends BaseActivity<BizDetailPresenter> impleme
         textWebsite.setVisibility(mBizDetailsData.getWebsite().isEmpty() || mBizDetailsData.getWebsite() == null ? View.GONE : View.VISIBLE);
         textPhone.setOnClickListener(this);
         textFollow.setOnClickListener(this);
-
         if (isFollowing) {
             updateFollowingUI(textFollow);
         } else {
             updateUnfollowUI(textFollow);
         }
-
-
     }
 
     @Override

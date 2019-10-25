@@ -32,6 +32,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.VolleyMultipartRequest;
 import com.zaf.econnecto.network_call.response_model.my_business.MyBusinessData;
@@ -109,7 +111,7 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
 
         imgProfile = (CircleImageView) findViewById(R.id.imgProfile);
         imgBanner = (ImageView) findViewById(R.id.imgBanner);
-
+        imgBannerUpload.bringToFront();
         imgBannerUpload.setOnClickListener(this);
         imgProfileUpload.setOnClickListener(this);
     }
@@ -137,20 +139,20 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         textPhone.setText(bizDetails.getPhone1());
         textEmail.setText(bizDetails.getBusinessEmail());
         textWebsite.setText(bizDetails.getWebsite());
-
         //textWebsite.setVisibility(bizDetails.getWebsite().isEmpty() || bizDetails.getWebsite()== null ? View.GONE : View.VISIBLE);
-
         textShortDescription.setText(bizDetails.getShortDescription());
         textDetailDescription.setText(bizDetails.getDetailedDescription());
         Picasso.get().load(bizDetails.getBusinessPic()).placeholder(R.drawable.avatar_male).into(imgProfile);
         Picasso.get().load(bizDetails.getBannerPic()).placeholder(R.drawable.gradient).into(imgBanner);
-        imgBannerUpload.bringToFront();
+       // imgBannerUpload.bringToFront();
     }
 
     @Override
     public void onValidationError(String msg) {
         LogUtils.showErrorDialog(mContext, getString(R.string.ok), msg);
     }
+
+
 
 
     @Override
@@ -164,11 +166,11 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
             case R.id.imgBannerUpload:
                 IMG_SELECTED_FOR = IMG_BANNER_RESULT;
                 if (checkPermission()) {
-                    selectImgFromGallery();
+                    //selectImgFromGallery();
+                    CropImage.activity(null).setGuidelines(CropImageView.Guidelines.ON).start(this);
                 } else {
                     requestPermission();
                 }
-
                 break;
 
             case R.id.imgProfileUpload:
@@ -183,6 +185,11 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         }
     }
 
+    @Override
+    public void updateBizData(String address, String mobile, String email, String website) {
+        //TODO update UI for biz data, address,email, website,
+    }
+
     private void selectImgFromGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, IMG_SELECTED_FOR);
@@ -193,14 +200,18 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         if (resultCode == RESULT_OK && null != data) {
             selectedImageUri = data.getData();
             if (requestCode == IMG_PROFILE_RESULT) {
+               /* CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                Bitmap bitmap = result.getBitmap();*/
                 Bitmap bitmap = BitmapUtils.getBitmap(mContext, data, selectedImageUri);
                 Bitmap resizedBmp = BitmapUtils.resizeBitmapProfile(bitmap);
                 uploadBitmap(resizedBmp, IMG_PROFILE_RESULT);
 
             } else if (requestCode == IMG_BANNER_RESULT) {
-                Bitmap bitmap = BitmapUtils.getBitmap(mContext, data, selectedImageUri);
+                CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                Bitmap bitmap = result.getBitmap();
+                //Bitmap bitmap = BitmapUtils.getBitmap(mContext, data, selectedImageUri);
                 Bitmap resizedBmp = resizeBitmapBanner(bitmap);
-                uploadBitmap(resizedBmp, IMG_BANNER_RESULT);
+               // uploadBitmap(resizedBmp, IMG_BANNER_RESULT);
             }
         }
     }
@@ -331,6 +342,6 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
     }
 
     public void editBusinessClick(View view) {
-
+        getPresenter().showUpdateBizDialog();
     }
 }

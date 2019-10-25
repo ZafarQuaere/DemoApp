@@ -24,7 +24,6 @@
     <dimen name="dialog_btn_text_size">15sp</dimen>
     <dimen name="dialog_btn_text_small">11sp</dimen>
 
-    <dimen name="_1dp">1dp</dimen>
     <dimen name="_3dp">3dp</dimen>
     <dimen name="_5dp">5dp</dimen>
     <dimen name="_10dp">10dp</dimen>
@@ -35,11 +34,9 @@
     <dimen name="_50dp">50dp</dimen>
     <dimen name="_100dp">100dp</dimen>
     <dimen name="_120dp">120dp</dimen>
-    <dimen name="_150dp">150dp</dimen>
 
     <dimen name="font_regular_text">14sp</dimen>
     <dimen name="font_actionbar_title_text">16sp</dimen>
-    <dimen name="font_xx_large_text">24sp</dimen>
     <dimen name="font_x_large_text">20sp</dimen>
     <dimen name="font_large_text">16sp</dimen>
 
@@ -49,17 +46,10 @@
 
     <!-- General Dimensions -->
     <dimen name="button_height">40dp</dimen>
-    <dimen name="resend_otp_button_height">45dp</dimen>
-    <dimen name="edit_no_button_height">45dp</dimen>
     <dimen name="edit_field_height">40dp</dimen>
     <dimen name="actionbar_height">60dp</dimen>
 
     <!-- Home Screen  -->
-    <dimen name="circle_big_height">180dp</dimen>
-    <dimen name="circle_big_width">180dp</dimen>
-    <dimen name="circle_small_height">80dp</dimen>
-    <dimen name="padding_home_screen">16dp</dimen>
-    <dimen name="home_screen_margin_top">150dp</dimen>
 
     <dimen name="font_list_empty_text_size">20sp</dimen>
 

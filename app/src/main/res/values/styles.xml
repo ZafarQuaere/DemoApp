@@ -55,56 +55,13 @@
     </style>
 
     <!-- Password Edit -->
-    <style name="PasswordInputEdit">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:inputType">textPassword</item>
-        <item name="android:minHeight">@dimen/edit_field_height</item>
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:singleLine">true</item>
-        <item name="android:textSize">@dimen/font_regular_text</item>
-        <item name="android:textColor">@color/colorInputText</item>
-        <item name="android:textColorHint">@color/colorHintText</item>
-        <item name="android:background">@drawable/rectangle_bg</item>
-    </style>
 
     <!-- TextInput Edit -->
-    <style name="TextInputEdit">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:minHeight">@dimen/edit_field_height</item>
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:inputType">text</item>
-        <item name="android:singleLine">true</item>
-        <item name="android:textSize">@dimen/font_regular_text</item>
-        <item name="android:textColor">@color/colorInputText</item>
-        <item name="android:textColorHint">@color/colorHintText</item>
-        <item name="android:background">@drawable/rectangle_bg</item>
-    </style>
 
     <!-- TextInput Edit -->
-    <style name="NumberInputEdit">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:minHeight">@dimen/edit_field_height</item>
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:inputType">number</item>
-        <item name="android:singleLine">true</item>
-        <item name="android:textSize">@dimen/font_regular_text</item>
-        <item name="android:textColor">@color/colorInputText</item>
-        <item name="android:textColorHint">@color/colorHintText</item>
-        <item name="android:background">@drawable/rectangle_bg</item>
-    </style>
 
 
     <!-- XLarge TextView -->
-    <style name="XLargeTextview">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textSize">@dimen/font_xx_large_text</item>
-        <item name="android:textColor">@color/colorWhite</item>
-    </style>
 
     <!-- Large TextView -->
     <style name="LargeTextview">
@@ -125,13 +82,6 @@
     </style>
 
     <!-- Regular Theme TextView -->
-    <style name="RegularThemeTextview">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textSize">@dimen/font_regular_text</item>
-        <item name="android:textColor">@color/colorPrimary</item>
-    </style>
 
     <!-- Actionbar Title TextView -->
     <style name="ActionBarTitle">
@@ -171,32 +121,20 @@
     </style>
 
     <!-- Button Text -->
-    <style name="ButtonTextStyle">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/button_height</item>
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textSize">@dimen/font_regular_text</item>
-        <item name="android:textColor">@color/colorWhite</item>
-        <item name="android:layout_centerVertical">true</item>
-        <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="android:elevation">@dimen/_10dp</item>
-        <item name="android:foreground">?attr/selectableItemBackgroundBorderless</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:layout_marginHorizontal">@dimen/_30dp</item>
-    </style>
 
     <style name="positive">
         <item name="android:textColor">#336ce6</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
 
-    <style name="TextView.InputLabel" parent="TextAppearance.AppCompat.Caption">
-        <item name="android:textColor">?android:textColorHint</item>
-        <item name="android:paddingBottom">0dp</item>
-        <item name="android:paddingLeft">4dp</item>
-        <item name="android:paddingRight">4dp</item>
-        <item name="android:textSize">@dimen/font_regular_text</item>
+    <style name="dialogUpDownAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_down</item>
+    </style>
+
+    <style name="dialogLeftRightAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_left</item>
+        <item name="android:windowExitAnimation">@anim/slide_right</item>
     </style>
 
 </resources>
