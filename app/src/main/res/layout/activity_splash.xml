@@ -8,7 +8,8 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/splash" />
+        android:paddingHorizontal="@dimen/_20dp"
+        android:src="@drawable/splash_bg" />
 
     <ProgressBar
         android:visibility="visible"

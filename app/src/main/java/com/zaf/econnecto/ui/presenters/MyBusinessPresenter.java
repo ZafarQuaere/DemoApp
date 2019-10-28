@@ -15,6 +15,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.MyJsonObjectRequest;
 import com.zaf.econnecto.network_call.response_model.my_business.MyBusiness;
+import com.zaf.econnecto.network_call.response_model.my_business.MyBusinessData;
 import com.zaf.econnecto.ui.presenters.operations.IMyBusiness;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppController;
@@ -30,6 +31,7 @@ public class MyBusinessPresenter extends BasePresenter {
     private final AppLoaderFragment loader;
     private Context mContext;
     private IMyBusiness iMyBusiness;
+    private MyBusiness bizDetailData;
 
     public MyBusinessPresenter(Context context, IMyBusiness iBizDetail) {
         super(context);
@@ -56,7 +58,7 @@ public class MyBusinessPresenter extends BasePresenter {
                     if (response != null && !response.equals("")) {
                         int status = response.optInt("status");
                         if (status == AppConstant.SUCCESS) {
-                            MyBusiness bizDetailData = ParseManager.getInstance().fromJSON(response.toString(),MyBusiness.class);
+                            bizDetailData = ParseManager.getInstance().fromJSON(response.toString(),MyBusiness.class);
                             iMyBusiness.updateUI(bizDetailData.getData().get(0));
 
                         } else {
@@ -95,6 +97,8 @@ public class MyBusinessPresenter extends BasePresenter {
         final TextInputEditText editMobile = (TextInputEditText) dialog.findViewById(R.id.editMobile);
         final TextInputEditText editEmail = (TextInputEditText) dialog.findViewById(R.id.editEmail);
         final TextInputEditText editBizWebsite = (TextInputEditText) dialog.findViewById(R.id.editBizWebsite);
+        final TextInputEditText editSD = (TextInputEditText) dialog.findViewById(R.id.editShortDescription);
+        final TextInputEditText editDD = (TextInputEditText) dialog.findViewById(R.id.editLongDescription);
         Button btnOk = (Button) dialog.findViewById(R.id.btn_ok);
         Button btnCancel = (Button) dialog.findViewById(R.id.btnCancel);
 
@@ -104,8 +108,9 @@ public class MyBusinessPresenter extends BasePresenter {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                callUpdateBizApi(editAddress.getText().toString().trim(),editMobile.getText().toString().trim(),
-                        editEmail.getText().toString().trim(),editBizWebsite.getText().toString().trim());
+                validateFields(editAddress.getText().toString().trim(),editMobile.getText().toString().trim(),
+                        editEmail.getText().toString().trim(),editBizWebsite.getText().toString().trim(),
+                        editSD.getText().toString().trim(),editDD.getText().toString().trim());
 
             }
         });
@@ -118,15 +123,41 @@ public class MyBusinessPresenter extends BasePresenter {
         dialog.show();
     }
 
-    private void callUpdateBizApi(final String address, final String mobile, final String email, final String website) {
+    private void validateFields(String address, String mobile, String email, String website, String shortDesc, String detailDesc) {
+        MyBusinessData myBusinessData = bizDetailData.getData().get(0);
+        if (address.isEmpty()){
+            address = myBusinessData.getAddress();
+        } if (mobile.isEmpty()){
+            mobile = myBusinessData.getPhone1();
+        } if (email.isEmpty()){
+            email = myBusinessData.getBusinessEmail();
+        } if (website.isEmpty()){
+            website = myBusinessData.getWebsite();
+        } if (shortDesc.isEmpty()){
+            shortDesc = myBusinessData.getShortDescription();
+        } if (detailDesc.isEmpty()){
+            detailDesc = myBusinessData.getDetailedDescription();
+        }
+
+        callUpdateBizApi(address,mobile,email,website,shortDesc,detailDesc,myBusinessData);
+    }
+
+    private void callUpdateBizApi(final String address, final String mobile, final String email, final String website, final String shortDesc, final String detailDesc, MyBusinessData myBusinessData) {
         loader.show();
-        String url = AppConstant.URL_BASE + "update_business";
+        String url = AppConstant.URL_BASE+AppConstant.URL_UPDATE_BUSINESS;
 
         JSONObject object = new JSONObject();
         try {
+            object.put("owner_email",Utils.getUserEmail(mContext));
+            object.put("short_description",shortDesc);
+            object.put("business_category",myBusinessData.getBusinessCategory());
+            object.put("detailed_description",detailDesc);
+            object.put("year_founded",myBusinessData.getYearFounded());
+            object.put("awards","");
             object.put("address",address);
-            object.put("mobile",mobile);
-            object.put("user_email",email);
+            object.put("phone1", mobile);
+            object.put("phone2", myBusinessData.getPhone2());
+            object.put("business_email", email);
             object.put("website",website);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -140,7 +171,7 @@ public class MyBusinessPresenter extends BasePresenter {
                     if (response != null && !response.equals("")) {
                         int status = response.optInt("status");
                         if (status == AppConstant.SUCCESS) {
-                            iMyBusiness.updateBizData(address,mobile,email,website);
+                            iMyBusiness.updateBizData(address,mobile,email,website,shortDesc,detailDesc);
                         } else {
                             LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optString("message"));
                         }

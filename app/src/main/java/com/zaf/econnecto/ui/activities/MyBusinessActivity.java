@@ -37,6 +37,7 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.VolleyMultipartRequest;
 import com.zaf.econnecto.network_call.response_model.my_business.MyBusinessData;
+import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
 import com.zaf.econnecto.ui.presenters.MyBusinessPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IMyBusiness;
 import com.zaf.econnecto.utils.AppConstant;
@@ -74,6 +75,11 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
     private Uri selectedImageUri;
     private TextView textPhone;
     private AppLoaderFragment loader;
+    private TextView textEmail;
+    private TextView textWebsite;
+    private TextView textShortDescription;
+    private TextView textDetailDescription;
+    private TextView textAddress;
 
     @Override
     protected MyBusinessPresenter initPresenter() {
@@ -89,7 +95,6 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         loader = AppLoaderFragment.getInstance(mContext);
         initUI();
         getPresenter().callMyBizApi();
-        //Utils.updateActionBar(this,new BizDetailsActivity().getClass().getSimpleName(),getString(R.string.biz_details), null,null);
 
     }
 
@@ -128,12 +133,12 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(bizDetails != null ? bizDetails.getBusinessName() : getString(R.string.business_details));
         textFollowers = (TextView) findViewById(R.id.textFollowers);
-        TextView textAddress = (TextView) findViewById(R.id.textAddress);
+        textAddress = (TextView) findViewById(R.id.textAddress);
         textPhone = (TextView) findViewById(R.id.textPhone);
-        TextView textEmail = (TextView) findViewById(R.id.textEmail);
-        TextView textWebsite = (TextView) findViewById(R.id.textWebsite);
-        TextView textShortDescription = (TextView) findViewById(R.id.textShortDescription);
-        TextView textDetailDescription = (TextView) findViewById(R.id.textDetailDescription);
+        textEmail = (TextView) findViewById(R.id.textEmail);
+        textWebsite = (TextView) findViewById(R.id.textWebsite);
+        textShortDescription = (TextView) findViewById(R.id.textShortDescription);
+        textDetailDescription = (TextView) findViewById(R.id.textDetailDescription);
         textFollowers.setText(bizDetails.getFollowersCount());
         textAddress.setText(bizDetails.getAddress());
         textPhone.setText(bizDetails.getPhone1());
@@ -166,8 +171,8 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
             case R.id.imgBannerUpload:
                 IMG_SELECTED_FOR = IMG_BANNER_RESULT;
                 if (checkPermission()) {
-                    //selectImgFromGallery();
-                    CropImage.activity(null).setGuidelines(CropImageView.Guidelines.ON).start(this);
+                    selectImgFromGallery();
+                   // CropImage.activity(null).setGuidelines(CropImageView.Guidelines.ON).start(this);
                 } else {
                     requestPermission();
                 }
@@ -186,8 +191,14 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
     }
 
     @Override
-    public void updateBizData(String address, String mobile, String email, String website) {
+    public void updateBizData(String address, String mobile, String email, String website,String shortDesc,String detailDesc) {
         //TODO update UI for biz data, address,email, website,
+        textAddress.setText(address);
+        textPhone.setText(mobile);
+        textEmail.setText(email);
+        textWebsite.setText(website);
+        textShortDescription.setText(shortDesc);
+        textDetailDescription.setText(detailDesc);
     }
 
     private void selectImgFromGallery() {
@@ -207,11 +218,11 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
                 uploadBitmap(resizedBmp, IMG_PROFILE_RESULT);
 
             } else if (requestCode == IMG_BANNER_RESULT) {
-                CropImage.ActivityResult result = CropImage.getActivityResult(data);
-                Bitmap bitmap = result.getBitmap();
-                //Bitmap bitmap = BitmapUtils.getBitmap(mContext, data, selectedImageUri);
+                /*CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                Bitmap bitmap = result.getBitmap();*/
+                Bitmap bitmap = BitmapUtils.getBitmap(mContext, data, selectedImageUri);
                 Bitmap resizedBmp = resizeBitmapBanner(bitmap);
-               // uploadBitmap(resizedBmp, IMG_BANNER_RESULT);
+                uploadBitmap(resizedBmp, IMG_BANNER_RESULT);
             }
         }
     }
@@ -342,6 +353,7 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
     }
 
     public void editBusinessClick(View view) {
+       // startActivity(new Intent(this, MainActivity.class).putExtra("",""));
         getPresenter().showUpdateBizDialog();
     }
 }

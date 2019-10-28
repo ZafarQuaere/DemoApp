@@ -1,138 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="@dimen/_10dp"
     android:orientation="vertical">
+
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/dialog_round_corner_bg">
+        android:layout_margin="@dimen/_10dp"
+        android:background="@drawable/dialog_round_corner_bg"
+        android:elevation="@dimen/_10dp"
+        app:cardCornerRadius="@dimen/_10dp">
 
-        <ScrollView
+        <LinearLayout
+            android:id="@+id/lytInputs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:overScrollMode="ifContentScrolls"
-            android:scrollbars="none">
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
 
-
-            <LinearLayout
-                android:id="@+id/lytInputs"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusableInTouchMode="true"
-                android:layout_marginTop="@dimen/_10dp"
-                android:orientation="vertical">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editAddress"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/_10dp"
-                        android:hint="@string/enter_address"
-                        android:maxLength="70"
-                        android:textSize="@dimen/font_regular_text" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editMobile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/_10dp"
-                        android:inputType="number"
-                        android:hint="@string/enter_mobile_no"
-                        android:maxLength="10"
-                        android:textSize="@dimen/font_regular_text" />
-                </com.google.android.material.textfield.TextInputLayout>
+                android:background="@color/colorPrimary"
+                android:paddingHorizontal="@dimen/_10dp"
+                android:paddingVertical="@dimen/_15dp"
+                android:text="@string/update_details"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/font_large_text" />
 
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editEmail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/_10dp"
-                        android:hint="@string/enter_email"
-                        android:maxLength="70"
-                        android:textSize="@dimen/font_regular_text" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-                <com.google.android.material.textfield.TextInputLayout
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10dp">
+                    android:hint="@string/enter_address"
+                    android:maxLength="70"
+                    android:paddingStart="@dimen/_10dp"
+                    android:textSize="@dimen/font_regular_text" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editBizWebsite"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/_10dp"
-                        android:hint="@string/enter_website"
-                        android:inputType="textEmailAddress"
-                        android:maxLength="90"
-                        android:textSize="@dimen/font_regular_text" />
-                </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editMobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enter_mobile_no"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:paddingStart="@dimen/_10dp"
+                    android:textSize="@dimen/font_regular_text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enter_email"
+                    android:maxLength="70"
+                    android:paddingStart="@dimen/_10dp"
+                    android:textSize="@dimen/font_regular_text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editBizWebsite"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enter_website"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="90"
+                    android:paddingStart="@dimen/_10dp"
+                    android:textSize="@dimen/font_regular_text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editShortDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/_50dp"
+                    android:hint="@string/short_description"
+                    android:maxLines="2"
+                    android:inputType="text"
+                    android:maxLength="90"
+                    android:paddingStart="@dimen/_10dp"
+                    android:textSize="@dimen/font_regular_text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editLongDescription"
+                    android:layout_width="match_parent"
+                    android:gravity="bottom"
+                    android:paddingBottom="@dimen/_20dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/_50dp"
+                    android:maxLines="5"
+                    android:hint="@string/detail_descripton"
+                    android:inputType="text"
+                    android:maxLength="250"
+                    android:paddingStart="@dimen/_10dp"
+                    android:textSize="@dimen/font_regular_text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <View
+                android:id="@+id/separator"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dialog_separator_height"
+                android:layout_below="@+id/text_message"
+                android:layout_marginTop="@dimen/dialog_separator_margin_top"
+                android:background="@color/dialog_separator_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dialog_btn_ok_height"
+                android:layout_below="@+id/separator"
+                android:background="@android:color/transparent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dialog_btn_ok_height"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:text="cancel"
+                    android:textColor="@color/dialog_btn_text_color"
+                    android:textSize="@dimen/dialog_btn_text_size" />
 
                 <View
-                    android:id="@+id/separator"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dialog_separator_height"
-                    android:layout_below="@+id/text_message"
-                    android:layout_marginTop="@dimen/dialog_separator_margin_top"
+                    android:layout_width="@dimen/dialog_separator_height"
+                    android:layout_height="match_parent"
                     android:background="@color/dialog_separator_color" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/btn_ok"
+                    android:layout_width="wrap_content"
                     android:layout_height="@dimen/dialog_btn_ok_height"
-                    android:layout_below="@+id/separator"
+                    android:layout_weight="1"
                     android:background="@android:color/transparent"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/btnCancel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dialog_btn_ok_height"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:text="cancel"
-                        android:textColor="@color/dialog_btn_text_color"
-                        android:textSize="@dimen/dialog_btn_text_size" />
-
-                    <View
-                        android:layout_width="@dimen/dialog_separator_height"
-                        android:layout_height="match_parent"
-                        android:background="@color/dialog_separator_color" />
-
-                    <Button
-                        android:id="@+id/btn_ok"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dialog_btn_ok_height"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:text="Ok"
-                        android:textColor="@color/dialog_btn_text_color"
-                        android:textSize="@dimen/dialog_btn_text_size" />
-
-                </LinearLayout>
-
+                    android:text="Ok"
+                    android:textColor="@color/dialog_btn_text_color"
+                    android:textSize="@dimen/dialog_btn_text_size" />
 
             </LinearLayout>
 
-        </ScrollView>
+
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 

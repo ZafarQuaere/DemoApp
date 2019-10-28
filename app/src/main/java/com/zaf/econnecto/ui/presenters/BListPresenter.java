@@ -8,8 +8,6 @@ import com.android.volley.VolleyError;
 import com.zaf.econnecto.network_call.MyJsonObjectRequest;
 import com.zaf.econnecto.network_call.response_model.biz_list.BizData;
 import com.zaf.econnecto.network_call.response_model.biz_list.BizListData;
-import com.zaf.econnecto.network_call.response_model.home.SalesData;
-import com.zaf.econnecto.network_call.response_model.product_list.MyProductsData;
 import com.zaf.econnecto.ui.presenters.operations.IFragListing;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppController;

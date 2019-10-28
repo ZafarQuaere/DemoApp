@@ -167,6 +167,9 @@
     <string name="enter_email">Enter email</string>
     <string name="enter_website">Enter Website</string>
     <string name="update">Update</string>
+    <string name="update_details">Update Business Details</string>
+    <string name="short_description">Short Description</string>
+    <string name="detail_descripton">Detail description</string>
 
     <array name="charges_uniit">
         <item name="Select_Charges">Select Charges</item>

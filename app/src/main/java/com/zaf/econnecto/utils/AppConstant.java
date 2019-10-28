@@ -10,6 +10,7 @@ public class AppConstant {
     public static final String COMINGFROM = "ComingFrom";
     public static final int LOGIN = 1;
     public static final int HOME = 2;
+    public static  boolean MOVE_TO_ADD_BIZ = false;
     public static  boolean NEW_FOLLOW = false;
     // Splash screen timer
     public static int SPLASH_TIME_OUT = 1500;
@@ -29,6 +30,8 @@ public class AppConstant {
     public static final String URL_EMAIL_VERIFY = "email_verification.php";
     public static final String URL_ADD_BUSINESS = "add_business.php";
     public static final String URL_MY_BUSINESS = "mybusiness.php";
+    public static final String URL_UPDATE_BUSINESS = "update_business.php";
+    public static final String URL_BIZ_CATEGORY = URL_BASE+"categories.php";
     public static final String URL_UPLOAD_USER_PROFILE_PIC = "http://econnecto.com/api/user_profile_pic.php";
     public static final String URL_UPLOAD_BUSINESS_PROFILE_PIC = "http://econnecto.com/api/business_profile_pic.php";
     public static final String URL_UPLOAD_BUSINESS_BANNER_PIC = "http://econnecto.com/api/business_banner_pic.php";

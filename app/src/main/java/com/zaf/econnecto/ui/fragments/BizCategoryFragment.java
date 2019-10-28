@@ -17,16 +17,15 @@ import com.smarteist.autoimageslider.DefaultSliderView;
 import com.smarteist.autoimageslider.SliderLayout;
 import com.smarteist.autoimageslider.SliderView;
 import com.zaf.econnecto.R;
-import com.zaf.econnecto.network_call.response_model.home.DetailData;
-import com.zaf.econnecto.network_call.response_model.home.Sales;
+import com.zaf.econnecto.network_call.response_model.home.CategoryData;
 import com.zaf.econnecto.ui.adapters.CategoryRecylcerAdapter;
-import com.zaf.econnecto.ui.presenters.HomePresenter;
+import com.zaf.econnecto.ui.presenters.BizCategoryPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IFragHome;
 import com.zaf.econnecto.utils.Utils;
 
 import java.util.List;
 
-public class BizCategoryFragment extends BaseFragment<HomePresenter> implements IFragHome {
+public class BizCategoryFragment extends BaseFragment<BizCategoryPresenter> implements IFragHome {
 
     private Context mContext;
     private View view;
@@ -44,13 +43,13 @@ public class BizCategoryFragment extends BaseFragment<HomePresenter> implements 
     }
 
     @Override
-    protected HomePresenter initPresenter() {
-        return new HomePresenter(getActivity(), this);
+    protected BizCategoryPresenter initPresenter() {
+        return new BizCategoryPresenter(getActivity(), this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_home, container, false);
+        view = inflater.inflate(R.layout.fragment_biz_category, container, false);
         mContext = getActivity();
         initUI(view);
         getPresenter().callTodaySalesApi();
@@ -114,13 +113,13 @@ public class BizCategoryFragment extends BaseFragment<HomePresenter> implements 
     }
 
     @Override
-    public void updateTodaySalesData(List<DetailData> data) {
+    public void updateCategory(List<CategoryData> data) {
         emptyTextView.setVisibility(data == null ? View.VISIBLE : View.GONE);
         recyclerCategory.setVisibility(data == null ? View.GONE : View.VISIBLE);
 
         CategoryRecylcerAdapter adapter = new CategoryRecylcerAdapter(mContext, data, new OnCategoryItemClickListener() {
             @Override
-            public void onCategoryItemClick(DetailData item) {
+            public void onCategoryItemClick(CategoryData item) {
                 Utils.moveToFragment(mContext, new BizListFragment(), BizListFragment.class.getSimpleName(), null);
                 Utils.updateActionBar(mContext, BizListFragment.class.getSimpleName(),mContext.getString(R.string.business_list),null,null);
                 //LogUtils.showToast(mContext,item.getFirstName());
@@ -130,12 +129,8 @@ public class BizCategoryFragment extends BaseFragment<HomePresenter> implements 
 
     }
 
-    @Override
-    public void updateTotalSalesData(List<Sales> totalSalesData) {
-
-    }
 
     public interface OnCategoryItemClickListener {
-        void onCategoryItemClick(DetailData item);
+        void onCategoryItemClick(CategoryData item);
     }
 }

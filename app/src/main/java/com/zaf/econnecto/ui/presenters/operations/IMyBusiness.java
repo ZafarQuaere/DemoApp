@@ -8,5 +8,5 @@ public interface IMyBusiness {
     void updateUI(MyBusinessData bizDetails);
     void onValidationError(String msg);
 
-    void updateBizData(String address, String mobile, String email, String website);
+    void updateBizData(String address, String mobile, String email, String website,String shortDesc,String detailDesc);
 }

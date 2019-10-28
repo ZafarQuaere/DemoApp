@@ -6,11 +6,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import androidx.fragment.app.Fragment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -43,8 +44,6 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class MainPresenter extends BasePresenter {
@@ -248,7 +247,7 @@ public class MainPresenter extends BasePresenter {
                 if (response != null && !response.equals("")) {
                     int status = response.optInt("status");
                     if (status == AppConstant.SUCCESS) {
-                        Utils.setEmailVerified(mContext,true);
+                        Utils.setEmailVerified(mContext, true);
                         LogUtils.showToast(mContext, mContext.getString(R.string.congrats_your_account_is_verified_now));
                         iMain.updateVerifyEmailUI();
                     } else {
@@ -272,7 +271,7 @@ public class MainPresenter extends BasePresenter {
 
     public void uploadBitmap(final Bitmap bitmapUpload/*, CircleImageView imgUserProfile*/) {
         loader.show();
-        LogUtils.DEBUG("Upload URL : " +  AppConstant.URL_UPLOAD_USER_PROFILE_PIC);
+        LogUtils.DEBUG("Upload URL : " + AppConstant.URL_UPLOAD_USER_PROFILE_PIC);
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, AppConstant.URL_UPLOAD_USER_PROFILE_PIC,
                 new Response.Listener<NetworkResponse>() {
                     @Override
@@ -282,8 +281,9 @@ public class MainPresenter extends BasePresenter {
                         try {
                             JSONObject obj = new JSONObject(new String(response.data));
                             int status = obj.optInt("status");
-                            if (status == AppConstant.SUCCESS){
-                              iMain.updateProfilePic(bitmapUpload);
+                            if (status == AppConstant.SUCCESS) {
+                                BitmapUtils.saveProfileImage(mContext, bitmapUpload);
+                                iMain.updateProfilePic(bitmapUpload);
                             }
                             Toast.makeText(mContext.getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
@@ -304,7 +304,7 @@ public class MainPresenter extends BasePresenter {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("user_email", Utils.getUserEmail(mContext));
-                LogUtils.DEBUG("user_email "+Utils.getUserEmail(mContext));
+                LogUtils.DEBUG("user_email " + Utils.getUserEmail(mContext));
                 return params;
             }
 

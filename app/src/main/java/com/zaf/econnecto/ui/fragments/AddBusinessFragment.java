@@ -157,7 +157,6 @@ public class AddBusinessFragment extends BaseFragment<AddBizPresenter> implement
         String email = editEmailId.getText().toString().trim();
         String website = editBizWebsite.getText().toString().trim();
         String amount = editBizAmount.getText().toString().trim();
-
         getPresenter().validateFields(bizName, shortDesc, bizCategory, detailDesc, foundYear, awards, address, phone1, phone2, email, website, bizCharges, amount);
 
     }

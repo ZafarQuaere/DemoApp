@@ -10,18 +10,18 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.zaf.econnecto.R;
-import com.zaf.econnecto.network_call.response_model.home.DetailData;
+import com.zaf.econnecto.network_call.response_model.home.CategoryData;
 import com.zaf.econnecto.ui.fragments.BizCategoryFragment;
 
 import java.util.List;
 
 public class CategoryRecylcerAdapter extends RecyclerView.Adapter<CategoryRecylcerAdapter.ViewHolder> {
 
-    private final List<DetailData> mValues;
+    private final List<CategoryData> mValues;
     private final BizCategoryFragment.OnCategoryItemClickListener mListener;
     private Context context;
 
-    public CategoryRecylcerAdapter(Context mContext,List<DetailData> items, BizCategoryFragment.OnCategoryItemClickListener listener) {
+    public CategoryRecylcerAdapter(Context mContext,List<CategoryData> items, BizCategoryFragment.OnCategoryItemClickListener listener) {
         context = mContext;
         mValues = items;
         mListener = listener;
@@ -37,10 +37,10 @@ public class CategoryRecylcerAdapter extends RecyclerView.Adapter<CategoryRecylc
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.textName.setText(mValues.get(position).getFirstName());
+        holder.textName.setText(mValues.get(position).getCategoryName());
         //holder.mContentView.setText(mValues.get(position).getLastName());
 
-        Picasso.get().load(mValues.get(position).getAvatar()).placeholder(R.drawable.icon_drops).into(holder.imgItem);
+        Picasso.get().load(mValues.get(position).getCategoryImage()).placeholder(R.mipmap.ic_launcher).into(holder.imgItem);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +64,7 @@ public class CategoryRecylcerAdapter extends RecyclerView.Adapter<CategoryRecylc
         final TextView textName;
        // final TextView mContentView;
         final ImageView imgItem;
-        DetailData mItem;
+        CategoryData mItem;
 
         ViewHolder(View view) {
             super(view);

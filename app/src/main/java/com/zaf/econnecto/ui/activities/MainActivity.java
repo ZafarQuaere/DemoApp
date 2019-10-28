@@ -24,7 +24,6 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.squareup.picasso.Picasso;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
 import com.zaf.econnecto.ui.fragments.BizCategoryFragment;
@@ -33,6 +32,7 @@ import com.zaf.econnecto.ui.fragments.HelpNAboutFragment;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.ui.presenters.MainPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IMain;
+import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.BitmapUtils;
 import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.PermissionUtils;
@@ -62,15 +62,37 @@ public class MainActivity extends BaseActivity<MainPresenter>
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        mContext = this;
-        setUpToolbar();
-        updateUI();
-        initUI();
+        if (AppConstant.MOVE_TO_ADD_BIZ){
+            moveToAddBizness();
+             AppConstant.MOVE_TO_ADD_BIZ = false;
+        }else {
+            AppConstant.MOVE_TO_ADD_BIZ = false;
+            setContentView(R.layout.activity_main);
+            mContext = this;
+            setUpToolbar();
+            updateUI();
+            initUI();
+           // moveToDestination();
+            moveToBList();
+        }
 
         //moveToHome();
-        moveToBList();
 
+
+    }
+
+    private void moveToDestination() {
+       /* if (AppConstant.MOVE_TO_ADD_BIZ){
+            moveToAddBizness();
+           // AppConstant.MOVE_TO_ADD_BIZ = false;
+        }else {
+            //AppConstant.MOVE_TO_ADD_BIZ = false;
+            moveToBList();
+        }*/
+    }
+
+    private void moveToAddBizness() {
+        getPresenter().moveToFragment(AddBusinessFragment.class.getSimpleName());
     }
 
     private void updateUI() {
@@ -82,8 +104,8 @@ public class MainActivity extends BaseActivity<MainPresenter>
         if (Utils.isLoggedIn(mContext)) {
             textUserName.setText(Utils.getUserName(mContext));
             textVerifyEmail.setText(Utils.isEmailVerified(mContext) ? Utils.getUserEmail(mContext) : getString(R.string.verify_your_email));
-            Picasso.get().load( Utils.getProfilePic(mContext)).placeholder(R.drawable.avatar_male).into(imgUserProfile);
-           // Utils.getProfilePic(mContext);
+            imgUserProfile.setImageBitmap(BitmapUtils.getProfileBitmap(mContext));
+            // Utils.getProfilePic(mContext);
         } else {
             textUserName.setText("");
             textVerifyEmail.setText("");
@@ -218,7 +240,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     public void item3Click(View view) {
         closeDrawer();
-       // LogUtils.showToast(mContext, "Development under progress");
+        // LogUtils.showToast(mContext, "Development under progress");
     }
 
     public void onLogoutClick(View view) {
@@ -236,6 +258,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
                         public void onOkClick() {
                             mContext.startActivity(new Intent(mContext, LoginActivity.class));
                         }
+
                         @Override
                         public void onCancelClick() {
                         }
@@ -274,6 +297,9 @@ public class MainActivity extends BaseActivity<MainPresenter>
             drawer.closeDrawer(GravityCompat.START);
         } else {
             //super.onBackPressed();
+            if (AppConstant.MOVE_TO_ADD_BIZ){
+                super.onBackPressed();
+            }
             updateToolbar();
         }
         //getPresenter().updateToolbarTitle(mContext);
@@ -310,11 +336,8 @@ public class MainActivity extends BaseActivity<MainPresenter>
                 //getPresenter().requestOtpApi();
                 getPresenter().startActivity(mContext);
             }
-
             @Override
-            public void onCancelClick() {
-
-            }
+            public void onCancelClick() { }
         });
 
     }
@@ -357,7 +380,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
     @Override
     public void updateProfilePic(Bitmap bitmap) {
         CircleImageView imageView = findViewById(R.id.imgUserProfile);
-        imageView.setImageBitmap(bitmap);
+        imageView.setImageBitmap(BitmapUtils.getProfileBitmap(mContext));
     }
 
     @Override
@@ -415,7 +438,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
             if (requestCode == USER_PROFILE_IMG) {
                 Bitmap bitmap = BitmapUtils.getBitmap(mContext, data, selectedImageUri);
                 Bitmap resizedBmp = BitmapUtils.resizeBitmapProfile(bitmap);
-                getPresenter().uploadBitmap(resizedBmp/*,imgUserProfile*/);
+                getPresenter().uploadBitmap(resizedBmp);
             }
         }
     }
@@ -428,7 +451,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
                     boolean readAccpeted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     boolean cameraPermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
                     if (readAccpeted /*&& writeAccepted*/) {
-                       selectImageFromGallery();
+                        selectImageFromGallery();
                     } else if (cameraPermission) {
                         //  captureFromCamera();
                     } else {
@@ -443,8 +466,10 @@ public class MainActivity extends BaseActivity<MainPresenter>
                                                             STORAGE_PERMISSION_REQUEST_CODE);
                                                 }
                                             }
+
                                             @Override
-                                            public void onCancelClick() {}
+                                            public void onCancelClick() {
+                                            }
                                         });
                             }
                         }
@@ -455,7 +480,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     }
 
-    public  void selectImageFromGallery() {
+    public void selectImageFromGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, USER_PROFILE_IMG);
     }
