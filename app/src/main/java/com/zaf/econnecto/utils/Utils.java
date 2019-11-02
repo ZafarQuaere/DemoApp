@@ -527,6 +527,25 @@ public class Utils {
         }
     }
 
+    public static void saveProfileImage(Context mContext,String profilePic) {
+        if (mContext == null)
+            return;
+        AppSharedPrefs prefs = AppSharedPrefs.getInstance(mContext);
+        prefs.put(mContext.getString(R.string.key_user_profile_pic), profilePic);
+    }
+
+    public static String getUserProfilePic(Context context) {
+        AppSharedPrefs prefs = AppSharedPrefs.getInstance(context);
+        String data = "";
+        try {
+            data = (String) prefs.get(context.getString(R.string.key_user_profile_pic));
+        } catch (Exception e) {
+            e.printStackTrace();
+            LogUtils.ERROR(e.getMessage());
+            return data;
+        }
+        return data;
+    }
 
    /* public static void selectImageFromGallery(Activity mContext) {
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);

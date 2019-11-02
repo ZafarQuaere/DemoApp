@@ -24,6 +24,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
 import com.zaf.econnecto.ui.fragments.BizCategoryFragment;
@@ -62,21 +63,15 @@ public class MainActivity extends BaseActivity<MainPresenter>
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (AppConstant.MOVE_TO_ADD_BIZ){
-            moveToAddBizness();
-             AppConstant.MOVE_TO_ADD_BIZ = false;
-        }else {
-            AppConstant.MOVE_TO_ADD_BIZ = false;
+
             setContentView(R.layout.activity_main);
             mContext = this;
             setUpToolbar();
             updateUI();
             initUI();
-           // moveToDestination();
-            moveToBList();
-        }
-
-        //moveToHome();
+             moveToBList();
+           // moveToHome();
+            //moveToAddBizness();
 
 
     }
@@ -104,7 +99,10 @@ public class MainActivity extends BaseActivity<MainPresenter>
         if (Utils.isLoggedIn(mContext)) {
             textUserName.setText(Utils.getUserName(mContext));
             textVerifyEmail.setText(Utils.isEmailVerified(mContext) ? Utils.getUserEmail(mContext) : getString(R.string.verify_your_email));
-            imgUserProfile.setImageBitmap(BitmapUtils.getProfileBitmap(mContext));
+            if (BitmapUtils.getProfileBitmap(mContext) == null)
+                Picasso.get().load(Utils.getUserProfilePic(mContext)).placeholder(R.drawable.avatar_male).into(imgUserProfile);
+            else
+                imgUserProfile.setImageBitmap(BitmapUtils.getProfileBitmap(mContext));
             // Utils.getProfilePic(mContext);
         } else {
             textUserName.setText("");

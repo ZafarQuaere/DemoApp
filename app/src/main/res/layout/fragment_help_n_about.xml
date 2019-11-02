@@ -13,16 +13,16 @@
     <TextView
         android:id="@+id/textContact"
         style="@style/LargeTextview"
-        android:drawableStart="@drawable/ic_my_account"
         android:drawablePadding="@dimen/drawable_padding"
         android:text="@string/contact_us"
+        android:visibility="gone"
         android:textColor="@color/colorBlack" />
 
     <TextView
         style="@style/RegularTextview"
-        android:layout_marginTop="@dimen/_30dp"
+        android:layout_marginTop="@dimen/_10dp"
         android:autoLink="phone"
-        android:drawableStart="@drawable/ic_settings"
+        android:drawableStart="@drawable/ic_phone"
         android:drawablePadding="@dimen/drawable_padding"
         android:gravity="center_vertical"
         android:text="Contact : +91-7834908329"
@@ -33,96 +33,192 @@
         style="@style/RegularTextview"
         android:layout_marginTop="@dimen/_20dp"
         android:autoLink="email"
-        android:drawableStart="@drawable/ic_settings"
+        android:drawableStart="@drawable/ic_email"
         android:drawablePadding="@dimen/drawable_padding"
         android:gravity="center_vertical"
         android:text="Email : support@econnecto.com"
         android:textColor="@color/colorBlack"
         android:textColorLink="@color/colorPrimary" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_20dp"
-        android:orientation="horizontal">
+        android:layout_marginTop="@dimen/_20dp">
+
+        <ImageButton
+            android:id="@+id/iconWebsite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_website"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/_10dp"/>
 
         <TextView
+            android:id="@+id/labelWeb"
+            android:layout_toRightOf="@+id/iconWebsite"
             style="@style/RegularTextview"
-            android:drawableStart="@drawable/ic_settings"
-            android:drawablePadding="@dimen/drawable_padding"
             android:gravity="center_vertical"
             android:text="@string/text_visit_our_website"
             android:textColor="@color/colorBlack" />
 
         <TextView
+            android:layout_toRightOf="@+id/iconWebsite"
+            android:layout_below="@+id/labelWeb"
+            android:textColor="@color/colorBlack"
             android:id="@+id/textWebsite"
             style="@style/RegularTextview"
             android:linksClickable="true"
             android:text="@string/website_link"
             android:textColorLink="@color/colorPrimary"
             android:textStyle="bold" />
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_20dp"
         android:orientation="vertical">
 
+        <ImageButton
+            android:id="@+id/iconFb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_fb_colored"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/_10dp"/>
+
         <TextView
+            android:id="@+id/labelFb"
+            android:layout_toRightOf="@+id/iconFb"
             style="@style/RegularTextview"
-            android:drawableStart="@drawable/ic_settings"
-            android:drawablePadding="@dimen/drawable_padding"
             android:gravity="center_vertical"
             android:text="@string/text_like_on_fb"
             android:textColor="@color/colorBlack" />
 
         <TextView
+            android:textColor="@color/colorBlack"
+            android:layout_below="@+id/labelFb"
+            android:layout_toRightOf="@+id/iconFb"
             android:id="@+id/text_fb_link"
             style="@style/RegularTextview"
             android:linksClickable="true"
-            android:paddingStart="@dimen/_30dp"
             android:text="@string/fb_link"
             android:textColorLink="@color/colorPrimary"
             android:textStyle="bold" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_20dp"
         android:orientation="vertical">
 
+        <ImageButton
+            android:id="@+id/iconInsta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_instagram_colored"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/_10dp"/>
+
         <TextView
+            android:id="@+id/labelInsta"
+            android:layout_toRightOf="@id/iconInsta"
             style="@style/RegularTextview"
-            android:drawableStart="@drawable/ic_settings"
-            android:drawablePadding="@dimen/drawable_padding"
             android:gravity="center_vertical"
             android:text="@string/text_follow_us_on_insta"
             android:textColor="@color/colorBlack" />
 
         <TextView
+            android:layout_below="@+id/labelInsta"
+            android:layout_toRightOf="@+id/iconInsta"
+            android:textColor="@color/colorBlack"
             android:id="@+id/text_insta_link"
             style="@style/RegularTextview"
             android:linksClickable="true"
             android:text="@string/insta_link"
-            android:paddingStart="@dimen/_30dp"
             android:textColorLink="@color/colorPrimary"
             android:textStyle="bold" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
-    <TextView
-        style="@style/RegularTextview"
-        android:layout_marginTop="@dimen/_20dp"
-        android:autoLink="web"
-        android:drawableStart="@drawable/ic_settings"
-        android:drawablePadding="@dimen/drawable_padding"
-        android:gravity="center_vertical"
-        android:text="Rate Us on Play Store"
-        android:textColor="@color/colorBlack" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
+        android:orientation="vertical">
+
+
+        <ImageButton
+            android:id="@+id/iconTwitter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_twitter_colored"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/_10dp"/>
+
+        <TextView
+            android:layout_toRightOf="@+id/iconTwitter"
+            android:id="@+id/labelTwitter"
+            style="@style/RegularTextview"
+            android:gravity="center_vertical"
+            android:text="@string/follow_us_on_twitter"
+            android:textColor="@color/colorBlack" />
+
+        <TextView
+            android:layout_toRightOf="@+id/iconTwitter"
+            android:textColor="@color/colorBlack"
+            android:layout_below="@+id/labelTwitter"
+            android:id="@+id/text_twitter_link"
+            style="@style/RegularTextview"
+            android:linksClickable="true"
+            android:text="@string/twitter_link"
+            android:textColorLink="@color/colorPrimary"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
+        android:orientation="vertical">
+
+
+        <ImageButton
+            android:id="@+id/iconPlaystore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_playstore_colored"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/_10dp"/>
+
+        <TextView
+            android:layout_toRightOf="@+id/iconPlaystore"
+            android:id="@+id/labelPS"
+            style="@style/RegularTextview"
+            android:gravity="center_vertical"
+            android:text="@string/rate_us_playstore"
+            android:textColor="@color/colorBlack" />
+
+        <TextView
+            android:textColor="@color/colorBlack"
+            android:layout_toRightOf="@+id/iconPlaystore"
+            android:layout_below="@+id/labelPS"
+            android:id="@+id/textPlaystoreLine"
+            style="@style/RegularTextview"
+            android:autoLink="web"
+            android:linksClickable="true"
+            android:text="@string/playstore_link"
+            android:textColorLink="@color/colorPrimary"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+
 
 </LinearLayout>

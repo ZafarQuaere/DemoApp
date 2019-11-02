@@ -66,7 +66,7 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
         Picasso.get().load(mValues.get(position).getBusinessPic()).placeholder(R.drawable.avatar_male).into(holder.imgItem);
 
         //scroll animation
-        setFadeAnimation(holder.itemView,position);
+        //setFadeAnimation(holder.itemView,position);
 
 
         holder.textFollow.setOnClickListener(new View.OnClickListener() {

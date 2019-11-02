@@ -6,16 +6,16 @@
     <string name="skip">SKIP</string>
 
     <string name="start">GOT IT</string>
-    <string name="slide_1_title">e-Connecto</string>
+    <string name="slide_1_title">WELCOME TO ECONNECTO</string>
+    <string name="slide_1_desc">Unique and diversified for business growth.</string>
 
-    <string name="slide_1_desc"><b>Connect</b> your <b>Business Socially</b></string>
-    <string name="slide_2_title">e-Connecto</string>
+    <string name="slide_2_title">CONNECT BUSINESS SOCIALLY</string>
+    <string name="slide_2_desc">Get connected to the latest business trends.</string>
 
-    <string name="slide_2_desc">Create your account on e-Connecto</string>
-    <string name="slide_3_title">e-Connecto</string>
+    <string name="slide_3_title">FOLLOW BUSINESS</string>
+    <string name="slide_3_desc">Follow business to get latest updates.</string>
 
 
-    <string name="slide_3_desc">Get connected to latest biz trends</string>
     <string name="slide_4_title">e-Connecto</string>
     <string name="slide_4_desc">Grow your business socially</string>
     <string name="key_shared_prefs">key_shared_prefs</string>
@@ -80,7 +80,9 @@
 
     <string name="website_link"><a href="http://econnecto.com/"> www.econnecto.com</a></string>
     <string name="fb_link"><a href="https://www.facebook.com/mzafarimam"> facebook.com/econnecto</a></string>
-    <string name="insta_link"><a href="https://www.instagram.com/imz_zafar/"> instagram.com/econnecto</a></string>
+    <string name="insta_link"><a href="https://www.instagram.com/imz_zafar/"> instagram.com/econnecto</a></string>W
+    <string name="twitter_link"><a href="https://twitter.com/ZafarTwit"> twitter.com/econnecto</a></string>
+    <string name="playstore_link"><a href="https://play.google.com/store/apps/details?id=com.zaf.econnecto"> play.google.com/store/apps/econnecto</a></string>
     <string name="text_visit_our_website">Visit Our Website : </string>
     <string name="text_like_on_fb">Like Us on Facebook :</string>
     <string name="text_follow_us_on_insta">Follow Us on Instagram :</string>
@@ -170,6 +172,9 @@
     <string name="update_details">Update Business Details</string>
     <string name="short_description">Short Description</string>
     <string name="detail_descripton">Detail description</string>
+    <string name="key_user_profile_pic">key_user_profile_pic</string>
+    <string name="follow_us_on_twitter">Follow us on Twitter</string>
+    <string name="rate_us_playstore">Rate Us on Play Store</string>
 
     <array name="charges_uniit">
         <item name="Select_Charges">Select Charges</item>

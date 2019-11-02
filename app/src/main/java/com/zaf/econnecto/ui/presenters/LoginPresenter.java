@@ -2,6 +2,9 @@ package com.zaf.econnecto.ui.presenters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -14,6 +17,7 @@ import com.zaf.econnecto.ui.presenters.operations.ILogin;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppController;
 import com.zaf.econnecto.utils.AppLoaderFragment;
+import com.zaf.econnecto.utils.BitmapUtils;
 import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.NetworkUtils;
 import com.zaf.econnecto.utils.Utils;
@@ -22,6 +26,11 @@ import com.zaf.econnecto.utils.parser.ParseManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class LoginPresenter extends BasePresenter {
     private Context mContext;
@@ -73,6 +82,7 @@ public class LoginPresenter extends BasePresenter {
                     int status = response.optInt("status");
                     if (status == AppConstant.SUCCESS){
                         LoginData loginData = ParseManager.getInstance().fromJSON(response.toString(),LoginData.class);
+                        storeProfileImage(loginData);
                         Utils.setLoggedIn(mContext, true);
                         Utils.saveLoginData(mContext,response.toString());
                         Utils.saveUserEmail(mContext,userId);
@@ -94,6 +104,16 @@ public class LoginPresenter extends BasePresenter {
             }
         });
         AppController.getInstance().addToRequestQueue(objectRequest, "Login");
+    }
+
+    private void storeProfileImage(LoginData loginData) {
+        Utils.saveProfileImage(mContext,loginData.getData().getProfilePic());
+      try {
+          Bitmap bitmap = BitmapUtils.getBitmap(mContext, null, Uri.parse(loginData.getData().getProfilePic()));
+          BitmapUtils.saveProfileImage(mContext,bitmap);
+        } catch(Exception e) {
+            LogUtils.ERROR(e.getMessage());
+        }
     }
 
     public void startActivity(Context mContext) {

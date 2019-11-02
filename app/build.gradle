@@ -21,7 +21,15 @@ android {
             buildConfigField("String", "BASE_URL", "\"http://econnecto.com/api/\"")
 
         }
+    }
 
+    signingConfigs {
+        release {
+           /* storeFile file("myreleasekey.keystore")
+            storePassword "password"
+            keyAlias "MyReleaseKey"
+            keyPassword "password"*/
+        }
     }
 }
 

@@ -134,7 +134,7 @@
                         android:id="@+id/textMyAcocunt"
                         style="@style/NavigationDrawerText"
                         android:layout_alignParentLeft="true"
-                        android:drawableLeft="@drawable/ic_my_account"
+                        android:drawableLeft="@drawable/ic_account"
                         android:text="@string/my_account" />
 
                     <ImageButton
@@ -158,7 +158,7 @@
 
                     <TextView
                         style="@style/NavigationDrawerText"
-                        android:drawableLeft="@drawable/ic_support"
+                        android:drawableLeft="@drawable/ic_my_business"
                         android:onClick="onProfileClick"
                         android:text="@string/my_business" />
 
@@ -171,7 +171,7 @@
 
                     <TextView
                         style="@style/NavigationDrawerText"
-                        android:drawableLeft="@drawable/ic_settings"
+                        android:drawableLeft="@drawable/ic_change_pswd"
                         android:onClick="changePasswordClick"
                         android:text="@string/change_pswd" />
 
@@ -188,13 +188,13 @@
 
             <TextView
                 style="@style/NavigationDrawerText"
-                android:drawableLeft="@drawable/ic_icons_share"
+                android:drawableLeft="@drawable/ic_share"
                 android:onClick="onShareClick"
                 android:text="@string/share" />
 
             <TextView
                 style="@style/NavigationDrawerText"
-                android:drawableLeft="@drawable/ic_settings"
+                android:drawableLeft="@drawable/ic_help_about"
                 android:autoSizeTextType="none"
                 android:onClick="helpNFaqClick"
                 android:text="@string/help_faq" />

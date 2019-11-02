@@ -105,6 +105,15 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
 
         Utils.updateActionBar(mContext, BizListFragment.class.getSimpleName(), mContext.getString(R.string.business_list), null, this);
 
+        /*recylcerProducts.addOnScrollListener(new RecyclerView.OnScrollListener(){
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy){
+                if (dy > 0)
+                    fabAddNew.hide();
+                else if (dy < 0)
+                    fabAddNew.show();
+            }
+        });*/
     }
 
     @Override
