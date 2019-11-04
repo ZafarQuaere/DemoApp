@@ -16,7 +16,8 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <!-- application was getting crashed on Android pie -->
-        <activity android:name=".ui.activities.WelcomeActivity">
+        <activity android:name=".ui.activities.WelcomeActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,21 +25,32 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.activities.LoginActivity" />
-        <activity android:name=".ui.activities.RegisterActivity" />
-        <activity android:name=".ui.activities.MainActivity" />
-        <activity android:name=".ui.activities.ChangePswdActivity" />
-        <activity android:name=".ui.activities.ForgetPswdActivity" />
-        <activity android:name=".ui.activities.UploadImageActivity" />
+        <activity android:name=".ui.activities.LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activities.RegisterActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activities.MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activities.ChangePswdActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activities.ForgetPswdActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activities.UploadImageActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activities.BizDetailsActivity"
-            android:theme="@style/BizDetailTheme" />
+            android:theme="@style/BizDetailTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activities.MyBusinessActivity"
-            android:theme="@style/BizDetailTheme" />
-        <activity android:name=".ui.activities.EnterNewPswdActivity" /> <!-- android:parentActivityName=".ui.activities.MainActivity"/> -->
-        <activity android:name=".ui.activities.SplashActivity" />
-        <activity android:name=".ui.activities.MultipartUploadActivity" />
+            android:theme="@style/BizDetailTheme"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activities.EnterNewPswdActivity"
+            android:screenOrientation="portrait"/> <!-- android:parentActivityName=".ui.activities.MainActivity"/> -->
+        <activity android:name=".ui.activities.SplashActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activities.MultipartUploadActivity"
+            android:screenOrientation="portrait"/>
 
         <uses-library
             android:name="org.apache.http.legacy"

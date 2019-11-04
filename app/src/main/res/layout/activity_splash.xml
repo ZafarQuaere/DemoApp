@@ -12,7 +12,7 @@
         android:src="@drawable/splash_bg" />
 
     <ProgressBar
-        android:visibility="visible"
+        android:visibility="gone"
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

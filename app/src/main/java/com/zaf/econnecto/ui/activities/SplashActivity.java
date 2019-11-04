@@ -24,7 +24,7 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.activity_splash);
         progress = (ProgressBar) findViewById(R.id.progressBar);
         progress.setIndeterminate(false);
-        progress.setVisibility(View.VISIBLE);
+        progress.setVisibility(View.GONE);
 
         new Handler().postDelayed(new Runnable() {
             @Override
