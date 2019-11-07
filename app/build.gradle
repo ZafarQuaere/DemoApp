@@ -1,36 +1,43 @@
 apply plugin: 'com.android.application'
 
+
+
 android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.zaf.econnecto"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 11
+        versionName "1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
-        debug {
-            buildConfigField("String", "BASE_URL", "\"http://econnecto.com/api/\"")
-        }
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "BASE_URL", "\"http://econnecto.com/api/\"")
-
-        }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
     }
 
     signingConfigs {
-        release {
-           /* storeFile file("myreleasekey.keystore")
-            storePassword "password"
-            keyAlias "MyReleaseKey"
-            keyPassword "password"*/
+        econnecto { storeFile file("key_econnecto_release.keystore")
+            storePassword 'NitPatna'
+            keyAlias 'eConnecto_Alias'
+            keyPassword 'NitPatna'
         }
     }
+
+    buildTypes {
+        release {
+             minifyEnabled false
+             //debuggable true
+             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.econnecto
+        }
+    }
+
+
 }
 
 dependencies {

@@ -62,10 +62,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
         editPassword = (EditText) findViewById(R.id.editPassword);
         TextView textForgetPswd = (TextView) findViewById(R.id.textForgetPswd);
         TextView txtRegister = (TextView) findViewById(R.id.txtRegister);
-        Button btnLogin = (Button) findViewById(R.id.btnAddBizns);
-
-
-
+        Button btnLogin = (Button) findViewById(R.id.btnLogin);
 
         btnLogin.setOnClickListener(this);
         textForgetPswd.setOnClickListener(this);
@@ -102,7 +99,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
                 getPresenter().startActivity(mContext);
                 break;
 
-            case R.id.btnAddBizns:
+            case R.id.btnLogin:
                 validationField();
                 break;
 

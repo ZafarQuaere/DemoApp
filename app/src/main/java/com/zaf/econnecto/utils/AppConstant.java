@@ -19,7 +19,7 @@ public class AppConstant {
     public static final String RUPEES_SYMBOL = "₹ ";
 
 
-    public static final String URL_BASE = BuildConfig.BASE_URL;  //"http://econnecto.com/api/";
+    public static final String URL_BASE = "http://econnecto.com/api/";
     public static final String URL_REGISTER = "register.php";
     public static final String URL_LOGIN = "login.php";
     public static final String URL_BIZ_LIST = "business_list.php?email="; //(brandname,banner_image)

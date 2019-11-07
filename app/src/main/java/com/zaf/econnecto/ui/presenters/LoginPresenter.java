@@ -73,7 +73,7 @@ public class LoginPresenter extends BasePresenter {
             LogUtils.ERROR(e.getMessage());
         }
         String url = AppConstant.URL_BASE + AppConstant.URL_LOGIN;
-        LogUtils.DEBUG("URL : " + url + "\nRequest Body ::" + requestObject.toString());
+        LogUtils.DEBUG("Login URL : " + url + "\nRequest Body ::" + requestObject.toString());
         MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.POST, url, requestObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
