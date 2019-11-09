@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "576149325615",
+    "firebase_url": "https://econnecto.firebaseio.com",
+    "project_id": "econnecto",
+    "storage_bucket": "econnecto.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:576149325615:android:6fec7d93d3930fe6f6c3da",
+        "android_client_info": {
+          "package_name": "com.zaf.econnecto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "576149325615-7fsca1run5l5si61ilgi8oebomhbugr7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zaf.econnecto",
+            "certificate_hash": "3a84bd27fb832438ce9150971db9a873f31dc7c0"
+          }
+        },
+        {
+          "client_id": "576149325615-0vfo1evqpf7v9pmdd87u0a0uefp9rcua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABN0qNGe7RJssnNzIcYStlO59-HACJl08"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "576149325615-0vfo1evqpf7v9pmdd87u0a0uefp9rcua.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

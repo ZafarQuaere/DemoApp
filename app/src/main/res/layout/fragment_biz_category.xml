@@ -6,7 +6,7 @@
     android:background="@color/colorWhite"
     android:clickable="true">
 
-    <com.smarteist.autoimageslider.SliderLayout
+    <com.zaf.imageslider.SliderView
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:layout_alignParentTop="true"
