@@ -49,8 +49,7 @@
             android:screenOrientation="portrait"/> <!-- android:parentActivityName=".ui.activities.MainActivity"/> -->
         <activity android:name=".ui.activities.SplashActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activities.MultipartUploadActivity"
-            android:screenOrientation="portrait"/>
+
 
         <uses-library
             android:name="org.apache.http.legacy"

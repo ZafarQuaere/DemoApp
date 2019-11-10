@@ -366,7 +366,7 @@ public class Utils {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
             shareIntent.putExtra(Intent.EXTRA_SUBJECT, "AquaHey Seller");
-            String shareMessage = "\nLet me recommend you this application\n\n";
+            String shareMessage = activity.getString(R.string.share_app_content);
             shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
             shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
             activity.startActivity(Intent.createChooser(shareIntent, activity.getString(R.string.select_app_to_share)));
