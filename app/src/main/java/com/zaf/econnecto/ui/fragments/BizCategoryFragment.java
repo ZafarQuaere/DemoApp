@@ -1,6 +1,7 @@
 package com.zaf.econnecto.ui.fragments;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -12,18 +13,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.smarteist.autoimageslider.DefaultSliderView;
-import com.smarteist.autoimageslider.IndicatorAnimations;
-import com.smarteist.autoimageslider.SliderAnimations;
-import com.smarteist.autoimageslider.SliderLayout;
-import com.smarteist.autoimageslider.SliderView;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.response_model.home.CategoryData;
 import com.zaf.econnecto.ui.adapters.CategoryRecylcerAdapter;
+import com.zaf.econnecto.ui.adapters.SliderAdapterExample;
 import com.zaf.econnecto.ui.presenters.BizCategoryPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IFragHome;
 import com.zaf.econnecto.utils.Utils;
+import com.zaf.imageslider.IndicatorAnimations;
+import com.zaf.imageslider.IndicatorView.draw.controller.DrawController;
+import com.zaf.imageslider.SliderAnimations;
+import com.zaf.imageslider.SliderView;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class BizCategoryFragment extends BaseFragment<BizCategoryPresenter> impl
     private GridLayoutManager layoutManager;
     //private LinearLayoutManager layoutManager;
     private TextView emptyTextView;
-    SliderLayout sliderLayout;
+    SliderView sliderLayout;
 
 
     @Override
@@ -69,9 +69,6 @@ public class BizCategoryFragment extends BaseFragment<BizCategoryPresenter> impl
         emptyTextView = (TextView) view.findViewById(R.id.emptyTextView);
         sliderLayout = view.findViewById(R.id.imageSlider);
 
-        //sliderLayout.setIndicatorAnimation(SliderLayout.setSliderTransformAnimation(SliderAnimations.CUBEOUTROTATIONTRANSFORMATION)); //set indicator animation by using SliderLayout.Animations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
-        sliderLayout.setScrollTimeInSec(3); //set scroll delay in seconds :
-        sliderLayout.setIndicatorAnimation(IndicatorAnimations.SWAP);
         setSliderViews();
 
     }
@@ -79,9 +76,29 @@ public class BizCategoryFragment extends BaseFragment<BizCategoryPresenter> impl
 
     private void setSliderViews() {
 
-        for (int i = 0; i < 3; i++) {
+        SliderAdapterExample sliderAdapter = new SliderAdapterExample(mContext);
+        sliderAdapter.setCount(3);
+        sliderLayout.setSliderAdapter(sliderAdapter);
 
-            DefaultSliderView sliderView = new DefaultSliderView(mContext);
+        sliderLayout.setIndicatorAnimation(IndicatorAnimations.WORM); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+        sliderLayout.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);
+        sliderLayout.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
+        sliderLayout.setScrollTimeInSec(3); //set scroll delay in seconds :
+        sliderLayout.setIndicatorSelectedColor(Color.BLUE);
+        sliderLayout.setIndicatorUnselectedColor(Color.LTGRAY);
+        sliderLayout.setIndicatorVisibility(false);
+        sliderLayout.startAutoCycle();
+
+        sliderLayout.setOnIndicatorClickListener(new DrawController.ClickListener() {
+            @Override
+            public void onIndicatorClicked(int position) {
+                sliderLayout.setCurrentPagePosition(position);
+            }
+        });
+
+        /*for (int i = 0; i < 3; i++) {
+
+            SliderAdapterExample sliderView = new SliderAdapterExample(mContext);
 
             switch (i) {
                 case 0:
@@ -96,9 +113,9 @@ public class BizCategoryFragment extends BaseFragment<BizCategoryPresenter> impl
                     sliderView.setImageDrawable(R.drawable.slider3);
                    // sliderView.setImageUrl("https://images.pexels.com/photos/747964/pexels-photo-747964.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260");
                     break;
-               /* case 3:
+               *//* case 3:
                     sliderView.setImageUrl("https://images.pexels.com/photos/929778/pexels-photo-929778.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
-                    break;*/
+                    break;*//*
             }
 
             sliderView.setImageScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -113,7 +130,7 @@ public class BizCategoryFragment extends BaseFragment<BizCategoryPresenter> impl
 
             //at last add this view in your layout :
             sliderLayout.addSliderView(sliderView);
-        }
+        }*/
     }
 
     @Override
