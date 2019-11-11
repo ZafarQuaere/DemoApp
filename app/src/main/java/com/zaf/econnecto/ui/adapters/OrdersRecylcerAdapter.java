@@ -66,7 +66,7 @@ public class OrdersRecylcerAdapter extends RecyclerView.Adapter<OrdersRecylcerAd
             super(view);
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.textName);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mContentView = (TextView) view.findViewById(R.id.textEstd);
             imgItem = (ImageView) view.findViewById(R.id.imgItem);
         }
 

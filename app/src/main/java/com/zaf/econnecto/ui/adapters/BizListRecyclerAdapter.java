@@ -55,7 +55,7 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getBusinessName());
-        holder.mContentView.setText(mContext.getString(R.string.establish_date) + ": " + mValues.get(position).getYearFounded());
+        holder.textEstd.setText(mContext.getString(R.string.establish_date) + ": " + mValues.get(position).getYearFounded());
         holder.textFollowers.setText(mValues.get(position).getFollowersCount() + " " + mContext.getString(R.string.followers));
         //TODO default following ui updates have to do.
         if (mValues.get(position).getIsFollowing() == AppConstant.FOLLOWING) {
@@ -115,7 +115,7 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
         });
 
 
-        holder.textViewBusiness.setOnClickListener(new View.OnClickListener() {
+       /* holder.textViewBusiness.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
@@ -124,7 +124,7 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
                     mListener.onListFragmentInteraction(holder.mItem);
                 }
             }
-        });
+        });*/
     }
 
     public void updateUnfollowUI(TextView textFollow) {
@@ -206,7 +206,7 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
     public class ViewHolder extends RecyclerView.ViewHolder {
         final View mView;
         final TextView mIdView;
-        final TextView mContentView;
+        final TextView textEstd;
         final TextView textFollow;
         final TextView textViewBusiness;
         final TextView textFollowers;
@@ -217,17 +217,29 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
             super(view);
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.textName);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            textEstd = (TextView) view.findViewById(R.id.textEstd);
             textFollow = (TextView) view.findViewById(R.id.textFollow);
             textViewBusiness = (TextView) view.findViewById(R.id.textViewBusiness);
             textFollowers = (TextView) view.findViewById(R.id.textFollowers);
             imgItem = (ImageView) view.findViewById(R.id.imgItem);
+            mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (null != mListener) {
+                        // Notify the active callbacks interface (the activity, if the
+                        // fragment is attached to one) that an item has been selected.
+                        mListener.onListFragmentInteraction(mItem);
+                    }
+                }
+            });
         }
+
+
 
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + textEstd.getText() + "'";
         }
     }
 }

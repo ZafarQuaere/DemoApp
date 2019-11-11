@@ -225,6 +225,7 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
                 uploadBitmap(resizedBmp, IMG_BANNER_RESULT);
             }
         }
+        super.onActivityResult(requestCode,resultCode,data);
     }
 
     public boolean checkPermission() {

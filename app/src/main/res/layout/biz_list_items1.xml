@@ -32,11 +32,28 @@
             tools:text="@string/save_address" />
 
         <TextView
-            android:id="@+id/textEstd"
-            style="@style/RegularTextview"
             android:layout_below="@+id/textName"
+            android:id="@+id/textFollowers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_10dp"
             android:layout_toRightOf="@+id/imgItem"
+            android:drawableLeft="@drawable/ic_follower"
+            android:layout_marginTop="@dimen/_5dp"
+            android:drawablePadding="@dimen/_5dp"
+            android:gravity="center"
+            android:text="33 Followers"
+            android:textAllCaps="false"
+            android:textSize="11sp" />
+
+
+        <TextView
+            android:id="@+id/textEstd"
+            style="@style/RegularTextview"
+            android:layout_below="@+id/textFollowers"
+            android:layout_marginHorizontal="@dimen/_10dp"
+            android:layout_toRightOf="@+id/imgItem"
+            android:layout_marginTop="@dimen/_5dp"
             android:text="@string/establish_date"
             android:textColor="@color/colorBlack" />
 
@@ -44,10 +61,10 @@
             android:id="@+id/textFollow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textEstd"
             android:layout_marginStart="@dimen/_10dp"
             android:layout_marginTop="@dimen/_10dp"
-            android:layout_toRightOf="@+id/imgItem"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@+id/textFollowers"
             android:background="@drawable/btn_follow"
             android:drawableStart="@drawable/ic_follow"
             android:drawablePadding="@dimen/_5dp"
@@ -58,29 +75,19 @@
             android:textColor="@color/colorWhite"
             android:textSize="11sp" />
 
-        <TextView
-            android:id="@+id/textFollowers"
+
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/textFollow"
-            android:layout_marginEnd="@dimen/_5dp"
-            android:layout_alignParentEnd="true"
-            android:drawableLeft="@drawable/ic_follower"
-            android:drawablePadding="@dimen/_5dp"
-            android:gravity="center"
-            android:text="33 Followers"
-            android:textAllCaps="false"
-            android:textSize="11sp" />
+            android:layout_marginVertical="@dimen/_10dp"
+            android:layout_marginLeft="@dimen/_20dp"
+            android:layout_alignLeft="@+id/textFollow"
+            android:background="@drawable/ic_phone_biz_list"
+            android:layout_below="@+id/textFollow"/>
 
-        <View
-            android:background="@color/colorPrimary"
-            android:layout_marginTop="@dimen/_10dp"
-            android:layout_marginHorizontal="@dimen/_40dp"
-            android:layout_below="@+id/textFollow"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"/>
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/textViewBusiness"
             style="@style/LargeTextview"
             android:layout_width="match_parent"

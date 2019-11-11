@@ -38,7 +38,7 @@ public class CategoryRecylcerAdapter extends RecyclerView.Adapter<CategoryRecylc
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.textName.setText(mValues.get(position).getCategoryName());
-        //holder.mContentView.setText(mValues.get(position).getLastName());
+        //holder.textEstd.setText(mValues.get(position).getLastName());
 
         Picasso.get().load(mValues.get(position).getCategoryImage()).placeholder(R.mipmap.ic_launcher).into(holder.imgItem);
 
@@ -62,7 +62,7 @@ public class CategoryRecylcerAdapter extends RecyclerView.Adapter<CategoryRecylc
     public class ViewHolder extends RecyclerView.ViewHolder {
         final View mView;
         final TextView textName;
-       // final TextView mContentView;
+       // final TextView textEstd;
         final ImageView imgItem;
         CategoryData mItem;
 
@@ -70,7 +70,7 @@ public class CategoryRecylcerAdapter extends RecyclerView.Adapter<CategoryRecylc
             super(view);
             mView = view;
             textName = (TextView) view.findViewById(R.id.textName);
-         //   mContentView = (TextView) view.findViewById(R.id.content);
+         //   textEstd = (TextView) view.findViewById(R.id.content);
             imgItem = (ImageView) view.findViewById(R.id.imgItem);
         }
 
