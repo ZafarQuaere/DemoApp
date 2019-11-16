@@ -1,5 +1,7 @@
 package com.zaf.econnecto.utils;
 
+import android.graphics.Bitmap;
+
 import com.zaf.econnecto.BuildConfig;
 
 public class AppConstant {
@@ -48,7 +50,14 @@ public class AppConstant {
     public static final String URL_CHANGE_PASSWORD = "/change-password?mobile=";
     public static final String URL_CP_PASSWORD = "&password=";
 
-
+    //Crop constants
+    public static final int NONE = 0;
+    public static final int SCALE = 1;
+    public static final int ROTATE = 2;
+    public static final int ALL = 3;
+    public static final int TABS_COUNT = 3;
+    public static final int DEFAULT_COMPRESS_QUALITY = 90;
+    public static final Bitmap.CompressFormat DEFAULT_COMPRESS_FORMAT = Bitmap.CompressFormat.PNG;
 
     //http://econnecto.com/api/business_list.php
     public static final String baseUrl = "https://reqres.in";

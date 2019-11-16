@@ -64,14 +64,14 @@ public class MainActivity extends BaseActivity<MainPresenter>
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-            setContentView(R.layout.activity_main);
-            mContext = this;
-            setUpToolbar();
-            updateUI();
-            initUI();
-             moveToBList();
-           // moveToHome();
-            //moveToAddBizness();
+        setContentView(R.layout.activity_main);
+        mContext = this;
+        setUpToolbar();
+        updateUI();
+        initUI();
+        //moveToBList();
+        moveToHome();
+        //moveToAddBizness();
 
 
     }

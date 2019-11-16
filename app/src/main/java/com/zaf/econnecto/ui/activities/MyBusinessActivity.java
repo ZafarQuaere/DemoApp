@@ -10,17 +10,24 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+
+import androidx.annotation.IntDef;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
+
+import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,12 +39,16 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
-import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
 import com.zaf.econnecto.R;
+import com.zaf.econnecto.crop.CroppingHelper;
+import com.zaf.econnecto.crop.UCrop;
+import com.zaf.econnecto.crop.callback.BitmapCropCallback;
+import com.zaf.econnecto.crop.view.CropImageView;
+import com.zaf.econnecto.crop.view.GestureCropImageView;
+import com.zaf.econnecto.crop.view.OverlayView;
+import com.zaf.econnecto.crop.view.UCropView;
 import com.zaf.econnecto.network_call.VolleyMultipartRequest;
 import com.zaf.econnecto.network_call.response_model.my_business.MyBusinessData;
-import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
 import com.zaf.econnecto.ui.presenters.MyBusinessPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IMyBusiness;
 import com.zaf.econnecto.utils.AppConstant;
@@ -49,6 +60,9 @@ import com.zaf.econnecto.utils.Utils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,7 +70,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
-import static com.zaf.econnecto.utils.BitmapUtils.resizeBitmapBanner;
+import static com.zaf.econnecto.utils.AppConstant.ALL;
+import static com.zaf.econnecto.utils.AppConstant.DEFAULT_COMPRESS_FORMAT;
+import static com.zaf.econnecto.utils.AppConstant.DEFAULT_COMPRESS_QUALITY;
+import static com.zaf.econnecto.utils.AppConstant.NONE;
+import static com.zaf.econnecto.utils.AppConstant.ROTATE;
+import static com.zaf.econnecto.utils.AppConstant.SCALE;
 //import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 
@@ -80,6 +99,18 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
     private TextView textShortDescription;
     private TextView textDetailDescription;
     private TextView textAddress;
+
+    private LinearLayout crop_layout;
+    private CroppingHelper mCroppingHelper;
+    private Intent cropOptionintent;
+    private UCropView mUCropView;
+    private GestureCropImageView mGestureCropImageView;
+    private OverlayView mOverlayView;
+    private Bitmap.CompressFormat mCompressFormat;
+    private int mCompressQuality;
+    private int[] mAllowedGestures;
+    private ImageButton btCancelCrop;
+    private ImageButton btApplyCrop;
 
     @Override
     protected MyBusinessPresenter initPresenter() {
@@ -116,6 +147,8 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
 
         imgProfile = (CircleImageView) findViewById(R.id.imgProfile);
         imgBanner = (ImageView) findViewById(R.id.imgBanner);
+        crop_layout = (LinearLayout) findViewById(R.id.crop_layout);
+        crop_layout.setVisibility(View.GONE);
         imgBannerUpload.bringToFront();
         imgBannerUpload.setOnClickListener(this);
         imgProfileUpload.setOnClickListener(this);
@@ -163,10 +196,14 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.textPhone:
-                // Utils.callPhone(mContext, .getPhone1());
+            case R.id.btCancelCrop:
+                crop_layout.setVisibility(View.GONE);
                 break;
-
+            case R.id.btApplyCrop:
+                LogUtils.showToast(mContext,"Apply Crop");
+                crop_layout.setVisibility(View.GONE);
+                    cropsAndSaveImage();
+                break;
 
             case R.id.imgBannerUpload:
                 IMG_SELECTED_FOR = IMG_BANNER_RESULT;
@@ -188,6 +225,27 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
 
                 break;
         }
+    }
+
+    private void cropsAndSaveImage() {
+        mGestureCropImageView.cropAndSaveImage(mCompressFormat, mCompressQuality, new BitmapCropCallback() {
+            @Override
+            public void onBitmapCropped(@NonNull Uri resultUri, int offsetX, int offsetY, int imageWidth, int imageHeight) {
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), resultUri);
+                    Bitmap resizedBmp = BitmapUtils.resizeBitmapBanner(bitmap);
+                     uploadBitmap(resizedBmp, IMG_BANNER_RESULT);
+                    imgBanner.setImageBitmap(bitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onCropFailure(@NonNull Throwable t) {
+                setResultError(t);
+            }
+        });
     }
 
     @Override
@@ -221,11 +279,108 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
                 /*CropImage.ActivityResult result = CropImage.getActivityResult(data);
                 Bitmap bitmap = result.getBitmap();*/
                 Bitmap bitmap = BitmapUtils.getBitmap(mContext, data, selectedImageUri);
-                Bitmap resizedBmp = resizeBitmapBanner(bitmap);
-                uploadBitmap(resizedBmp, IMG_BANNER_RESULT);
+                crop_layout.setVisibility(View.VISIBLE);
+                performCrop(bitmap);
+               // Bitmap resizedBmp = resizeBitmapBanner(bitmap);
+               // uploadBitmap(resizedBmp, IMG_BANNER_RESULT);
             }
         }
         super.onActivityResult(requestCode,resultCode,data);
+    }
+
+    private void performCrop(Bitmap bitmap) {
+        btCancelCrop = (ImageButton) findViewById(R.id.btCancelCrop);
+        btApplyCrop = (ImageButton) findViewById(R.id.btApplyCrop);
+        btCancelCrop.setOnClickListener(this);
+        btApplyCrop.setOnClickListener(this);
+        mCroppingHelper = new CroppingHelper(MyBusinessActivity.this);
+        cropOptionintent = mCroppingHelper.startCropping(bitmap);
+        setupUIforCrop(cropOptionintent);
+    }
+
+    private void setupUIforCrop(Intent intent) {
+        setupViews(intent);
+        setImageData(intent);
+        setAllowedGestures(0);
+    }
+
+    private void setAllowedGestures(int tab) {
+        mGestureCropImageView.setScaleEnabled(mAllowedGestures[tab] == ALL || mAllowedGestures[tab] == SCALE);
+        mGestureCropImageView.setRotateEnabled(mAllowedGestures[tab] == ALL || mAllowedGestures[tab] == ROTATE);
+    }
+
+    private void setImageData(@NonNull Intent intent) {
+        Uri inputUri = intent.getParcelableExtra(UCrop.EXTRA_INPUT_URI);
+        Uri outputUri = intent.getParcelableExtra(UCrop.EXTRA_OUTPUT_URI);
+        processOptions(intent);
+
+        if (inputUri != null && outputUri != null) {
+            try {
+                mGestureCropImageView.setImageUri(inputUri, outputUri);
+            } catch (Exception e) {
+                setResultError(e);
+                finish();
+            }
+        } else {
+            setResultError(new NullPointerException(getString(R.string.ucrop_error_input_data_is_absent)));
+            finish();
+        }
+    }
+
+    private void setResultError(Throwable throwable) {
+        setResult(UCrop.RESULT_ERROR, new Intent().putExtra(UCrop.EXTRA_ERROR, throwable));
+    }
+
+    @SuppressWarnings("deprecation")
+    private void processOptions(@NonNull Intent intent) {
+        // Bitmap compression options
+        String compressionFormatName = intent.getStringExtra(UCrop.Options.EXTRA_COMPRESSION_FORMAT_NAME);
+        Bitmap.CompressFormat compressFormat = null;
+        if (!TextUtils.isEmpty(compressionFormatName)) {
+            compressFormat = Bitmap.CompressFormat.valueOf(compressionFormatName);
+        }
+        mCompressFormat = (compressFormat == null) ? DEFAULT_COMPRESS_FORMAT : compressFormat;
+        mCompressQuality = intent.getIntExtra(UCrop.Options.EXTRA_COMPRESSION_QUALITY, DEFAULT_COMPRESS_QUALITY);
+        // Gestures options
+        int[] allowedGestures = intent.getIntArrayExtra(UCrop.Options.EXTRA_ALLOWED_GESTURES);
+        if (allowedGestures != null && allowedGestures.length == AppConstant.TABS_COUNT) {
+            mAllowedGestures = allowedGestures;
+        }
+        // Crop image view options
+        mGestureCropImageView.setMaxBitmapSize(intent.getIntExtra(UCrop.Options.EXTRA_MAX_BITMAP_SIZE, CropImageView.DEFAULT_MAX_BITMAP_SIZE));
+        mGestureCropImageView.setMaxScaleMultiplier(intent.getFloatExtra(UCrop.Options.EXTRA_MAX_SCALE_MULTIPLIER, CropImageView.DEFAULT_MAX_SCALE_MULTIPLIER));
+        mGestureCropImageView.setImageToWrapCropBoundsAnimDuration(intent.getIntExtra(UCrop.Options.EXTRA_IMAGE_TO_CROP_BOUNDS_ANIM_DURATION, CropImageView.DEFAULT_IMAGE_TO_CROP_BOUNDS_ANIM_DURATION));
+        // Overlay view options
+        mOverlayView.setFreestyleCropEnabled(intent.getBooleanExtra(UCrop.Options.EXTRA_FREE_STYLE_CROP, false/*OverlayView.DEFAULT_FREESTYLE_CROP_MODE != OverlayView.FREESTYLE_CROP_MODE_DISABLE*/));
+        mOverlayView.setDimmedColor(intent.getIntExtra(UCrop.Options.EXTRA_DIMMED_LAYER_COLOR, getResources().getColor(R.color.ucrop_color_default_dimmed)));
+        mOverlayView.setCircleDimmedLayer(intent.getBooleanExtra(UCrop.Options.EXTRA_CIRCLE_DIMMED_LAYER, OverlayView.DEFAULT_CIRCLE_DIMMED_LAYER));
+        mOverlayView.setShowCropFrame(intent.getBooleanExtra(UCrop.Options.EXTRA_SHOW_CROP_FRAME, OverlayView.DEFAULT_SHOW_CROP_FRAME));
+        mOverlayView.setCropFrameColor(intent.getIntExtra(UCrop.Options.EXTRA_CROP_FRAME_COLOR, getResources().getColor(R.color.ucrop_color_default_crop_frame)));
+        mOverlayView.setCropFrameStrokeWidth(intent.getIntExtra(UCrop.Options.EXTRA_CROP_FRAME_STROKE_WIDTH, getResources().getDimensionPixelSize(R.dimen.ucrop_default_crop_frame_stoke_width)));
+        mOverlayView.setShowCropGrid(intent.getBooleanExtra(UCrop.Options.EXTRA_SHOW_CROP_GRID, OverlayView.DEFAULT_SHOW_CROP_GRID));
+        mOverlayView.setCropGridRowCount(intent.getIntExtra(UCrop.Options.EXTRA_CROP_GRID_ROW_COUNT, OverlayView.DEFAULT_CROP_GRID_ROW_COUNT));
+        mOverlayView.setCropGridColumnCount(intent.getIntExtra(UCrop.Options.EXTRA_CROP_GRID_COLUMN_COUNT, OverlayView.DEFAULT_CROP_GRID_COLUMN_COUNT));
+        mOverlayView.setCropGridColor(intent.getIntExtra(UCrop.Options.EXTRA_CROP_GRID_COLOR, getResources().getColor(R.color.ucrop_color_default_crop_grid)));
+        mOverlayView.setCropGridStrokeWidth(intent.getIntExtra(UCrop.Options.EXTRA_CROP_GRID_STROKE_WIDTH, getResources().getDimensionPixelSize(R.dimen.ucrop_default_crop_grid_stoke_width)));
+
+        // Result bitmap max size options
+        int maxSizeX = intent.getIntExtra(UCrop.EXTRA_MAX_SIZE_X, 0);
+        int maxSizeY = intent.getIntExtra(UCrop.EXTRA_MAX_SIZE_Y, 0);
+        if (maxSizeX > 0 && maxSizeY > 0) {
+            mGestureCropImageView.setMaxResultImageSizeX(maxSizeX);
+            mGestureCropImageView.setMaxResultImageSizeY(maxSizeY);
+        }
+    }
+
+    private void setupViews(Intent intent) {
+        initiateRootViews();
+    }
+
+    private void initiateRootViews() {
+        mUCropView = findViewById(R.id.ucrop);
+        mGestureCropImageView = mUCropView.getCropImageView();
+        mOverlayView = mUCropView.getOverlayView();
+        findViewById(R.id.ucrop_frame).setBackgroundColor(getResources().getColor(R.color.ucrop_color_crop_background));
     }
 
     public boolean checkPermission() {
@@ -356,5 +511,12 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
     public void editBusinessClick(View view) {
        // startActivity(new Intent(this, MainActivity.class).putExtra("",""));
         getPresenter().showUpdateBizDialog();
+    }
+
+
+    @IntDef({NONE, SCALE, ROTATE, ALL})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface GestureTypes {
+
     }
 }

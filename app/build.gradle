@@ -6,7 +6,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.zaf.econnecto"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 11
         versionName "1.1"
@@ -59,10 +59,10 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     implementation 'de.hdodenhof:circleimageview:3.0.1'
 
-   // implementation 'com.github.smarteist:autoimageslider:1.2.0'
     implementation project(':imageslider')
     //crop image library
-    api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+    //api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+    // implementation 'com.github.yalantis:ucrop:2.2.4'
 
     def paging_version = "1.0.0"
     def view_model_version = "1.1.0"
@@ -75,7 +75,7 @@ dependencies {
 
     //adding paging
 //    implementation "android.arch.paging:runtime:$paging_version"
-    // implementation 'com.github.yalantis:ucrop:2.2.4'
+
 
     // Required -- JUnit 4 framework
     testImplementation 'junit:junit:4.12'
@@ -83,5 +83,6 @@ dependencies {
     //testImplementation 'android.test:core:1.0.0' creating build issue
     // Optional -- Mockito framework
     testImplementation 'org.mockito:mockito-core:2.28.2'
+    compile project(path: ':ecrop')
 }
 apply plugin: 'com.google.gms.google-services'
