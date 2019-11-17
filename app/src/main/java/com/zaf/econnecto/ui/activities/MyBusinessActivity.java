@@ -200,7 +200,7 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
                 crop_layout.setVisibility(View.GONE);
                 break;
             case R.id.btApplyCrop:
-                LogUtils.showToast(mContext,"Apply Crop");
+                //LogUtils.showToast(mContext,"Apply Crop");
                 crop_layout.setVisibility(View.GONE);
                     cropsAndSaveImage();
                 break;
@@ -235,7 +235,7 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), resultUri);
                     Bitmap resizedBmp = BitmapUtils.resizeBitmapBanner(bitmap);
                      uploadBitmap(resizedBmp, IMG_BANNER_RESULT);
-                    imgBanner.setImageBitmap(bitmap);
+                    //imgBanner.setImageBitmap(bitmap);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
