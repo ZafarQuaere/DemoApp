@@ -30,7 +30,7 @@ public class BizCategoryPresenter extends BaseFragmentPresenter {
     }
 
 
-    public void callTodaySalesApi() {
+    public void callCategoryApi() {
         loader.show();
         String url = AppConstant.URL_BIZ_CATEGORY;// + AppConstant.listUrl+ 2;
         LogUtils.DEBUG("URL : " + url + "\nRequest Body ::" );
@@ -51,11 +51,11 @@ public class BizCategoryPresenter extends BaseFragmentPresenter {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                LogUtils.DEBUG("TodaySales Error ::" + error.getMessage());
+                LogUtils.DEBUG("Biz Category Error ::" + error.getMessage());
                 loader.dismiss();
             }
         });
-        AppController.getInstance().addToRequestQueue(objectRequest, "TodaySales");
+        AppController.getInstance().addToRequestQueue(objectRequest, "Biz Category");
     }
 
 

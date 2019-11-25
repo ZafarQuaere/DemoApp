@@ -10,9 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.response_model.home.CategoryData;
 import com.zaf.econnecto.ui.adapters.CategoryRecylcerAdapter;
@@ -54,7 +53,7 @@ public class BizCategoryFragment extends BaseFragment<BizCategoryPresenter> impl
         view = inflater.inflate(R.layout.fragment_biz_category, container, false);
         mContext = getActivity();
         initUI(view);
-        getPresenter().callTodaySalesApi();
+        getPresenter().callCategoryApi();
         return view;
     }
 

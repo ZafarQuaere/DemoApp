@@ -80,7 +80,8 @@
 
     <string name="website_link"><a href="http://econnecto.com/"> www.econnecto.com</a></string>
     <string name="fb_link"><a href="https://www.facebook.com/mzafarimam"> facebook.com/econnecto</a></string>
-    <string name="insta_link"><a href="https://www.instagram.com/imz_zafar/"> instagram.com/econnecto</a></string>W
+    <string name="insta_link"><a href="https://www.instagram.com/imz_zafar/"> instagram.com/econnecto</a></string>
+    W
     <string name="twitter_link"><a href="https://twitter.com/ZafarTwit"> twitter.com/econnecto</a></string>
     <string name="playstore_link"><a href="https://play.google.com/store/apps/details?id=com.zaf.econnecto"> play.google.com/store/apps/econnecto</a></string>
     <string name="text_visit_our_website">Visit Our Website : </string>
@@ -183,7 +184,7 @@
         <item name="Select_Charges">Select Charges</item>
         <item name="per_person">Per Person</item>
         <item name="per_month">Per Month</item>
-        <item name="rupee_symbol"> ₹ </item>
+        <item name="rupee_symbol">₹</item>
     </array>
     <!--<array name="biz_category">
         <item name="Select_Category">Select Category</item>
@@ -236,11 +237,11 @@
 
     <array name="biz_category">
         <item name="Select_Category">Select Category</item>
-        <item name="Beauty">Beauty </item>
+        <item name="Beauty">Beauty</item>
         <item name="Commute">Commute</item>
         <item name="Education">Education</item>
         <item name="Entertainment">Entertainment</item>
-        <item name="Fashion">Fashion </item>
+        <item name="Fashion">Fashion</item>
         <item name="Fitness">Fitness</item>
         <item name="Food">Food</item>
         <item name="Grocery">Grocery</item>
@@ -258,4 +259,7 @@
 
     <!--crop string -->
     <string name="ucrop_error_input_data_is_absent" translatable="false">Both input and output Uri must be specified</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="profile">Profile</string>
 </resources>

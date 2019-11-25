@@ -11,6 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:overScrollMode="never"
+        android:paddingBottom="@dimen/recycler_padding_bottom"
+        android:clipToPadding="false"
         tools:listitem="@layout/biz_list_items"/>
 
     <TextView

@@ -38,6 +38,7 @@ import com.zaf.econnecto.utils.BitmapUtils;
 import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.Utils;
 import com.zaf.econnecto.utils.storage.AppSharedPrefs;
+import com.zaf.econnecto.version2.ui.home.HomeFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -79,6 +80,10 @@ public class MainPresenter extends BasePresenter {
             case "HelpNAboutFragment":
                 Utils.moveToFragment(mContext, new HelpNAboutFragment(), HelpNAboutFragment.class.getSimpleName(), null);
                 Utils.updateActionBar(mContext, HelpNAboutFragment.class.getSimpleName(), mContext.getString(R.string.help_faq), null, null);
+                break;
+            case "HomeFragment":
+                Utils.moveToFragment(mContext, new HomeFragment(), HomeFragment.class.getSimpleName(), null);
+//                Utils.updateActionBar(mContext, HomeFragment.class.getSimpleName(), mContext.getString(R.string.hot_deals), null, null);
                 break;
         }
         //LogUtils.showToast(mContext, fragName);

@@ -67,7 +67,7 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_listings, container, false);
+        View view = inflater.inflate(R.layout.fragment_biz_list, container, false);
         initUI(view);
         callApi();
 

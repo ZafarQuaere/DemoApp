@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.Toolbar
+       <!-- <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -70,12 +70,18 @@
                     android:id="@+id/rlytSearch"
                     layout="@layout/toolbar_search_view" />
             </RelativeLayout>
-        </androidx.appcompat.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>-->
+
+        <include
+            android:id="@+id/lytParent"
+            layout="@layout/layout_toolbar" />
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <include
         android:id="@+id/lytParent"
         layout="@layout/content_main" />
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddBizness"
@@ -89,4 +95,6 @@
         app:layout_anchor="@id/lytParent"
         app:layout_anchorGravity="bottom|right|end"
         app:pressedTranslationZ="12dp" />
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

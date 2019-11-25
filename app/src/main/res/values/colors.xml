@@ -6,6 +6,7 @@
 
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorGrey">#888888</color>
 
     <color name="colorTransparent">#00000000</color>
     <color name="home_img_text">#43978F8F</color>

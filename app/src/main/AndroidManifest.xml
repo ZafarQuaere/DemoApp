@@ -50,6 +50,9 @@
         <activity android:name=".ui.activities.SplashActivity"
             android:screenOrientation="portrait"/>
 
+        <activity android:name=".version2.ui.HomeActivity"
+            android:screenOrientation="portrait"/>
+
 
         <uses-library
             android:name="org.apache.http.legacy"
