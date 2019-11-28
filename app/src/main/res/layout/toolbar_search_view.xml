@@ -39,7 +39,7 @@
         android:layout_centerVertical="true"
         android:layout_marginEnd="@dimen/_10dp"
         android:paddingBottom="@dimen/_10dp"
-        android:background="@drawable/ic_clear"
+        android:background="@drawable/ic_clear_white"
         android:visibility="visible" />
 
 </RelativeLayout>

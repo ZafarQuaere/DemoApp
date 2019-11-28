@@ -318,7 +318,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:background="@null"
-                app:srcCompat="@drawable/ic_clear" />
+                app:srcCompat="@drawable/ic_clear_white" />
 
             <ImageButton
                 android:padding="@dimen/_10dp"
