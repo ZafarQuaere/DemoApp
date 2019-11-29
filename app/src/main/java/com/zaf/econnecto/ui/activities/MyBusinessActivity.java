@@ -513,6 +513,14 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         getPresenter().showUpdateBizDialog();
     }
 
+    public void addDealsExpandCollapse(View view) {
+        LinearLayout lytAddDeals = (LinearLayout) findViewById(R.id.lytAddDeals);
+        ImageView imgExpandAddDeals = (ImageView) findViewById(R.id.imgExpandAddDeals);
+        lytAddDeals.setVisibility(lytAddDeals.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+        imgExpandAddDeals.setBackground(lytAddDeals.getVisibility() == View.VISIBLE ? getResources().getDrawable(R.drawable.ic_expand_less) :
+                getResources().getDrawable(R.drawable.ic_expand_more));
+    }
+
 
     @IntDef({NONE, SCALE, ROTATE, ALL})
     @Retention(RetentionPolicy.SOURCE)

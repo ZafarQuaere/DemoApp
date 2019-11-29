@@ -266,14 +266,14 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     private void updateMyAccountUI(boolean isExpand) {
         LinearLayout lytMyAccount = (LinearLayout) findViewById(R.id.lytMyAccount);
-        ImageButton iconMyAccountExpand = (ImageButton) findViewById(R.id.iconMyAccountExpand);
+        ImageView iconMyAccountExpand = (ImageView) findViewById(R.id.iconMyAccountExpand);
         if (Utils.isLoggedIn(mContext) && isExpand) {
             lytMyAccount.setVisibility(lytMyAccount.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
-            iconMyAccountExpand.setBackground(lytMyAccount.getVisibility() == View.VISIBLE ? getResources().getDrawable(R.drawable.ic_minus) :
-                    getResources().getDrawable(R.drawable.ic_plus));
+            iconMyAccountExpand.setBackground(lytMyAccount.getVisibility() == View.VISIBLE ? getResources().getDrawable(R.drawable.ic_expand_less) :
+                    getResources().getDrawable(R.drawable.ic_expand_more));
         } else {
             lytMyAccount.setVisibility(View.GONE);
-            iconMyAccountExpand.setBackground(getResources().getDrawable(R.drawable.ic_plus));
+            iconMyAccountExpand.setBackground(getResources().getDrawable(R.drawable.ic_expand_more));
             // LogUtils.showToast(mContext, getString(R.string.please_login_first));
         }
     }
@@ -439,6 +439,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
                 getPresenter().uploadBitmap(resizedBmp);
             }
         }
+        super.onActivityResult(requestCode,resultCode,data);
     }
 
     @Override
