@@ -100,6 +100,7 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
 
         layoutManager = new LinearLayoutManager(getActivity());
         recylcerProducts.setLayoutManager(layoutManager);
+
         recylcerProducts.setItemAnimator(new DefaultItemAnimator());
         emptyTextView = (TextView) view.findViewById(R.id.emptyTextView);
 

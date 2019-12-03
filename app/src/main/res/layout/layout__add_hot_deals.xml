@@ -1,17 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<!--<merge xmlns:android="http://schemas.android.com/apk/res/android">-->
 
-<LinearLayout
-    android:id="@+id/lytAddDeals"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lytAddDeals"
+    android:orientation="vertical">
 
-    <ToggleButton
-        android:layout_width="wrap_content"
+        <Switch
+            android:padding="@dimen/_10dp"
+            android:id="@+id/switchAddDealType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimary"
+            android:checked="true"
+            android:gravity="center"
+            android:switchPadding="@dimen/_10dp"
+            android:text="@string/imageVersion"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/font_large_text" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_50dp"
+            android:layout_gravity="center_horizontal"
+            android:minHeight="@dimen/previewAddDealImageWidth">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/_20dp"
+                android:minHeight="250dp"
+                android:layout_gravity="center"
+                android:background="@drawable/dotted_square">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_upload_pic_colored"
+                    android:id="@+id/imgBtnUpload"
+                    android:layout_centerInParent="true"/>
+
+                <ImageView
+                    android:id="@+id/imgUpload"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/upload_image"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/imgBtnUpload"/>
+
+
+
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textOn="@string/imageVersion"
-        android:textOff="@string/textVersion"/>
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layoutManagerOrientation="true"/>
 
-</LinearLayout>
 
-</merge>
+        <Button
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/submit"/>
+
+    </LinearLayout>
+
+<!--
+</merge>-->

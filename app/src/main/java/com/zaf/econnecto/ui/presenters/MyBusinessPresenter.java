@@ -194,4 +194,44 @@ public class MyBusinessPresenter extends BasePresenter {
         });
         AppController.getInstance().addToRequestQueue(objectRequest, "UpdateBusiness");
     }
+
+    private void callLeadBgImage(){
+        loader.show();
+        String url = AppConstant.URL_DEAL_BACKGROUND;
+        LogUtils.DEBUG("URL : " + url + "\nRequest Body ::" );
+
+        MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                LogUtils.DEBUG("Deal Background Response ::" + response.toString());
+                try {
+                    if (response != null && !response.equals("")) {
+                        int status = response.optInt("status");
+                        if (status == AppConstant.SUCCESS) {
+                            bizDetailData = ParseManager.getInstance().fromJSON(response.toString(),MyBusiness.class);
+                            iMyBusiness.updateDealBackground(bizDetailData.getData());
+
+                        } else {
+                            LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optString("message"));
+                        }
+                    }
+                    loader.dismiss();
+                } catch (Exception e) {
+                    loader.dismiss();
+                    e.printStackTrace();
+                    LogUtils.ERROR(e.getMessage());
+                }
+
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loader.dismiss();
+                LogUtils.DEBUG("MyBusiness Error ::" + error.getMessage());
+            }
+        });
+        AppController.getInstance().addToRequestQueue(objectRequest, "MyBusiness");
+    }
+
 }

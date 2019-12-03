@@ -34,16 +34,11 @@ public class AppConstant {
     public static final String URL_MY_BUSINESS = "mybusiness.php";
     public static final String URL_UPDATE_BUSINESS = "update_business.php";
     public static final String URL_BIZ_CATEGORY = URL_BASE+"categories.php";
-    public static final String URL_UPLOAD_USER_PROFILE_PIC = "http://econnecto.com/api/user_profile_pic.php";
-    public static final String URL_UPLOAD_BUSINESS_PROFILE_PIC = "http://econnecto.com/api/business_profile_pic.php";
-    public static final String URL_UPLOAD_BUSINESS_BANNER_PIC = "http://econnecto.com/api/business_banner_pic.php";
+    public static final String URL_UPLOAD_USER_PROFILE_PIC = URL_BASE+"user_profile_pic.php";
+    public static final String URL_UPLOAD_BUSINESS_PROFILE_PIC = URL_BASE+"business_profile_pic.php";
+    public static final String URL_UPLOAD_BUSINESS_BANNER_PIC = URL_BASE+"business_banner_pic.php";
+    public static final String URL_DEAL_BACKGROUND = URL_BASE+"deal_backgrounds.php";
 
-    public static final String URL_MY_BUSINESS1 = "\n" +
-            "http://econnecto.com/api/business_profile_pic.php" +
-            ": http://econnecto.com/api/business_banner_pic.php";
-
-
-    public static final String URL_DEALER_ADDRESS = "/insert-dealear-address"; //(brandname,banner_image)
 
     public static final String URL_VERIFY_MOBILE = "/mobile-verify?mobile=";
     public static final String URL_OTP_SERVICE = "/otp_service?mobile=";

@@ -262,7 +262,9 @@
     <string name="home">Home</string>
     <string name="search">Search</string>
     <string name="profile">Profile</string>
-    <string name="add_deals">Add Deals</string>
+    <string name="add_new_deal">Add New Deal</string>
     <string name="imageVersion">Image Version</string>
     <string name="textVersion">Text Version</string>
+    <string name="your_deals">Your Deals</string>
+    <string name="upload_image">Upload Image</string>
 </resources>

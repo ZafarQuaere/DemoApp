@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/home_nav_graph"
+    app:startDestination="@id/home">
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.zaf.econnecto.version2.ui.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/home_fragment">
+    </fragment>
+      <!--  <action
+            android:id="@+id/action_pdp_to_login"
+            app:destination="@id/login" />
+        <action
+            android:id="@+id/action_pdp_to_plp"
+            app:destination="@id/plp" />-->
+
+    <!--<fragment
+        android:id="@+id/login"
+        android:name="com.ulta.dsp.ui.login.LoginView"
+        android:label="LoginView"
+        tools:layout="@layout/login" />
+    <fragment
+        android:id="@+id/plp"
+        android:name="com.ulta.dsp.ui.plp.PlpView"
+        android:label="Plp"
+        tools:layout="@layout/plp" />-->
+
+</navigation>

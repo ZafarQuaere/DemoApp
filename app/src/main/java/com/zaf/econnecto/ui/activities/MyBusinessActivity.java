@@ -15,6 +15,7 @@ import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AlertDialog;
@@ -25,9 +26,11 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,6 +67,7 @@ import java.io.IOException;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -76,7 +80,6 @@ import static com.zaf.econnecto.utils.AppConstant.DEFAULT_COMPRESS_QUALITY;
 import static com.zaf.econnecto.utils.AppConstant.NONE;
 import static com.zaf.econnecto.utils.AppConstant.ROTATE;
 import static com.zaf.econnecto.utils.AppConstant.SCALE;
-//import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 
 public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implements IMyBusiness, View.OnClickListener {
@@ -125,7 +128,7 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         mContext = this;
         loader = AppLoaderFragment.getInstance(mContext);
         initUI();
-        getPresenter().callMyBizApi();
+     //   getPresenter().callMyBizApi();
 
     }
 
@@ -257,6 +260,11 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         textWebsite.setText(website);
         textShortDescription.setText(shortDesc);
         textDetailDescription.setText(detailDesc);
+    }
+
+    @Override
+    public void updateDealBackground(List<MyBusinessData> bizDetailData) {
+
     }
 
     private void selectImgFromGallery() {
@@ -519,6 +527,29 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         lytAddDeals.setVisibility(lytAddDeals.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
         imgExpandAddDeals.setBackground(lytAddDeals.getVisibility() == View.VISIBLE ? getResources().getDrawable(R.drawable.ic_expand_less) :
                 getResources().getDrawable(R.drawable.ic_expand_more));
+        
+        final Switch switchAddDealType = findViewById(R.id.switchAddDealType);
+        updateImageDealUI();
+        
+        switchAddDealType.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    switchAddDealType.setText(getString(R.string.imageVersion));
+                }else{
+                    switchAddDealType.setText(getString(R.string.textVersion));
+                    
+                    updateTextDealUI();
+                }
+            }
+        });
+    }
+
+    private void updateTextDealUI() {
+    }
+
+    private void updateImageDealUI() {
+        
     }
 
 

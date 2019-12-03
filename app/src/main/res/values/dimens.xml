@@ -62,7 +62,9 @@
     <dimen name="font_small_header">11sp</dimen>
     <dimen name="font_short_description">14sp</dimen>
 
-
+    <!-- My Business Screen  -->
+    <dimen name="previewAddDealImageHeight">300dp</dimen>
+    <dimen name="previewAddDealImageWidth">300dp</dimen>
 
     <!--Crop View-->
     <dimen name="ucrop_default_crop_logo_size">200dp</dimen>
@@ -87,5 +89,6 @@
     <dimen name="ucrop_size_wrapper_rotate_button">50dp</dimen>
     <dimen name="ucrop_height_crop_aspect_ratio_text">40dp</dimen>
     <dimen name="ucrop_progress_size">30dp</dimen>
+
 
 </resources>
