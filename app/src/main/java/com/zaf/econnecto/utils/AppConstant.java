@@ -38,6 +38,7 @@ public class AppConstant {
     public static final String URL_UPLOAD_BUSINESS_PROFILE_PIC = URL_BASE+"business_profile_pic.php";
     public static final String URL_UPLOAD_BUSINESS_BANNER_PIC = URL_BASE+"business_banner_pic.php";
     public static final String URL_DEAL_BACKGROUND = URL_BASE+"deal_backgrounds.php";
+    public static final String URL_ADD_DEAL = URL_BASE+"add_deal.php";
 
 
     public static final String URL_VERIFY_MOBILE = "/mobile-verify?mobile=";

@@ -29,6 +29,7 @@ import com.zaf.econnecto.ui.fragments.BizCategoryFragment;
 import com.zaf.econnecto.ui.fragments.BizListFragment;
 import com.zaf.econnecto.ui.fragments.FragmentProfile;
 import com.zaf.econnecto.ui.fragments.HelpNAboutFragment;
+import com.zaf.econnecto.ui.fragments.add_business.AddBizScreen1Fragment;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.ui.presenters.operations.IMain;
 import com.zaf.econnecto.utils.AppConstant;
@@ -70,6 +71,11 @@ public class MainPresenter extends BasePresenter {
                 Utils.moveToFragment(mContext, new AddBusinessFragment(), AddBusinessFragment.class.getSimpleName(), null);
                 Utils.updateActionBar(mContext, AddBusinessFragment.class.getSimpleName(), mContext.getString(R.string.add_business), null, null);
                 break;
+            case "AddBizScreen1Fragemnt":
+                Utils.moveToFragment(mContext, new AddBizScreen1Fragment(), AddBizScreen1Fragment.class.getSimpleName(), null);
+                Utils.updateActionBar(mContext, AddBizScreen1Fragment.class.getSimpleName(), mContext.getString(R.string.add_business), null, null);
+                break;
+
             case "BizListFragment":
                 Utils.moveToFragment(mContext, new BizListFragment(), BizListFragment.class.getSimpleName(), null);
                 break;

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/_15dp"
+    android:background="@color/colorWhite"
+    tools:context=".ui.fragments.add_business.AddBizScreen1Fragment">
+
+    <TextView
+        android:id="@+id/textScreen1Label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_xx_large_text"
+        android:text="@string/enter_category_of_your_business" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilSelectCategory"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/textScreen1Label"
+            android:layout_marginTop="@dimen/_100dp"
+            android:hint="@string/Select_Category"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    <Button
+        android:layout_below="@+id/tilSelectCategory"
+        android:id="@+id/btnNext"
+        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginEnd="@dimen/_10dp"
+        android:text="@string/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"/>
+
+</RelativeLayout>

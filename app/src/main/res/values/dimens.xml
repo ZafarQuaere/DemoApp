@@ -11,7 +11,6 @@
     <dimen name="desc_padding">40dp</dimen>
 
 
-
     <!-- Dialog single button dimens-->
     <dimen name="dialog_padding">10dp</dimen>
     <dimen name="dialog_corner_radius">15dp</dimen>
@@ -39,6 +38,7 @@
     <dimen name="font_regular_text">14sp</dimen>
     <dimen name="font_actionbar_title_text">16sp</dimen>
     <dimen name="font_x_large_text">20sp</dimen>
+    <dimen name="font_xx_large_text">25sp</dimen>
     <dimen name="font_large_text">16sp</dimen>
 
     <dimen name="font_20sp">20sp</dimen>
@@ -89,6 +89,7 @@
     <dimen name="ucrop_size_wrapper_rotate_button">50dp</dimen>
     <dimen name="ucrop_height_crop_aspect_ratio_text">40dp</dimen>
     <dimen name="ucrop_progress_size">30dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 
 
 </resources>

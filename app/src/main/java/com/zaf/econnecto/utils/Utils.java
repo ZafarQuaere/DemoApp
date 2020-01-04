@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
@@ -23,7 +22,6 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -40,10 +38,10 @@ import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
 import com.zaf.econnecto.ui.fragments.BizCategoryFragment;
 import com.zaf.econnecto.ui.fragments.BizListFragment;
 import com.zaf.econnecto.ui.fragments.FragmentProfile;
+import com.zaf.econnecto.ui.fragments.add_business.AddBizScreen1Fragment;
 import com.zaf.econnecto.ui.interfaces.ActionBarItemClick;
 import com.zaf.econnecto.utils.parser.ParseManager;
 import com.zaf.econnecto.utils.storage.AppSharedPrefs;
-import com.zaf.econnecto.version2.ui.home.HomeFragment;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -415,6 +413,11 @@ public class Utils {
                     ((Activity) activity).onBackPressed();
                 }
             });
+        } else if (className.equals(new AddBizScreen1Fragment().getClass().getSimpleName())) {
+            imgActionBarDrawerIcon.setVisibility(View.VISIBLE);
+            textBack.setOnClickListener(v -> ((Activity) activity).onBackPressed());
+
+
         } else if (className.equals(new BizListFragment().getClass().getSimpleName())) {
             imgActionBarDrawerIcon.setVisibility(View.VISIBLE);
             txtSearch.setVisibility(View.VISIBLE);
@@ -734,5 +737,7 @@ public class Utils {
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         mContext.startActivityForResult(intent, USER_PROFILE_IMG);
     }*/
+
+
 
 }

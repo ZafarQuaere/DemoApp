@@ -5,9 +5,14 @@
 4) Crop Banner image to banner size.
 5) Remove feedback.
 6) Store Profile Image in shared prefs.
+7) Look for the network connectivity at each level of application.
+8) apply activity.recreate() to recreate the application for any network issue or any exception.
+9) Have to optimize image upload process.
+10) 
 
 
 "address":"Address cannot be more then 55 characters"
+
 
 
 

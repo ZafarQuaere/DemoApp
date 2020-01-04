@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    android:id="@+id/lytMyBusiness"
+    android:id="@+id/coLytMyBusiness"
     android:clickable="true"
     android:fitsSystemWindows="true">
 
@@ -106,6 +106,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
+        android:overScrollMode="never"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -269,6 +270,52 @@
 
             </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardViewHotDeals"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:visibility="visible"
+                card_view:cardElevation="@dimen/_5dp"
+                card_view:cardUseCompatPadding="true">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/rlytYourDealsExpand"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimary"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:text="@string/your_deals"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/font_x_large_text" />
+
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginTop="@dimen/_10dp"
+                        android:overScrollMode="never"
+                        android:id="@+id/recyclerYourDeals"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/_120dp"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/layout_add_deals_bg_item" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -312,7 +359,7 @@
                     </RelativeLayout>
 
                     <include
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:id="@+id/lytAddDeals"
                         layout="@layout/layout__add_hot_deals"
                         android:layout_width="match_parent"
@@ -321,58 +368,11 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/cardViewHotDeals"
+
+
+            <Space
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:visibility="gone"
-                card_view:cardElevation="@dimen/_5dp"
-                card_view:cardUseCompatPadding="true">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <RelativeLayout
-                        android:id="@+id/rlytYourDealsExpand"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/colorPrimary"
-                        android:onClick="addDealsExpandCollapse"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/_5dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:text="@string/your_deals"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="@dimen/font_x_large_text" />
-
-                        <ImageView
-                            android:id="@+id/imgExpandYourDeals"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:paddingEnd="@dimen/_10dp"
-                            android:background="@drawable/ic_expand_more"
-                            tools:ignore="RtlSymmetry" />
-                    </RelativeLayout>
-
-                    <include
-                        android:visibility="visible"
-                        android:id="@+id/lytYourDeals"
-                        layout="@layout/layout__add_hot_deals"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
+                android:layout_height="@dimen/_120dp"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

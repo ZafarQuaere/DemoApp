@@ -72,11 +72,11 @@ public class AddBusinessFragment extends BaseFragment<AddBizPresenter> implement
         spinnerCharges = (Spinner) view.findViewById(R.id.spinnerCharges);
         spinnerCategory.setOnItemSelectedListener(this);
         spinnerCharges.setOnItemSelectedListener(this);
-        ArrayAdapter categoryAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, categoryArray);
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, categoryArray);
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategory.setAdapter(categoryAdapter);
 
-        ArrayAdapter chargesdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, chargesArray);
+        ArrayAdapter<String> chargesdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, chargesArray);
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCharges.setAdapter(chargesdapter);
     }

@@ -267,4 +267,15 @@
     <string name="textVersion">Text Version</string>
     <string name="your_deals">Your Deals</string>
     <string name="upload_image">Upload Image</string>
+    <string name="enter_your_deals_and_offers">Enter your deals and offers here </string>
+    <string name="select_background_image_from_below">Select background image .</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="enter_category_of_your_business">Please enter the category of your business </string>
+    <string name="title_activity_add_business">AddBusinessActivity</string>
+    <string name="state">State</string>
+    <string name="city">City</string>
+    <string name="pincode">Pincode</string>
+    <string name="confirm">confirm</string>
 </resources>

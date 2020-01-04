@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
-
+apply plugin: 'androidx.navigation.safeargs'
 
 android {
     compileSdkVersion 28
@@ -38,8 +38,10 @@ android {
             signingConfig signingConfigs.econnecto
         }
     }
-
-
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 }
 
 dependencies {
@@ -86,13 +88,16 @@ dependencies {
     //testImplementation 'android.test:core:1.0.0' creating build issue
     // Optional -- Mockito framework
     testImplementation 'org.mockito:mockito-core:2.28.2'
-    compile project(path: ':ecrop')
+    implementation project(path: ':ecrop')
     implementation "androidx.core:core-ktx:1.1.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    def navVersion = "2.2.0-rc02"
+    def navVersion = "2.2.0-rc04"
     implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
+
+    //for background color picker of hot deals
+    implementation 'com.github.skydoves:colorpickerpreference:1.0.2'
 }
 apply plugin: 'com.google.gms.google-services'
 repositories {
