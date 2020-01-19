@@ -120,7 +120,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 card_view:cardElevation="@dimen/_5dp"
                 card_view:cardUseCompatPadding="true">
 
@@ -240,7 +240,7 @@
                 android:id="@+id/cardViewDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_marginBottom="16dp"
                 card_view:cardElevation="@dimen/_5dp"
                 card_view:cardUseCompatPadding="true">

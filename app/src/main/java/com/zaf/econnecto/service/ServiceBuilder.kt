@@ -1,0 +1,26 @@
+package com.zaf.econnecto.service
+
+import com.zaf.econnecto.utils.AppConstant
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
+object ServiceBuilder {
+
+    private val baseUrl = AppConstant.URL_BASE
+
+    private val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+    private val okHttpClient = OkHttpClient.Builder().addInterceptor(logger)
+
+    private val builder = Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create())
+                                        .client(okHttpClient.build())
+
+    //Retrofit instance
+    private val retrofit = builder.build()
+
+    fun<T> buildConnectoService(serviceType : Class<T>):T{
+        return retrofit.create(serviceType)
+    }
+
+}

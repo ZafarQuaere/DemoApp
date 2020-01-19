@@ -22,7 +22,7 @@
         <activity
             android:name=".ui.activities.AddBusinessActivity"
             android:label="@string/title_activity_add_business"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <!-- application was getting crashed on Android pie -->
         <activity
             android:name=".ui.activities.WelcomeActivity"

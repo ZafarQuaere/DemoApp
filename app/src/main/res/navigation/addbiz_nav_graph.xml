@@ -35,8 +35,7 @@
             app:popExitAnim="@anim/slide_out_right" />
         <argument
             android:name="categoryId"
-            app:argType="string"
-            android:defaultValue="Beauty" />
+            app:argType="string"/>
     </fragment>
 
     <fragment
@@ -45,11 +44,9 @@
         android:label="Personal Info"
         tools:layout="@layout/add_biz_screen3_fragment">
 
-       <!-- <argument
+     <argument
             android:name="bizInfo"
-            android:defaultValue="Beauty"
-            app:argType="com.zaf.econnecto.ui.fragments.add_business.AddBizModel" />
--->
+            app:argType="com.zaf.econnecto.ui.fragments.add_business.AddBizModel"/>
 
     </fragment>
 

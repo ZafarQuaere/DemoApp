@@ -589,7 +589,7 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         lytADBg.setVisibility(View.GONE);
         textUploadImgLable.setVisibility(View.VISIBLE);
         imgBtnHotDeals.setVisibility(View.VISIBLE);
-        imgBackground.setVisibility(View.GONE);
+        imgBackground.setVisibility(View.INVISIBLE);
     }
 
 

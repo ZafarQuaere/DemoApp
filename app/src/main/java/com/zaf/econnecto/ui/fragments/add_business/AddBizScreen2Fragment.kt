@@ -20,9 +20,8 @@ class AddBizScreen2Fragment : Fragment() {
     lateinit var navController: NavController
 
     private lateinit var viewModel: AddBizScreen2ViewModel
-    private  var args :String? = null
 
-   // val args1: AddBizScreen2FragmentArgs by navArgs()
+    val args: AddBizScreen2FragmentArgs by navArgs()
 
     companion object {
         fun newInstance() = AddBizScreen2Fragment()
@@ -31,8 +30,7 @@ class AddBizScreen2Fragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-         args = arguments?.getString("categoryId")
-        LogUtils.showToast(activity,args.toString())
+        LogUtils.showErrorDialog(activity,"Ok",args.categoryId)
 
     }
 
@@ -45,12 +43,11 @@ class AddBizScreen2Fragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
        // teditFirst.setText(args)
-
         //TODO have to pass model class to next fragment
-//        var model = AddBizModel("12345")
-//        var bundle = bundleOf(model to AddBizModel)
+       var model = AddBizModel("my id","zafar",30,"abc@gmail.com","1234567890")
+        var bundle = bundleOf("bizInfo" to model)
         btnNext.setOnClickListener {
-            navController!!.navigate(R.id.action_screen2_to_screen3)
+            navController!!.navigate(R.id.action_screen2_to_screen3,bundle)
         }
     }
 

@@ -7,11 +7,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.navigation.NavArgs
+import androidx.navigation.NavArgsLazy
+import androidx.navigation.fragment.navArgs
 
 import com.zaf.econnecto.R
+import com.zaf.econnecto.ui.fragments.add_business.AddBizScreen3FragmentArgs.fromBundle
+import com.zaf.econnecto.utils.LogUtils
+import kotlin.reflect.KProperty
 
 class AddBizScreen3Fragment : Fragment() {
 
+    val bizInfo  by lazy {
+         fromBundle(arguments!!).bizInfo
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val mydata = bizInfo
+        LogUtils.showErrorDialog(activity,"Ok","${mydata.email} ${mydata.name} ${mydata.age}")
+
+
+
+    }
     companion object {
         fun newInstance() = AddBizScreen3Fragment()
     }
@@ -34,3 +51,7 @@ class AddBizScreen3Fragment : Fragment() {
     }
 
 }
+
+
+
+
