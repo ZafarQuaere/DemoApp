@@ -20,10 +20,12 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".ui.activities.UserRegistrationActivity"
+            android:label="@string/title_activity_user_registration" />
+        <activity
             android:name=".ui.activities.AddBusinessActivity"
             android:label="@string/title_activity_add_business"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <!-- application was getting crashed on Android pie -->
+            android:theme="@style/AppTheme.NoActionBar" /> <!-- application was getting crashed on Android pie -->
         <activity
             android:name=".ui.activities.WelcomeActivity"
             android:screenOrientation="portrait">

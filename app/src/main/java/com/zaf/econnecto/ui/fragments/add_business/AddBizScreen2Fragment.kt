@@ -46,9 +46,11 @@ class AddBizScreen2Fragment : Fragment() {
         //TODO have to pass model class to next fragment
        var model = AddBizModel("my id","zafar",30,"abc@gmail.com","1234567890")
         var bundle = bundleOf("bizInfo" to model)
+
         btnNext.setOnClickListener {
             navController!!.navigate(R.id.action_screen2_to_screen3,bundle)
         }
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

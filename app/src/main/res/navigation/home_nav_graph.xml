@@ -10,23 +10,51 @@
         android:name="com.zaf.econnecto.version2.ui.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/home_fragment">
-    </fragment>
-      <!--  <action
-            android:id="@+id/action_pdp_to_login"
-            app:destination="@id/login" />
+
         <action
-            android:id="@+id/action_pdp_to_plp"
-            app:destination="@id/plp" />-->
+        android:id="@+id/homeToSearch"
+        app:destination="@id/screen1"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
 
-    <!--<fragment
-        android:id="@+id/login"
-        android:name="com.ulta.dsp.ui.login.LoginView"
-        android:label="LoginView"
-        tools:layout="@layout/login" />
+        <action
+            android:id="@+id/homeToDeals"
+            app:destination="@id/screen2"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/homeToProfile"
+            app:destination="@id/screen3"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+
     <fragment
-        android:id="@+id/plp"
-        android:name="com.ulta.dsp.ui.plp.PlpView"
-        android:label="Plp"
-        tools:layout="@layout/plp" />-->
+        android:id="@+id/screen2"
+        android:name="com.zaf.econnecto.ui.fragments.add_business.AddBizScreen2Fragment"
+        android:label="BusinessDetails"
+        tools:layout="@layout/add_biz_screen2_fragment">
+    </fragment>
 
+    <fragment
+        android:id="@+id/screen1"
+        android:name="com.zaf.econnecto.ui.fragments.add_business.AddBizScreen3Fragment"
+        android:label="BusinessDetails"
+        tools:layout="@layout/add_biz_screen2_fragment">
+    </fragment>
+
+    <fragment
+        android:id="@+id/screen3"
+        android:name="com.zaf.econnecto.ui.fragments.add_business.AddBizScreen3Fragment"
+        android:label="BusinessDetails"
+        tools:layout="@layout/add_biz_screen2_fragment">
+    </fragment>
 </navigation>

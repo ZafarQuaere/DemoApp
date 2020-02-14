@@ -223,7 +223,6 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
                 crop_layout.setVisibility(View.GONE);
                 break;
             case R.id.btApplyCrop:
-                //LogUtils.showToast(mContext,"Apply Crop");
                 crop_layout.setVisibility(View.GONE);
                     cropsAndSaveImage();
                 break;
@@ -601,4 +600,6 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
     public interface OnBgImageClicked {
         void onBgImageClicked(DealsBgData item);
     }
+
+
 }

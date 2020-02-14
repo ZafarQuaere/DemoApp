@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.zaf.econnecto.R;
+import com.zaf.econnecto.ui.fragments.user_register.UserRegisterFragment;
 import com.zaf.econnecto.ui.presenters.LoginPresenter;
 import com.zaf.econnecto.ui.presenters.operations.ILogin;
 import com.zaf.econnecto.utils.LogUtils;
@@ -104,7 +105,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
                 break;
 
             case R.id.txtRegister:
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+               // startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                startActivity(new Intent(LoginActivity.this, UserRegistrationActivity.class));
                 break;
 
         }

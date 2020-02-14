@@ -67,8 +67,6 @@ class AddBizScreen1Fragment : Fragment() {
                         val body: BizListData? = response.body()
                         val data : MutableList<BizData>? = body!!.data
 
-
-
                     }else{
                         LogUtils.showToast(activity,"toast")
                     }
@@ -85,14 +83,6 @@ class AddBizScreen1Fragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(AddBizScreen1ViewModel::class.java)
         // TODO: Use the ViewModel
 
-    }
-
-    public fun replaceFragment(fragment: Fragment) {
-        val fragmentManager = activity?.supportFragmentManager
-        val transaction = fragmentManager!!.beginTransaction()
-        transaction.add(R.id.lytMain, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
     }
 
 

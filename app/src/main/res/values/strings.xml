@@ -176,6 +176,7 @@
     <string name="key_user_profile_pic">key_user_profile_pic</string>
     <string name="follow_us_on_twitter">Follow us on Twitter</string>
     <string name="rate_us_playstore">Rate Us on Play Store</string>
+    <string name="password_criteria_msg">Password must contain 1 UpperCase,1 Lowercase, 1 digit and 1 special Character</string>
 
     <string name="share_app_content">eConnecto - A social media platform for your business.\nRegister and verify yourself and Add your Businness to connect with the local user.\nPost your hot deals, trends and offers with your followers easily.
         \nDownload the app here : </string>
@@ -278,4 +279,20 @@
     <string name="city">City</string>
     <string name="pincode">Pincode</string>
     <string name="confirm">confirm</string>
+    <string name="title_activity_user_registration">Sign Up</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="other">Other</string>
+    <string name="enter_year_of_birth">Enter Year of Birth</string>
+    <string name="enter_valid_password">Password must be 8-20 characters</string>
+    <string name="enter_valid_year_of_birth">Enter valid year of Birth</string>
+    <string name="otp_is_sent_to_your_mobile_no_plz_enter_the_otp">An OTP is sent to your entered mobile number, Please enter the OTP to verify your phone number</string>
+    <string name="verify_mobile_no">Verify Phone</string>
+    <string name="resend_otp">Resend <b>OTP</b></string>
 </resources>
