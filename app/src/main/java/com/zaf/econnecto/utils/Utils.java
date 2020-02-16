@@ -612,7 +612,7 @@ public class Utils {
         String username = "";
         LoginData loginData = ParseManager.getInstance().fromJSON(loginStringData, LoginData.class);
         if (loginData != null) {
-            return loginData.getData().getUsername();
+            return loginData.getData().getEmail();
         }
         return username;
     }
@@ -647,13 +647,6 @@ public class Utils {
         return firstTimeLaunch;
     }
 
-    public static void saveLoginData(Context mContext, String data) {
-        if (mContext == null)
-            return;
-        AppSharedPrefs prefs = AppSharedPrefs.getInstance(mContext);
-        prefs.put(mContext.getString(R.string.key_login_data), data);
-    }
-
     public static String getNewOrderData(Context context) {
         AppSharedPrefs prefs = AppSharedPrefs.getInstance(context);
         String data = "";
@@ -667,6 +660,13 @@ public class Utils {
         return data;
     }
 
+    public static void saveLoginData(Context mContext, String data) {
+        if (mContext == null)
+            return;
+        AppSharedPrefs prefs = AppSharedPrefs.getInstance(mContext);
+        prefs.put(mContext.getString(R.string.key_login_data), data);
+    }
+
     public static String getLoginData(Context context) {
         AppSharedPrefs prefs = AppSharedPrefs.getInstance(context);
         String data = "";
@@ -678,6 +678,26 @@ public class Utils {
             return data;
         }
         return data;
+    }
+
+    public static void setAccessToken(Context mContext, String data) {
+        if (mContext == null)
+            return;
+        AppSharedPrefs prefs = AppSharedPrefs.getInstance(mContext);
+        prefs.put(mContext.getString(R.string.key_access_token), data);
+    }
+
+    public static String getAccessToken(Context context) {
+        AppSharedPrefs prefs = AppSharedPrefs.getInstance(context);
+        String accessToken = "";
+        try {
+            accessToken = (String) prefs.get(context.getString(R.string.key_access_token));
+        } catch (Exception e) {
+            e.printStackTrace();
+            LogUtils.ERROR(e.getMessage());
+            return accessToken;
+        }
+        return accessToken;
     }
 
 

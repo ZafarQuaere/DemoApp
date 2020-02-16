@@ -17,7 +17,6 @@ class UserRegistrationActivity : AppCompatActivity() {
 
     private fun addActionBar() {
         setSupportActionBar(findViewById(R.id.toolbar))
-
     }
 
 }

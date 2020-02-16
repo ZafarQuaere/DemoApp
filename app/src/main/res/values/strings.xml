@@ -294,5 +294,6 @@
     <string name="enter_valid_year_of_birth">Enter valid year of Birth</string>
     <string name="otp_is_sent_to_your_mobile_no_plz_enter_the_otp">An OTP is sent to your entered mobile number, Please enter the OTP to verify your phone number</string>
     <string name="verify_mobile_no">Verify Phone</string>
-    <string name="resend_otp">Resend <b>OTP</b></string>
+    <string name="resend_otp">Did not received OTP ?<b>Resend OTP</b></string>
+    <string name="key_access_token">key_access_token</string>
 </resources>

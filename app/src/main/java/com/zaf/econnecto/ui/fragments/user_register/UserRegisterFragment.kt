@@ -12,9 +12,11 @@ import androidx.navigation.Navigation
 import com.zaf.econnecto.R
 import com.zaf.econnecto.ui.activities.UserRegisterViewModel
 import com.zaf.econnecto.ui.interfaces.FragmentNavigation
+import com.zaf.econnecto.utils.FileUtils
 import com.zaf.econnecto.utils.LogUtils
-import kotlinx.android.synthetic.main.add_biz_screen1_fragemnt.*
 import kotlinx.android.synthetic.main.fragment_user_register.*
+import org.json.JSONObject
+
 
 class UserRegisterFragment : Fragment(), FragmentNavigation {
 
@@ -50,8 +52,17 @@ class UserRegisterFragment : Fragment(), FragmentNavigation {
         }
 
          txtLogin.setOnClickListener {
+
              activity!!.finish()
+             //callJsonParsing()
          }
+    }
+
+    private fun callJsonParsing() {
+        var fileName : String = "user_register_failure"
+        val loadJSONFromAsset = FileUtils.loadJSONFromAsset(activity, fileName)
+        var obj = JSONObject(loadJSONFromAsset)
+        LogUtils.DEBUG("status : ${obj.optInt("status")}  message ${obj.optJSONArray("message").get(0)}")
     }
 
     override fun navigate() {

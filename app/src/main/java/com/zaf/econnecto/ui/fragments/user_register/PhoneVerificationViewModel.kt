@@ -2,6 +2,7 @@ package com.zaf.econnecto.ui.fragments.user_register
 
 import android.app.Activity
 import androidx.lifecycle.ViewModel
+import com.google.gson.JsonObject
 import com.zaf.econnecto.R
 import com.zaf.econnecto.service.BusinessListService
 import com.zaf.econnecto.service.ServiceBuilder
@@ -18,84 +19,80 @@ import retrofit2.Response
 
 class PhoneVerificationViewModel : ViewModel() {
 
-
-
     fun callResendApi(mContext: Activity, mobileNo: String) {
         var loader = AppDialogLoader.getLoader(mContext)
         loader.show()
         //TODO request OTP API call
         var jsonObject = JSONObject()
-        jsonObject.put("action","request_otp")
-        jsonObject.put("phone",mobileNo)
+        jsonObject.put("action", "request_otp")
+        jsonObject.put("phone", mobileNo)
 
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
-
 
         val destinationService = ServiceBuilder.buildConnectoService(BusinessListService::class.java)
         val requestCall = destinationService.phoneVerification(requestBody)
 
-        requestCall.enqueue(object : Callback<JSONObject> {
-            override fun onFailure(call: Call<JSONObject>, t: Throwable) {
+        requestCall.enqueue(object : Callback<JsonObject> {
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 loader.dismiss()
-                LogUtils.showErrorDialog(mContext,mContext.getString(R.string.ok),mContext.getString(R.string.something_wrong_from_server_plz_try_again))
+                LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.something_wrong_from_server_plz_try_again))
             }
 
-            override fun onResponse(call: Call<JSONObject>, response: Response<JSONObject>) {
-                val body = response.body()
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                val body = JSONObject(response.body().toString())
+                LogUtils.DEBUG("status : ${body!!.optInt("status")}   message ${body!!.optJSONArray("message").get(0)}")
+                var status = body.optInt("status")
                 loader.dismiss()
-                if(body!!.getInt("status")== AppConstant.FAILURE){
+                if (status == AppConstant.FAILURE) {
                     val jsonArray = body!!.getJSONArray("message")
                     val message = jsonArray.get(0) as String
-                    LogUtils.showErrorDialog(mContext,mContext.getString(R.string.ok),message)
+                    LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), message)
                     // KotUtil.displayResponseError(mContext,message.toString())
-                }else{
-                    LogUtils.showToast(mContext,"Please check your mobile, OTP has been sent")
+                } else {
+                    LogUtils.showErrorDialog(mContext,mContext.getString(R.string.ok), mContext.getString(R.string.otp_is_sent_to_your_mobile_no_plz_enter_the_otp))
                 }
             }
-
         })
     }
+
 
     fun callVerifyPhoneApi(mContext: Activity, mobileNo: String, OTP: String) {
         var loader = AppDialogLoader.getLoader(mContext)
         loader.show()
         //TODO request OTP API call
         var jsonObject = JSONObject()
-        jsonObject.put("action","validate_otp")
-        jsonObject.put("phone",mobileNo)
-        jsonObject.put("otp",OTP)
+        jsonObject.put("action", "validate_otp")
+        jsonObject.put("phone", mobileNo)
+        jsonObject.put("otp", OTP)
 
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
-
-
         val destinationService = ServiceBuilder.buildConnectoService(BusinessListService::class.java)
         val requestCall = destinationService.phoneVerification(requestBody)
-
-        requestCall.enqueue(object : Callback<JSONObject> {
-            override fun onFailure(call: Call<JSONObject>, t: Throwable) {
+        requestCall.enqueue(object : Callback<JsonObject> {
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 loader.dismiss()
-                LogUtils.showErrorDialog(mContext,mContext.getString(R.string.ok),mContext.getString(R.string.something_wrong_from_server_plz_try_again))
+                LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.something_wrong_from_server_plz_try_again))
             }
 
-            override fun onResponse(call: Call<JSONObject>, response: Response<JSONObject>) {
-                val body = response.body()
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                val body = JSONObject(response.body().toString())
+                LogUtils.DEBUG("status : ${body!!.optInt("status")}   message ${body!!.optJSONArray("message").get(0)}")
+                var status = body.optInt("status")
                 loader.dismiss()
-                if(body!!.getInt("status")== AppConstant.FAILURE){
+                if (status == AppConstant.FAILURE) {
                     val jsonArray = body!!.getJSONArray("message")
                     val message = jsonArray.get(0) as String
-                    LogUtils.showErrorDialog(mContext,mContext.getString(R.string.ok),message)
+                    LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), message)
                     // KotUtil.displayResponseError(mContext,message.toString())
-                }else{
+                } else {
                     LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.register_successful_plz_login), object : DialogButtonClick {
                         override fun onOkClick() {
-                           mContext.finish()
+                            mContext.finish()
                         }
-
                         override fun onCancelClick() {}
                     })
                 }
             }
-
         })
     }
 

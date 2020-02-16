@@ -12,8 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:lineSpacingExtra="6dp"
+        android:layout_marginTop="@dimen/_20dp"
+        android:paddingHorizontal="@dimen/_20dp"
         android:text="@string/otp_is_sent_to_your_mobile_no_plz_enter_the_otp"
-        android:textSize="@dimen/font_large_text"
+        android:textSize="@dimen/font_x_large_text"
         android:textStyle="bold" />
 
 

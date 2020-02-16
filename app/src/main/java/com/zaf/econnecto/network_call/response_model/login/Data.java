@@ -5,37 +5,68 @@ import com.google.gson.annotations.SerializedName;
 
 public class Data {
 
-    @SerializedName("username")
+    @SerializedName("id")
     @Expose
-    private String username;
+    private String id;
+    @SerializedName("email")
+    @Expose
+    private String email;
+    @SerializedName("phone")
+    @Expose
+    private String phone;
     @SerializedName("first_name")
     @Expose
     private String firstName;
     @SerializedName("last_name")
     @Expose
-    private String lastName;
-    @SerializedName("sex")
+    private Object lastName;
+    @SerializedName("gender")
     @Expose
-    private String sex;
+    private String gender;
+    @SerializedName("year_of_birth")
+    @Expose
+    private String yearOfBirth;
     @SerializedName("profile_pic")
     @Expose
     private String profilePic;
-    @SerializedName("active")
+    @SerializedName("is_email_verified")
     @Expose
-    private String active;
+    private String isEmailVerified;
+    @SerializedName("is_phone_verified")
+    @Expose
+    private String isPhoneVerified;
     @SerializedName("business_status")
     @Expose
     private String businessStatus;
     @SerializedName("following_count")
     @Expose
     private String followingCount;
+    @SerializedName("JWT_Token")
+    @Expose
+    private String jWTToken;
 
-    public String getUsername() {
-        return username;
+    public String getId() {
+        return id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getFirstName() {
@@ -46,20 +77,28 @@ public class Data {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
+    public Object getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastName(Object lastName) {
         this.lastName = lastName;
     }
 
-    public String getSex() {
-        return sex;
+    public String getGender() {
+        return gender;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getYearOfBirth() {
+        return yearOfBirth;
+    }
+
+    public void setYearOfBirth(String yearOfBirth) {
+        this.yearOfBirth = yearOfBirth;
     }
 
     public String getProfilePic() {
@@ -70,12 +109,20 @@ public class Data {
         this.profilePic = profilePic;
     }
 
-    public String getActive() {
-        return active;
+    public String getIsEmailVerified() {
+        return isEmailVerified;
     }
 
-    public void setActive(String active) {
-        this.active = active;
+    public void setIsEmailVerified(String isEmailVerified) {
+        this.isEmailVerified = isEmailVerified;
+    }
+
+    public String getIsPhoneVerified() {
+        return isPhoneVerified;
+    }
+
+    public void setIsPhoneVerified(String isPhoneVerified) {
+        this.isPhoneVerified = isPhoneVerified;
     }
 
     public String getBusinessStatus() {
@@ -94,4 +141,11 @@ public class Data {
         this.followingCount = followingCount;
     }
 
+    public String getJWTToken() {
+        return jWTToken;
+    }
+
+    public void setJWTToken(String jWTToken) {
+        this.jWTToken = jWTToken;
+    }
 }

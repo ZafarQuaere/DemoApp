@@ -65,14 +65,16 @@ public class LoginPresenter extends BasePresenter {
         loader.show();
         JSONObject requestObject = new JSONObject();
         try {
-            requestObject.put("email", userId);
+            //requestObject.put("email", userId);
+            requestObject.put("phone", userId);
             requestObject.put("password", password);
 
         } catch (JSONException e) {
             e.printStackTrace();
             LogUtils.ERROR(e.getMessage());
         }
-        String url = AppConstant.URL_BASE + AppConstant.URL_LOGIN;
+       // String url = AppConstant.URL_BASE + AppConstant.URL_LOGIN;
+        String url = AppConstant.URL_BASE_MVP + AppConstant.URL_LOGIN_MVP;
         LogUtils.DEBUG("Login URL : " + url + "\nRequest Body ::" + requestObject.toString());
         MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.POST, url, requestObject, new Response.Listener<JSONObject>() {
             @Override
@@ -83,13 +85,12 @@ public class LoginPresenter extends BasePresenter {
                     if (status == AppConstant.SUCCESS){
                         LoginData loginData = ParseManager.getInstance().fromJSON(response.toString(),LoginData.class);
                         storeProfileImage(loginData);
-                        Utils.setLoggedIn(mContext, true);
                         Utils.saveLoginData(mContext,response.toString());
-                        Utils.saveUserEmail(mContext,userId);
-                        Utils.setEmailVerified(mContext, loginData.getData().getActive().equals("1"));
+                        storeOtherValue(loginData);
+                        //
                         mLogin.doLogin();
                     }else {
-                        LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optString("message"));
+                        LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optJSONArray("message").optString(0));
                     }
                 }
                 loader.dismiss();
@@ -104,6 +105,13 @@ public class LoginPresenter extends BasePresenter {
             }
         });
         AppController.getInstance().addToRequestQueue(objectRequest, "Login");
+    }
+
+    private void storeOtherValue(LoginData loginData) {
+        Utils.setLoggedIn(mContext, true);
+        Utils.saveUserEmail(mContext,loginData.getData().getEmail());
+        Utils.setEmailVerified(mContext, loginData.getData().getIsEmailVerified().equals("1"));
+        Utils.setAccessToken(mContext,loginData.getData().getJWTToken());
     }
 
     private void storeProfileImage(LoginData loginData) {

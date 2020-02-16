@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="@dimen/_20dp"
-        android:layout_marginVertical="@dimen/_50dp"
+        android:layout_marginVertical="@dimen/_30dp"
         android:background="@color/colorWhite"
         android:padding="@dimen/_10dp">
 
@@ -62,18 +62,20 @@
                 android:layout_below="@+id/lytHeader"
                 android:layout_marginTop="@dimen/_20dp"
                 android:orientation="vertical"
-                android:paddingLeft="@dimen/_20dp"
-                android:paddingRight="@dimen/_20dp">
+                android:paddingLeft="@dimen/_10dp"
+                android:paddingRight="@dimen/_10dp">
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/_50dp"
                     android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editUserName"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/email_id"
+                        android:layout_height="@dimen/_50dp"
+                        android:hint="@string/mobile_no"
                         android:singleLine="true"
                         android:maxLength="70"
                         android:text=""
@@ -81,6 +83,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10dp"
@@ -90,7 +93,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editPassword"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/_50dp"
                         android:hint="@string/password"
                         android:inputType="textWebPassword"
                         android:maxLength="50"

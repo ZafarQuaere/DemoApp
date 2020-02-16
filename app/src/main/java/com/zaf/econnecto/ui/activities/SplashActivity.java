@@ -41,7 +41,7 @@ public class SplashActivity extends Activity {
                     Intent i = new Intent(SplashActivity.this, MainActivity.class);
                     startActivity(i);
                 }
-               /* Intent i = new Intent(SplashActivity.this, MyBusinessActivity.class);
+              /*  Intent i = new Intent(SplashActivity.this, UserRegistrationActivity.class);
                 startActivity(i);*/
                 finish();
             }

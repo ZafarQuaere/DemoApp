@@ -1,5 +1,6 @@
 package com.zaf.econnecto.service
 
+import com.google.gson.JsonObject
 import com.zaf.econnecto.network_call.request_model.UserRegisterData
 import com.zaf.econnecto.network_call.response_model.UserRegisterResponse
 import com.zaf.econnecto.network_call.response_model.biz_list.BizListData
@@ -14,8 +15,8 @@ interface BusinessListService {
     fun getBusinessList(@Query("email") email: String): Call<BizListData>
 
     @POST("user_registration/register.php")
-    fun registerUser(@Body requestBody : RequestBody): Call<UserRegisterResponse>
+    fun registerUser(@Body requestBody : RequestBody): Call<JsonObject>
 
-    @POST("usr_registration/phone_verification.php")
-    fun phoneVerification(@Body requestBody: RequestBody): Call<JSONObject>
+    @POST("user_registration/phone_verification.php")
+    fun phoneVerification(@Body requestBody: RequestBody): Call<JsonObject>
 }

@@ -7,8 +7,9 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.lifecycle.ViewModel
 import com.google.android.material.textfield.TextInputEditText
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import com.zaf.econnecto.R
-import com.zaf.econnecto.network_call.response_model.UserRegisterResponse
 import com.zaf.econnecto.service.BusinessListService
 import com.zaf.econnecto.service.ServiceBuilder
 import com.zaf.econnecto.ui.fragments.user_register.UserRegisterFragment
@@ -20,6 +21,7 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class UserRegisterViewModel : ViewModel() {
 
@@ -48,7 +50,6 @@ class UserRegisterViewModel : ViewModel() {
                     gender = 2
                     else if (mSelectedGender == "Other")
                     gender =3
-                LogUtils.showToast(mContext, "$mSelectedGender  and Code is $gender")
             }
         }
        if (email.isNullOrEmpty() || !Utils.isValidEmail(email)) {
@@ -93,20 +94,30 @@ class UserRegisterViewModel : ViewModel() {
         val destinationService = ServiceBuilder.buildConnectoService(BusinessListService::class.java)
         val requestCall = destinationService.registerUser(requestBody)
 
-        requestCall.enqueue(object : Callback<UserRegisterResponse>{
-            override fun onFailure(call: Call<UserRegisterResponse>, t: Throwable) {
+        requestCall.enqueue(object : Callback<JsonObject>{
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 loader.dismiss()
-                LogUtils.showErrorDialog(mContext,mContext.getString(R.string.ok),mContext.getString(R.string.something_wrong_from_server_plz_try_again))
+                LogUtils.showErrorDialog(mContext,mContext.getString(R.string.ok),mContext.getString(R.string.something_wrong_from_server_plz_try_again) +"\n"+ t.localizedMessage)
             }
 
-            override fun onResponse(call: Call<UserRegisterResponse>, response: Response<UserRegisterResponse>) {
-                val body = response.body()
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                val body = JSONObject(Gson().toJson(response.body()))
+                LogUtils.DEBUG("User Register Response >>: >>  ${body.toString()}")
+                LogUtils.DEBUG(" >>>  status : ${body!!.optInt("status")}  message>>  ${body.optJSONArray("message")!!.get(0)}")
+                   // LogUtils.DEBUG("status : ${body!!.optInt("status")}   message ${body!!.getJSONArray("message")} Data : ${body!!.optInt("data")}")
+                var status = body.optInt("status")
                 loader.dismiss()
-                if(body!!.getStatus()== AppConstant.FAILURE){
-                    KotUtil.displayResponseError(mContext,body!!.getMessage())
-                }else{
+
+                if(status == AppConstant.SUCCESS){
                     callRequestOTPApi(mContext,mobileNo)
-                   // fragNavigation.navigate()
+                    // fragNavigation.navigate()
+                }else{
+                    val jsonArray = body.optJSONArray("message")
+                    val message = jsonArray!!.get(0) as String
+                    LogUtils.showErrorDialog(mContext,mContext.getString(R.string.ok),message)
+
                 }
             }
 
@@ -116,27 +127,26 @@ class UserRegisterViewModel : ViewModel() {
     private fun callRequestOTPApi(mContext: Context, mobileNo: String) {
         var loader = AppDialogLoader.getLoader(mContext)
         loader.show()
-        //TODO request OTP API call
         var jsonObject = JSONObject()
         jsonObject.put("action","request_otp")
         jsonObject.put("phone",mobileNo)
-
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
-
 
         val destinationService = ServiceBuilder.buildConnectoService(BusinessListService::class.java)
         val requestCall = destinationService.phoneVerification(requestBody)
 
-        requestCall.enqueue(object : Callback<JSONObject>{
-            override fun onFailure(call: Call<JSONObject>, t: Throwable) {
+        requestCall.enqueue(object : Callback<JsonObject>{
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 loader.dismiss()
                 LogUtils.showErrorDialog(mContext,mContext.getString(R.string.ok),mContext.getString(R.string.something_wrong_from_server_plz_try_again))
             }
 
-            override fun onResponse(call: Call<JSONObject>, response: Response<JSONObject>) {
-                val body = response.body()
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 loader.dismiss()
-                if(body!!.getInt("status")== AppConstant.FAILURE){
+                val body = JSONObject(response.body().toString())
+                LogUtils.DEBUG("status : ${body!!.optInt("status")}   message ${body!!.optJSONArray("message").get(0)}")
+                var status = body.optInt("status")
+                if(status == AppConstant.FAILURE){
                     val jsonArray = body!!.getJSONArray("message")
                     val message = jsonArray.get(0) as String
                     LogUtils.showErrorDialog(mContext,mContext.getString(R.string.ok),message)
