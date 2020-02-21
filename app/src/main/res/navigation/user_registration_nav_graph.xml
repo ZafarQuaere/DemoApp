@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/userRegisterNavGraph"
+    app:startDestination="@id/userRegisterFragment">
+
+    <fragment
+        android:id="@+id/userRegisterFragment"
+        android:name="com.zaf.econnecto.ui.fragments.user_register.UserRegisterFragment"
+        android:label="User Registration"
+        tools:layout="@layout/fragment_user_register">
+
+        <action
+            android:id="@+id/action_register_to_phone_verification"
+            app:destination="@id/phone_verification"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/phone_verification"
+        android:name="com.zaf.econnecto.ui.fragments.user_register.PhoneVerificationFragment"
+        android:label="Phone Verification"
+        tools:layout="@layout/phone_verification_fragment">
+
+        <argument
+            android:name="mobile_no"
+            app:argType="string"/>
+    </fragment>
+
+
+</navigation>

@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,10 +25,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 import com.zaf.econnecto.R;
-import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
 import com.zaf.econnecto.ui.fragments.BizCategoryFragment;
 import com.zaf.econnecto.ui.fragments.BizListFragment;
 import com.zaf.econnecto.ui.fragments.HelpNAboutFragment;
+import com.zaf.econnecto.ui.fragments.add_business.AddBizScreen1Fragment;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.ui.presenters.MainPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IMain;
@@ -76,18 +75,11 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     }
 
-    private void moveToDestination() {
-       /* if (AppConstant.MOVE_TO_ADD_BIZ){
-            moveToAddBizness();
-           // AppConstant.MOVE_TO_ADD_BIZ = false;
-        }else {
-            //AppConstant.MOVE_TO_ADD_BIZ = false;
-            moveToBList();
-        }*/
-    }
+
 
     private void moveToAddBizness() {
-        getPresenter().moveToFragment(AddBusinessFragment.class.getSimpleName());
+        //getPresenter().moveToFragment(AddBusinessFragment.class.getSimpleName());
+        startActivity(new Intent(this,AddBusinessActivity.class));
     }
 
     private void updateUI() {
@@ -165,7 +157,8 @@ public class MainActivity extends BaseActivity<MainPresenter>
     public void addBusinessClick(View view) {
         if (Utils.isLoggedIn(mContext)) {
             if (Utils.isEmailVerified(mContext)) {
-                getPresenter().moveToFragment(AddBusinessFragment.class.getSimpleName());
+               // getPresenter().moveToFragment(AddBusinessFragment.class.getSimpleName());
+                startActivity(new Intent(mContext,AddBusinessActivity.class));
                 fabAddBizness.setVisibility(View.GONE);
             } else {
                 LogUtils.showDialogDoubleButton(mContext, mContext.getString(R.string.cancel), mContext.getString(R.string.ok),
@@ -266,14 +259,14 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     private void updateMyAccountUI(boolean isExpand) {
         LinearLayout lytMyAccount = (LinearLayout) findViewById(R.id.lytMyAccount);
-        ImageButton iconMyAccountExpand = (ImageButton) findViewById(R.id.iconMyAccountExpand);
+        ImageView iconMyAccountExpand = (ImageView) findViewById(R.id.iconMyAccountExpand);
         if (Utils.isLoggedIn(mContext) && isExpand) {
             lytMyAccount.setVisibility(lytMyAccount.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
-            iconMyAccountExpand.setBackground(lytMyAccount.getVisibility() == View.VISIBLE ? getResources().getDrawable(R.drawable.ic_minus) :
-                    getResources().getDrawable(R.drawable.ic_plus));
+            iconMyAccountExpand.setBackground(lytMyAccount.getVisibility() == View.VISIBLE ? getResources().getDrawable(R.drawable.ic_expand_less) :
+                    getResources().getDrawable(R.drawable.ic_expand_more));
         } else {
             lytMyAccount.setVisibility(View.GONE);
-            iconMyAccountExpand.setBackground(getResources().getDrawable(R.drawable.ic_plus));
+            iconMyAccountExpand.setBackground(getResources().getDrawable(R.drawable.ic_expand_more));
             // LogUtils.showToast(mContext, getString(R.string.please_login_first));
         }
     }
@@ -439,6 +432,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
                 getPresenter().uploadBitmap(resizedBmp);
             }
         }
+        super.onActivityResult(requestCode,resultCode,data);
     }
 
     @Override

@@ -139,14 +139,14 @@
                         android:drawableLeft="@drawable/ic_account"
                         android:text="@string/my_account" />
 
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/iconMyAccountExpand"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="@dimen/_5dp"
-                        android:background="@drawable/ic_plus" />
+                        android:background="@drawable/ic_expand_more" />
                 </RelativeLayout>
 
                 <LinearLayout

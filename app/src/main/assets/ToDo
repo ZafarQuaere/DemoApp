@@ -5,9 +5,14 @@
 4) Crop Banner image to banner size.
 5) Remove feedback.
 6) Store Profile Image in shared prefs.
+7) Look for the network connectivity at each level of application.
+8) apply activity.recreate() to recreate the application for any network issue or any exception.
+9) Have to optimize image upload process.
+10) 
 
 
 "address":"Address cannot be more then 55 characters"
+
 
 
 
@@ -19,3 +24,12 @@ http://sachinverma.co.in/upload-image-to-server-using-volley-android/
 
 for progress loader.
 https://github.com/agrawalsuneet/SquareLoadersPack-Android
+
+Questions on new Registration and Login process.
+1) need a new status for registered user, who did not verified their number on phone verification.
+2) What will happen to old process users in login if they use to login with email, in new approach we are using phone number.
+3) Password length criteria of min 8 character will not be applicable for older user.. as previous length criteria was 6. new is 8.
+
+
+1) Api
+2)

@@ -4,11 +4,13 @@ package com.zaf.econnecto.network_call.response_model.login;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class LoginData {
 
     @SerializedName("message")
     @Expose
-    private String message;
+    private List<String> message = null;
     @SerializedName("status")
     @Expose
     private Integer status;
@@ -16,11 +18,11 @@ public class LoginData {
     @Expose
     private Data data;
 
-    public String getMessage() {
+    public List<String> getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(List<String> message) {
         this.message = message;
     }
 

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/_15dp"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    tools:context=".ui.fragments.add_business.AddBizScreen1Fragment">
+
+    <TextView
+        android:id="@+id/textScreen1Label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
+        android:textSize="@dimen/font_xx_large_text"
+        android:text="@string/business_details" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/tilBizName"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/_50dp"
+            android:hint="@string/business_name"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editBizName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:id="@+id/tilSelectCategory"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/_10dp"
+        android:hint="@string/establish_year"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editCategory"
+            android:layout_width="match_parent"
+            android:inputType="number"
+            android:maxLength="4"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/textAddCategory"
+        android:padding="@dimen/_10dp"
+        android:textSize="@dimen/font_large_text"
+        android:layout_gravity="right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_category"/>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/lytCategorySpin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edit_field_height"
+        android:layout_gravity="center_vertical"
+        android:layout_marginHorizontal="@dimen/_5dp"
+        android:background="@drawable/button_transparent_bg"
+        android:paddingStart="@dimen/_5dp"
+        android:paddingBottom="@dimen/_5dp">
+
+        <Spinner
+            android:id="@+id/spinnerCategory"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edit_field_height"
+            android:layout_centerVertical="true"
+            android:backgroundTint="@color/colorPrimary"
+            android:gravity="right"
+            android:visibility="visible" />
+    </LinearLayout>
+
+
+    <Button
+        android:layout_below="@+id/tilSelectCategory"
+        android:id="@+id/btnNext"
+        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginEnd="@dimen/_10dp"
+        android:text="@string/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"/>
+
+</LinearLayout>

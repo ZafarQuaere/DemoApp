@@ -10,34 +10,37 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
-
-import android.provider.MediaStore;
-import android.text.TextUtils;
-import android.view.Menu;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.squareup.picasso.Picasso;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.crop.CroppingHelper;
@@ -48,13 +51,16 @@ import com.zaf.econnecto.crop.view.GestureCropImageView;
 import com.zaf.econnecto.crop.view.OverlayView;
 import com.zaf.econnecto.crop.view.UCropView;
 import com.zaf.econnecto.network_call.VolleyMultipartRequest;
+import com.zaf.econnecto.network_call.response_model.my_business.DealsBgData;
 import com.zaf.econnecto.network_call.response_model.my_business.MyBusinessData;
+import com.zaf.econnecto.ui.adapters.DealBgRecylcerAdapter;
 import com.zaf.econnecto.ui.presenters.MyBusinessPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IMyBusiness;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppLoaderFragment;
 import com.zaf.econnecto.utils.BitmapUtils;
 import com.zaf.econnecto.utils.LogUtils;
+import com.zaf.econnecto.utils.PermissionUtils;
 import com.zaf.econnecto.utils.Utils;
 
 import org.json.JSONException;
@@ -64,6 +70,7 @@ import java.io.IOException;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -76,15 +83,15 @@ import static com.zaf.econnecto.utils.AppConstant.DEFAULT_COMPRESS_QUALITY;
 import static com.zaf.econnecto.utils.AppConstant.NONE;
 import static com.zaf.econnecto.utils.AppConstant.ROTATE;
 import static com.zaf.econnecto.utils.AppConstant.SCALE;
-//import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 
 public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implements IMyBusiness, View.OnClickListener {
 
     private static final int STORAGE_PERMISSION_REQUEST_CODE = 200;
-    private static int IMG_PROFILE_RESULT = 1;
-    private static int IMG_BANNER_RESULT = 2;
-    private static int IMG_SELECTED_FOR;
+    public static int IMG_PROFILE_RESULT = 1;
+    public static int IMG_BANNER_RESULT = 2;
+    public static int IMG_HOT_DEALS = 3;
+    public static int IMG_SELECTED_FOR;
     private Context mContext;
     private TextView textFollowers;
     private ImageButton imgBannerUpload;
@@ -111,6 +118,16 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
     private int[] mAllowedGestures;
     private ImageButton btCancelCrop;
     private ImageButton btApplyCrop;
+    private List<DealsBgData> dealsBgData;
+    private TextView textUploadImgLable;
+    private ImageButton imgBtnHotDeals;
+    private ImageView imgBackground;
+    private EditText editEnterDealsInfo;
+    private Bitmap hotDealsBitmap;
+    private Button btnSubmitHotDeals;
+    private TextView textDealsNOffers;
+    private Button btnSelectBgColor;
+    //private NestedScrollView scroll;
 
     @Override
     protected MyBusinessPresenter initPresenter() {
@@ -142,16 +159,22 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
             }
         });
 
-        imgBannerUpload = (ImageButton) findViewById(R.id.imgBannerUpload);
-        imgProfileUpload = (ImageButton) findViewById(R.id.imgProfileUpload);
+      /*  scroll = (NestedScrollView)findViewById(R.id.scroll);
+        scroll.setVisibility(View.GONE);*/
+        imgBannerUpload =  findViewById(R.id.imgBannerUpload);
+        imgProfileUpload = findViewById(R.id.imgProfileUpload);
+        imgBtnHotDeals =  findViewById(R.id.imgBtnHotDeals);
+        btnSubmitHotDeals =  findViewById(R.id.btnSubmitHotDeals);
 
-        imgProfile = (CircleImageView) findViewById(R.id.imgProfile);
-        imgBanner = (ImageView) findViewById(R.id.imgBanner);
-        crop_layout = (LinearLayout) findViewById(R.id.crop_layout);
+        imgProfile =  findViewById(R.id.imgProfile);
+        imgBanner =  findViewById(R.id.imgBanner);
+        crop_layout =  findViewById(R.id.crop_layout);
         crop_layout.setVisibility(View.GONE);
         imgBannerUpload.bringToFront();
         imgBannerUpload.setOnClickListener(this);
         imgProfileUpload.setOnClickListener(this);
+        imgBtnHotDeals.setOnClickListener(this);
+        btnSubmitHotDeals.setOnClickListener(this);
     }
 
     @Override
@@ -163,6 +186,7 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
 
     @Override
     public void updateUI(MyBusinessData bizDetails) {
+      //  scroll.setVisibility(View.VISIBLE);
         CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(bizDetails != null ? bizDetails.getBusinessName() : getString(R.string.business_details));
         textFollowers = (TextView) findViewById(R.id.textFollowers);
@@ -172,7 +196,7 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         textWebsite = (TextView) findViewById(R.id.textWebsite);
         textShortDescription = (TextView) findViewById(R.id.textShortDescription);
         textDetailDescription = (TextView) findViewById(R.id.textDetailDescription);
-        textFollowers.setText(bizDetails.getFollowersCount());
+        textFollowers.setText(bizDetails.getFollowersCount()+" " + mContext.getString(R.string.followers));
         textAddress.setText(bizDetails.getAddress());
         textPhone.setText(bizDetails.getPhone1());
         textEmail.setText(bizDetails.getBusinessEmail());
@@ -182,7 +206,6 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         textDetailDescription.setText(bizDetails.getDetailedDescription());
         Picasso.get().load(bizDetails.getBusinessPic()).placeholder(R.drawable.avatar_male).into(imgProfile);
         Picasso.get().load(bizDetails.getBannerPic()).placeholder(R.drawable.gradient).into(imgBanner);
-       // imgBannerUpload.bringToFront();
     }
 
     @Override
@@ -200,7 +223,6 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
                 crop_layout.setVisibility(View.GONE);
                 break;
             case R.id.btApplyCrop:
-                //LogUtils.showToast(mContext,"Apply Crop");
                 crop_layout.setVisibility(View.GONE);
                     cropsAndSaveImage();
                 break;
@@ -222,9 +244,24 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
                 } else {
                     requestPermission();
                 }
-
                 break;
+
+            case R.id.imgBtnHotDeals:
+                IMG_SELECTED_FOR = IMG_HOT_DEALS;
+                if (/*PermissionUtils.*/checkPermission()) {
+                    selectImgFromGallery();
+                } else {
+                    /*PermissionUtils.*/requestPermission(/*MyBusinessActivity.this*/);
+                }
+                break;
+
+            case R.id.btnSubmitHotDeals:
+                submitHotDeals();
         }
+    }
+
+    private void submitHotDeals() {
+        getPresenter().uploadBitmap(hotDealsBitmap,IMG_HOT_DEALS,"1","5");
     }
 
     private void cropsAndSaveImage() {
@@ -234,7 +271,8 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), resultUri);
                     Bitmap resizedBmp = BitmapUtils.resizeBitmapBanner(bitmap);
-                     uploadBitmap(resizedBmp, IMG_BANNER_RESULT);
+                    // uploadBitmap(resizedBmp, IMG_BANNER_RESULT);
+                     getPresenter().uploadBitmap(resizedBmp,IMG_BANNER_RESULT,null,null);
                     //imgBanner.setImageBitmap(bitmap);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -259,6 +297,21 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         textDetailDescription.setText(detailDesc);
     }
 
+    @Override
+    public void updateDealBackground(List<DealsBgData> bizDetailData) {
+        this.dealsBgData = bizDetailData;
+        updateBgRecyclerview();
+    }
+
+    @Override
+    public void updateImage(int imageType, Bitmap bitmapUpload) {
+        if (imageType == IMG_BANNER_RESULT){
+            imgBanner.setImageBitmap(bitmapUpload);
+        }else {
+            imgProfile.setImageBitmap(bitmapUpload);
+        }
+    }
+
     private void selectImgFromGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, IMG_SELECTED_FOR);
@@ -269,20 +322,23 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         if (resultCode == RESULT_OK && null != data) {
             selectedImageUri = data.getData();
             if (requestCode == IMG_PROFILE_RESULT) {
-               /* CropImage.ActivityResult result = CropImage.getActivityResult(data);
-                Bitmap bitmap = result.getBitmap();*/
                 Bitmap bitmap = BitmapUtils.getBitmap(mContext, data, selectedImageUri);
                 Bitmap resizedBmp = BitmapUtils.resizeBitmapProfile(bitmap);
-                uploadBitmap(resizedBmp, IMG_PROFILE_RESULT);
+               // uploadBitmap(resizedBmp, IMG_PROFILE_RESULT);
+                getPresenter().uploadBitmap(resizedBmp,IMG_PROFILE_RESULT,null,null);
 
             } else if (requestCode == IMG_BANNER_RESULT) {
-                /*CropImage.ActivityResult result = CropImage.getActivityResult(data);
-                Bitmap bitmap = result.getBitmap();*/
                 Bitmap bitmap = BitmapUtils.getBitmap(mContext, data, selectedImageUri);
                 crop_layout.setVisibility(View.VISIBLE);
                 performCrop(bitmap);
-               // Bitmap resizedBmp = resizeBitmapBanner(bitmap);
-               // uploadBitmap(resizedBmp, IMG_BANNER_RESULT);
+
+            }
+            else if (requestCode == IMG_HOT_DEALS) {
+                hotDealsBitmap = BitmapUtils.getBitmap(mContext, data, selectedImageUri);
+                imgBackground.setVisibility(View.VISIBLE);
+                textUploadImgLable.setVisibility(View.GONE);
+                imgBackground.setImageBitmap(hotDealsBitmap);
+
             }
         }
         super.onActivityResult(requestCode,resultCode,data);
@@ -426,6 +482,7 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         }
     }
 
+
     private void captureFromCamera() {
 
     }
@@ -440,83 +497,109 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
     }
 
 
-    private void uploadBitmap(final Bitmap bitmapUpload, final int imageType) {
-        loader.show();
-        String uploadUrl = "";
-        String upload_type = "";
-        if (imageType == IMG_BANNER_RESULT) {
-            uploadUrl = AppConstant.URL_UPLOAD_BUSINESS_BANNER_PIC;
-            upload_type = "banner_image";
-        } else {
-            uploadUrl = AppConstant.URL_UPLOAD_BUSINESS_PROFILE_PIC;
-            upload_type = "business_profile_image";
-        }
-        LogUtils.DEBUG("URL : " + uploadUrl);
-        final String finalUpload_type = upload_type;
-        VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, uploadUrl,
-                new Response.Listener<NetworkResponse>() {
-                    @Override
-                    public void onResponse(NetworkResponse response) {
-                        String s = new String(response.data);
-                        LogUtils.DEBUG("Upload Pic Response : " + s);
-                        try {
-                            JSONObject obj = new JSONObject(new String(response.data));
-                            int status = obj.optInt("status");
-                            if (status == AppConstant.SUCCESS){
-                                if (imageType == IMG_BANNER_RESULT){
-                                    imgBanner.setImageBitmap(bitmapUpload);
-                                }else {
-                                    imgProfile.setImageBitmap(bitmapUpload);
-                                }
-                            }
-                            Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        loader.dismiss();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                        LogUtils.ERROR("Upload profile pic Error " + error);
-                        loader.dismiss();
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("user_email", Utils.getUserEmail(mContext));
-                LogUtils.DEBUG("user_email "+Utils.getUserEmail(mContext));
-                return params;
-            }
-
-
-            @Override
-            protected Map<String, DataPart> getByteData() {
-                Map<String, DataPart> params = new HashMap<>();
-                long imagename = System.currentTimeMillis();
-                params.put(finalUpload_type, new DataPart(imagename + ".png", BitmapUtils.getFileDataFromDrawable(bitmapUpload)));
-                LogUtils.DEBUG("image " + new DataPart(imagename + ".png", BitmapUtils.getFileDataFromDrawable(bitmapUpload)));
-                return params;
-            }
-
-        };
-        volleyMultipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        //adding the request to volley
-        Volley.newRequestQueue(this).add(volleyMultipartRequest);
-    }
-
     public void editBusinessClick(View view) {
        // startActivity(new Intent(this, MainActivity.class).putExtra("",""));
         getPresenter().showUpdateBizDialog();
     }
 
+    public void addDealsExpandCollapse(View view) {
+        LinearLayout lytAddDeals =  findViewById(R.id.lytAddDeals);
+        final LinearLayout lytADBg =  findViewById(R.id.lytADBg);
+        ImageView imgExpandAddDeals =  findViewById(R.id.imgExpandAddDeals);
+        imgBackground =  findViewById(R.id.imgBackground);
+
+        textUploadImgLable =  findViewById(R.id.textUploadImgLable);
+        editEnterDealsInfo =  findViewById(R.id.editEnterDealsInfo);
+        textDealsNOffers =  findViewById(R.id.textDealsNOffers);
+        btnSelectBgColor =  findViewById(R.id.btnSelectBgColor);
+        RelativeLayout rlyBG = findViewById(R.id.rlyAddDealsBG);
+
+        btnSelectBgColor.setOnClickListener(v -> getPresenter().showColorPickerDialog(rlyBG));
+
+
+        lytAddDeals.setVisibility(lytAddDeals.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+        imgExpandAddDeals.setBackground(lytAddDeals.getVisibility() == View.VISIBLE ? getResources().getDrawable(R.drawable.ic_expand_less) :
+                getResources().getDrawable(R.drawable.ic_expand_more));
+        
+        final Switch switchAddDealType = findViewById(R.id.switchAddDealType);
+        updateImageDealUI(lytADBg);
+        
+        switchAddDealType.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked){
+                switchAddDealType.setText(getString(R.string.imageVersion));
+                updateImageDealUI(lytADBg);
+            }else{
+
+                getPresenter().callDealBgApi();
+
+                switchAddDealType.setText(getString(R.string.textVersion));
+                updateTextDealUI(lytADBg);
+            }
+        });
+
+        editEnterDealsInfo.addTextChangedListener(new TextWatcher(){
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                textDealsNOffers.setVisibility(View.VISIBLE);
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String string = s+"";
+                textDealsNOffers.setText(string);
+            }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+    }
+
+    private void updateTextDealUI(LinearLayout lytADBg) {
+        lytADBg.setVisibility(View.VISIBLE);
+        imgBackground.setVisibility(View.VISIBLE);
+        textUploadImgLable.setVisibility(View.VISIBLE);
+        textUploadImgLable.setText(R.string.select_background_image_from_below);
+        imgBtnHotDeals.setVisibility(View.GONE);
+        //this will restart the activity.
+        //this.recreate();
+    }
+
+    private void updateBgRecyclerview() {
+        RecyclerView recyclerAddDealsBg =  findViewById(R.id.recyclerAddDealsBg);
+        DealBgRecylcerAdapter adapter = new DealBgRecylcerAdapter(mContext,dealsBgData, new OnBgImageClicked(){
+            @Override
+            public void onBgImageClicked(DealsBgData item) {
+                Picasso.get().load(item.getImageLink()).into(imgBackground);
+                textUploadImgLable.setText("");
+                textUploadImgLable.setVisibility(View.GONE);
+            }
+        });
+        recyclerAddDealsBg.setAdapter(adapter);
+
+        updateExistingDealsUI();
+    }
+
+    private void updateExistingDealsUI() {
+        RecyclerView recyclerYourDeals =  findViewById(R.id.recyclerYourDeals);
+        DealBgRecylcerAdapter adapter  = new DealBgRecylcerAdapter(mContext,dealsBgData,null);
+        recyclerYourDeals.setAdapter(adapter);
+    }
+
+    private void updateImageDealUI(LinearLayout lytADBg) {
+        textUploadImgLable.setText(R.string.upload_image);
+        lytADBg.setVisibility(View.GONE);
+        textUploadImgLable.setVisibility(View.VISIBLE);
+        imgBtnHotDeals.setVisibility(View.VISIBLE);
+        imgBackground.setVisibility(View.INVISIBLE);
+    }
+
 
     @IntDef({NONE, SCALE, ROTATE, ALL})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface GestureTypes {
+    public @interface GestureTypes { }
 
+
+    public interface OnBgImageClicked {
+        void onBgImageClicked(DealsBgData item);
     }
+
+
 }

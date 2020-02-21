@@ -1,1 +1,1 @@
-include ':app', ':imageslider', ':ecrop'
+include ':app', ':imageslider', ':ecrop', ':JavaTest'

@@ -62,7 +62,7 @@ public class ProfilePresenter extends BaseFragmentPresenter {
             e.printStackTrace();
             LogUtils.ERROR(e.getMessage());
         }
-        String url = AppConstant.URL_BASE + AppConstant.URL_DEALER_ADDRESS;
+        String url = AppConstant.URL_BASE ;//+ AppConstant.URL_DEALER_ADDRESS;
         LogUtils.DEBUG("URL : " + url + "\nRequest Body ::" + requestObject.toString());
         MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.POST, url, requestObject, new Response.Listener<JSONObject>() {
             @Override

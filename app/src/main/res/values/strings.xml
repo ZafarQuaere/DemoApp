@@ -98,7 +98,7 @@
     <string name="send_otp">Send OTP</string>
     <string name="add_business">Add Business</string>
     <string name="business_list">Business List</string>
-    <string name="establish_date">ESTD </string>
+    <string name="establish_year">Establishment year </string>
     <string name="view_business">View Business</string>
     <string name="basic_details">Basic Details</string>
     <string name="other_details">Other Details</string>
@@ -176,6 +176,7 @@
     <string name="key_user_profile_pic">key_user_profile_pic</string>
     <string name="follow_us_on_twitter">Follow us on Twitter</string>
     <string name="rate_us_playstore">Rate Us on Play Store</string>
+    <string name="password_criteria_msg">Password must contain 1 UpperCase,1 Lowercase, 1 digit and 1 special Character</string>
 
     <string name="share_app_content">eConnecto - A social media platform for your business.\nRegister and verify yourself and Add your Businness to connect with the local user.\nPost your hot deals, trends and offers with your followers easily.
         \nDownload the app here : </string>
@@ -262,4 +263,40 @@
     <string name="home">Home</string>
     <string name="search">Search</string>
     <string name="profile">Profile</string>
+    <string name="add_new_deal">Add New Deal</string>
+    <string name="imageVersion">Image Version</string>
+    <string name="textVersion">Text Version</string>
+    <string name="your_deals">Your Deals</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="enter_your_deals_and_offers">Enter your deals and offers here </string>
+    <string name="select_background_image_from_below">Select background image .</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="enter_category_of_your_business">Please enter the category of your business </string>
+    <string name="title_activity_add_business">AddBusinessActivity</string>
+    <string name="state">State</string>
+    <string name="city">City</string>
+    <string name="pincode">Pincode</string>
+    <string name="confirm">confirm</string>
+    <string name="title_activity_user_registration">Sign Up</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="other">Other</string>
+    <string name="enter_year_of_birth">Enter Year of Birth</string>
+    <string name="enter_valid_password">Password must be 8-20 characters</string>
+    <string name="enter_valid_year_of_birth">Enter valid year of Birth</string>
+    <string name="otp_is_sent_to_your_mobile_no_plz_enter_the_otp">An OTP is sent to your entered mobile number, Please enter the OTP to verify your phone number</string>
+    <string name="verify_mobile_no">Verify Phone</string>
+    <string name="resend_otp">Did not received OTP ?<b>Resend OTP</b></string>
+    <string name="key_access_token">key_access_token</string>
+    <string name="previous">Previous</string>
+    <string name="add_category"><b>*</b> Add Category</string>
+    <string name="address_details">Address Details</string>
 </resources>

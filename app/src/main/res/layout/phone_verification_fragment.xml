@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/phone_verification"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/_10dp"
+    android:orientation="vertical"
+    tools:context=".ui.fragments.user_register.PhoneVerificationFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="6dp"
+        android:layout_marginTop="@dimen/_20dp"
+        android:paddingHorizontal="@dimen/_20dp"
+        android:text="@string/otp_is_sent_to_your_mobile_no_plz_enter_the_otp"
+        android:textSize="@dimen/font_x_large_text"
+        android:textStyle="bold" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilOTP"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_15dp"
+        android:layout_marginTop="@dimen/_50dp"
+        android:hint="@string/enter_otp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editOTP"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50dp"
+            android:inputType="number"
+            android:maxLength="6" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilPhone"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_15dp"
+        android:layout_marginTop="@dimen/_10dp"
+        android:hint="@string/mobile_no">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editPhone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50dp"
+            android:inputType="number"
+            android:maxLength="10" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/txtVerifyPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_15dp"
+        android:layout_marginTop="@dimen/_30dp"
+        android:background="@drawable/rounded_background"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/_10dp"
+        android:text="@string/verify_mobile_no"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/font_large_text" />
+
+    <TextView
+        android:id="@+id/txtResendOTP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginBottom="@dimen/_20dp"
+        android:gravity="center_horizontal"
+        android:text="@string/resend_otp"
+        android:textColor="@color/colorPrimary" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_100dp" />
+
+</LinearLayout>

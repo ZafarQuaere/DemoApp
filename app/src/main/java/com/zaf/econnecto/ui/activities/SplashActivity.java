@@ -34,13 +34,15 @@ public class SplashActivity extends Activity {
             @Override
             public void run() {
                 progress.setVisibility(View.GONE);
-                if(mContext.getResources().getBoolean(R.bool.run_version2_ui)){
+               /* if(mContext.getResources().getBoolean(R.bool.run_version2_ui)){
                     Intent i = new Intent(SplashActivity.this, HomeActivity.class);
                     startActivity(i);
                 }else {
                     Intent i = new Intent(SplashActivity.this, MainActivity.class);
                     startActivity(i);
-                }
+                }*/
+                Intent i = new Intent(SplashActivity.this, AddBusinessActivity.class);
+                startActivity(i);
                 finish();
             }
         }, SPLASH_TIME_OUT);

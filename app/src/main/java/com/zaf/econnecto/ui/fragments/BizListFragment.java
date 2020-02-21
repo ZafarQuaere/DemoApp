@@ -100,6 +100,7 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
 
         layoutManager = new LinearLayoutManager(getActivity());
         recylcerProducts.setLayoutManager(layoutManager);
+
         recylcerProducts.setItemAnimator(new DefaultItemAnimator());
         emptyTextView = (TextView) view.findViewById(R.id.emptyTextView);
 
@@ -121,15 +122,12 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
         emptyTextView.setVisibility(data == null? View.VISIBLE:View.GONE);
         recylcerProducts.setVisibility(data == null? View.GONE:View.VISIBLE);
         if (data != null){
-            BizListRecyclerAdapter adapter = new BizListRecyclerAdapter(mContext,data, new OnListFragmentInteractionListener() {
-                @Override
-                public void onListFragmentInteraction(BizData item) {
-                    if (item != null) {
-                        Intent intent = new Intent(getActivity(),BizDetailsActivity.class);
-                        intent.putExtra(getString(R.string.key_biz_id), item.getBusinessUid());
-                        intent.putExtra(getString(R.string.is_following),item.getIsFollowing()==1);
-                        startActivity(intent);
-                    }
+            BizListRecyclerAdapter adapter = new BizListRecyclerAdapter(mContext,data, item -> {
+                if (item != null) {
+                    Intent intent = new Intent(getActivity(),BizDetailsActivity.class);
+                    intent.putExtra(getString(R.string.key_biz_id), item.getBusinessUid());
+                    intent.putExtra(getString(R.string.is_following),item.getIsFollowing()==1);
+                    startActivity(intent);
                 }
             });
             adapter.notifyDataSetChanged();

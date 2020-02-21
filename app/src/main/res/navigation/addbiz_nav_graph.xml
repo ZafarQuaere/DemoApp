@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_nav_graph"
+    app:startDestination="@id/screen1">
+
+    <fragment
+        android:id="@+id/screen1"
+        android:name="com.zaf.econnecto.ui.fragments.add_business.AddBizScreen1Fragment"
+        android:label="Screen1 Fragment"
+        tools:layout="@layout/add_biz_screen1_fragemnt">
+
+        <action
+            android:id="@+id/action_screen1_to_screen2"
+            app:destination="@id/screen2"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/screen2"
+        android:name="com.zaf.econnecto.ui.fragments.add_business.AddBizScreen2Fragment"
+        android:label="BusinessDetails"
+        tools:layout="@layout/add_biz_screen2_fragment">
+        <action
+            android:id="@+id/action_screen2_to_screen3"
+            app:destination="@id/screen3"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="categoryId"
+            app:argType="string"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/screen3"
+        android:name="com.zaf.econnecto.ui.fragments.add_business.AddBizScreen3Fragment"
+        android:label="Personal Info"
+        tools:layout="@layout/add_biz_screen3_fragment">
+
+     <argument
+            android:name="bizInfo"
+            app:argType="com.zaf.econnecto.ui.fragments.add_business.AddBizModel"/>
+
+    </fragment>
+
+</navigation>
