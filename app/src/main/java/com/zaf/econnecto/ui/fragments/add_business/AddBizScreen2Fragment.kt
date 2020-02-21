@@ -1,16 +1,17 @@
 package com.zaf.econnecto.ui.fragments.add_business
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
-
 import com.zaf.econnecto.R
 import com.zaf.econnecto.utils.LogUtils
 import kotlinx.android.synthetic.main.add_biz_screen2_fragment.*
@@ -30,7 +31,7 @@ class AddBizScreen2Fragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        LogUtils.showErrorDialog(activity,"Ok",args.categoryId)
+      //  LogUtils.showErrorDialog(activity,"Ok",args.categoryId)
 
     }
 
@@ -51,12 +52,32 @@ class AddBizScreen2Fragment : Fragment() {
             navController!!.navigate(R.id.action_screen2_to_screen3,bundle)
         }
 
+      /*  btnPrevious.setOnClickListener {
+             val callback: OnBackPressedCallback = object : OnBackPressedCallback(viewLifecycleOwner ) {
+                override fun handleOnBackPressed() { // Handle the back button event
+                    isEnabled = false
+                }
+            }*/
+         /*   requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+                // handle back event
+               // isEnabled = true
+            }*/
+           // requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+
+          //  navController = Navigation.findNavController(view)
+
+
+      //  }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AddBizScreen2ViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel.updatePinCodeData(activity,editPinCode)
+
     }
 
+
 }
+
+

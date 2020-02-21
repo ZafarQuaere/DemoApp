@@ -109,7 +109,7 @@ public class BizDetailsActivity extends BaseActivity<BizDetailPresenter> impleme
         textShortDescription.setText(mBizDetailsData.getShortDescription().trim());
         bizNameTitle.setText(mBizDetailsData.getBusinessName().trim());
         bizDetailDescription.setText(mBizDetailsData.getDetailedDescription().trim());
-        textEstablishedDate.setText(mContext.getString(R.string.establish_date) + ": " + mBizDetailsData.getYearFounded());
+        textEstablishedDate.setText(mContext.getString(R.string.establish_year) + ": " + mBizDetailsData.getYearFounded());
         textFollowers.setText(mBizDetailsData.getFollowersCount() + " " + mContext.getString(R.string.followers));
         textAddress.setText(mBizDetailsData.getAddress());
         textPhone.setText(mBizDetailsData.getPhone1());

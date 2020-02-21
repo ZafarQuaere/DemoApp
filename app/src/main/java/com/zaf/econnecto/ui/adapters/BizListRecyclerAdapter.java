@@ -55,7 +55,7 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getBusinessName());
-        holder.textEstd.setText(mContext.getString(R.string.establish_date) + ": " + mValues.get(position).getYearFounded());
+        holder.textEstd.setText(mContext.getString(R.string.establish_year) + ": " + mValues.get(position).getYearFounded());
         holder.textFollowers.setText(mValues.get(position).getFollowersCount() + " " + mContext.getString(R.string.followers));
         //TODO default following ui updates have to do.
         if (mValues.get(position).getIsFollowing() == AppConstant.FOLLOWING) {

@@ -2,7 +2,7 @@ package com.zaf.econnecto.network_call.response_model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import com.zaf.econnecto.network_call.response_model.product_list.RegisterData
+//import com.zaf.econnecto.network_call.response_model.product_list.RegisterData
 
 
 class UserRegisterResponse {

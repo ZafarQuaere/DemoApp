@@ -98,7 +98,7 @@
     <string name="send_otp">Send OTP</string>
     <string name="add_business">Add Business</string>
     <string name="business_list">Business List</string>
-    <string name="establish_date">ESTD </string>
+    <string name="establish_year">Establishment year </string>
     <string name="view_business">View Business</string>
     <string name="basic_details">Basic Details</string>
     <string name="other_details">Other Details</string>
@@ -296,4 +296,7 @@
     <string name="verify_mobile_no">Verify Phone</string>
     <string name="resend_otp">Did not received OTP ?<b>Resend OTP</b></string>
     <string name="key_access_token">key_access_token</string>
+    <string name="previous">Previous</string>
+    <string name="add_category"><b>*</b> Add Category</string>
+    <string name="address_details">Address Details</string>
 </resources>

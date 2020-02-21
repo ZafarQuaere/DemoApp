@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -14,9 +15,9 @@ import com.zaf.econnecto.network_call.response_model.biz_list.BizData
 import com.zaf.econnecto.network_call.response_model.biz_list.BizListData
 import com.zaf.econnecto.service.BusinessListService
 import com.zaf.econnecto.service.ServiceBuilder
+import com.zaf.econnecto.ui.interfaces.DialogButtonClick
 import com.zaf.econnecto.utils.LogUtils
 import kotlinx.android.synthetic.main.add_biz_screen1_fragemnt.*
-import kotlinx.android.synthetic.main.fragment_help_n_about.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -51,7 +52,32 @@ class AddBizScreen1Fragment : Fragment() {
             }
         }
 
+        textAddCategory.setOnClickListener {
+
+            viewModel.openBottomSheetDialog(activity, object: DialogButtonClick{
+                override fun onCancelClick() {
+                   LogUtils.showToast(activity,"Cancel Click")
+                }
+
+                override fun onOkClick() {
+                    LogUtils.showToast(activity,"Ok Click")
+                }
+
+            })
+        }
+
     }
+
+   /* override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // This callback will only be called when MyFragment is at least Started.
+        // This callback will only be called when MyFragment is at least Started.
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true *//* enabled by default *//*) {
+            override fun handleOnBackPressed() { // Handle the back button event
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }*/
 
     private fun callApi(email: String) {
         //TODO("Have to implement this api call in viewmodel calls")
@@ -68,7 +94,7 @@ class AddBizScreen1Fragment : Fragment() {
                         val data : MutableList<BizData>? = body!!.data
 
                     }else{
-                        LogUtils.showToast(activity,"toast")
+                       // LogUtils.showToast(activity,"toast")
                     }
 
             override fun onFailure(call: Call<BizListData>, t: Throwable) {
@@ -84,8 +110,6 @@ class AddBizScreen1Fragment : Fragment() {
         // TODO: Use the ViewModel
 
     }
-
-
 }
 
 

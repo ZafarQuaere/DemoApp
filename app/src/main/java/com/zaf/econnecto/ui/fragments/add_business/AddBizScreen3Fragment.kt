@@ -1,34 +1,33 @@
 package com.zaf.econnecto.ui.fragments.add_business
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.navigation.NavArgs
-import androidx.navigation.NavArgsLazy
-import androidx.navigation.fragment.navArgs
-
+import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.zaf.econnecto.R
 import com.zaf.econnecto.ui.fragments.add_business.AddBizScreen3FragmentArgs.fromBundle
-import com.zaf.econnecto.utils.LogUtils
-import kotlin.reflect.KProperty
+import kotlinx.android.synthetic.main.add_biz_screen3_fragment.*
 
 class AddBizScreen3Fragment : Fragment() {
 
-    val bizInfo  by lazy {
-         fromBundle(arguments!!).bizInfo
+    private lateinit var navController: NavController
+    val bizInfo by lazy {
+        fromBundle(arguments!!).bizInfo
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val mydata = bizInfo
-        LogUtils.showErrorDialog(activity,"Ok","${mydata.email} ${mydata.name} ${mydata.age}")
-
+        // LogUtils.showErrorDialog(activity,"Ok","${mydata.email} ${mydata.name} ${mydata.age}")
 
 
     }
+
     companion object {
         fun newInstance() = AddBizScreen3Fragment()
     }
@@ -42,8 +41,19 @@ class AddBizScreen3Fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<Button>(R.id.btnSubmitAddBiz).setOnClickListener { activity?.finish() }
+        btnSubmitAddBiz.setOnClickListener { activity?.finish() }
+        navController = Navigation.findNavController(view)
+        btnPrevious.setOnClickListener {
+            requireActivity().onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    navController.popBackStack(R.id.screen3, true)
+                }
+
+            })
+
+        }
     }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AddBizScreen3ViewModel::class.java)
