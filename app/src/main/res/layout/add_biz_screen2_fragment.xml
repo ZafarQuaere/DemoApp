@@ -29,6 +29,32 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/address_line1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp"
+                android:hint="@string/address_line2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp"
                 android:hint="@string/pincode">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -36,24 +62,39 @@
                     android:inputType="number"
                     android:maxLength="6"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="@dimen/_50dp"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/textLocalityLabel"
                 android:layout_marginTop="@dimen/_10dp"
+                android:layout_width="wrap_content"
+                android:paddingLeft="@dimen/_5dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/font_small_header"
+                android:text="@string/locality"/>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/lytLocalitySpin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/business_name">
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/button_transparent_bg">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/teditFirst"
+                <Spinner
+                    android:id="@+id/spinnerLocality"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="@dimen/_50dp"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:gravity="right"
+                    android:visibility="visible" />
+            </LinearLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -61,25 +102,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
-                android:hint="@string/address">
+                android:hint="@string/city">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editCity"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10dp"
-                android:hint="@string/enter_address">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="@dimen/_50dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,8 +120,9 @@
                 android:hint="@string/state">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editState"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="@dimen/_50dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -103,11 +132,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
-                android:hint="@string/city">
+                android:hint="@string/country">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editCountry"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="@dimen/_50dp"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 

@@ -8,23 +8,28 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.google.android.material.textfield.TextInputEditText
 import com.zaf.econnecto.network_call.MyJsonObjectRequest
+import com.zaf.econnecto.network_call.response_model.add_biz.PinCodeResponse
+import com.zaf.econnecto.network_call.response_model.login.LoginData
+import com.zaf.econnecto.ui.interfaces.PinCodeDataListener
 import com.zaf.econnecto.utils.AppConstant
 import com.zaf.econnecto.utils.AppController
 import com.zaf.econnecto.utils.AppDialogLoader
 import com.zaf.econnecto.utils.LogUtils
+import com.zaf.econnecto.utils.parser.ParseManager
 
 class AddBizScreen2ViewModel : ViewModel() {
 
+     lateinit var pinCodeDataListener : PinCodeDataListener
 
-    fun updatePinCodeData(activity: Activity?, editPinCode: TextInputEditText?) {
+    fun updatePinCodeData(activity: Activity?, editPinCode: TextInputEditText?, dataListener: PinCodeDataListener) {
 
+       pinCodeDataListener = dataListener
         editPinCode!!.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (s.toString().length == 6) {
                     LogUtils.showToast(activity, s.toString())
                     callPinCodeApi(activity, s.toString())
                 }
-
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -40,17 +45,16 @@ class AddBizScreen2ViewModel : ViewModel() {
         val objectRequest = MyJsonObjectRequest(activity, Request.Method.GET, url, null, Response.Listener { response ->
             LogUtils.DEBUG("PinCode Response ::$response")
             val status = response.optInt("status")
-
             when (status) {
                 200 -> {
-                    LogUtils.showToast(activity, "List is fetched successfully")
-                    //update ui from here
+                    var responseData  = ParseManager.getInstance().fromJSON(response.toString(),PinCodeResponse::class.java)
+                    pinCodeDataListener.onDataFetched(responseData)
                     // mProductFrag.updateList(data.getData())
                 }
 
                 else -> {
                     //update UI with null
-                    // mProductFrag.updateList(null)
+                   // pinCodeDataListener.onDataFetched(null)
                 }
 
             }

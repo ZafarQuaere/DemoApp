@@ -155,7 +155,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     @SuppressLint("RestrictedApi")
     public void addBusinessClick(View view) {
-        if (Utils.isLoggedIn(mContext)) {
+        /*if (Utils.isLoggedIn(mContext)) {
             if (Utils.isEmailVerified(mContext)) {
                // getPresenter().moveToFragment(AddBusinessFragment.class.getSimpleName());
                 startActivity(new Intent(mContext,AddBusinessActivity.class));
@@ -180,12 +180,12 @@ public class MainActivity extends BaseActivity<MainPresenter>
                         public void onOkClick() {
                             mContext.startActivity(new Intent(mContext, LoginActivity.class));
                         }
-
                         @Override
-                        public void onCancelClick() {
-                        }
+                        public void onCancelClick() { }
                     });
-        }
+        }*/
+
+        startActivity(new Intent(mContext,AddBusinessActivity.class));
         closeDrawer();
     }
 

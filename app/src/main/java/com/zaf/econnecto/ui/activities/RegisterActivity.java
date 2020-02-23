@@ -79,7 +79,6 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         addAgeGroupItem();
         ageGroupRecyclerAdapter = new AgeGroupRecyclerAdapter(mContext, ages);
         ageGroupRecyclerAdapter.setListener(this);
-
         ageScrollView.setAdapter(ageGroupRecyclerAdapter);
 
 

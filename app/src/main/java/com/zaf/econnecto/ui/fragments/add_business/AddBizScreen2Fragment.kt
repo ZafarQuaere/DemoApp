@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
-import androidx.activity.addCallback
+import android.widget.ArrayAdapter
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -13,7 +12,8 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.zaf.econnecto.R
-import com.zaf.econnecto.utils.LogUtils
+import com.zaf.econnecto.network_call.response_model.add_biz.PinCodeResponse
+import com.zaf.econnecto.ui.interfaces.PinCodeDataListener
 import kotlinx.android.synthetic.main.add_biz_screen2_fragment.*
 
 class AddBizScreen2Fragment : Fragment() {
@@ -73,10 +73,29 @@ class AddBizScreen2Fragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AddBizScreen2ViewModel::class.java)
-        viewModel.updatePinCodeData(activity,editPinCode)
+        viewModel.updatePinCodeData(activity,editPinCode,object: PinCodeDataListener{
+            override fun onDataFetched(pincodeData: PinCodeResponse) {
+                val data = pincodeData.getData()
+                if (data != null){
+                    textLocalityLabel.visibility = View.VISIBLE
+                    lytLocalitySpin.visibility = View.VISIBLE
+
+                    editCity.setText(pincodeData.getData()!![0]!!.getDistrict())
+                    editState.setText(pincodeData.getData()!![0]!!.getStateName())
+                    editCountry.setText(getString(R.string.india))
+                    val localityArray = arrayOfNulls<String>(data!!.size)
+                    for (i in data.indices) {
+                        localityArray[i] = data[i]!!.getOfficeName().toString()
+                    }
+
+                    val localityAdapter: ArrayAdapter<String> = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, localityArray)
+                    localityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    spinnerLocality.adapter = localityAdapter
+                }
+            }
+        })
 
     }
-
 
 }
 

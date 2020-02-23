@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -13,6 +12,7 @@ import androidx.navigation.Navigation
 import com.zaf.econnecto.R
 import com.zaf.econnecto.network_call.response_model.biz_list.BizData
 import com.zaf.econnecto.network_call.response_model.biz_list.BizListData
+import com.zaf.econnecto.network_call.response_model.home.CategoryData
 import com.zaf.econnecto.service.BusinessListService
 import com.zaf.econnecto.service.ServiceBuilder
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick
@@ -54,7 +54,9 @@ class AddBizScreen1Fragment : Fragment() {
 
         textAddCategory.setOnClickListener {
 
-            viewModel.openBottomSheetDialog(activity, object: DialogButtonClick{
+            val categoryArray = resources.getStringArray(R.array.biz_category)
+
+            viewModel.openBottomSheetDialog(activity,categoryArray, object: DialogButtonClick{
                 override fun onCancelClick() {
                    LogUtils.showToast(activity,"Cancel Click")
                 }
@@ -109,6 +111,10 @@ class AddBizScreen1Fragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(AddBizScreen1ViewModel::class.java)
         // TODO: Use the ViewModel
 
+    }
+
+    interface OnCategoryItemClickListener {
+        fun onCategoryItemClick(item: String?)
     }
 }
 
