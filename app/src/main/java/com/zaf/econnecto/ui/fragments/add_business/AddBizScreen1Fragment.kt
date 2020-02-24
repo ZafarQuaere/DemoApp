@@ -18,6 +18,7 @@ import com.zaf.econnecto.service.ServiceBuilder
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick
 import com.zaf.econnecto.utils.LogUtils
 import kotlinx.android.synthetic.main.add_biz_screen1_fragemnt.*
+import kotlinx.android.synthetic.main.fragment_help_n_about.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -46,7 +47,7 @@ class AddBizScreen1Fragment : Fragment() {
             if (editCategory.text.toString().trim().isEmpty()){
                 LogUtils.showErrorDialog(activity,getString(R.string.ok),getString(R.string.please_select_business_category))
             }else{
-                callApi("zafima20@gmail.com")
+               // callApi("zafima20@gmail.com")
                 var bundle = bundleOf("categoryId" to editCategory.text.toString().trim())
                 navController!!.navigate(R.id.action_screen1_to_screen2,bundle)
             }
@@ -63,6 +64,16 @@ class AddBizScreen1Fragment : Fragment() {
 
                 override fun onOkClick() {
                     LogUtils.showToast(activity,"Ok Click")
+                }
+
+            },object:OnCategoryItemClickListener{
+                override fun onCategoryItemClick(item: String?) {
+                    if (item != null){
+                        tilCategory1.visibility = View.VISIBLE
+                        editCategory1.setText(item)
+                        textAddCategory.text = "Add More Category"
+                    }
+                    LogUtils.showToast(activity,"Selected Item $item")
                 }
 
             })
@@ -109,7 +120,6 @@ class AddBizScreen1Fragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AddBizScreen1ViewModel::class.java)
-        // TODO: Use the ViewModel
 
     }
 
