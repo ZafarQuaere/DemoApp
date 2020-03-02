@@ -18,7 +18,7 @@ import com.zaf.econnecto.ui.interfaces.DialogButtonClick
 
 class AddBizScreen1ViewModel : ViewModel() {
 
-    fun openBottomSheetDialog(activity: Activity?, categoryArray: Array<String>?, dialogBtn: DialogButtonClick, categoryItemClick: OnCategoryItemClickListener) {
+    fun openBottomSheetDialog(activity: Activity?, categoryArray: Array<String>?, categoryItemClick: OnCategoryItemClickListener) {
         val view: View = (activity)!!.layoutInflater.inflate(R.layout.layout_bottom_sheet, null)
         val dialog = BottomSheetDialog(activity)
         dialog.setContentView(view)
@@ -46,14 +46,14 @@ class AddBizScreen1ViewModel : ViewModel() {
 
         })
 
-        view.findViewById<TextView>(R.id.textOk).setOnClickListener {
+        /*view.findViewById<TextView>(R.id.textOk).setOnClickListener {
             dialogBtn.onOkClick()
             dialog.dismiss()
         }
         view.findViewById<TextView>(R.id.textCancel).setOnClickListener {
             dialogBtn.onCancelClick()
             dialog.dismiss()
-        }
+        }*/
         dialog.show()
     }
 
@@ -61,16 +61,16 @@ class AddBizScreen1ViewModel : ViewModel() {
         val catList = mutableListOf<String>()
         // val catList = listOfNotNull(String)
         for (i in categoryList.indices) {
-            if (item.toLowerCase().trim().contains(categoryList.get(i))) {
+            if (item.toLowerCase().trim().contains(categoryList[i])) {
                 val add = catList.add(categoryList.get(i))
             }
         }
         //categoryRecycler.notifyDataSetChanged()
     }
 
-      /* for (cat String : categoryList){
-            if (bizData.getBusinessName().toLowerCase().trim().contains(bizName.toLowerCase())){
-                filterData.add(bizData);
-            }
-    }*/
+  /* for (cat String : categoryList){
+          if (bizData.getBusinessName().toLowerCase().trim().contains(bizName.toLowerCase())){
+              filterData.add(bizData);
+          }
+  }*/
 }

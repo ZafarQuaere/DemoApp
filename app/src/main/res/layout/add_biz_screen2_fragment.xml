@@ -32,6 +32,7 @@
                 android:hint="@string/address_line1">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editAddress1"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50dp" />
 
@@ -45,6 +46,21 @@
                 android:hint="@string/address_line2">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editAddress2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp"
+                android:hint="@string/landmark">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editLandMark"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50dp" />
 
@@ -59,32 +75,31 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editPinCode"
-                    android:inputType="number"
-                    android:maxLength="6"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50dp"/>
+                    android:layout_height="@dimen/_50dp"
+                    android:inputType="number"
+                    android:maxLength="6" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
 
-
             <TextView
-                android:visibility="gone"
                 android:id="@+id/textLocalityLabel"
-                android:layout_marginTop="@dimen/_10dp"
                 android:layout_width="wrap_content"
-                android:paddingLeft="@dimen/_5dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp"
+                android:paddingLeft="@dimen/_5dp"
+                android:text="@string/locality"
                 android:textSize="@dimen/font_small_header"
-                android:text="@string/locality"/>
+                android:visibility="gone" />
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/lytLocalitySpin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/button_transparent_bg">
+                android:background="@drawable/button_transparent_bg"
+                android:visibility="gone">
 
                 <Spinner
                     android:id="@+id/spinnerLocality"
@@ -137,7 +152,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editCountry"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50dp"/>
+                    android:layout_height="@dimen/_50dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -163,7 +178,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:padding="@dimen/_10dp"
-                    android:text="Next"
+                    android:text="@string/next"
                     android:textAllCaps="false" />
             </RelativeLayout>
         </LinearLayout>

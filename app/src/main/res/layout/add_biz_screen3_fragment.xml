@@ -64,7 +64,7 @@
                 android:hint="@string/telephone_with_code">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editPhone"
+                    android:id="@+id/editTelephone"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50dp"
                     android:inputType="number"
@@ -72,22 +72,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10dp"
-                android:hint="@string/tollfree_no">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTollFree"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50dp"
-                    android:inputType="number"
-                    android:maxLength="12" />
-
-            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilEmail"
@@ -99,23 +83,6 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50dp"
-                    android:inputType="textWebEmailAddress"
-                    android:maxLength="25" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilAlternateEmail"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10dp"
-                android:hint="@string/alternate_email">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editAlternateEmail"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50dp"
                     android:inputType="textWebEmailAddress"

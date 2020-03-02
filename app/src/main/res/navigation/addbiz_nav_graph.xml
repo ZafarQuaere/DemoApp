@@ -34,8 +34,8 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <argument
-            android:name="categoryId"
-            app:argType="string"/>
+            android:name="bizDetail"
+            app:argType="com.zaf.econnecto.ui.fragments.add_business.BizDetailData" />
     </fragment>
 
     <fragment
@@ -44,9 +44,9 @@
         android:label="Personal Info"
         tools:layout="@layout/add_biz_screen3_fragment">
 
-     <argument
-            android:name="bizInfo"
-            app:argType="com.zaf.econnecto.ui.fragments.add_business.AddBizModel"/>
+        <argument
+            android:name="addressInfo"
+            app:argType="com.zaf.econnecto.ui.fragments.add_business.AddressInfo" />
 
     </fragment>
 

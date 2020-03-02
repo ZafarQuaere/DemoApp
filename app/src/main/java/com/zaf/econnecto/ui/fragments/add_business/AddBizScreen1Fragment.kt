@@ -12,13 +12,10 @@ import androidx.navigation.Navigation
 import com.zaf.econnecto.R
 import com.zaf.econnecto.network_call.response_model.biz_list.BizData
 import com.zaf.econnecto.network_call.response_model.biz_list.BizListData
-import com.zaf.econnecto.network_call.response_model.home.CategoryData
 import com.zaf.econnecto.service.BusinessListService
 import com.zaf.econnecto.service.ServiceBuilder
-import com.zaf.econnecto.ui.interfaces.DialogButtonClick
 import com.zaf.econnecto.utils.LogUtils
 import kotlinx.android.synthetic.main.add_biz_screen1_fragemnt.*
-import kotlinx.android.synthetic.main.fragment_help_n_about.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,7 +23,6 @@ import retrofit2.Response
 class AddBizScreen1Fragment : Fragment() {
 
     lateinit var navController: NavController
-
 
     companion object {
         fun newInstance() = AddBizScreen1Fragment()
@@ -43,49 +39,79 @@ class AddBizScreen1Fragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         navController = Navigation.findNavController(view)
+
         btnNext.setOnClickListener {
-            if (editCategory.text.toString().trim().isEmpty()){
-                LogUtils.showErrorDialog(activity,getString(R.string.ok),getString(R.string.please_select_business_category))
-            }else{
-               // callApi("zafima20@gmail.com")
-                var bundle = bundleOf("categoryId" to editCategory.text.toString().trim())
-                navController!!.navigate(R.id.action_screen1_to_screen2,bundle)
+            val bizName : String = editBizName.text.toString().trim()
+            val estdYear : String = editEstdYear.text.toString().trim()
+            val category1 : String = editCategory1.text.toString().trim()
+            val category2 : String = editCategory2.text.toString().trim()
+            val category3 : String = editCategory3.text.toString().trim()
+
+            when {
+                bizName.isNullOrEmpty() -> {
+                    LogUtils.showErrorDialog(activity, getString(R.string.ok), getString(R.string.enter_valid_business_name))
+                }
+                bizName.length < 3 -> {
+                    LogUtils.showErrorDialog(activity, getString(R.string.ok), getString(R.string.enter_valid_business_name))
+                }
+                category1.isNullOrEmpty() -> {
+                    LogUtils.showErrorDialog(activity, getString(R.string.ok), getString(R.string.select_atleast_one_category_plz_click_on_add_category_text))
+                }
+                else -> {
+                    val bizDetailData = BizDetailData(bizName, Integer.parseInt(estdYear), category1, category2, category3)
+                    var bundle = bundleOf("bizDetail" to bizDetailData)
+                    navController.navigate(R.id.action_screen1_to_screen2, bundle)
+                }
             }
         }
 
         textAddCategory.setOnClickListener {
-
             val categoryArray = resources.getStringArray(R.array.biz_category)
-
-            viewModel.openBottomSheetDialog(activity,categoryArray, object: DialogButtonClick{
-                override fun onCancelClick() {
-                   LogUtils.showToast(activity,"Cancel Click")
-                }
-
-                override fun onOkClick() {
-                    LogUtils.showToast(activity,"Ok Click")
-                }
-
-            },object:OnCategoryItemClickListener{
+            viewModel.openBottomSheetDialog(activity, categoryArray, object : OnCategoryItemClickListener {
                 override fun onCategoryItemClick(item: String?) {
-                    if (item != null){
-                        tilCategory1.visibility = View.VISIBLE
-                        editCategory1.setText(item)
-                        textAddCategory.text = "Add More Category"
+                    if (item != null) {
+                        updateCategoryUI(item)
                     }
-                    LogUtils.showToast(activity,"Selected Item $item")
                 }
-
             })
         }
-
     }
 
-   /* override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // This callback will only be called when MyFragment is at least Started.
-        // This callback will only be called when MyFragment is at least Started.
-        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true *//* enabled by default *//*) {
+    private fun updateCategoryUI(item: String) {
+        when {
+            editCategory1.text.toString().isNullOrEmpty() -> {
+                tilCategory1.visibility = View.VISIBLE
+                editCategory1.setText(item)
+                textAddCategory.text = activity!!.getString(R.string.add_more_category)
+            }
+            editCategory2.text.toString().isNullOrEmpty() -> {
+                tilCategory2.visibility = View.VISIBLE
+                editCategory2.setText(item)
+                if (editCategory2.text.toString().trim() == editCategory1.text.toString().trim()) {
+                    LogUtils.showToast(activity, "Select different category")
+                    editCategory2.setText("")
+                    tilCategory2.visibility = View.GONE
+                }
+            }
+            editCategory3.text.toString().isNullOrEmpty() -> {
+                tilCategory3.visibility = View.VISIBLE
+                editCategory3.setText(item)
+                if (editCategory3.text.toString().trim() == editCategory2.text.toString().trim() || editCategory3.text.toString().trim() == editCategory1.text.toString().trim()) {
+                    LogUtils.showToast(activity, "Select different category")
+                    editCategory3.setText("")
+                    tilCategory3.visibility = View.GONE
+                } else {
+                    textAddCategory.visibility = View.GONE
+                }
+            }
+        }
+    }
+
+    /* override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         // This callback will only be called when MyFragment is at least Started.
+         // This callback will only be called when MyFragment is at least Started.
+         val callback: OnBackPressedCallback = object : OnBackPressedCallback(true *//* enabled by default *//*) {
             override fun handleOnBackPressed() { // Handle the back button event
             }
         }
@@ -98,16 +124,16 @@ class AddBizScreen1Fragment : Fragment() {
 
         val requestCall = bizListServie.getBusinessList(email)
 
-        requestCall.enqueue(object: Callback<BizListData> {
+        requestCall.enqueue(object : Callback<BizListData> {
 
             override fun onResponse(call: Call<BizListData>, response: Response<BizListData>) =
-                    if (response.isSuccessful){
-                        LogUtils.DEBUG("Response : "+response.body())
+                    if (response.isSuccessful) {
+                        LogUtils.DEBUG("Response : " + response.body())
                         val body: BizListData? = response.body()
-                        val data : MutableList<BizData>? = body!!.data
+                        val data: MutableList<BizData>? = body!!.data
 
-                    }else{
-                       // LogUtils.showToast(activity,"toast")
+                    } else {
+                        // LogUtils.showToast(activity,"toast")
                     }
 
             override fun onFailure(call: Call<BizListData>, t: Throwable) {

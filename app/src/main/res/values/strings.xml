@@ -23,8 +23,8 @@
     <string name="login_label">Login</string>
     <string name="password">Password</string>
     <string name="forgot_pswd">Forgot Password</string>
-    <string name="mobile_no">Mobile No.</string>
-    <string name="email_id">Email ID</string>
+    <string name="mobile_no">Mobile No*</string>
+    <string name="email_id">Email ID*</string>
     <string name="confirm_pswd">Confirm Password</string>
     <string name="error_network_unavailable"><!--Oh no!--> No internet found,Check your connection and Try again.</string>
     <string name="please_enter_username">Please enter  username</string>
@@ -107,8 +107,8 @@
     <string name="no_business_available">No Business Available as of now.</string>
     <string name="do_you_want_to_unfollow">Do you want really want to Unfollow </string>
     <string name="business_dialog">Business Dialog (very short description)</string>
-    <string name="business_name">Business Name</string>
-    <string name="category">Category</string>
+    <string name="business_name">Business Name*</string>
+    <string name="category">Category*</string>
     <string name="detailed_business_description">Detailed Business Description</string>
     <string name="year_founded">Foundation year</string>
     <string name="awards_n_achievement">Awards and Achievements</string>
@@ -277,7 +277,7 @@
     <string name="title_activity_add_business">AddBusinessActivity</string>
     <string name="state">State</string>
     <string name="city">City</string>
-    <string name="pincode">Pincode</string>
+    <string name="pincode">Pincode*</string>
     <string name="confirm">confirm</string>
     <string name="title_activity_user_registration">Sign Up</string>
     <string name="prompt_email">Email</string>
@@ -308,6 +308,16 @@
     <string name="tollfree_no">Tollfree No.</string>
     <string name="alternate_email">Alternate Email</string>
     <string name="locality">Locality</string>
-    <string name="address_line1">Address Line 1</string>
+    <string name="address_line1">Address Line 1*</string>
     <string name="address_line2">Address Line 2</string>
+    <string name="add_more_category">Add More Category</string>
+    <string name="enter_valid_business_name">Enter Valid Business Name</string>
+    <string name="select_atleast_one_category_plz_click_on_add_category_text">You must add at-least one category of your business\n Please click on Add Category text</string>
+    <string name="please_enter_year_of_establishment_of_your_business">Please enter your business starting year</string>
+    <string name="key_biz_detail_data">key_biz_detail_data</string>
+    <string name="landmark">Landmark</string>
+    <string name="please_enter_locality">Please enter locality</string>
+    <string name="please_enter_country">Please enter country name</string>
+    <string name="category3">Category3</string>
+    <string name="category2">Category2</string>
 </resources>

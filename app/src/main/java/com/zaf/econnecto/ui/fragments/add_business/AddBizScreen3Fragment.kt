@@ -9,23 +9,21 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import com.zaf.econnecto.R
-import com.zaf.econnecto.ui.fragments.add_business.AddBizScreen3FragmentArgs.fromBundle
+import com.zaf.econnecto.utils.LogUtils
 import kotlinx.android.synthetic.main.add_biz_screen3_fragment.*
 
 class AddBizScreen3Fragment : Fragment() {
 
     private lateinit var navController: NavController
-    val bizInfo by lazy {
-        fromBundle(arguments!!).bizInfo
-    }
+    private val addressInfo: AddBizScreen3FragmentArgs by navArgs()
+    lateinit var screen12Data: AddressInfo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val mydata = bizInfo
-        // LogUtils.showErrorDialog(activity,"Ok","${mydata.email} ${mydata.name} ${mydata.age}")
-
-
+        screen12Data = addressInfo.addressInfo
+        LogUtils.showErrorDialog(activity, "Ok", "${addressInfo.addressInfo.category1}, ${addressInfo.addressInfo.estdYear},${addressInfo.addressInfo.address1} ,${addressInfo.addressInfo.pincode}")
     }
 
     companion object {
@@ -41,23 +39,44 @@ class AddBizScreen3Fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btnSubmitAddBiz.setOnClickListener { activity?.finish() }
+        btnSubmitAddBiz.setOnClickListener {
+            validateInput()
+        }
         navController = Navigation.findNavController(view)
         btnPrevious.setOnClickListener {
             requireActivity().onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     navController.popBackStack(R.id.screen3, true)
                 }
-
             })
-
         }
+    }
+
+    private fun validateInput() {
+        var mobileNo = editMobile.text.toString().trim()
+        var emailId = editEmail.text.toString().trim()
+        var alternateMobile = editAlternateMobile.text.toString().trim()
+        var telephone = editTelephone.text.toString().trim()
+        var website = editBizWebsite.text.toString().trim()
+        when {
+            mobileNo.isNullOrEmpty() -> {
+                LogUtils.showErrorDialog(activity, activity?.getString(R.string.ok), activity?.getString(R.string.enter_mobile_no))
+            }
+            emailId.isNullOrEmpty() -> {
+                LogUtils.showErrorDialog(activity, activity?.getString(R.string.ok), activity?.getString(R.string.enter_mobile_no))
+            }
+            else -> {
+                //Call Api
+                viewModel.callAddBizApi(activity, screen12Data, mobileNo, emailId, alternateMobile, telephone, website)
+            }
+        }
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AddBizScreen3ViewModel::class.java)
-        // TODO: Use the ViewModel
+
     }
 
 }
