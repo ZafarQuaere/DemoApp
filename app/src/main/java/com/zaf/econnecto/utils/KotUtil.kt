@@ -9,6 +9,7 @@ import java.util.*
 class KotUtil {
 
     private val PASSWORD_PATTERN = "((?=.*[a-z])(?=.*\\d)(?=.*[A-Z])(?=.*[@#$%!]).{8,40})"
+
     companion object {
         // Extension function to replace fragment
         fun AppCompatActivity?.replaceFragment(activity: AppCompatActivity, fragment: Fragment) {
@@ -19,20 +20,33 @@ class KotUtil {
             transaction.commit()
         }
 
-        fun validateDOB(birthYear : String): Boolean {
+        fun validateDOB(birthYear: String): Boolean {
             if (birthYear.isNullOrEmpty()) return false
 
             val birthYear = Integer.parseInt(birthYear)
             val currentYear: Int = Calendar.getInstance().get(Calendar.YEAR)
             if (birthYear < 1920)
                 return false
-            else if (currentYear - birthYear > 10 )
+            else if (currentYear - birthYear > 10)
                 return true
             return false
         }
 
+
+        fun validateEstd(year: Int): Boolean {
+            if (year == 0) {
+                return true
+            }
+            val currentYear: Int = Calendar.getInstance().get(Calendar.YEAR)
+            if (year < 1800)
+                return false
+            else if (year > currentYear)
+                return false
+            return true
+        }
+
         fun displayResponseError(context: Context, messages: List<String?>?) {
-           LogUtils.showErrorDialog(context,context.getString(R.string.ok), messages!!.get(0).toString())
+            LogUtils.showErrorDialog(context, context.getString(R.string.ok), messages!!.get(0).toString())
         }
     }
 }
