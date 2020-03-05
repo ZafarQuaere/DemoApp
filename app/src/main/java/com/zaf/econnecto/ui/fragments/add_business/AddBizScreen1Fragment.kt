@@ -83,6 +83,7 @@ class AddBizScreen1Fragment : Fragment() {
             }
 
         })
+
         textAddCategory.setOnClickListener {
             val categoryArray = resources.getStringArray(R.array.biz_category)
             viewModel.openBottomSheetDialog(activity, categoryArray, object : OnCategoryItemClickListener {

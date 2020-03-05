@@ -17,60 +17,56 @@ import com.zaf.econnecto.ui.interfaces.DialogButtonClick
 
 
 class AddBizScreen1ViewModel : ViewModel() {
+    lateinit var categoryRecycler: RecyclerView
+    lateinit var categoryList: List<String>
+    lateinit var dialog: BottomSheetDialog
+    lateinit var mActivity: Activity
+    lateinit var categoryItemClick: OnCategoryItemClickListener
 
-    fun openBottomSheetDialog(activity: Activity?, categoryArray: Array<String>?, categoryItemClick: OnCategoryItemClickListener) {
+    fun openBottomSheetDialog(activity: Activity?, categoryArray: Array<String>?, click: OnCategoryItemClickListener) {
         val view: View = (activity)!!.layoutInflater.inflate(R.layout.layout_bottom_sheet, null)
-        val dialog = BottomSheetDialog(activity)
+        mActivity = activity
+        categoryItemClick = click
+        dialog = BottomSheetDialog(mActivity)
         dialog.setContentView(view)
-        val categoryList = categoryArray!!.asList()
-        val categoryRecycler = view.findViewById<RecyclerView>(R.id.recyclerCategory)
-        categoryRecycler.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        categoryList = categoryArray!!.asList()
+        categoryRecycler = view.findViewById<RecyclerView>(R.id.recyclerCategory)
+        categoryRecycler.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
 
+        updateCategoryList(categoryList);
 
-        val categoryDialogRecylcerAdapter = CategoryDialogRecylcerAdapter(activity, categoryList, object : OnCategoryItemClickListener {
+        view.findViewById<EditText>(R.id.editSearchCategory).addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                filterCategory(s.toString(), categoryList)
+            }
+        })
+
+        dialog.show()
+    }
+
+    private fun updateCategoryList(categoryList: List<String>) {
+        val categoryDialogRecylcerAdapter = CategoryDialogRecylcerAdapter(mActivity, categoryList, object : OnCategoryItemClickListener {
             override fun onCategoryItemClick(item: String?) {
                 categoryItemClick.onCategoryItemClick(item)
                 dialog.dismiss()
             }
         })
+        categoryDialogRecylcerAdapter.notifyDataSetChanged()
         categoryRecycler.adapter = categoryDialogRecylcerAdapter
-
-        view.findViewById<EditText>(R.id.editSearchCategory).addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                filterCategory(s.toString(),categoryList)
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-        })
-
-        /*view.findViewById<TextView>(R.id.textOk).setOnClickListener {
-            dialogBtn.onOkClick()
-            dialog.dismiss()
-        }
-        view.findViewById<TextView>(R.id.textCancel).setOnClickListener {
-            dialogBtn.onCancelClick()
-            dialog.dismiss()
-        }*/
-        dialog.show()
     }
 
     private fun filterCategory(item: String, categoryList: List<String>) {
         val catList = mutableListOf<String>()
         // val catList = listOfNotNull(String)
         for (i in categoryList.indices) {
-            if (item.toLowerCase().trim().contains(categoryList[i])) {
-                val add = catList.add(categoryList.get(i))
+            if (categoryList[i].toLowerCase().trim().contains(item.toLowerCase())) {
+                catList.add(categoryList.get(i))
             }
         }
-        //categoryRecycler.notifyDataSetChanged()
+        updateCategoryList(catList)
     }
-
-  /* for (cat String : categoryList){
-          if (bizData.getBusinessName().toLowerCase().trim().contains(bizName.toLowerCase())){
-              filterData.add(bizData);
-          }
-  }*/
 }
