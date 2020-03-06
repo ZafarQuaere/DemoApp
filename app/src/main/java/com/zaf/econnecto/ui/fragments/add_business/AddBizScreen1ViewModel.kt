@@ -26,12 +26,12 @@ class AddBizScreen1ViewModel : ViewModel() {
     fun openBottomSheetDialog(activity: Activity?, categoryArray: Array<String>?, click: OnCategoryItemClickListener) {
         val view: View = (activity)!!.layoutInflater.inflate(R.layout.layout_bottom_sheet, null)
         mActivity = activity
-        categoryItemClick = click
         dialog = BottomSheetDialog(mActivity)
-        dialog.setContentView(view)
+        categoryItemClick = click
         categoryList = categoryArray!!.asList()
         categoryRecycler = view.findViewById<RecyclerView>(R.id.recyclerCategory)
         categoryRecycler.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
+        dialog.setContentView(view)
 
         updateCategoryList(categoryList);
 
@@ -61,7 +61,6 @@ class AddBizScreen1ViewModel : ViewModel() {
 
     private fun filterCategory(item: String, categoryList: List<String>) {
         val catList = mutableListOf<String>()
-        // val catList = listOfNotNull(String)
         for (i in categoryList.indices) {
             if (categoryList[i].toLowerCase().trim().contains(item.toLowerCase())) {
                 catList.add(categoryList.get(i))
