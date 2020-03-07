@@ -50,9 +50,7 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
     @Override
     public void onResume() {
         super.onResume();
-        LogUtils.DEBUG("OnResume List fragment ");
         LogUtils.DEBUG("OnResume AppConstant.NEW_FOLLOW  "+AppConstant.NEW_FOLLOW);
-
         if (AppConstant.NEW_FOLLOW){
             callApi();
         }
@@ -141,14 +139,10 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
     }
 
     @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
     @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-    }
+    public void onTextChanged(CharSequence s, int start, int before, int count) { }
 
     @Override
     public void afterTextChanged(Editable editable) {

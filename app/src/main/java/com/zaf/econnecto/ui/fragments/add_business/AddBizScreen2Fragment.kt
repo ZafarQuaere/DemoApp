@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
+import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -38,22 +38,6 @@ class AddBizScreen2Fragment : Fragment() {
         fun newInstance() = AddBizScreen2Fragment()
     }
 
-   /* @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        OnBackPressedCallback callback = new OnBackPressedCallback(
-                true // default to enabled
-        ) {
-            @Override
-            public void handleOnBackPressed() {
-                showAreYouSureDialog();
-            }
-        };
-        requireActivity().getOnBackPressedDispatcher().addCallback(
-                this, // LifecycleOwner
-                callback);
-    }*/
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         LogUtils.showErrorDialog(activity, "Ok", bizInfo.bizDetail.bizName + " " + bizInfo.bizDetail.estdYear)
@@ -75,12 +59,9 @@ class AddBizScreen2Fragment : Fragment() {
 
         }
 
-        /*  btnPrevious.setOnClickListener {
-               val callback: OnBackPressedCallback = object : OnBackPressedCallback(viewLifecycleOwner ) {
-                  override fun handleOnBackPressed() { // Handle the back button event
-                      isEnabled = false
-                  }
-              }*/
+          btnPrevious.setOnClickListener {
+              manualBackFunctionality()
+          }
         /*   requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
                // handle back event
               // isEnabled = true
@@ -91,30 +72,37 @@ class AddBizScreen2Fragment : Fragment() {
         //  }
     }
 
-    private fun validateInputsAndNavigate(data: AddressInfo) {
-        when {
-            data.address1.isNullOrEmpty() -> {
-                LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_enter_address))
+    private fun manualBackFunctionality() {
+       /* val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {  // default to enabled
+            override fun handleOnBackPressed() {
+                LogUtils.showToast(activity,"OnBackPressed")
             }
-            data.pincode.isNullOrEmpty() -> {
-                LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_enter_valid_pincode))
-            }
-            data.locality.isNullOrEmpty() -> {
-                LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_enter_locality))
-            }
-            data.city.isNullOrEmpty() -> {
-                LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_enter_city_name))
-            }
-            data.state.isNullOrEmpty() -> {
-                LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_enter_state))
-            }
-            data.country.isNullOrEmpty() -> {
-                LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_enter_country))
-            }
-            else -> {
-                var bundle = bundleOf("addressInfo" to data)
-                navController.navigate(R.id.action_screen2_to_screen3, bundle)
-            }
+        }*/
+
+    }
+
+    private fun validateInputsAndNavigate(data: AddressInfo) = when {
+        data.address1.isNullOrEmpty() -> {
+            LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_enter_address))
+        }
+        data.pincode.isNullOrEmpty() -> {
+            LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_enter_valid_pincode))
+        }
+        data.locality.isNullOrEmpty() -> {
+            LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_enter_locality))
+        }
+        data.city.isNullOrEmpty() -> {
+            LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_enter_city_name))
+        }
+        data.state.isNullOrEmpty() -> {
+            LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_enter_state))
+        }
+        data.country.isNullOrEmpty() -> {
+            LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_enter_country))
+        }
+        else -> {
+            var bundle = bundleOf("addressInfo" to data)
+            navController.navigate(R.id.action_screen2_to_screen3, bundle)
         }
     }
 

@@ -1,6 +1,8 @@
 package com.zaf.econnecto.ui.fragments.add_business
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +16,7 @@ import com.zaf.econnecto.network_call.response_model.biz_list.BizData
 import com.zaf.econnecto.network_call.response_model.biz_list.BizListData
 import com.zaf.econnecto.service.BusinessListService
 import com.zaf.econnecto.service.ServiceBuilder
+import com.zaf.econnecto.utils.KotUtil
 import com.zaf.econnecto.utils.LogUtils
 import kotlinx.android.synthetic.main.add_biz_screen1_fragemnt.*
 import retrofit2.Call
@@ -23,6 +26,7 @@ import retrofit2.Response
 class AddBizScreen1Fragment : Fragment() {
 
     lateinit var navController: NavController
+    var estdYear : Int = 0
 
     companion object {
         fun newInstance() = AddBizScreen1Fragment()
@@ -42,28 +46,44 @@ class AddBizScreen1Fragment : Fragment() {
 
         btnNext.setOnClickListener {
             val bizName : String = editBizName.text.toString().trim()
-            val estdYear : String = editEstdYear.text.toString().trim()
             val category1 : String = editCategory1.text.toString().trim()
             val category2 : String = editCategory2.text.toString().trim()
             val category3 : String = editCategory3.text.toString().trim()
 
             when {
-                bizName.isNullOrEmpty() -> {
+                bizName.isEmpty() -> {
                     LogUtils.showErrorDialog(activity, getString(R.string.ok), getString(R.string.enter_valid_business_name))
                 }
                 bizName.length < 3 -> {
                     LogUtils.showErrorDialog(activity, getString(R.string.ok), getString(R.string.enter_valid_business_name))
                 }
-                category1.isNullOrEmpty() -> {
+                !KotUtil.validateEstd(estdYear) -> {
+                    LogUtils.showErrorDialog(activity, getString(R.string.ok), getString(R.string.enter_valid_establishment_year))
+                }
+                category1.isEmpty() -> {
                     LogUtils.showErrorDialog(activity, getString(R.string.ok), getString(R.string.select_atleast_one_category_plz_click_on_add_category_text))
                 }
                 else -> {
-                    val bizDetailData = BizDetailData(bizName, Integer.parseInt(estdYear), category1, category2, category3)
-                    var bundle = bundleOf("bizDetail" to bizDetailData)
+                    val bizDetailData = BizDetailData(bizName, estdYear.toInt() , category1, category2, category3)
+                    val bundle = bundleOf("bizDetail" to bizDetailData)
                     navController.navigate(R.id.action_screen1_to_screen2, bundle)
                 }
             }
         }
+
+        editEstdYear.addTextChangedListener(object: TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(s.toString().trim().isNotEmpty()){
+                    estdYear = s.toString().toInt()
+                } else estdYear = 0
+            }
+
+        })
+
         textAddCategory.setOnClickListener {
             val categoryArray = resources.getStringArray(R.array.biz_category)
             viewModel.openBottomSheetDialog(activity, categoryArray, object : OnCategoryItemClickListener {
@@ -76,15 +96,14 @@ class AddBizScreen1Fragment : Fragment() {
         }
     }
 
-
     private fun updateCategoryUI(item: String) {
         when {
-            editCategory1.text.toString().isNullOrEmpty() -> {
+            editCategory1.text.toString().isEmpty() -> {
                 tilCategory1.visibility = View.VISIBLE
                 editCategory1.setText(item)
                 textAddCategory.text = activity!!.getString(R.string.add_more_category)
             }
-            editCategory2.text.toString().isNullOrEmpty() -> {
+            editCategory2.text.toString().isEmpty() -> {
                 tilCategory2.visibility = View.VISIBLE
                 editCategory2.setText(item)
                 if (editCategory2.text.toString().trim() == editCategory1.text.toString().trim()) {
@@ -93,7 +112,7 @@ class AddBizScreen1Fragment : Fragment() {
                     tilCategory2.visibility = View.GONE
                 }
             }
-            editCategory3.text.toString().isNullOrEmpty() -> {
+            editCategory3.text.toString().isEmpty() -> {
                 tilCategory3.visibility = View.VISIBLE
                 editCategory3.setText(item)
                 if (editCategory3.text.toString().trim() == editCategory2.text.toString().trim() || editCategory3.text.toString().trim() == editCategory1.text.toString().trim()) {
@@ -117,6 +136,7 @@ class AddBizScreen1Fragment : Fragment() {
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }*/
+
 
     private fun callApi(email: String) {
         //TODO("Have to implement this api call in viewmodel calls")
@@ -151,9 +171,4 @@ class AddBizScreen1Fragment : Fragment() {
     interface OnCategoryItemClickListener {
         fun onCategoryItemClick(item: String?)
     }
-
 }
-
-
-
-
