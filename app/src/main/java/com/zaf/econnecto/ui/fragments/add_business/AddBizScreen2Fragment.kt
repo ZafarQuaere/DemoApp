@@ -38,6 +38,22 @@ class AddBizScreen2Fragment : Fragment() {
         fun newInstance() = AddBizScreen2Fragment()
     }
 
+   /* @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        OnBackPressedCallback callback = new OnBackPressedCallback(
+                true // default to enabled
+        ) {
+            @Override
+            public void handleOnBackPressed() {
+                showAreYouSureDialog();
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(
+                this, // LifecycleOwner
+                callback);
+    }*/
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         LogUtils.showErrorDialog(activity, "Ok", bizInfo.bizDetail.bizName + " " + bizInfo.bizDetail.estdYear)
@@ -122,7 +138,7 @@ class AddBizScreen2Fragment : Fragment() {
                         localityArray[i] = data[i]!!.getOfficeName().toString()
                     }
 
-                    val localityAdapter: ArrayAdapter<String> = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, localityArray)
+                    val localityAdapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, localityArray)
                     localityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     spinnerLocality.adapter = localityAdapter
                 }

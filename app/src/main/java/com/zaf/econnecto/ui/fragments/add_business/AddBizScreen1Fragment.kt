@@ -64,7 +64,6 @@ class AddBizScreen1Fragment : Fragment() {
                 }
             }
         }
-
         textAddCategory.setOnClickListener {
             val categoryArray = resources.getStringArray(R.array.biz_category)
             viewModel.openBottomSheetDialog(activity, categoryArray, object : OnCategoryItemClickListener {
@@ -76,6 +75,7 @@ class AddBizScreen1Fragment : Fragment() {
             })
         }
     }
+
 
     private fun updateCategoryUI(item: String) {
         when {
@@ -146,12 +146,12 @@ class AddBizScreen1Fragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AddBizScreen1ViewModel::class.java)
-
     }
 
     interface OnCategoryItemClickListener {
         fun onCategoryItemClick(item: String?)
     }
+
 }
 
 
