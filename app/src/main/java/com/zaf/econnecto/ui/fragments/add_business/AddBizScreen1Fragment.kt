@@ -138,31 +138,6 @@ class AddBizScreen1Fragment : Fragment() {
     }*/
 
 
-    private fun callApi(email: String) {
-        //TODO("Have to implement this api call in viewmodel calls")
-        val bizListServie = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-
-        val requestCall = bizListServie.getBusinessList(email)
-
-        requestCall.enqueue(object : Callback<BizListData> {
-
-            override fun onResponse(call: Call<BizListData>, response: Response<BizListData>) =
-                    if (response.isSuccessful) {
-                        LogUtils.DEBUG("Response : " + response.body())
-                        val body: BizListData? = response.body()
-                        val data: MutableList<BizData>? = body!!.data
-
-                    } else {
-                        // LogUtils.showToast(activity,"toast")
-                    }
-
-            override fun onFailure(call: Call<BizListData>, t: Throwable) {
-            }
-
-        })
-
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AddBizScreen1ViewModel::class.java)

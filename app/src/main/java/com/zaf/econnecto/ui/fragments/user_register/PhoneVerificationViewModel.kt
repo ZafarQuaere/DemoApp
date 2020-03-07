@@ -22,7 +22,7 @@ class PhoneVerificationViewModel : ViewModel() {
     fun callResendApi(mContext: Activity, mobileNo: String) {
         var loader = AppDialogLoader.getLoader(mContext)
         loader.show()
-        //TODO request OTP API call
+
         var jsonObject = JSONObject()
         jsonObject.put("action", "request_otp")
         jsonObject.put("phone", mobileNo)
