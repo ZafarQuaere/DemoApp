@@ -66,8 +66,9 @@ class AddBizScreen3Fragment : Fragment() {
                 LogUtils.showErrorDialog(activity, activity?.getString(R.string.ok), activity?.getString(R.string.enter_email))
             }
             else -> {
+                activity!!.finish()
                 //Call Api
-                viewModel.callAddBizApi(activity, screen12Data, mobileNo, emailId, alternateMobile, telephone, website)
+                //viewModel.callAddBizApi(activity, screen12Data, mobileNo, emailId, alternateMobile, telephone, website)
             }
         }
 

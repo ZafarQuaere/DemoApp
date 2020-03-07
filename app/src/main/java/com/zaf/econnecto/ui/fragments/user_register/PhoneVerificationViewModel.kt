@@ -4,7 +4,7 @@ import android.app.Activity
 import androidx.lifecycle.ViewModel
 import com.google.gson.JsonObject
 import com.zaf.econnecto.R
-import com.zaf.econnecto.service.BusinessListService
+import com.zaf.econnecto.service.EConnectoServices
 import com.zaf.econnecto.service.ServiceBuilder
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick
 import com.zaf.econnecto.utils.AppConstant
@@ -29,7 +29,7 @@ class PhoneVerificationViewModel : ViewModel() {
 
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
 
-        val destinationService = ServiceBuilder.buildConnectoService(BusinessListService::class.java)
+        val destinationService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
         val requestCall = destinationService.phoneVerification(requestBody)
 
         requestCall.enqueue(object : Callback<JsonObject> {
@@ -66,7 +66,7 @@ class PhoneVerificationViewModel : ViewModel() {
         jsonObject.put("otp", OTP)
 
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
-        val destinationService = ServiceBuilder.buildConnectoService(BusinessListService::class.java)
+        val destinationService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
         val requestCall = destinationService.phoneVerification(requestBody)
         requestCall.enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {

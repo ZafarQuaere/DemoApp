@@ -14,7 +14,7 @@ import androidx.navigation.Navigation
 import com.zaf.econnecto.R
 import com.zaf.econnecto.network_call.response_model.biz_list.BizData
 import com.zaf.econnecto.network_call.response_model.biz_list.BizListData
-import com.zaf.econnecto.service.BusinessListService
+import com.zaf.econnecto.service.EConnectoServices
 import com.zaf.econnecto.service.ServiceBuilder
 import com.zaf.econnecto.utils.KotUtil
 import com.zaf.econnecto.utils.LogUtils
@@ -140,7 +140,7 @@ class AddBizScreen1Fragment : Fragment() {
 
     private fun callApi(email: String) {
         //TODO("Have to implement this api call in viewmodel calls")
-        val bizListServie = ServiceBuilder.buildConnectoService(BusinessListService::class.java)
+        val bizListServie = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
 
         val requestCall = bizListServie.getBusinessList(email)
 

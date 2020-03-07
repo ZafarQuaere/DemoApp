@@ -9,7 +9,7 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.http.*
 
-interface BusinessListService {
+interface EConnectoServices {
 
     @GET("business_list.php?")
     fun getBusinessList(@Query("email") email: String): Call<BizListData>
@@ -19,4 +19,8 @@ interface BusinessListService {
 
     @POST("user_registration/phone_verification.php")
     fun phoneVerification(@Body requestBody: RequestBody): Call<JsonObject>
+
+    @POST("add_business/add_business.php")
+    fun addYourBusiness(@Body requestBody: RequestBody): Call<JsonObject>
+
 }
