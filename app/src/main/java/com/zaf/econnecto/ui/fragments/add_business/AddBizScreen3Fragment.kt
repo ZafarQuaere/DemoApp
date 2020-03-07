@@ -53,17 +53,17 @@ class AddBizScreen3Fragment : Fragment() {
     }
 
     private fun validateInput() {
-        var mobileNo = editMobile.text.toString().trim()
-        var emailId = editEmail.text.toString().trim()
-        var alternateMobile = editAlternateMobile.text.toString().trim()
-        var telephone = editTelephone.text.toString().trim()
-        var website = editBizWebsite.text.toString().trim()
+        val mobileNo = editMobile.text.toString().trim()
+        val emailId = editEmail.text.toString().trim()
+        val alternateMobile = editAlternateMobile.text.toString().trim()
+        val telephone = editTelephone.text.toString().trim()
+        val website = editBizWebsite.text.toString().trim()
         when {
-            mobileNo.isNullOrEmpty() -> {
+            mobileNo.isEmpty() -> {
                 LogUtils.showErrorDialog(activity, activity?.getString(R.string.ok), activity?.getString(R.string.enter_mobile_no))
             }
-            emailId.isNullOrEmpty() -> {
-                LogUtils.showErrorDialog(activity, activity?.getString(R.string.ok), activity?.getString(R.string.enter_mobile_no))
+            emailId.isEmpty() -> {
+                LogUtils.showErrorDialog(activity, activity?.getString(R.string.ok), activity?.getString(R.string.enter_email))
             }
             else -> {
                 //Call Api

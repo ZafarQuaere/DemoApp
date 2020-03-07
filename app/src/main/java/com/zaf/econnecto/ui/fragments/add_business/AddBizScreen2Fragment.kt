@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -25,7 +26,7 @@ class AddBizScreen2Fragment : Fragment() {
     private var address2: String = ""
     private var landmark: String = ""
     lateinit var pincode: String
-    lateinit var locality: String
+    var locality: String? = null
     lateinit var city: String
     lateinit var state: String
     private var country: String = "India"
@@ -53,6 +54,11 @@ class AddBizScreen2Fragment : Fragment() {
         navController = Navigation.findNavController(view)
 
         btnNext.setOnClickListener {
+            pincode = editPinCode.text.toString().trim()
+            city = editCity.text.toString().trim()
+            state= editState.text.toString().trim()
+            address1= editAddress1.text.toString().trim()
+
             var addressInfoData = AddressInfo(bizInfo.bizDetail.bizName, bizInfo.bizDetail.category1, bizInfo.bizDetail.estdYear, bizInfo.bizDetail.category2, bizInfo.bizDetail.category3,
                     address1, address2, landmark, pincode, locality, city, state, country)
             validateInputsAndNavigate(addressInfoData)
