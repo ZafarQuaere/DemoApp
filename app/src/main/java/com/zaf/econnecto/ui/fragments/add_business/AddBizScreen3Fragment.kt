@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
@@ -44,11 +43,7 @@ class AddBizScreen3Fragment : Fragment() {
         }
         navController = Navigation.findNavController(view)
         btnPrevious.setOnClickListener {
-            requireActivity().onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    navController.popBackStack(R.id.screen3, true)
-                }
-            })
+            activity!!.onBackPressedDispatcher.onBackPressed()
         }
     }
 
