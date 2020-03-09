@@ -22,7 +22,7 @@ class AddBizScreen3Fragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         screen12Data = addressInfo.addressInfo
-        LogUtils.showErrorDialog(activity, "Ok", "${addressInfo.addressInfo.category1}, ${addressInfo.addressInfo.estdYear},${addressInfo.addressInfo.address1} ,${addressInfo.addressInfo.pincode}")
+        //LogUtils.showErrorDialog(activity, "Ok", "${addressInfo.addressInfo.category1}, ${addressInfo.addressInfo.estdYear},${addressInfo.addressInfo.address1} ,${addressInfo.addressInfo.pincode}")
     }
 
     companion object {
