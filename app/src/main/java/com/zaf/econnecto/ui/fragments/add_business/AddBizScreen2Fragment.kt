@@ -15,6 +15,7 @@ import androidx.navigation.fragment.navArgs
 import com.zaf.econnecto.R
 import com.zaf.econnecto.network_call.response_model.add_biz.PinCodeResponse
 import com.zaf.econnecto.ui.interfaces.PinCodeDataListener
+import com.zaf.econnecto.utils.KotUtil
 import com.zaf.econnecto.utils.LogUtils
 import kotlinx.android.synthetic.main.add_biz_screen2_fragment.*
 
@@ -51,7 +52,7 @@ class AddBizScreen2Fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
-
+        KotUtil.updateActionBar(activity, AddBizScreen2Fragment.javaClass.simpleName, "Screen 2", null, null)
         btnNext.setOnClickListener {
             var addressInfoData = AddressInfo(bizInfo.bizDetail.bizName, bizInfo.bizDetail.category1, bizInfo.bizDetail.estdYear, bizInfo.bizDetail.category2, bizInfo.bizDetail.category3,
                     address1, address2, landmark, pincode, locality, city, state, country)

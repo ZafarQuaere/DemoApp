@@ -41,7 +41,7 @@ class AddBizScreen1Fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        KotUtil.updateActionBar(activity, AddBizScreen1Fragment.javaClass.simpleName, "Screen 1", null, null)
         navController = Navigation.findNavController(view)
 
         btnNext.setOnClickListener {
@@ -166,7 +166,6 @@ class AddBizScreen1Fragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AddBizScreen1ViewModel::class.java)
-
     }
 
     interface OnCategoryItemClickListener {

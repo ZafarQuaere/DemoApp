@@ -11,6 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.zaf.econnecto.R
+import com.zaf.econnecto.utils.KotUtil
 import com.zaf.econnecto.utils.LogUtils
 import kotlinx.android.synthetic.main.add_biz_screen3_fragment.*
 
@@ -39,6 +40,7 @@ class AddBizScreen3Fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        KotUtil.updateActionBar(activity, AddBizScreen1Fragment.javaClass.simpleName, "Screen 3", null, null)
         btnSubmitAddBiz.setOnClickListener {
             validateInput()
         }

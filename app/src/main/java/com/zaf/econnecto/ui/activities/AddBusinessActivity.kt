@@ -12,7 +12,7 @@ class AddBusinessActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_business)
         addActionBar()
 
-        findViewById<ImageButton>(R.id.imgBtnCloseAB).setOnClickListener { finish() }
+//        findViewById<ImageButton>(R.id.imgBtnCloseAB).setOnClickListener { finish() }
     }
 
     private fun addActionBar() {
