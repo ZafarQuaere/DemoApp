@@ -33,9 +33,8 @@ class PhoneVerificationFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(PhoneVerificationViewModel::class.java)
         editPhone.setText(args.mobileNo)
         //LogUtils.showToast(activity, "Mobile no is : "+args.stringKeyMobileNo)
-        // TODO: Use the ViewModel
         txtVerifyPhone.setOnClickListener {
-            if (!editOTP.text.toString().isNullOrEmpty()) {
+            if (!editOTP.text.toString().isEmpty()) {
                 activity?.let { it -> viewModel.callVerifyPhoneApi(it, editPhone.text.toString(), editOTP.text.toString()) }
             }else{
                 LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_enter_otp))

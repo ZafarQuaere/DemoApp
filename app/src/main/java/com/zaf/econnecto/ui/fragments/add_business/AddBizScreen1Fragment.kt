@@ -14,7 +14,7 @@ import androidx.navigation.Navigation
 import com.zaf.econnecto.R
 import com.zaf.econnecto.network_call.response_model.biz_list.BizData
 import com.zaf.econnecto.network_call.response_model.biz_list.BizListData
-import com.zaf.econnecto.service.BusinessListService
+import com.zaf.econnecto.service.EConnectoServices
 import com.zaf.econnecto.service.ServiceBuilder
 import com.zaf.econnecto.utils.KotUtil
 import com.zaf.econnecto.utils.LogUtils
@@ -137,31 +137,6 @@ class AddBizScreen1Fragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }*/
 
-
-    private fun callApi(email: String) {
-        //TODO("Have to implement this api call in viewmodel calls")
-        val bizListServie = ServiceBuilder.buildConnectoService(BusinessListService::class.java)
-
-        val requestCall = bizListServie.getBusinessList(email)
-
-        requestCall.enqueue(object : Callback<BizListData> {
-
-            override fun onResponse(call: Call<BizListData>, response: Response<BizListData>) =
-                    if (response.isSuccessful) {
-                        LogUtils.DEBUG("Response : " + response.body())
-                        val body: BizListData? = response.body()
-                        val data: MutableList<BizData>? = body!!.data
-
-                    } else {
-                        // LogUtils.showToast(activity,"toast")
-                    }
-
-            override fun onFailure(call: Call<BizListData>, t: Throwable) {
-            }
-
-        })
-
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

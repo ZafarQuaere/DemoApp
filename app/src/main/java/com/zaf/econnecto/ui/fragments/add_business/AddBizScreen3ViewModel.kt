@@ -2,11 +2,80 @@ package com.zaf.econnecto.ui.fragments.add_business
 
 import android.app.Activity
 import androidx.lifecycle.ViewModel
+import com.google.gson.Gson
+import com.google.gson.JsonObject
+import com.zaf.econnecto.R
+import com.zaf.econnecto.service.EConnectoServices
+import com.zaf.econnecto.service.ServiceBuilder
+import com.zaf.econnecto.utils.AppConstant
+import com.zaf.econnecto.utils.AppDialogLoader
+import com.zaf.econnecto.utils.LogUtils
+import com.zaf.econnecto.utils.Utils
+import okhttp3.MediaType
+import okhttp3.RequestBody
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class AddBizScreen3ViewModel : ViewModel() {
 
-    fun callAddBizApi(activity: Activity?, addressInfo: AddressInfo, mobileNo: String, emailId: String, alternateMobile: String, telephone: String, website: String) {
+    private var mContext: Activity? = null
 
+    fun callAddBizApi(activity: Activity?, addressInfo: AddressInfo, mobileNo: String, emailId: String, alternateMobile: String, telephone: String, website: String) {
+        mContext = activity
+        var loader = AppDialogLoader.getLoader(mContext)
+        loader.show()
+        //TODO here category is missing..
+
+        var jsonObject = JSONObject()
+        jsonObject.put("jwt_token", Utils.getAccessToken(mContext))
+        jsonObject.put("owner_id", "")
+        jsonObject.put("business_name", addressInfo.bizName)
+        jsonObject.put("year_established", addressInfo.estdYear)
+        jsonObject.put("address_1", addressInfo.address1)
+        jsonObject.put("address_2", addressInfo.address2)
+        jsonObject.put("landmark", addressInfo.landmark)
+        jsonObject.put("pin_code", addressInfo.pincode)
+        jsonObject.put("area_locality", addressInfo.locality)
+        jsonObject.put("city_town", addressInfo.city)
+        jsonObject.put("state", addressInfo.state)
+        jsonObject.put("country", addressInfo.country)
+        jsonObject.put("is_outside_serve", 2)//1 if server outside, 2 if not
+        jsonObject.put("mobile_1", mobileNo)
+        jsonObject.put("mobile_2", alternateMobile)
+        jsonObject.put("telephone", telephone)
+        jsonObject.put("email", emailId)
+        jsonObject.put("website", website)
+
+        val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
+
+
+        val destinationService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
+        val requestCall = destinationService.addYourBusiness(requestBody)
+
+        requestCall.enqueue(object : Callback<JsonObject> {
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                loader.dismiss()
+                LogUtils.showErrorDialog(mContext, mContext!!.getString(R.string.ok), mContext!!.getString(R.string.something_wrong_from_server_plz_try_again) + "\n" + t.localizedMessage)
+            }
+
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                val body = JSONObject(Gson().toJson(response.body()))
+                var status = body.optInt("status")
+                loader.dismiss()
+
+                if (status == AppConstant.AB_SUCCESS) {
+                    // fragNavigation.navigate()
+                } else {
+                    val jsonArray = body.optJSONArray("message")
+                    val message = jsonArray!!.get(0) as String
+                    LogUtils.showErrorDialog(mContext, mContext!!.getString(R.string.ok), message)
+                }
+            }
+        })
     }
 
 }

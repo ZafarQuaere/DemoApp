@@ -10,7 +10,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.zaf.econnecto.R
-import com.zaf.econnecto.service.BusinessListService
+import com.zaf.econnecto.service.EConnectoServices
 import com.zaf.econnecto.service.ServiceBuilder
 import com.zaf.econnecto.ui.fragments.user_register.UserRegisterFragment
 import com.zaf.econnecto.ui.interfaces.FragmentNavigation
@@ -91,7 +91,7 @@ class UserRegisterViewModel : ViewModel() {
         var loader = AppDialogLoader.getLoader(mContext)
         loader.show()
 
-        val destinationService = ServiceBuilder.buildConnectoService(BusinessListService::class.java)
+        val destinationService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
         val requestCall = destinationService.registerUser(requestBody)
 
         requestCall.enqueue(object : Callback<JsonObject>{
@@ -132,7 +132,7 @@ class UserRegisterViewModel : ViewModel() {
         jsonObject.put("phone",mobileNo)
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
 
-        val destinationService = ServiceBuilder.buildConnectoService(BusinessListService::class.java)
+        val destinationService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
         val requestCall = destinationService.phoneVerification(requestBody)
 
         requestCall.enqueue(object : Callback<JsonObject>{

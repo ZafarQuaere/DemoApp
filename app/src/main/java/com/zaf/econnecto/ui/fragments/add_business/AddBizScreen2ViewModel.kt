@@ -27,7 +27,6 @@ class AddBizScreen2ViewModel : ViewModel() {
         editPinCode!!.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (s.toString().length == 6) {
-                    LogUtils.showToast(activity, s.toString())
                     callPinCodeApi(activity, s.toString())
                 }
             }
@@ -44,8 +43,7 @@ class AddBizScreen2ViewModel : ViewModel() {
         LogUtils.DEBUG("URL : $url")
         val objectRequest = MyJsonObjectRequest(activity, Request.Method.GET, url, null, Response.Listener { response ->
             LogUtils.DEBUG("PinCode Response ::$response")
-            val status = response.optInt("status")
-            when (status) {
+            when (response.optInt("status")) {
                 200 -> {
                     var responseData  = ParseManager.getInstance().fromJSON(response.toString(),PinCodeResponse::class.java)
                     pinCodeDataListener.onDataFetched(responseData)

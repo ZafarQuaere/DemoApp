@@ -16,8 +16,6 @@
     <string name="slide_3_desc">Follow business to get latest updates.</string>
 
 
-    <string name="slide_4_title">e-Connecto</string>
-    <string name="slide_4_desc">Grow your business socially</string>
     <string name="key_shared_prefs">key_shared_prefs</string>
     <string name="key_logged_in">key_logged_in</string>
     <string name="login_label">Login</string>
@@ -176,7 +174,6 @@
     <string name="key_user_profile_pic">key_user_profile_pic</string>
     <string name="follow_us_on_twitter">Follow us on Twitter</string>
     <string name="rate_us_playstore">Rate Us on Play Store</string>
-    <string name="password_criteria_msg">Password must contain 1 UpperCase,1 Lowercase, 1 digit and 1 special Character</string>
 
     <string name="share_app_content">eConnecto - A social media platform for your business.\nRegister and verify yourself and Add your Businness to connect with the local user.\nPost your hot deals, trends and offers with your followers easily.
         \nDownload the app here : </string>
@@ -187,7 +184,8 @@
         <item name="per_month">Per Month</item>
         <item name="rupee_symbol">₹</item>
     </array>
-    <!--<array name="biz_category">
+
+    <array name="biz_category">
         <item name="Select_Category">Select Category</item>
         <item name="Automobiles_Showroom">Automobiles Showroom</item>
         <item name="Bags_and_Luggage">Bags and Luggage</item>
@@ -234,9 +232,9 @@
         <item name="Telecom">Telecom</item>
         <item name="Utensils_Shops">Utensils Shops</item>
         <item name="Others">Others</item>
-    </array>-->
+    </array>
 
-    <array name="biz_category">
+   <!-- <array name="biz_category">
         <item name="Select_Category">Select Category</item>
         <item name="Beauty">Beauty</item>
         <item name="Commute">Commute</item>
@@ -256,7 +254,7 @@
         <item name="ShopRetail">Shop Retail</item>
         <item name="Travel">Travel</item>
         <item name="Others">Others</item>
-    </array>
+    </array>-->
 
     <!--crop string -->
     <string name="ucrop_error_input_data_is_absent" translatable="false">Both input and output Uri must be specified</string>
@@ -272,22 +270,12 @@
     <string name="select_background_image_from_below">Select background image .</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="enter_category_of_your_business">Please enter the category of your business </string>
     <string name="title_activity_add_business">AddBusinessActivity</string>
     <string name="state">State</string>
     <string name="city">City</string>
     <string name="pincode">Pincode*</string>
     <string name="confirm">confirm</string>
     <string name="title_activity_user_registration">Sign Up</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
     <string name="other">Other</string>
     <string name="enter_year_of_birth">Enter Year of Birth</string>
     <string name="enter_valid_password">Password must be 8-20 characters</string>
@@ -299,22 +287,16 @@
     <string name="previous">Previous</string>
     <string name="add_category"><b>*</b> Add Category</string>
     <string name="address_details">Address Details</string>
-    <string name="area">Area</string>
-    <string name="detail_address">Detail Address</string>
     <string name="india">India</string>
     <string name="country">Country</string>
     <string name="alternate_mobile">Alternate Mobile</string>
     <string name="telephone_with_code">Telephone with code</string>
-    <string name="tollfree_no">Tollfree No.</string>
-    <string name="alternate_email">Alternate Email</string>
     <string name="locality">Locality</string>
     <string name="address_line1">Address Line 1*</string>
     <string name="address_line2">Address Line 2</string>
     <string name="add_more_category">Add More Category</string>
     <string name="enter_valid_business_name">Enter Valid Business Name</string>
     <string name="select_atleast_one_category_plz_click_on_add_category_text">You must add at-least one category of your business\n Please click on Add Category text</string>
-    <string name="please_enter_year_of_establishment_of_your_business">Please enter your business starting year</string>
-    <string name="key_biz_detail_data">key_biz_detail_data</string>
     <string name="landmark">Landmark</string>
     <string name="please_enter_locality">Please enter locality</string>
     <string name="please_enter_country">Please enter country name</string>

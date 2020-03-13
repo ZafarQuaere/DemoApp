@@ -6,6 +6,7 @@ import com.zaf.econnecto.BuildConfig;
 
 public class AppConstant {
 
+    public static final Integer AB_SUCCESS = 501;
     public static final Integer SUCCESS = 1;
     public static final Integer FAILURE = 0;
     public static final Integer FOLLOWING = 1;

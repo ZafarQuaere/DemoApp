@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
@@ -24,7 +23,7 @@ class AddBizScreen3Fragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         screen12Data = addressInfo.addressInfo
-        LogUtils.showErrorDialog(activity, "Ok", "${addressInfo.addressInfo.category1}, ${addressInfo.addressInfo.estdYear},${addressInfo.addressInfo.address1} ,${addressInfo.addressInfo.pincode}")
+        //LogUtils.showErrorDialog(activity, "Ok", "${addressInfo.addressInfo.category1}, ${addressInfo.addressInfo.estdYear},${addressInfo.addressInfo.address1} ,${addressInfo.addressInfo.pincode}")
     }
 
     companion object {
@@ -46,30 +45,27 @@ class AddBizScreen3Fragment : Fragment() {
         }
         navController = Navigation.findNavController(view)
         btnPrevious.setOnClickListener {
-            requireActivity().onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    navController.popBackStack(R.id.screen3, true)
-                }
-            })
+            activity!!.onBackPressedDispatcher.onBackPressed()
         }
     }
 
     private fun validateInput() {
-        var mobileNo = editMobile.text.toString().trim()
-        var emailId = editEmail.text.toString().trim()
-        var alternateMobile = editAlternateMobile.text.toString().trim()
-        var telephone = editTelephone.text.toString().trim()
-        var website = editBizWebsite.text.toString().trim()
+        val mobileNo = editMobile.text.toString().trim()
+        val emailId = editEmail.text.toString().trim()
+        val alternateMobile = editAlternateMobile.text.toString().trim()
+        val telephone = editTelephone.text.toString().trim()
+        val website = editBizWebsite.text.toString().trim()
         when {
-            mobileNo.isNullOrEmpty() -> {
+            mobileNo.isEmpty() -> {
                 LogUtils.showErrorDialog(activity, activity?.getString(R.string.ok), activity?.getString(R.string.enter_mobile_no))
             }
-            emailId.isNullOrEmpty() -> {
-                LogUtils.showErrorDialog(activity, activity?.getString(R.string.ok), activity?.getString(R.string.enter_mobile_no))
+            emailId.isEmpty() -> {
+                LogUtils.showErrorDialog(activity, activity?.getString(R.string.ok), activity?.getString(R.string.enter_email))
             }
             else -> {
+                activity!!.finish()
                 //Call Api
-                viewModel.callAddBizApi(activity, screen12Data, mobileNo, emailId, alternateMobile, telephone, website)
+                //viewModel.callAddBizApi(activity, screen12Data, mobileNo, emailId, alternateMobile, telephone, website)
             }
         }
 
