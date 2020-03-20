@@ -58,6 +58,4 @@ public class BizCategoryPresenter extends BaseFragmentPresenter {
         AppController.getInstance().addToRequestQueue(objectRequest, "Biz Category");
     }
 
-
-
 }

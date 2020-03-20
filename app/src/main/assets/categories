@@ -1,0 +1,71 @@
+{
+  "message": "List fetched successfully",
+  "status": 1,
+  "data": [
+    {
+      "category_id": "3",
+      "category_name": "beauty",
+      "category_image": "http:\/\/econnecto.com\/profile-business\/images\/categories\/BEAUTY.jpg"
+    },
+    {
+      "category_id": "4",
+      "category_name": "commute",
+      "category_image": "http:\/\/econnecto.com\/profile-business\/images\/categories\/COMMUTE.jpg"
+    },
+    {
+      "category_id": "5",
+      "category_name": "education",
+      "category_image": "http:\/\/econnecto.com\/profile-business\/images\/categories\/EDUCATION_1.jpg"
+    },
+    {
+      "category_id": "6",
+      "category_name": "entertainment",
+      "category_image": "http:\/\/econnecto.com\/profile-business\/images\/categories\/ENTERTAINMENT.jpg"
+    },
+    {
+      "category_id": "7",
+      "category_name": "fashion",
+      "category_image": "http:\/\/econnecto.com\/profile-business\/images\/categories\/FASHION.jpg"
+    },
+    {
+      "category_id": "8",
+      "category_name": "fitness",
+      "category_image": "http:\/\/econnecto.com\/profile-business\/images\/categories\/FITNESS.jpg"
+    },
+    {
+      "category_id": "9",
+      "category_name": "food",
+      "category_image": "http:\/\/econnecto.com\/profile-business\/images\/categories\/FOOD.jpg"
+    },
+    {
+      "category_id": "10",
+      "category_name": "grocery",
+      "category_image": "http:\/\/econnecto.com\/profile-business\/images\/categories\/GROCERY.jpg"
+    },
+    {
+      "category_id": "11",
+      "category_name": "health care",
+      "category_image": "http:\/\/econnecto.com\/profile-business\/images\/categories\/HEALTH_CARE.jpg"
+    },
+    {
+      "category_id": "12",
+      "category_name": "home service",
+      "category_image": "http:\/\/econnecto.com\/profile-business\/images\/categories\/HOME_SERVICE.jpg"
+    },
+    {
+      "category_id": "13",
+      "category_name": "hotel",
+      "category_image": "http:\/\/econnecto.com\/profile-business\/images\/categories\/HOTEL.jpg"
+    },
+    {
+      "category_id": "14",
+      "category_name": "real estate",
+      "category_image": "http:\/\/econnecto.com\/profile-business\/images\/categories\/REAL_ESTATE.jpg"
+    },
+    {
+      "category_id": "15",
+      "category_name": "travel",
+      "category_image": "http:\/\/econnecto.com\/profile-business\/images\/categories\/TRAVEL.jpg"
+    }
+  ]
+}

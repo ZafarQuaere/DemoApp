@@ -19,7 +19,6 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilBizName"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_50dp"
@@ -35,7 +34,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilEstdYear"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10dp"
@@ -52,7 +51,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilCategory1"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10dp"
@@ -68,7 +67,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilCategory2"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10dp"
@@ -84,7 +83,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilCategory3"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10dp"

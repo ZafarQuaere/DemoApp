@@ -37,30 +37,28 @@ public class MyJsonObjectRequest extends JsonObjectRequest {
 
         mContext = context;
         //if server is not working pick the default response from local storage.
-        if(mContext.getResources().getBoolean(R.bool.read_from_local)){
+        if (mContext.getResources().getBoolean(R.bool.read_from_local)) {
             //here pick file from assets
             String fileName = null;
-            if(url.contains(AppConstant.URL_LOGIN))
-            {
+            if (url.contains(AppConstant.URL_LOGIN)) {
                 fileName = "login.txt";
-            }
-            else if(url.contains(AppConstant.URL_REGISTER))
-            {
+            } else if (url.contains(AppConstant.URL_BIZ_LIST)) {
+                fileName = "business_list.txt";
+            } else if (url.contains(AppConstant.URL_BIZ_CATEGORY)) {
+                fileName = "categories.txt";
+            } else if (url.contains(AppConstant.URL_REGISTER)) {
                 fileName = "register.txt";
             }
-            else if(url.contains(AppConstant.URL_BIZ_LIST))
-            {
-                fileName = "business_list.txt";
-            }
+
 
             try {
-                listener.onResponse(new JSONObject(FileUtils.loadJSONFromAsset(mContext,fileName)));
+                listener.onResponse(new JSONObject(FileUtils.loadJSONFromAsset(mContext, fileName)));
             } catch (Exception e) {
                 e.printStackTrace();
                 LogUtils.ERROR(e.getMessage());
             }
-        }else {
-            LogUtils.DEBUG(AppConstant.TAG+" url : " + url);
+        } else {
+            LogUtils.DEBUG(AppConstant.TAG + " url : " + url);
         }
 
         setRetryPolicy(new DefaultRetryPolicy((int)context.getResources().getInteger(R.integer.value_request_timeout),

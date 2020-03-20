@@ -2,6 +2,8 @@
 <resources>
 
 
+    <dimen name="toolbar_height">50dp</dimen>
+
     <!-- Introduction Screen -->
     <dimen name="dots_height">30dp</dimen>
     <dimen name="dots_margin_bottom">20dp</dimen>

@@ -46,7 +46,7 @@ public class LoginPresenter extends BasePresenter {
 
     public void validateUsernamePassword(String userId, String password) {
         if (userId.equals("") || userId.isEmpty()) {
-            mLogin.onValidationError(mContext.getString(R.string.please_enter_username));
+            mLogin.onValidationError(mContext.getString(R.string.mobile_no));
         } else if (password.equals("") || password.isEmpty()) {
             mLogin.onValidationError(mContext.getString(R.string.please_enter_password));
         } else if (password.length() < 6) {
