@@ -23,7 +23,7 @@
                 android:layout_centerVertical="true"
                 android:scaleType="fitStart"
                 android:src="@drawable/ic_menu_24dp"
-                android:visibility="invisible" />
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/textBack"

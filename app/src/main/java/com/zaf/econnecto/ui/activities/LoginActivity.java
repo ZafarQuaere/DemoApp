@@ -34,13 +34,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mContext = this;
-        findViewById(R.id.imageView2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this,MainActivity.class));
-               // startActivity(new Intent(LoginActivity.this, BizDetailsActivity.class));
-            }
-        });
         if (Utils.isLoggedIn(mContext)) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
@@ -51,8 +44,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
     }
 
     private void initUI() {
-      //  Utils.updateActionBar(this,new LoginActivity().getClass().getSimpleName(),getString(R.string.login_label), null,null);
-
+        Utils.updateActionBar(this,new LoginActivity().getClass().getSimpleName(),getString(R.string.login_label), null,null);
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

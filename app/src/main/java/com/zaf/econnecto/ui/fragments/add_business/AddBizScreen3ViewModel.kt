@@ -77,5 +77,4 @@ class AddBizScreen3ViewModel : ViewModel() {
             }
         })
     }
-
 }

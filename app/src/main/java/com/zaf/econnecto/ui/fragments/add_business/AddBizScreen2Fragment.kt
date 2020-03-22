@@ -52,7 +52,7 @@ class AddBizScreen2Fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
-        KotUtil.updateActionBar(activity, AddBizScreen2Fragment.javaClass.simpleName, "Screen 2", null, null)
+        KotUtil.updateActionBar(activity, AddBizScreen2Fragment.javaClass.simpleName, activity!!.getString(R.string.add_business), null, null)
         btnNext.setOnClickListener {
             pincode = editPinCode.text.toString().trim()
             city = editCity.text.toString().trim()

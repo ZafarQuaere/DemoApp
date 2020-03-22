@@ -117,7 +117,6 @@ class UserRegisterViewModel : ViewModel() {
                     val jsonArray = body.optJSONArray("message")
                     val message = jsonArray!!.get(0) as String
                     LogUtils.showErrorDialog(mContext,mContext.getString(R.string.ok),message)
-
                 }
             }
 

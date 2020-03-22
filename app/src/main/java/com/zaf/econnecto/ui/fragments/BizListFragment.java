@@ -50,7 +50,7 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
     @Override
     public void onResume() {
         super.onResume();
-        LogUtils.DEBUG("OnResume AppConstant.NEW_FOLLOW  "+AppConstant.NEW_FOLLOW);
+        //LogUtils.DEBUG("OnResume AppConstant.NEW_FOLLOW  "+AppConstant.NEW_FOLLOW);
         if (AppConstant.NEW_FOLLOW){
             callApi();
         }

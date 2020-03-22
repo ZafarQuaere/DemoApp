@@ -369,7 +369,13 @@ public class Utils {
 
         textTitle.setText(dynamicTitle);
         if (className.equals(new LoginActivity().getClass().getSimpleName())) {
-
+            textBack.setVisibility(View.VISIBLE);
+            textBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((Activity) activity).onBackPressed();
+                }
+            });
         } else if (className.equals(new ChangePswdActivity().getClass().getSimpleName())) {
             textBack.setVisibility(View.VISIBLE);
             textBack.setOnClickListener(new View.OnClickListener() {

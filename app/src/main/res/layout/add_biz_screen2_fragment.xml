@@ -82,6 +82,12 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <LinearLayout
+                android:id="@+id/lytLocalitySpin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textLocalityLabel"
@@ -91,15 +97,14 @@
                 android:paddingLeft="@dimen/_5dp"
                 android:text="@string/locality"
                 android:textSize="@dimen/font_small_header"
-                android:visibility="gone" />
+                android:visibility="visible" />
 
-            <LinearLayout
+          <!--  <LinearLayout
                 android:id="@+id/lytLocalitySpin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/button_transparent_bg"
-                android:visibility="gone">
+                android:visibility="visible">-->
 
                 <Spinner
                     android:id="@+id/spinnerLocality"
@@ -109,8 +114,13 @@
                     android:backgroundTint="@color/colorPrimary"
                     android:gravity="right"
                     android:visibility="visible" />
-            </LinearLayout>
+           <!-- </LinearLayout>-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1dp"
+                android:background="@color/colorPrimary"/>
 
+            </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                

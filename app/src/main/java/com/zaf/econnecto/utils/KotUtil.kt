@@ -83,6 +83,8 @@ class KotUtil {
             textTitle.text = dynamicTitle
 
             if (className.equals(AddBizScreen1Fragment.javaClass.simpleName)){
+                textBack.visibility = View.VISIBLE
+                textBack.setOnClickListener { activity.onBackPressedDispatcher.onBackPressed() }
 
             } else if (className.equals(AddBizScreen2Fragment.javaClass.simpleName)){
                 textBack.visibility = View.VISIBLE

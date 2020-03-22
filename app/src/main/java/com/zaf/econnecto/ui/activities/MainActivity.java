@@ -187,6 +187,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
     }*/
 
     startActivity(new Intent(mContext, AddBusinessActivity.class));
+   // overridePendingTransition(R.anim.slide_in_right,R.anim.slide_in_left);
     closeDrawer();
   }
 
@@ -228,6 +229,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
   public void saveAddressClick(View view) {
     closeDrawer();
     startActivity(new Intent(MainActivity.this, BizDetailsActivity.class));
+   // overridePendingTransition(R.anim.slide_in_right,R.anim.slide_in_left);
   }
 
   public void item3Click(View view) {
@@ -253,6 +255,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
             @Override
             public void onOkClick() {
               mContext.startActivity(new Intent(mContext, LoginActivity.class));
+             // overridePendingTransition(R.anim.slide_in_right,R.anim.slide_in_left);
             }
 
             @Override
@@ -338,6 +341,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
           public void onOkClick() {
             // getPresenter().requestOtpApi();
             getPresenter().startActivity(mContext);
+           // overridePendingTransition(R.anim.slide_in_right,R.anim.slide_in_left);
           }
 
           @Override
@@ -385,25 +389,25 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
 
   @Override
   protected void onResume() {
-    LogUtils.DEBUG("Main Activity OnResume ");
+   // LogUtils.DEBUG("Main Activity OnResume ");
     super.onResume();
   }
 
   @Override
   protected void onRestart() {
-    LogUtils.DEBUG("Main Activity OnRestart ");
+    //LogUtils.DEBUG("Main Activity OnRestart ");
     super.onRestart();
   }
 
   @Override
   protected void onResumeFragments() {
-    LogUtils.DEBUG("Main Activity OnResumeFragments ");
+   // LogUtils.DEBUG("Main Activity OnResumeFragments ");
     super.onResumeFragments();
   }
 
   @Override
   protected void onPostResume() {
-    LogUtils.DEBUG("Main Activity OnPostResume ");
+   // LogUtils.DEBUG("Main Activity OnPostResume ");
     super.onPostResume();
   }
 
@@ -424,6 +428,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
             @Override
             public void onOkClick() {
               mContext.startActivity(new Intent(mContext, LoginActivity.class));
+             // overridePendingTransition(R.anim.slide_in_right,R.anim.slide_in_left);
             }
 
             @Override

@@ -39,7 +39,7 @@ class AddBizScreen3Fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        KotUtil.updateActionBar(activity, AddBizScreen1Fragment.javaClass.simpleName, "Screen 3", null, null)
+        KotUtil.updateActionBar(activity, AddBizScreen1Fragment.javaClass.simpleName, activity!!.getString(R.string.add_business), null, null)
         btnSubmitAddBiz.setOnClickListener {
             validateInput()
         }
@@ -65,7 +65,7 @@ class AddBizScreen3Fragment : Fragment() {
             else -> {
                 activity!!.finish()
                 //Call Api
-                //viewModel.callAddBizApi(activity, screen12Data, mobileNo, emailId, alternateMobile, telephone, website)
+                viewModel.callAddBizApi(activity, screen12Data, mobileNo, emailId, alternateMobile, telephone, website)
             }
         }
 
