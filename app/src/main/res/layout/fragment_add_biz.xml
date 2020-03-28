@@ -286,7 +286,7 @@
                     android:layout_marginHorizontal="@dimen/_5dp"
                     android:background="@drawable/button_transparent_bg"
                     android:inputType="textEmailAddress"
-                    android:maxLength="50"
+                    android:maxLength="30"
                     android:minHeight="@dimen/edit_field_height"
                     android:paddingStart="@dimen/_5dp" />
 

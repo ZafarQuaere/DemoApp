@@ -39,8 +39,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50dp"
                 android:hint="@string/mobile_no"
-                android:maxLength="70"
+                android:maxLength="10"
                 android:singleLine="true"
+                android:inputType="number"
                 android:text=""
                 android:textSize="@dimen/font_regular_text" />
         </com.google.android.material.textfield.TextInputLayout>

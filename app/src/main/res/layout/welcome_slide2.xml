@@ -2,17 +2,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/welcome_screen2">
+    android:background="@color/colorPrimary">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/text"
+        android:background="@drawable/welcome_22"/>
 
     <TextView
+        android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/desc"
         android:layout_centerHorizontal="true"
         android:text="@string/slide_2_title"
-        android:textColor="@color/colorPrimary"
+        android:fontFamily="@font/isocpeur"
         android:textSize="@dimen/slide_title"
+        android:textColor="@color/white"
         android:textStyle="bold" />
 
     <TextView
@@ -23,15 +30,16 @@
         android:layout_centerHorizontal="true"
         android:paddingHorizontal="@dimen/_20dp"
         android:textSize="@dimen/slide_desc"
-        android:layout_marginTop="10dp"
+        android:fontFamily="serif-monospace"
         android:textAlignment="center"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorYellow"
+        android:textStyle="bold"
         android:text="@string/slide_2_desc" />
 
     <Space
         android:id="@+id/spcae"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_100dp"
+        android:layout_height="@dimen/_80dp"
         android:layout_alignParentBottom="true" />
 
 

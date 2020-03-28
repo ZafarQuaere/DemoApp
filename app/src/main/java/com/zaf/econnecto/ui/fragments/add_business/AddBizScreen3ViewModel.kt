@@ -27,7 +27,6 @@ class AddBizScreen3ViewModel : ViewModel() {
         var loader = AppDialogLoader.getLoader(mContext)
         loader.show()
         //TODO here category is missing..
-
         var jsonObject = JSONObject()
         jsonObject.put("jwt_token", Utils.getAccessToken(mContext))
         jsonObject.put("owner_id", "")

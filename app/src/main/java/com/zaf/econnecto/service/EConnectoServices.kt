@@ -23,4 +23,7 @@ interface EConnectoServices {
     @POST("add_business/add_business.php")
     fun addYourBusiness(@Body requestBody: RequestBody): Call<JsonObject>
 
+    @GET("categories/categories_list.php")
+    fun getCategoryList(): Call<JsonObject>
+
 }

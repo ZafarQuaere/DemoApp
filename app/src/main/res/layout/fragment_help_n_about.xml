@@ -212,7 +212,6 @@
             android:id="@+id/textPlaystoreLine"
             style="@style/RegularTextview"
             android:autoLink="web"
-            android:linksClickable="true"
             android:text="@string/playstore_link"
             android:textColorLink="@color/colorPrimary"
             android:textStyle="bold" />

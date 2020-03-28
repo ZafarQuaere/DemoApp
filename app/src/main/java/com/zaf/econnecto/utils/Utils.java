@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +28,8 @@ import android.widget.TextView;
 
 import com.zaf.econnecto.BuildConfig;
 import com.zaf.econnecto.R;
+import com.zaf.econnecto.model.CategoryData;
+import com.zaf.econnecto.model.CategoryListData;
 import com.zaf.econnecto.network_call.response_model.login.LoginData;
 import com.zaf.econnecto.ui.activities.BizDetailsActivity;
 import com.zaf.econnecto.ui.activities.ChangePswdActivity;
@@ -42,6 +45,10 @@ import com.zaf.econnecto.ui.fragments.add_business.AddBizScreen1Fragment;
 import com.zaf.econnecto.ui.interfaces.ActionBarItemClick;
 import com.zaf.econnecto.utils.parser.ParseManager;
 import com.zaf.econnecto.utils.storage.AppSharedPrefs;
+
+import org.jetbrains.annotations.Nullable;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -60,17 +67,17 @@ public class Utils {
 
     public static final int USER_PROFILE_IMG = 100;
 
-    public static boolean isValidMobileNumber(String mobileNo) {
-        return Patterns.PHONE.matcher(mobileNo)
-                .matches();
-    }
-
     public static boolean isValidEmail(String email) {
         /*String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
         java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
         java.util.regex.Matcher m = p.matcher(email);
         return m.matches();*/
         return email != null && Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    public static boolean isValidMobileNumber(String mobileNo) {
+        return Patterns.PHONE.matcher(mobileNo)
+                .matches();
     }
 
     public static ProgressDialog showLoadingDialog(Context context) {
@@ -757,6 +764,32 @@ public class Utils {
             return data;
         }
         return data;
+    }
+
+    public static void openInPlayStore(Activity activity) {
+        final String appPackageName = activity.getPackageName(); // getPackageName() from Context or Activity object
+        try {
+            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+        } catch (android.content.ActivityNotFoundException anfe) {
+            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+        }
+    }
+
+    public static List<CategoryListData> readDataFromFile(@Nullable Activity activity) {
+        List<CategoryListData> listData = null;
+        try {
+            JSONObject category = new JSONObject(FileUtils.loadJSONFromAsset(activity, "category"));
+            CategoryData data = ParseManager.getInstance().fromJSON(category, CategoryData.class);
+            listData = data.getData();
+            //LogUtils.DEBUG(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> item1 : "+data.getData().get(0).getCategoryName()+" item2 "+data.getData().get(1).getCategoryName());
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return listData;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return listData;
+        }
+        return listData;
     }
 
    /* public static void selectImageFromGallery(Activity mContext) {

@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.zaf.econnecto.R
-import com.zaf.econnecto.ui.activities.UserRegisterViewModel
 import com.zaf.econnecto.ui.interfaces.FragmentNavigation
 import com.zaf.econnecto.utils.FileUtils
 import com.zaf.econnecto.utils.LogUtils

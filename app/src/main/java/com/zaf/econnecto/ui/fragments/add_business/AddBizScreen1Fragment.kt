@@ -12,23 +12,23 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.zaf.econnecto.R
-import com.zaf.econnecto.network_call.response_model.biz_list.BizData
-import com.zaf.econnecto.network_call.response_model.biz_list.BizListData
-import com.zaf.econnecto.service.EConnectoServices
-import com.zaf.econnecto.service.ServiceBuilder
+import com.zaf.econnecto.model.CategoryListData
+import com.zaf.econnecto.ui.interfaces.CategoryDataListener
 import com.zaf.econnecto.utils.KotUtil
 import com.zaf.econnecto.utils.LogUtils
+import com.zaf.econnecto.utils.Utils
 import kotlinx.android.synthetic.main.add_biz_screen1_fragemnt.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class AddBizScreen1Fragment : Fragment() {
 
     lateinit var navController: NavController
     var estdYear : Int = 0
+    var categoryList : MutableList<CategoryListData>? = null
+    var category1 : String? = null
+    var category2 : String? = null
+    var category3 : String? = null
 
-    companion object {
+            companion object {
         fun newInstance() = AddBizScreen1Fragment()
     }
 
@@ -45,49 +45,16 @@ class AddBizScreen1Fragment : Fragment() {
         navController = Navigation.findNavController(view)
 
         btnNext.setOnClickListener {
-            val bizName : String = editBizName.text.toString().trim()
-            val category1 : String = editCategory1.text.toString().trim()
-            val category2 : String = editCategory2.text.toString().trim()
-            val category3 : String = editCategory3.text.toString().trim()
-
-            when {
-                bizName.isEmpty() -> {
-                    LogUtils.showErrorDialog(activity, getString(R.string.ok), getString(R.string.enter_valid_business_name))
-                }
-                bizName.length < 3 -> {
-                    LogUtils.showErrorDialog(activity, getString(R.string.ok), getString(R.string.enter_valid_business_name))
-                }
-                !KotUtil.validateEstd(estdYear) -> {
-                    LogUtils.showErrorDialog(activity, getString(R.string.ok), getString(R.string.enter_valid_establishment_year))
-                }
-                category1.isEmpty() -> {
-                    LogUtils.showErrorDialog(activity, getString(R.string.ok), getString(R.string.select_atleast_one_category_plz_click_on_add_category_text))
-                }
-                else -> {
-                    val bizDetailData = BizDetailData(bizName, estdYear.toInt() , category1, category2, category3)
-                    val bundle = bundleOf("bizDetail" to bizDetailData)
-                    navController.navigate(R.id.action_screen1_to_screen2, bundle)
-                }
-            }
+            validateUIandNavigate()
         }
 
-        editEstdYear.addTextChangedListener(object: TextWatcher{
-            override fun afterTextChanged(s: Editable?) {
-            }
+        textChangeListeners()
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(s.toString().trim().isNotEmpty()){
-                    estdYear = s.toString().toInt()
-                } else estdYear = 0
-            }
-
-        })
 
         textAddCategory.setOnClickListener {
-            val categoryArray = resources.getStringArray(R.array.biz_category)
-            viewModel.openBottomSheetDialog(activity, categoryArray, object : OnCategoryItemClickListener {
-                override fun onCategoryItemClick(item: String?) {
+            //val categoryArray = resources.getStringArray(R.array.biz_category)
+            viewModel.openBottomSheetDialog(activity, categoryList, object : OnCategoryItemClickListener {
+                override fun onCategoryItemClick(item: CategoryListData?) {
                     if (item != null) {
                         updateCategoryUI(item)
                     }
@@ -96,54 +63,147 @@ class AddBizScreen1Fragment : Fragment() {
         }
     }
 
-    private fun updateCategoryUI(item: String) {
+    private fun textChangeListeners() {
+        editEstdYear.addTextChangedListener(object: TextWatcher{
+            override fun afterTextChanged(s: Editable?) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(s.toString().trim().isNotEmpty()){
+                    estdYear = s.toString().toInt()
+                } else estdYear = 0
+            }
+        })
+
+        editCategory1.addTextChangedListener(object :TextWatcher{
+            override fun afterTextChanged(ch: Editable?) {}
+            override fun beforeTextChanged(cs: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(cs: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (cs.toString().trim().isEmpty()){
+                    LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_tap_on_add_category_text_below_to_select_category))
+                    textAddCategory.visibility = View.VISIBLE
+                }
+            }
+        })
+        editCategory2.addTextChangedListener(object :TextWatcher{
+            override fun afterTextChanged(ch: Editable?) {}
+            override fun beforeTextChanged(cs: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(cs: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (cs.toString().trim().isEmpty()){
+                    LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_tap_on_add_category_text_below_to_select_category))
+                    textAddCategory.visibility = View.VISIBLE
+                }
+            }
+        })
+        editCategory3.addTextChangedListener(object :TextWatcher{
+            override fun afterTextChanged(ch: Editable?) {}
+            override fun beforeTextChanged(cs: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(cs: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (cs.toString().trim().isEmpty()){
+                    LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_tap_on_add_category_text_below_to_select_category))
+                    textAddCategory.visibility = View.VISIBLE
+                }
+            }
+        })
+    }
+
+    private fun validateUIandNavigate() {
+        val bizName : String = editBizName.text.toString().trim()
+        category1 = editCategory1.text.toString().trim()
+        category2 = editCategory2.text.toString().trim()
+        category3 = editCategory3.text.toString().trim()
+
+        when {
+            bizName.isEmpty() -> {
+                LogUtils.showErrorDialog(activity, getString(R.string.ok), getString(R.string.enter_valid_business_name))
+            }
+            bizName.length < 3 -> {
+                LogUtils.showErrorDialog(activity, getString(R.string.ok), getString(R.string.enter_valid_business_name))
+            }
+            !KotUtil.validateEstd(estdYear) -> {
+                LogUtils.showErrorDialog(activity, getString(R.string.ok), getString(R.string.enter_valid_establishment_year))
+            }
+            category1!!.isEmpty() -> {
+                LogUtils.showErrorDialog(activity, getString(R.string.ok), getString(R.string.select_atleast_one_category_plz_click_on_add_category_text))
+            }
+            else -> {
+                val bizDetailData = BizDetailData(bizName, estdYear.toInt() , category1, category2, category3)
+                val bundle = bundleOf("bizDetail" to bizDetailData)
+                navController.navigate(R.id.action_screen1_to_screen2, bundle)
+            }
+        }
+    }
+
+    private fun updateCategoryUI(item: CategoryListData) {
         when {
             editCategory1.text.toString().isEmpty() -> {
                 tilCategory1.visibility = View.VISIBLE
-                editCategory1.setText(item)
-                textAddCategory.text = activity!!.getString(R.string.add_more_category)
+                editCategory1.setText(item.categoryName)
+                if (editCategory1.text.toString().trim() == editCategory2.text.toString().trim() || editCategory1.text.toString().trim() == editCategory3.text.toString().trim()) {
+                    LogUtils.showToast(activity, activity!!.getString(R.string.already_selected_plz_select_different_category))
+                    editCategory1.setText("")
+                }
+                //textAddCategory.text = activity!!.getString(R.string.add_more_category)
             }
             editCategory2.text.toString().isEmpty() -> {
                 tilCategory2.visibility = View.VISIBLE
-                editCategory2.setText(item)
-                if (editCategory2.text.toString().trim() == editCategory1.text.toString().trim()) {
-                    LogUtils.showToast(activity, "Select different category")
+                editCategory2.setText(item.categoryName)
+                if (editCategory2.text.toString().trim() == editCategory1.text.toString().trim() || editCategory2.text.toString().trim() == editCategory3.text.toString().trim()) {
+                    LogUtils.showToast(activity, activity!!.getString(R.string.already_selected_plz_select_different_category))
                     editCategory2.setText("")
                     tilCategory2.visibility = View.GONE
                 }
             }
             editCategory3.text.toString().isEmpty() -> {
                 tilCategory3.visibility = View.VISIBLE
-                editCategory3.setText(item)
+                editCategory3.setText(item.categoryName)
                 if (editCategory3.text.toString().trim() == editCategory2.text.toString().trim() || editCategory3.text.toString().trim() == editCategory1.text.toString().trim()) {
-                    LogUtils.showToast(activity, "Select different category")
+                    LogUtils.showToast(activity, activity!!.getString(R.string.already_selected_plz_select_different_category))
                     editCategory3.setText("")
                     tilCategory3.visibility = View.GONE
                 } else {
                     textAddCategory.visibility = View.GONE
                 }
             }
-        }
-    }
-
-    /* override fun onCreate(savedInstanceState: Bundle?) {
-         super.onCreate(savedInstanceState)
-         // This callback will only be called when MyFragment is at least Started.
-         // This callback will only be called when MyFragment is at least Started.
-         val callback: OnBackPressedCallback = object : OnBackPressedCallback(true *//* enabled by default *//*) {
-            override fun handleOnBackPressed() { // Handle the back button event
+            else -> {
+                LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.you_have_already_selected_max_no_of_category))
+                textAddCategory.visibility = View.GONE
             }
         }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-    }*/
-
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AddBizScreen1ViewModel::class.java)
+        //TODO for now it is reading data from file, we can implement it using api call (implemented in belwo method)
+        categoryList = Utils.readDataFromFile(activity)
+
+        updateUIOnBackPressed()
+
+
     }
 
+    private fun updateUIOnBackPressed() {
+        /*  if(categoryList == null ) {
+            viewModel.callCategoryApi(activity, object : CategoryDataListener {
+                override fun onCategoryListLoaded(listData: MutableList<CategoryListData>?) {
+                    categoryList = listData!!
+                }
+            })
+        } else {*/
+        if ( !category1.isNullOrEmpty()){
+            tilCategory1.visibility = View.VISIBLE
+        }
+        if ( !category2.isNullOrEmpty()){
+            tilCategory2.visibility = View.VISIBLE
+        }
+        if ( !category3.isNullOrEmpty()){
+            tilCategory3.visibility = View.VISIBLE
+        }
+    }
+
+
     interface OnCategoryItemClickListener {
-        fun onCategoryItemClick(item: String?)
+        fun onCategoryItemClick(item: CategoryListData?)
     }
 }

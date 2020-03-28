@@ -7,6 +7,8 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
     <color name="colorGrey">#888888</color>
+    <color name="colorLightGrey">#d3d3d3</color>
+    <color name="colorYellow">#FFEB3B</color>
 
     <color name="colorTransparent">#00000000</color>
     <color name="home_img_text">#43978F8F</color>
@@ -33,16 +35,16 @@
     <color name="dot_light_screen4">#e4b5fc</color>
 
     <array name="array_dot_active">
-        <item>@color/colorPrimary</item>
-        <item>@color/colorPrimary</item>
-        <item>@color/colorPrimary</item>
+        <item>@color/colorWhite</item>
+        <item>@color/colorWhite</item>
+        <item>@color/colorWhite</item>
         <item>@color/dot_light_screen4</item>
     </array>
 
     <array name="array_dot_inactive">
-        <item>@color/colorSplash</item>
-        <item>@color/colorSplash</item>
-        <item>@color/colorSplash</item>
+        <item>@color/colorGrey</item>
+        <item>@color/colorGrey</item>
+        <item>@color/colorGrey</item>
         <item>@color/dot_dark_screen4</item>
     </array>
 

@@ -31,7 +31,8 @@ public class WelcomeActivity extends AppCompatActivity {
     private LinearLayout dotsLayout;
     private TextView[] dots;
     private int[] layouts;
-    private Button btnSkip, btnNext;
+    private Button btnSkip;
+    private TextView  btnNext;
 
 
     @Override
@@ -54,7 +55,7 @@ public class WelcomeActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
         btnSkip = (Button) findViewById(R.id.btn_skip);
-        btnNext = (Button) findViewById(R.id.btn_next);
+        btnNext = (TextView) findViewById(R.id.btn_next);
 
 
         // layouts of all welcome sliders
@@ -141,7 +142,7 @@ public class WelcomeActivity extends AppCompatActivity {
             } else {
                 // still pages are left
                 btnNext.setText(getString(R.string.next));
-                btnSkip.setVisibility(View.VISIBLE);
+                btnSkip.setVisibility(View.GONE);
             }
         }
 

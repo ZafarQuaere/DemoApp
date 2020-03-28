@@ -111,6 +111,9 @@ class AddBizScreen2Fragment : Fragment() {
                     editCity.setText(pincodeData.getData()!![0]!!.getDistrict())
                     editState.setText(pincodeData.getData()!![0]!!.getStateName())
                     editCountry.setText(getString(R.string.india))
+                    editCity.isEnabled = false
+                    editState.isEnabled = false
+                    editCountry.isEnabled = false
                     val localityArray = arrayOfNulls<String>(data.size)
                     for (i in data.indices) {
                         localityArray[i] = data[i]!!.getOfficeName().toString()

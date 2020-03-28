@@ -6,7 +6,21 @@
     android:background="@color/colorWhite"
     android:clickable="true">
 
+    <Button
+        android:id="@+id/btnAddBizns"
+        android:background="@drawable/btn_follow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_add_biz_white"
+        android:paddingLeft="@dimen/_20dp"
+        android:text="@string/add_your_business"
+        android:drawablePadding="@dimen/_20dp"
+        android:gravity="start|center"
+        android:textColor="@color/white"
+        android:layout_margin="@dimen/_20dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/btnAddBizns"
         android:id="@+id/recyclerBusinessList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

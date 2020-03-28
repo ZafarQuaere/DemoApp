@@ -2,37 +2,44 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/welcome_screen1">
+    android:background="@color/colorPrimary">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/welcome_11"
+        android:layout_above="@id/text"/>
 
     <TextView
+        android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/desc"
         android:layout_centerHorizontal="true"
-        android:text="@string/slide_1_title"
-        android:textColor="@color/colorPrimary"
+        android:fontFamily="@font/isocpeur"
         android:textSize="@dimen/slide_title"
+        android:text="@string/slide_1_title"
+        android:textColor="@color/colorWhite"
         android:textStyle="bold" />
 
     <TextView
-        android:text="@string/slide_1_desc"
         android:id="@+id/desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/spcae"
         android:layout_centerHorizontal="true"
-        android:paddingHorizontal="@dimen/_20dp"
-        android:layout_marginTop="10dp"
+        android:paddingHorizontal="@dimen/_10dp"
+        android:text="@string/slide_1_desc"
         android:textAlignment="center"
-        android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/slide_desc" />
+        android:textColor="@color/colorYellow"
+        android:textStyle="bold"
+        android:textSize="@dimen/slide_desc"
+        android:fontFamily="serif-monospace" />
 
     <Space
         android:id="@+id/spcae"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_100dp"
+        android:layout_height="@dimen/_80dp"
         android:layout_alignParentBottom="true" />
-
 
 </RelativeLayout>

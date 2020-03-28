@@ -12,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.zaf.econnecto.R
 import com.zaf.econnecto.utils.KotUtil
 import com.zaf.econnecto.utils.LogUtils
+import com.zaf.econnecto.utils.Utils
 import kotlinx.android.synthetic.main.add_biz_screen3_fragment.*
 
 class AddBizScreen3Fragment : Fragment() {
@@ -61,6 +62,9 @@ class AddBizScreen3Fragment : Fragment() {
             }
             emailId.isEmpty() -> {
                 LogUtils.showErrorDialog(activity, activity?.getString(R.string.ok), activity?.getString(R.string.enter_email))
+            }
+            !Utils.isValidEmail(emailId) -> {
+                LogUtils.showErrorDialog(activity, activity?.getString(R.string.ok), activity?.getString(R.string.please_enter_valid_email))
             }
             else -> {
                 activity!!.finish()

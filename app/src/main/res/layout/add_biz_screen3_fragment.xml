@@ -25,7 +25,6 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20dp"
@@ -41,7 +40,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
@@ -57,7 +55,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
@@ -75,7 +72,6 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilEmail"
-                
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
@@ -93,7 +89,6 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilWebsite"
-                
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
@@ -115,23 +110,36 @@
                 android:layout_marginTop="@dimen/_20dp"
                 android:orientation="horizontal">
 
-                <Button
+                <TextView
                     android:id="@+id/btnPrevious"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:padding="@dimen/_10dp"
+                    android:background="@drawable/rounded_background"
+                    android:fontFamily="serif-monospace"
+                    android:paddingHorizontal="@dimen/_20dp"
+                    android:paddingVertical="@dimen/_5dp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_x_large_text"
+                    android:textStyle="bold"
                     android:text="@string/previous"
                     android:textAllCaps="false" />
 
-                <Button
+                <TextView
                     android:id="@+id/btnSubmitAddBiz"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:padding="@dimen/_10dp"
+                    android:background="@drawable/rounded_background"
+                    android:fontFamily="serif-monospace"
+                    android:paddingHorizontal="@dimen/_20dp"
+                    android:paddingVertical="@dimen/_5dp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_x_large_text"
+                    android:textStyle="bold"
                     android:text="@string/submit"
-                    android:textAllCaps="false" />
+                    tools:ignore="RelativeOverlap" />
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

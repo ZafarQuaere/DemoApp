@@ -101,19 +101,29 @@
         android:id="@+id/textAddCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:padding="@dimen/_10dp"
+        android:layout_gravity="start"
+        android:drawableLeft="@drawable/ic_add"
+        android:textColor="@color/colorPrimary"
+        android:paddingVertical="@dimen/_10dp"
         android:text="@string/add_category"
+        android:textStyle="bold"
         android:textSize="@dimen/font_large_text" />
 
-    <Button
+    <TextView
         android:id="@+id/btnNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tilSelectCategory"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:layout_marginTop="@dimen/_10dp"
         android:layout_marginEnd="@dimen/_10dp"
-        android:text="@string/next" />
+        android:background="@drawable/rounded_background"
+        android:fontFamily="serif-monospace"
+        android:paddingHorizontal="@dimen/_20dp"
+        android:paddingVertical="@dimen/_5dp"
+        android:text="@string/next"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_x_large_text"
+        android:textStyle="bold" />
 
 </LinearLayout>

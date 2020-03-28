@@ -2,7 +2,7 @@
 
     <string name="app_name">eConnecto</string>
 
-    <string name="next">NEXT</string>
+    <string name="next">Next</string>
     <string name="skip">SKIP</string>
 
     <string name="start">GOT IT</string>
@@ -79,9 +79,9 @@
     <string name="website_link"><a href="http://econnecto.com/"> www.econnecto.com</a></string>
     <string name="fb_link"><a href="https://www.facebook.com/mzafarimam"> facebook.com/econnecto</a></string>
     <string name="insta_link"><a href="https://www.instagram.com/imz_zafar/"> instagram.com/econnecto</a></string>
-    W
+
     <string name="twitter_link"><a href="https://twitter.com/ZafarTwit"> twitter.com/econnecto</a></string>
-    <string name="playstore_link"><a href="https://play.google.com/store/apps/details?id=com.zaf.econnecto"> play.google.com/store/apps/econnecto</a></string>
+    <string name="playstore_link">play.google.com/store/apps/econnecto</string>
     <string name="text_visit_our_website">Visit Our Website : </string>
     <string name="text_like_on_fb">Like Us on Facebook :</string>
     <string name="text_follow_us_on_insta">Follow Us on Instagram :</string>
@@ -95,6 +95,7 @@
     <string name="enter_registered_email">Enter Registered Email</string>
     <string name="send_otp">Send OTP</string>
     <string name="add_business">Add Business</string>
+    <string name="add_your_business">Add Your Business</string>
     <string name="business_list">Business List</string>
     <string name="establish_year">Establishment year </string>
     <string name="view_business">View Business</string>
@@ -285,13 +286,13 @@
     <string name="resend_otp">Did not received OTP ?<b>Resend OTP</b></string>
     <string name="key_access_token">key_access_token</string>
     <string name="previous">Previous</string>
-    <string name="add_category"><b>*</b> Add Category</string>
+    <string name="add_category"><b>Add Category</b></string>
     <string name="address_details">Address Details</string>
     <string name="india">India</string>
     <string name="country">Country</string>
     <string name="alternate_mobile">Alternate Mobile</string>
     <string name="telephone_with_code">Telephone with code</string>
-    <string name="locality">Locality</string>
+    <string name="post_office">Post Office</string>
     <string name="address_line1">Address Line 1*</string>
     <string name="address_line2">Address Line 2</string>
     <string name="add_more_category">Add More Category</string>
@@ -300,7 +301,10 @@
     <string name="landmark">Landmark</string>
     <string name="please_enter_locality">Please enter locality</string>
     <string name="please_enter_country">Please enter country name</string>
-    <string name="category3">Category3</string>
-    <string name="category2">Category2</string>
+    <string name="category3">Category 3</string>
+    <string name="category2">Category 2</string>
     <string name="enter_valid_establishment_year">Enter valid year of Establishment of your business</string>
+    <string name="already_selected_plz_select_different_category">It is already Selected, Please select different category</string>
+    <string name="you_have_already_selected_max_no_of_category">Category limit is 3,  You have already selected maximum no. of category</string>
+    <string name="please_tap_on_add_category_text_below_to_select_category">Please taps on <b>Add Category</b> text below to select category</string>
 </resources>

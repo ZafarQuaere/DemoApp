@@ -1,4 +1,4 @@
-package com.zaf.econnecto.ui.activities
+package com.zaf.econnecto.ui.fragments.user_register
 
 import android.app.Activity
 import android.content.Context
@@ -12,7 +12,6 @@ import com.google.gson.JsonObject
 import com.zaf.econnecto.R
 import com.zaf.econnecto.service.EConnectoServices
 import com.zaf.econnecto.service.ServiceBuilder
-import com.zaf.econnecto.ui.fragments.user_register.UserRegisterFragment
 import com.zaf.econnecto.ui.interfaces.FragmentNavigation
 import com.zaf.econnecto.utils.*
 import okhttp3.MediaType

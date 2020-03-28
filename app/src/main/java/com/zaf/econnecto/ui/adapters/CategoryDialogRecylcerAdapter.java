@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.zaf.econnecto.R;
+import com.zaf.econnecto.model.CategoryListData;
 import com.zaf.econnecto.network_call.response_model.home.CategoryData;
 import com.zaf.econnecto.ui.fragments.BizCategoryFragment;
 import com.zaf.econnecto.ui.fragments.add_business.AddBizScreen1Fragment;
@@ -19,11 +20,11 @@ import java.util.List;
 
 public class CategoryDialogRecylcerAdapter extends RecyclerView.Adapter<CategoryDialogRecylcerAdapter.ViewHolder> {
 
-    private final List<String> mCategoryList;
+    private final List<CategoryListData> mCategoryList;
     private final AddBizScreen1Fragment.OnCategoryItemClickListener mListener;
     private Context context;
 
-    public CategoryDialogRecylcerAdapter(Context mContext, List<String> items, AddBizScreen1Fragment.OnCategoryItemClickListener listener) {
+    public CategoryDialogRecylcerAdapter(Context mContext, List<CategoryListData> items, AddBizScreen1Fragment.OnCategoryItemClickListener listener) {
         context = mContext;
         mCategoryList = items;
         mListener = listener;
@@ -39,7 +40,7 @@ public class CategoryDialogRecylcerAdapter extends RecyclerView.Adapter<Category
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mCategoryList.get(position);
-        holder.textName.setText(mCategoryList.get(position));
+        holder.textName.setText(mCategoryList.get(position).getCategoryName());
        // Picasso.get().load(mCategoryList.get(position).getCategoryImage()).placeholder(R.mipmap.ic_launcher).into(holder.imgItem);
 
         holder.mView.setOnClickListener(v -> {
@@ -59,7 +60,7 @@ public class CategoryDialogRecylcerAdapter extends RecyclerView.Adapter<Category
     public class ViewHolder extends RecyclerView.ViewHolder {
         final View mView;
         final TextView textName;
-        String mItem;
+        CategoryListData mItem;
 
         ViewHolder(View view) {
             super(view);

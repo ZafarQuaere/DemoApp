@@ -7,7 +7,7 @@
     <!-- Introduction Screen -->
     <dimen name="dots_height">30dp</dimen>
     <dimen name="dots_margin_bottom">20dp</dimen>
-    <dimen name="slide_title">22sp</dimen>
+    <dimen name="slide_title">20sp</dimen>
     <dimen name="slide_desc">18sp</dimen>
 
 
@@ -32,6 +32,10 @@
     <dimen name="_30dp">30dp</dimen>
     <dimen name="_40dp">40dp</dimen>
     <dimen name="_50dp">50dp</dimen>
+    <dimen name="_60dp">60dp</dimen>
+    <dimen name="_70dp">70dp</dimen>
+    <dimen name="_80dp">80dp</dimen>
+    <dimen name="_90dp">90dp</dimen>
     <dimen name="_100dp">100dp</dimen>
     <dimen name="_120dp">120dp</dimen>
 
@@ -39,6 +43,7 @@
     <dimen name="font_actionbar_title_text">16sp</dimen>
     <dimen name="font_x_large_text">20sp</dimen>
     <dimen name="font_xx_large_text">25sp</dimen>
+    <dimen name="font_xxx_large_text">30sp</dimen>
     <dimen name="font_large_text">16sp</dimen>
 
     <dimen name="font_20sp">20sp</dimen>
