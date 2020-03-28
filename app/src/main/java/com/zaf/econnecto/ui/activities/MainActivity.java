@@ -102,8 +102,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
     }
   }
 
+  @SuppressLint("RestrictedApi")
   private void moveToHome() {
     getPresenter().moveToFragment(BizCategoryFragment.class.getSimpleName());
+    fabAddBizness.setVisibility(View.VISIBLE);
   }
 
   @SuppressLint("RestrictedApi")

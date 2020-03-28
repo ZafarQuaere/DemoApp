@@ -53,7 +53,7 @@
             android:paddingVertical="@dimen/_5dp"
             android:text="Follow"
             android:textAllCaps="false"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorPrimary"
             android:textSize="11sp" />
 
         <TextView

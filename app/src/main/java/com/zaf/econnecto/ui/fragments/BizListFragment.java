@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.response_model.biz_list.BizData;
+import com.zaf.econnecto.ui.activities.AddBusinessActivity;
 import com.zaf.econnecto.ui.activities.BizDetailsActivity;
 import com.zaf.econnecto.ui.adapters.BizListRecyclerAdapter;
 import com.zaf.econnecto.ui.interfaces.ActionBarItemClick;
@@ -103,7 +104,9 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
         emptyTextView = (TextView) view.findViewById(R.id.emptyTextView);
 
         Utils.updateActionBar(mContext, BizListFragment.class.getSimpleName(), mContext.getString(R.string.business_list), null, this);
-
+        view.findViewById(R.id.btnAddBizns).setOnClickListener(view1 -> {
+            getActivity().startActivity(new Intent(getActivity(), AddBusinessActivity.class));
+        });
         /*recylcerProducts.addOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy){
