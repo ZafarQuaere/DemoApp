@@ -66,14 +66,15 @@
             android:textColor="@color/colorWhite"
             android:text="@string/verify_your_email" />
 
-        <TextView
-            android:visibility="gone"
+       <!-- <TextView
+            android:visibility="visible"
             android:id="@+id/textUserEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/nav_header_subtitle" />
+            android:text="@string/nav_header_subtitle" />-->
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/textUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

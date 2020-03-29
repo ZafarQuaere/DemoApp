@@ -90,7 +90,7 @@ class AddBizScreen1Fragment : Fragment() {
             override fun beforeTextChanged(cs: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(cs: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (cs.toString().trim().isEmpty()){
-                    LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_tap_on_add_category_text_below_to_select_category))
+                   // LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_tap_on_add_category_text_below_to_select_category))
                     textAddCategory.visibility = View.VISIBLE
                 }
             }
@@ -100,7 +100,7 @@ class AddBizScreen1Fragment : Fragment() {
             override fun beforeTextChanged(cs: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(cs: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (cs.toString().trim().isEmpty()){
-                    LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_tap_on_add_category_text_below_to_select_category))
+                   // LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_tap_on_add_category_text_below_to_select_category))
                     textAddCategory.visibility = View.VISIBLE
                 }
             }
@@ -199,6 +199,9 @@ class AddBizScreen1Fragment : Fragment() {
         }
         if ( !category3.isNullOrEmpty()){
             tilCategory3.visibility = View.VISIBLE
+        }
+        if (category1 != null  && category2 != null && category3 != null){
+            textAddCategory.visibility = View.GONE
         }
     }
 

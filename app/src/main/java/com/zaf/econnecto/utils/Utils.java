@@ -769,9 +769,11 @@ public class Utils {
     public static void openInPlayStore(Activity activity) {
         final String appPackageName = activity.getPackageName(); // getPackageName() from Context or Activity object
         try {
-            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+            Uri uri = Uri.parse("market://details?id=" + appPackageName);
+            activity.startActivity(new Intent(Intent.ACTION_VIEW,uri));
         } catch (android.content.ActivityNotFoundException anfe) {
-            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+            Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName);
+            activity.startActivity(new Intent(Intent.ACTION_VIEW, uri));
         }
     }
 

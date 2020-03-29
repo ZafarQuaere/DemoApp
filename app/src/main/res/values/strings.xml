@@ -81,7 +81,7 @@
     <string name="insta_link"><a href="https://www.instagram.com/imz_zafar/"> instagram.com/econnecto</a></string>
 
     <string name="twitter_link"><a href="https://twitter.com/ZafarTwit"> twitter.com/econnecto</a></string>
-    <string name="playstore_link">play.google.com/store/apps/econnecto</string>
+    <string name="playstore_link"><u>play.google.com/store/apps/econnecto</u></string>
     <string name="text_visit_our_website">Visit Our Website : </string>
     <string name="text_like_on_fb">Like Us on Facebook :</string>
     <string name="text_follow_us_on_insta">Follow Us on Instagram :</string>

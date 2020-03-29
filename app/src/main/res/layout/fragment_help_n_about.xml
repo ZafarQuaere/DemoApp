@@ -211,7 +211,6 @@
             android:layout_below="@+id/labelPS"
             android:id="@+id/textPlaystoreLine"
             style="@style/RegularTextview"
-            android:autoLink="web"
             android:text="@string/playstore_link"
             android:textColorLink="@color/colorPrimary"
             android:textStyle="bold" />

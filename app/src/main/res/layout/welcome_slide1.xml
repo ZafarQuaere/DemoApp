@@ -2,9 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    android:background="@drawable/welcome">
 
     <View
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/welcome_11"
@@ -28,18 +29,19 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/spcae"
         android:layout_centerHorizontal="true"
-        android:paddingHorizontal="@dimen/_10dp"
         android:text="@string/slide_1_desc"
         android:textAlignment="center"
-        android:textColor="@color/colorYellow"
-        android:textStyle="bold"
+        android:paddingHorizontal="@dimen/_20dp"
+        android:fontFamily="@font/arial"
+        android:textColor="@color/colorLightGrey"
+        android:layout_marginTop="@dimen/_10dp"
         android:textSize="@dimen/slide_desc"
-        android:fontFamily="serif-monospace" />
+        android:textStyle="bold" />
 
     <Space
         android:id="@+id/spcae"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_80dp"
+        android:layout_height="@dimen/_100dp"
         android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
