@@ -20,6 +20,8 @@
     <string name="key_logged_in">key_logged_in</string>
     <string name="login_label">Login</string>
     <string name="password">Password</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
     <string name="forgot_pswd">Forgot Password</string>
     <string name="mobile_no">Mobile No*</string>
     <string name="email_id">Email ID*</string>
@@ -27,7 +29,7 @@
     <string name="error_network_unavailable"><!--Oh no!--> No internet found,Check your connection and Try again.</string>
     <string name="please_enter_username">Please enter  username</string>
     <string name="please_enter_password">Please enter password</string>
-    <string name="password_must_have_atleast_6_character">Password must have atleast 6 character</string>
+    <string name="password_must_have_atleast_8_character">Password must have atleast 8 character</string>
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">Close</string>
     <string name="nav_header_title">E-Connecto</string>
@@ -136,7 +138,7 @@
     <string name="retry">Retry</string>
     <string name="you_need_to_login_first_to_follow_a_business">You need to Login first to follow a Businness.</string>
     <string name="please_enter_business_name">Please Enter Business Name</string>
-    <string name="please_enter_a_short_description">Please enter a short description of your business.</string>
+    <string name="please_enter_a_short_description">Please enter a short description or tagline of your business.</string>
     <string name="Select_Category">Select Category</string>
     <string name="please_select_business_category">Please select business category</string>
     <string name="please_enter_a_detail_description">Please enter detail description of your business.</string>
@@ -170,7 +172,7 @@
     <string name="enter_website">Enter Website</string>
     <string name="update">Update</string>
     <string name="update_details">Update Business Details</string>
-    <string name="short_description">Short Description</string>
+    <string name="short_description">Short Description*</string>
     <string name="detail_descripton">Detail description</string>
     <string name="key_user_profile_pic">key_user_profile_pic</string>
     <string name="follow_us_on_twitter">Follow us on Twitter</string>
@@ -235,7 +237,7 @@
         <item name="Others">Others</item>
     </array>
 
-   <!-- <array name="biz_category">
+    <!-- <array name="biz_category">
         <item name="Select_Category">Select Category</item>
         <item name="Beauty">Beauty</item>
         <item name="Commute">Commute</item>
@@ -307,4 +309,12 @@
     <string name="already_selected_plz_select_different_category">It is already Selected, Please select different category</string>
     <string name="you_have_already_selected_max_no_of_category">Category limit is 3,  You have already selected maximum no. of category</string>
     <string name="please_tap_on_add_category_text_below_to_select_category">Please taps on <b>Add Category</b> text below to select category</string>
+    <string name="key_user_id">key_user_id</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="short_description_must_not_be_more_than_30">Short description should be less than 30 words.</string>
+    <string name="an_otp_has_been_sent_to_your_email_plz_check_spam_folder_as_well">An OTP has been sent to your email ID, Please enter in the next Screen.\n If you do not find OTP check the Spam folder as well.</string>
+    <string name="please_enter_new_password">Please enter new Password</string>
+    <string name="your_password_changed_successfully">Your password changed successfully</string>
 </resources>

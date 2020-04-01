@@ -142,11 +142,21 @@
             </RadioGroup>
 
             <TextView
+                android:visibility="invisible"
+                android:id="@+id/txtTermsCondition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20dp"
+                android:gravity="center_horizontal"
+                android:text="terms conditions"
+                android:textColor="@color/colorPrimary" />
+
+            <TextView
                 android:id="@+id/txtRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_15dp"
-                android:layout_marginTop="@dimen/_30dp"
+                android:layout_marginTop="@dimen/_10dp"
                 android:background="@drawable/rounded_background"
                 android:gravity="center_horizontal"
                 android:padding="@dimen/_10dp"

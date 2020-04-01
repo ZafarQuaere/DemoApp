@@ -28,27 +28,22 @@ public class ChangePswdActivity extends BaseActivity<OtpPresenter> implements IO
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_pswd);
         mContext = this;
-        email = getIntent().getStringExtra("email");
-        Utils.updateActionBar(this, new ChangePswdActivity().getClass().getSimpleName(), getString(R.string.enter_otp),
+        email = Utils.getUserEmail(mContext);
+        Utils.updateActionBar(this, new ChangePswdActivity().getClass().getSimpleName(), getString(R.string.change_pswd),
                 null, null);
-        findViewById(R.id.btnSubmit).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                validationField();
-            }
-        });
+        findViewById(R.id.btnSubmit).setOnClickListener(v -> validationField());
     }
 
 
     private void validationField() {
-        TextInputEditText editOTP = (TextInputEditText) findViewById(R.id.editOTP);
-        TextInputEditText editPassword = (TextInputEditText) findViewById(R.id.editPassword);
-        TextInputEditText editConfirmPassword = (TextInputEditText) findViewById(R.id.editConfirmPassword);
-        getPresenter().validateInputs(editOTP.getText().toString().trim(), editPassword.getText().toString().trim(), editConfirmPassword.getText().toString().trim(), email);
+        TextInputEditText editMobile = (TextInputEditText) findViewById(R.id.editMobile);
+        TextInputEditText editOldPassword = (TextInputEditText) findViewById(R.id.editOldPassword);
+        TextInputEditText editNewPassword = (TextInputEditText) findViewById(R.id.editNewPassword);
+        getPresenter().validateCPInputs(editMobile.getText().toString().trim(), editOldPassword.getText().toString().trim(), editNewPassword.getText().toString().trim(), email);
     }
 
     @Override
-    public void changePassword() {
+    public void moveToLogin() {
         startActivity(new Intent(ChangePswdActivity.this, LoginActivity.class));
         finishAffinity();
     }

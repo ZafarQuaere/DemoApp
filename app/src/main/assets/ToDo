@@ -11,9 +11,26 @@
 10) 
 
 
+1) login -- token issue (invalidate jwt token) in 60 days.
+2) verify email,
+3) login scenario 2 (when user is not verified his mobile)
+4) change password
+5) forget password
+6) Registeration flow have to redesign from my side (call verification api from phonve verification, with attempt 3)
+7) follow api
+8) My business api and implementation
+9) upload business profile photo
+
+
+//Zafar
+1) Login design changes
+2) Forget Password
+3) OTP resend count/ attempt(5 attempt).
+4) Verify OTP attempt (3 times)
+
+
+
 "address":"Address cannot be more then 55 characters"
-
-
 
 
 https://stackoverflow.com/questions/44721554/collapsing-toolbar-only-for-one-fragment-in-navigation-view

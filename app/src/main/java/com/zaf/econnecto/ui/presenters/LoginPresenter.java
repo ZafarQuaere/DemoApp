@@ -13,6 +13,7 @@ import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.MyJsonObjectRequest;
 import com.zaf.econnecto.network_call.response_model.login.LoginData;
 import com.zaf.econnecto.ui.activities.ForgetPswdActivity;
+import com.zaf.econnecto.ui.fragments.user_register.PhoneVerificationFragment;
 import com.zaf.econnecto.ui.presenters.operations.ILogin;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppController;
@@ -46,11 +47,11 @@ public class LoginPresenter extends BasePresenter {
 
     public void validateUsernamePassword(String userId, String password) {
         if (userId.equals("") || userId.isEmpty()) {
-            mLogin.onValidationError(mContext.getString(R.string.mobile_no));
+            mLogin.onValidationError(mContext.getString(R.string.please_enter_valid_mobile_number));
         } else if (password.equals("") || password.isEmpty()) {
             mLogin.onValidationError(mContext.getString(R.string.please_enter_password));
-        } else if (password.length() < 6) {
-            mLogin.onValidationError(mContext.getString(R.string.password_must_have_atleast_6_character));
+        } else if (password.length() < 8) {
+            mLogin.onValidationError(mContext.getString(R.string.password_must_have_atleast_8_character));
         } else {
             if (NetworkUtils.isNetworkEnabled(mContext)) {
                mLogin.callLoginApi(userId, password);
@@ -73,7 +74,6 @@ public class LoginPresenter extends BasePresenter {
             e.printStackTrace();
             LogUtils.ERROR(e.getMessage());
         }
-       // String url = AppConstant.URL_BASE + AppConstant.URL_LOGIN;
         String url = AppConstant.URL_BASE_MVP + AppConstant.URL_LOGIN_MVP;
         LogUtils.DEBUG("Login URL : " + url + "\nRequest Body ::" + requestObject.toString());
         MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.POST, url, requestObject, new Response.Listener<JSONObject>() {
@@ -86,32 +86,31 @@ public class LoginPresenter extends BasePresenter {
                         LoginData loginData = ParseManager.getInstance().fromJSON(response.toString(),LoginData.class);
                         storeProfileImage(loginData);
                         Utils.saveLoginData(mContext,response.toString());
-                        storeOtherValue(loginData);
-                        //
+                        Utils.setLoggedIn(mContext, true);
+                        Utils.setEmailVerified(mContext, loginData.getData().getIsEmailVerified().equals("1"));
+//                        storeOtherValue(loginData);
                         mLogin.doLogin();
-                    }else {
+                    } else if(status == AppConstant.PHONE_NOT_VERIFIED){
+                        //TODO have to move to phone verification screen
+                        Utils.moveToFragment(mContext,new PhoneVerificationFragment(),PhoneVerificationFragment.class.getSimpleName(),null);
+                    }
+                    else {
                         LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optJSONArray("message").optString(0));
                     }
                 }
                 loader.dismiss();
-              //  LoginData loginData = ParseManager.getInstance().fromJSON(response.toString(),LoginData.class);
             }
-
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                loader.dismiss();
-                LogUtils.ERROR("Login Error ::" + error.getMessage());
-            }
+        }, error -> {
+            loader.dismiss();
+            LogUtils.ERROR("Login Error ::" + error.getMessage());
         });
         AppController.getInstance().addToRequestQueue(objectRequest, "Login");
     }
 
     private void storeOtherValue(LoginData loginData) {
-        Utils.setLoggedIn(mContext, true);
-        Utils.saveUserEmail(mContext,loginData.getData().getEmail());
-        Utils.setEmailVerified(mContext, loginData.getData().getIsEmailVerified().equals("1"));
-        Utils.setAccessToken(mContext,loginData.getData().getJWTToken());
+        //Utils.saveUserEmail(mContext,loginData.getData().getEmail());
+        //Utils.setUserID(mContext,loginData.getData().getId());
+        //Utils.setAccessToken(mContext,loginData.getData().getJWTToken());
     }
 
     private void storeProfileImage(LoginData loginData) {

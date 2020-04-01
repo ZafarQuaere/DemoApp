@@ -18,6 +18,14 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_register_to_terms_condition"
+            app:destination="@id/terms_condition"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
 
@@ -32,5 +40,9 @@
             app:argType="string"/>
     </fragment>
 
-
+    <fragment
+        android:id="@+id/terms_condition"
+        android:name="com.zaf.econnecto.ui.fragments.user_register.TermsConditionWebViewFragment"
+        android:label="Phone Verification"
+        tools:layout="@layout/fragment_terms_condition"/>
 </navigation>

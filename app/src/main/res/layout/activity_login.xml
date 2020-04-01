@@ -59,7 +59,7 @@
                 android:layout_height="@dimen/_50dp"
                 android:hint="@string/password"
                 android:inputType="textWebPassword"
-                android:maxLength="50"
+                android:maxLength="20"
                 android:text=""
                 android:textSize="@dimen/font_regular_text" />
         </com.google.android.material.textfield.TextInputLayout>

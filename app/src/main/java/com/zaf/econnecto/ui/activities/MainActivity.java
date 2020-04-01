@@ -333,7 +333,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
 
   public void changePasswordClick(View view) {
     closeDrawer();
-    LogUtils.showDialogDoubleButton(
+    getPresenter().startActivity(mContext);
+    /*LogUtils.showDialogDoubleButton(
         mContext,
         getString(R.string.cancel),
         getString(R.string.ok),
@@ -342,13 +343,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
           @Override
           public void onOkClick() {
             // getPresenter().requestOtpApi();
-            getPresenter().startActivity(mContext);
+
            // overridePendingTransition(R.anim.slide_in_right,R.anim.slide_in_left);
           }
 
           @Override
           public void onCancelClick() {}
-        });
+        });*/
   }
 
   public void onShareClick(View view) {

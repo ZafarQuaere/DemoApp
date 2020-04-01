@@ -5,21 +5,27 @@ import com.google.gson.annotations.SerializedName;
 
 public class BizData {
 
-    @SerializedName("business_pic")
+    @SerializedName("business_id")
     @Expose
-    private String businessPic;
-    @SerializedName("banner_pic")
+    private String businessId;
+    @SerializedName("owner_id")
     @Expose
-    private String bannerPic;
+    private String ownerId;
     @SerializedName("business_name")
     @Expose
     private String businessName;
-    @SerializedName("year_founded")
+    @SerializedName("short_description")
     @Expose
-    private String yearFounded;
-    @SerializedName("business_uid")
+    private String shortDescription;
+    @SerializedName("year_established")
     @Expose
-    private String businessUid;
+    private String yearEstablished;
+    @SerializedName("mobile_1")
+    @Expose
+    private String mobile1;
+    @SerializedName("biz_profile_pic")
+    @Expose
+    private String bizProfilePic;
     @SerializedName("followers_count")
     @Expose
     private String followersCount;
@@ -27,20 +33,20 @@ public class BizData {
     @Expose
     private Integer isFollowing;
 
-    public String getBusinessPic() {
-        return businessPic;
+    public String getBusinessId() {
+        return businessId;
     }
 
-    public void setBusinessPic(String businessPic) {
-        this.businessPic = businessPic;
+    public void setBusinessId(String businessId) {
+        this.businessId = businessId;
     }
 
-    public String getBannerPic() {
-        return bannerPic;
+    public String getOwnerId() {
+        return ownerId;
     }
 
-    public void setBannerPic(String bannerPic) {
-        this.bannerPic = bannerPic;
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getBusinessName() {
@@ -51,20 +57,36 @@ public class BizData {
         this.businessName = businessName;
     }
 
-    public String getYearFounded() {
-        return yearFounded;
+    public String getShortDescription() {
+        return shortDescription;
     }
 
-    public void setYearFounded(String yearFounded) {
-        this.yearFounded = yearFounded;
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
     }
 
-    public String getBusinessUid() {
-        return businessUid;
+    public String getYearEstablished() {
+        return yearEstablished;
     }
 
-    public void setBusinessUid(String businessUid) {
-        this.businessUid = businessUid;
+    public void setYearEstablished(String yearEstablished) {
+        this.yearEstablished = yearEstablished;
+    }
+
+    public String getMobile1() {
+        return mobile1;
+    }
+
+    public void setMobile1(String mobile1) {
+        this.mobile1 = mobile1;
+    }
+
+    public String getBizProfilePic() {
+        return bizProfilePic;
+    }
+
+    public void setBizProfilePic(String bizProfilePic) {
+        this.bizProfilePic = bizProfilePic;
     }
 
     public String getFollowersCount() {
@@ -82,4 +104,5 @@ public class BizData {
     public void setIsFollowing(Integer isFollowing) {
         this.isFollowing = isFollowing;
     }
+
 }

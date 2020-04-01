@@ -112,7 +112,7 @@ public class MainPresenter extends BasePresenter {
 
     public void startActivity(Context mContext) {
         Intent intent = new Intent(mContext, ChangePswdActivity.class);
-        intent.putExtra(AppConstant.COMINGFROM, AppConstant.HOME);
+       // intent.putExtra(AppConstant.COMINGFROM, AppConstant.HOME);
         mContext.startActivity(intent);
     }
 

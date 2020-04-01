@@ -71,6 +71,8 @@
         <activity
             android:name=".version2.ui.HomeActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.activities.ResetPswdActivity"
+            android:screenOrientation="portrait"/>
 
         <uses-library
             android:name="org.apache.http.legacy"

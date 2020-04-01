@@ -48,7 +48,7 @@ public class ForgetPswdActivity extends BaseActivity<ForgotPswdPresenter> implem
 
     @Override
     public void startOTPActivity() {
-        startActivity(new Intent(ForgetPswdActivity.this, ChangePswdActivity.class).putExtra("email",email));
+        startActivity(new Intent(ForgetPswdActivity.this, ResetPswdActivity.class).putExtra("email",email));
         finish();
     }
 

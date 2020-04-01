@@ -34,8 +34,8 @@ public class NewPasswordPresenter extends BasePresenter {
     public void validatePswd(String password, String confirmPswd) {
         if (password.equals("") || password.isEmpty()) {
             mNewPswd.onValidationError(mContext.getString(R.string.please_enter_password));
-        }  else if (password.length() < 6) {
-            mNewPswd.onValidationError(mContext.getString(R.string.password_must_have_atleast_6_character));
+        }  else if (password.length() < 8) {
+            mNewPswd.onValidationError(mContext.getString(R.string.password_must_have_atleast_8_character));
         } else if (!password.equalsIgnoreCase(confirmPswd)) {
             mNewPswd.onValidationError(mContext.getString(R.string.please_enter_same_pswd));
         } else {

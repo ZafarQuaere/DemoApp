@@ -474,7 +474,7 @@ public class Utils {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    if (s != null && !s.toString().isEmpty())
+                    if (s != null && !s.toString().isEmpty() && actionBarListener!= null)
                         actionBarListener.afterTextChanged(s);
                 }
             });
@@ -577,11 +577,9 @@ public class Utils {
     }
 
     public static Address getlocationfromaddress(Context context, String strAddress) {
-
         Geocoder coder = new Geocoder(context);
         List<Address> address = null;
         //  GeoPoint p1 = null;
-
         try {
             address = coder.getFromLocationName(strAddress, 5);
         } catch (IOException e) {
@@ -594,29 +592,29 @@ public class Utils {
         Address location = address.get(0);
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();
-
-
         // return "Latitude : " +latitude + "  Longitude : " + longitude;
         return location;
     }
 
     public static String getUserEmail(Context mContext) {
-        AppSharedPrefs prefs = AppSharedPrefs.getInstance(mContext);
-        String data = "";
-        try {
-            data = (String) prefs.get(mContext.getString(R.string.key_user_email));
-        } catch (Exception e) {
-            e.printStackTrace();
-            LogUtils.ERROR(e.getMessage());
-            return data;
+        String loginStringData = getLoginData(mContext);
+        String userEmail = "";
+        LoginData loginData = ParseManager.getInstance().fromJSON(loginStringData, LoginData.class);
+        if (loginData != null ){
+            userEmail = loginData.getData().getEmail();
         }
-        return data;
+        return userEmail;
     }
-    public static void saveUserEmail(Context mContext, String newOrderData) {
-        if (mContext == null)
-            return;
-        AppSharedPrefs prefs = AppSharedPrefs.getInstance(mContext);
-        prefs.put(mContext.getString(R.string.key_user_email), newOrderData);
+
+
+    public static String getUserID(Context mContext) {
+        String loginStringData = getLoginData(mContext);
+        String userID = "";
+        LoginData loginData = ParseManager.getInstance().fromJSON(loginStringData, LoginData.class);
+        if (loginData != null) {
+           userID = loginData.getData().getId();
+        }
+        return  userID;
     }
 
     public static String getUserName(Context mContext) {
@@ -701,7 +699,13 @@ public class Utils {
     }
 
     public static String getAccessToken(Context context) {
-        AppSharedPrefs prefs = AppSharedPrefs.getInstance(context);
+        String loginStringData = getLoginData(context);
+        String accessToken = "";
+        LoginData loginData = ParseManager.getInstance().fromJSON(loginStringData, LoginData.class);
+        if (loginData != null) {
+            accessToken = loginData.getData().getJWTToken();
+        }
+      /*  AppSharedPrefs prefs = AppSharedPrefs.getInstance(context);
         String accessToken = "";
         try {
             accessToken = (String) prefs.get(context.getString(R.string.key_access_token));
@@ -709,7 +713,7 @@ public class Utils {
             e.printStackTrace();
             LogUtils.ERROR(e.getMessage());
             return accessToken;
-        }
+        }*/
         return accessToken;
     }
 

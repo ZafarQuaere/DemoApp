@@ -29,7 +29,7 @@
         android:layout_margin="16dp"
         android:clickable="true"
         android:onClick="addBusinessClick"
-        android:src="@drawable/ic_add_biz_white"
+        android:src="@drawable/ic_add_white"
         app:elevation="6dp"
         app:layout_anchor="@id/lytParent"
         app:layout_anchorGravity="bottom|right|end"

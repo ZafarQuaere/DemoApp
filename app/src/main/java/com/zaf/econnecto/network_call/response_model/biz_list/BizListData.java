@@ -6,9 +6,11 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class BizListData {
+
     @SerializedName("message")
     @Expose
-    private String message;
+    private List<String> message = null;
+
     @SerializedName("status")
     @Expose
     private Integer status;
@@ -16,11 +18,11 @@ public class BizListData {
     @Expose
     private List<BizData> data = null;
 
-    public String getMessage() {
+    public List<String> getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(List<String> message) {
         this.message = message;
     }
 

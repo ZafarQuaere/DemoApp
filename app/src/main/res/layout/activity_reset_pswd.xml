@@ -43,7 +43,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/_10dp"
-                        android:text="@string/change_pswd"
+                        android:text="@string/enter_otp"
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/font_large_text" />
                 </LinearLayout>
@@ -61,14 +61,14 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/mobile_no"
                         android:layout_marginTop="@dimen/_20dp">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editMobile"
+                            android:id="@+id/editOTP"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:maxLength="10"
+                            android:hint="@string/enter_otp"
+                            android:maxLength="6"
                             android:textSize="@dimen/font_regular_text" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,13 +77,13 @@
                         android:layout_height="wrap_content"
                         app:passwordToggleEnabled="true"
                         app:passwordToggleTint="@color/colorPrimary"
-                        android:hint="@string/old_password"
                         android:layout_marginTop="@dimen/_5dp">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editOldPassword"
+                            android:id="@+id/editPassword"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:hint="@string/password"
                             android:inputType="textPassword"
                             android:maxLength="20"
                             android:textSize="@dimen/font_regular_text" />
@@ -95,13 +95,13 @@
                         android:layout_height="wrap_content"
                         app:passwordToggleEnabled="true"
                         app:passwordToggleTint="@color/colorPrimary"
-                        android:hint="@string/new_password"
                         android:layout_marginTop="@dimen/_5dp">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editNewPassword"
+                            android:id="@+id/editConfirmPassword"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:hint="@string/confirm_pswd"
                             android:inputType="textPassword"
                             android:maxLength="20"
                             android:textSize="@dimen/font_regular_text" />

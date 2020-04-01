@@ -49,7 +49,9 @@ class UserRegisterFragment : Fragment(), FragmentNavigation {
             activity?.let { it1 -> viewModel.validateUI(it1, editEmail, editPassword, editConfirmPassword, radioGroup, editBirthYear, editPhone)
             }
         }
-
+        txtTermsCondition.setOnClickListener{
+            navController!!.navigate(R.id.action_register_to_terms_condition)
+        }
          txtLogin.setOnClickListener {
 
              activity!!.finish()

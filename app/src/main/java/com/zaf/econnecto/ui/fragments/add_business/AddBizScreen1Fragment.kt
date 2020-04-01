@@ -80,7 +80,8 @@ class AddBizScreen1Fragment : Fragment() {
             override fun beforeTextChanged(cs: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(cs: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (cs.toString().trim().isEmpty()){
-                    LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_tap_on_add_category_text_below_to_select_category))
+                    //LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_tap_on_add_category_text_below_to_select_category))
+                    tilCategory1.visibility = View.GONE
                     textAddCategory.visibility = View.VISIBLE
                 }
             }
@@ -90,6 +91,7 @@ class AddBizScreen1Fragment : Fragment() {
             override fun beforeTextChanged(cs: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(cs: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (cs.toString().trim().isEmpty()){
+                    tilCategory2.visibility = View.GONE
                    // LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_tap_on_add_category_text_below_to_select_category))
                     textAddCategory.visibility = View.VISIBLE
                 }
@@ -100,6 +102,7 @@ class AddBizScreen1Fragment : Fragment() {
             override fun beforeTextChanged(cs: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(cs: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (cs.toString().trim().isEmpty()){
+                    tilCategory3.visibility = View.GONE
                    // LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_tap_on_add_category_text_below_to_select_category))
                     textAddCategory.visibility = View.VISIBLE
                 }
@@ -109,6 +112,7 @@ class AddBizScreen1Fragment : Fragment() {
 
     private fun validateUIandNavigate() {
         val bizName : String = editBizName.text.toString().trim()
+        val shortDesc : String = editShortDesc.text.toString().trim()
         category1 = editCategory1.text.toString().trim()
         category2 = editCategory2.text.toString().trim()
         category3 = editCategory3.text.toString().trim()
@@ -116,6 +120,9 @@ class AddBizScreen1Fragment : Fragment() {
         when {
             bizName.isEmpty() -> {
                 LogUtils.showErrorDialog(activity, getString(R.string.ok), getString(R.string.enter_valid_business_name))
+            }
+            shortDesc.isEmpty() -> {
+                LogUtils.showErrorDialog(activity, getString(R.string.ok), getString(R.string.please_enter_a_short_description))
             }
             bizName.length < 3 -> {
                 LogUtils.showErrorDialog(activity, getString(R.string.ok), getString(R.string.enter_valid_business_name))

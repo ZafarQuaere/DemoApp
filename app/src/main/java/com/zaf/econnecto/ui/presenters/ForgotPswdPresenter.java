@@ -7,6 +7,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.MyJsonObjectRequest;
+import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.ui.presenters.operations.IFrgtPswd;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppController;
@@ -56,7 +57,7 @@ public class ForgotPswdPresenter extends BasePresenter {
             e.printStackTrace();
             LogUtils.ERROR(e.getMessage());
         }
-        String url = AppConstant.URL_BASE + AppConstant.URL_FORGOT_PSWD;
+        String url = AppConstant.URL_BASE_MVP + AppConstant.URL_FORGOT_PSWD;
         LogUtils.DEBUG("URL : " + url + "\nRequest Body ::" + requestObject.toString());
         MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.POST, url, requestObject, new Response.Listener<JSONObject>() {
             @Override
@@ -64,11 +65,20 @@ public class ForgotPswdPresenter extends BasePresenter {
                 LogUtils.DEBUG("Request OTP Response ::" + response.toString());
                 if (response != null && !response.equals("")){
                     int status = response.optInt("status");
-                    if (status == AppConstant.SUCCESS){
-                        iFrgtPswd.startOTPActivity();
+                    if (status == AppConstant.AB_SUCCESS){
+                        LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.an_otp_has_been_sent_to_your_email_plz_check_spam_folder_as_well), new DialogButtonClick() {
+                            @Override
+                            public void onOkClick() {
+                                iFrgtPswd.startOTPActivity();
+                            }
+                            @Override
+                            public void onCancelClick() { }
+                        });
+
                         //LogUtils.showToast(mContext,editOTP.getText().toString());
                     }else {
-                        LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optString("message"));
+                        LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optJSONArray("message").optString(0));
+                       // LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optString("message"));
                     }
 
                 }

@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
     android:orientation="vertical"
+    android:focusableInTouchMode="true"
     android:padding="@dimen/_15dp"
     tools:context=".ui.fragments.add_business.AddBizScreen1Fragment">
 
@@ -27,10 +28,30 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editBizName"
             android:layout_width="match_parent"
+            android:singleLine="true"
             android:layout_height="@dimen/_50dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilShortDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
+        android:hint="@string/short_description">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editShortDesc"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50dp"
+            android:inputType="text"
+            android:maxLength="100" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_small_header"
+        android:text="@string/short_description_must_not_be_more_than_30"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilEstdYear"

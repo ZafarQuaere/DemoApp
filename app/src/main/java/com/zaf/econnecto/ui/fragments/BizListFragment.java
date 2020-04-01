@@ -3,10 +3,12 @@ package com.zaf.econnecto.ui.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +54,7 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
     public void onResume() {
         super.onResume();
         //LogUtils.DEBUG("OnResume AppConstant.NEW_FOLLOW  "+AppConstant.NEW_FOLLOW);
-        if (AppConstant.NEW_FOLLOW){
+        if (AppConstant.NEW_FOLLOW) {
             callApi();
         }
     }
@@ -86,6 +88,7 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
                         LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.please_enable_your_network_connection_and_launch_again));
                     }
                 }
+
                 @Override
                 public void onCancelClick() {
                 }
@@ -120,14 +123,14 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
 
     @Override
     public void updateList(List<BizData> data) {
-        emptyTextView.setVisibility(data == null? View.VISIBLE:View.GONE);
-        recylcerProducts.setVisibility(data == null? View.GONE:View.VISIBLE);
-        if (data != null){
-            BizListRecyclerAdapter adapter = new BizListRecyclerAdapter(mContext,data, item -> {
+        emptyTextView.setVisibility(data == null ? View.VISIBLE : View.GONE);
+        recylcerProducts.setVisibility(data == null ? View.GONE : View.VISIBLE);
+        if (data != null) {
+            BizListRecyclerAdapter adapter = new BizListRecyclerAdapter(mContext, data, item -> {
                 if (item != null) {
-                    Intent intent = new Intent(getActivity(),BizDetailsActivity.class);
-                    intent.putExtra(getString(R.string.key_biz_id), item.getBusinessUid());
-                    intent.putExtra(getString(R.string.is_following),item.getIsFollowing()==1);
+                    Intent intent = new Intent(getActivity(), BizDetailsActivity.class);
+                    intent.putExtra(getString(R.string.key_biz_id), item.getBusinessId());
+                    intent.putExtra(getString(R.string.is_following), item.getIsFollowing() == 1);
                     startActivity(intent);
                 }
             });
@@ -142,10 +145,12 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
     }
 
     @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    }
 
     @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) { }
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+    }
 
     @Override
     public void afterTextChanged(Editable editable) {
@@ -153,7 +158,7 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
     }
 
     private void filter(String string) {
-       getPresenter().filterList(string);
+        getPresenter().filterList(string);
     }
 
 

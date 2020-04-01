@@ -55,26 +55,27 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getBusinessName());
-        holder.textEstd.setText(mContext.getString(R.string.establish_year) + ": " + mValues.get(position).getYearFounded());
+        holder.textEstd.setText(mContext.getString(R.string.establish_year) + ": " + mValues.get(position).getYearEstablished());
         holder.textFollowers.setText(mValues.get(position).getFollowersCount() + " " + mContext.getString(R.string.followers));
+
         //TODO default following ui updates have to do.
+        //TODO in case of user not logged in isFollowing is not coming in response
         if (mValues.get(position).getIsFollowing() == AppConstant.FOLLOWING) {
             updateFollowingUI(holder.textFollow);
         } else {
             updateUnfollowUI(holder.textFollow);
         }
-        Picasso.get().load(mValues.get(position).getBusinessPic()).placeholder(R.drawable.avatar_male).into(holder.imgItem);
+        Picasso.get().load(mValues.get(position).getBizProfilePic()).placeholder(R.drawable.avatar_male).into(holder.imgItem);
 
         //scroll animation
         //setFadeAnimation(holder.itemView,position);
-
 
         holder.textFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Utils.isLoggedIn(mContext)) {
                     if (holder.textFollow.getText().equals(mContext.getString(R.string.follow))) {
-                        callFollowApi(holder, "follow", mValues.get(position).getBusinessUid());
+                        callFollowApi(holder, "follow", mValues.get(position).getBusinessId());
                         holder.textFollowers.setText((Integer.parseInt(mValues.get(position).getFollowersCount()) + 1) + " " + mContext.getString(R.string.followers));
                         int followerCount = Integer.parseInt(mValues.get(position).getFollowersCount()) + 1;
                         mValues.get(position).setFollowersCount(followerCount + "");
@@ -85,7 +86,7 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
                                 mContext.getString(R.string.do_you_want_to_unfollow) + " " + mValues.get(position).getBusinessName() + " ?", new DialogButtonClick() {
                                     @Override
                                     public void onOkClick() {
-                                        callFollowApi(holder, "unfollow", mValues.get(position).getBusinessUid());
+                                        callFollowApi(holder, "unfollow", mValues.get(position).getBusinessId());
                                         updateUnfollowUI(holder.textFollow);
                                         holder.textFollowers.setText((Integer.parseInt(mValues.get(position).getFollowersCount()) - 1) + " " + mContext.getString(R.string.followers));
                                         int followerCount = Integer.parseInt(mValues.get(position).getFollowersCount()) - 1;

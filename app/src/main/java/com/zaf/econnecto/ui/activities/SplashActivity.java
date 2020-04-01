@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.bumptech.glide.Glide;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.version2.ui.HomeActivity;
 
@@ -17,8 +19,8 @@ import static com.zaf.econnecto.utils.AppConstant.SPLASH_TIME_OUT;
 
 public class SplashActivity extends Activity {
 
-    private ProgressBar progress;
     private Context mContext;
+    private ImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +28,12 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         mContext = this;
-        progress = (ProgressBar) findViewById(R.id.progressBar);
-        progress.setIndeterminate(false);
-        progress.setVisibility(View.GONE);
+        image = findViewById(R.id.image);
+        Glide.with(this).load(R.drawable.landing_gif).into(image);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                progress.setVisibility(View.GONE);
                 if(mContext.getResources().getBoolean(R.bool.run_version2_ui)){
                     Intent i = new Intent(SplashActivity.this, HomeActivity.class);
                     startActivity(i);

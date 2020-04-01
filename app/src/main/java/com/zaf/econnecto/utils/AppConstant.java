@@ -4,9 +4,13 @@ import android.graphics.Bitmap;
 
 import com.zaf.econnecto.BuildConfig;
 
+import org.jetbrains.annotations.NotNull;
+
 public class AppConstant {
 
     public static final Integer AB_SUCCESS = 501;
+    public static final Integer FP_SUCCESS = 401;
+    public static final Integer PHONE_NOT_VERIFIED = 400;
     public static final Integer SUCCESS = 1;
     public static final Integer FAILURE = 0;
     public static final Integer FOLLOWING = 1;
@@ -16,7 +20,7 @@ public class AppConstant {
     public static  boolean MOVE_TO_ADD_BIZ = false;
     public static  boolean NEW_FOLLOW = false;
     // Splash screen timer
-    public static int SPLASH_TIME_OUT = 1500;
+    public static int SPLASH_TIME_OUT = 4500;
     public static final String TIMESTAMP_FORMAT = "yyyyMMdd_HHmmss";
     public static final String TAG = "e-Connecto";
     public static final String RUPEES_SYMBOL = "₹ ";
@@ -28,11 +32,12 @@ public class AppConstant {
     public static final String URL_REGISTER = "register.php";
     public static final String URL_LOGIN = "login.php";
     public static final String URL_LOGIN_MVP = "user_login/login.php";
-    public static final String URL_BIZ_LIST = "business_list.php?email="; //(brandname,banner_image)
+    public static final String URL_BIZ_LIST = "business_list/business_list.php?id="; //(brandname,banner_image)
     public static final String URL_BIZ_DETAIL = "single_business.php?business_uid="; //(brandname,banner_image)
     public static final String URL_FOLLOW = "follow.php";
     public static final String URL_LOGOUT = "logout.php";
-    public static final String URL_FORGOT_PSWD = "forgot_pwd.php";
+    public static final String URL_FORGOT_PSWD = "forgot_password/forgot_password.php";
+    public static final String URL_CHANGE_PSWD = "change_password/change_password.php";
     public static final String URL_EMAIL_VERIFY = "email_verification.php";
     public static final String URL_ADD_BUSINESS = "add_business.php";
     public static final String URL_MY_BUSINESS = "mybusiness.php";
@@ -67,4 +72,6 @@ public class AppConstant {
     public static final String loginUrl = "/api/login";
 
 
+    @NotNull
+    public static final String URL_TERMS_CONDITIONS = "http://www.econnecto.com/terms_and_conditions.php";
 }

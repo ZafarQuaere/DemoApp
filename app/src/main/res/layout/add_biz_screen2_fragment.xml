@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/_15dp"
+    android:focusableInTouchMode="true"
     tools:context=".ui.fragments.add_business.AddBizScreen2Fragment">
 
     <TextView

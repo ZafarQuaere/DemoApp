@@ -36,21 +36,19 @@ public class BListPresenter extends BaseFragmentPresenter {
 
     public void callBListApi() {
         loader.show();
-        String url = AppConstant.URL_BASE + AppConstant.URL_BIZ_LIST;
+        String url = AppConstant.URL_BASE_MVP + AppConstant.URL_BIZ_LIST;
         if (Utils.isLoggedIn(mContext)){
-            url = AppConstant.URL_BASE + AppConstant.URL_BIZ_LIST+Utils.getUserEmail(mContext);
+            url = AppConstant.URL_BASE_MVP + AppConstant.URL_BIZ_LIST+Utils.getUserID(mContext);
         }
         LogUtils.DEBUG("URL : " + url + "\nRequest Body ::");
         MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 LogUtils.DEBUG("ProductList Response ::" + response.toString());
-
                  data = ParseManager.getInstance().fromJSON(response.toString(), BizListData.class);
-                if (data.getStatus() == AppConstant.SUCCESS) {
+                if (data.getStatus().equals( AppConstant.AB_SUCCESS)) {
                     try {
                         mProductFrag.updateList(data.getData());
-
                     } catch (Exception e) {
                         e.printStackTrace();
                         LogUtils.ERROR(e.getMessage());
@@ -58,7 +56,6 @@ public class BListPresenter extends BaseFragmentPresenter {
                 }else {
                     mProductFrag.updateList(null);
                 }
-
                 loader.dismiss();
 
             }
