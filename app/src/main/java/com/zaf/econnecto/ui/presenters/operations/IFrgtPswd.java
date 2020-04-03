@@ -7,4 +7,5 @@ public interface IFrgtPswd {
     void onValidationError(String msg);
 
     void callOtpApi(String mobile);
+    void updateEmail(String email);
 }

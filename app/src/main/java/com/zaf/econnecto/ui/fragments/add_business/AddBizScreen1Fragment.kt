@@ -134,7 +134,7 @@ class AddBizScreen1Fragment : Fragment() {
                 LogUtils.showErrorDialog(activity, getString(R.string.ok), getString(R.string.select_atleast_one_category_plz_click_on_add_category_text))
             }
             else -> {
-                val bizDetailData = BizDetailData(bizName, estdYear.toInt() , category1, category2, category3)
+                val bizDetailData = BizDetailData(bizName,shortDesc, estdYear.toInt() , category1, category2, category3)
                 val bundle = bundleOf("bizDetail" to bizDetailData)
                 navController.navigate(R.id.action_screen1_to_screen2, bundle)
             }

@@ -39,7 +39,7 @@ public class AppController extends Application {
            // LogUtils.DEBUG("Appcontroller >> getRequestQueue() >> New volley request");
             mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         }
-        LogUtils.DEBUG("Appcontroller >> getRequestQueue() >> added request to queue");
+       // LogUtils.DEBUG("Appcontroller >> getRequestQueue() >> added request to queue");
         return mRequestQueue;
     }
 

@@ -32,19 +32,30 @@ public class ForgotPswdPresenter extends BasePresenter {
         loader = AppLoaderFragment.getInstance(mContext);
     }
 
-    public void validateInput(String email) {
-        if (email.equals("") || email.isEmpty()) {
-            iFrgtPswd.onValidationError(mContext.getString(R.string.please_enter_valid_email));
-        } else if (!Utils.isValidEmail(email)) {
-            iFrgtPswd.onValidationError(mContext.getString(R.string.please_enter_valid_email));
-        } else {
-            if (NetworkUtils.isNetworkEnabled(mContext)) {
+    public void validateInput(boolean isEmail, String email, String phone) {
+        if (isEmail){
+            if (email.equals("") || email.isEmpty()) {
+                iFrgtPswd.onValidationError(mContext.getString(R.string.please_enter_valid_email));
+            } else if (!Utils.isValidEmail(email)) {
+                iFrgtPswd.onValidationError(mContext.getString(R.string.please_enter_valid_email));
+            }if (NetworkUtils.isNetworkEnabled(mContext)) {
                 iFrgtPswd.callOtpApi(email);
             } else {
                 iFrgtPswd.onValidationError(mContext.getString(R.string.please_check_your_network_connection));
             }
         }
+        else {
+            if (phone.equals("") || phone.isEmpty()) {
+                iFrgtPswd.onValidationError(mContext.getString(R.string.please_enter_valid_mobile_number));
+            } else if (NetworkUtils.isNetworkEnabled(mContext)) {
+                callFindEmailApi(phone);
+            } else {
+                iFrgtPswd.onValidationError(mContext.getString(R.string.please_check_your_network_connection));
+            }
+        }
     }
+
+
 
     public void callOtpApi(final String email) {
         loader.show();
@@ -65,7 +76,7 @@ public class ForgotPswdPresenter extends BasePresenter {
                 LogUtils.DEBUG("Request OTP Response ::" + response.toString());
                 if (response != null && !response.equals("")){
                     int status = response.optInt("status");
-                    if (status == AppConstant.AB_SUCCESS){
+                    if (status == AppConstant.SUCCESS_501){
                         LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.an_otp_has_been_sent_to_your_email_plz_check_spam_folder_as_well), new DialogButtonClick() {
                             @Override
                             public void onOkClick() {
@@ -75,15 +86,11 @@ public class ForgotPswdPresenter extends BasePresenter {
                             public void onCancelClick() { }
                         });
 
-                        //LogUtils.showToast(mContext,editOTP.getText().toString());
                     }else {
                         LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optJSONArray("message").optString(0));
-                       // LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optString("message"));
                     }
-
                 }
                 loader.dismiss();
-
             }
 
         }, new Response.ErrorListener() {
@@ -94,25 +101,36 @@ public class ForgotPswdPresenter extends BasePresenter {
             }
         });
         AppController.getInstance().addToRequestQueue(objectRequest, "Request OTP");
-
     }
 
-    private void callOTPServiceApi(String mobile) {
-        String url = AppConstant.URL_BASE + AppConstant.URL_OTP_SERVICE + mobile;
-        //LogUtils.DEBUG("URL : " + url + "\nRequest Body ::" + requestObject.toString());
-        MyJsonObjectRequest otpServiceRequest = new MyJsonObjectRequest(mContext, Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                LogUtils.DEBUG("OtpService Response ::" + response.toString());
-                Utils.saveOTPData(mContext, response.toString());
-                iFrgtPswd.startOTPActivity();
+    private void callFindEmailApi(String mobile) {
+        loader.show();
+        String url = AppConstant.URL_BASE_MVP + AppConstant.URL_FIND_MY_EMAIL;
+        JSONObject requestObject = new JSONObject();
+        try {
+            requestObject.put("phone", mobile);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            LogUtils.ERROR(e.getMessage());
+            loader.dismiss();
+        }
+        LogUtils.DEBUG("URL : " + url + "\nRequest Body ::" + requestObject.toString());
+        MyJsonObjectRequest findEmailRequest = new MyJsonObjectRequest(mContext, Request.Method.POST, url, requestObject, response -> {
+            LogUtils.DEBUG("FIND_MY_EMAIL Response ::" + response.toString());
+            int status = response.optInt("status");
+            if (status == AppConstant.SUCCESS){
+                JSONObject data = response.optJSONObject("data");
+                String email = data.optString("email");
+                iFrgtPswd.updateEmail(email);
+            }else {
+                LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optJSONArray("message").optString(0));
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                LogUtils.DEBUG("OtpService Error ::" + error.getMessage());
-            }
-        });
-        AppController.getInstance().addToRequestQueue(otpServiceRequest, "OtpService");
+            loader.dismiss();
+        }, error -> {
+            LogUtils.DEBUG("OtpService Error ::" + error.getMessage());
+            loader.dismiss();
+        } );
+
+        AppController.getInstance().addToRequestQueue(findEmailRequest, "FIND_MY_EMAIL");
     }
 }

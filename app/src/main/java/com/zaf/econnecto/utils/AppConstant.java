@@ -8,8 +8,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class AppConstant {
 
-    public static final Integer AB_SUCCESS = 501;
-    public static final Integer FP_SUCCESS = 401;
+    public static final Integer SUCCESS_501 = 501;
+    public static final Integer SUCCESS_401 = 401;
     public static final Integer PHONE_NOT_VERIFIED = 400;
     public static final Integer SUCCESS = 1;
     public static final Integer FAILURE = 0;
@@ -38,7 +38,8 @@ public class AppConstant {
     public static final String URL_LOGOUT = "logout.php";
     public static final String URL_FORGOT_PSWD = "forgot_password/forgot_password.php";
     public static final String URL_CHANGE_PSWD = "change_password/change_password.php";
-    public static final String URL_EMAIL_VERIFY = "email_verification.php";
+//    public static final String URL_EMAIL_VERIFY = "email_verification.php";
+    public static final String URL_EMAIL_VERIFY = "email_verification/email_verification.php";
     public static final String URL_ADD_BUSINESS = "add_business.php";
     public static final String URL_MY_BUSINESS = "mybusiness.php";
     public static final String URL_UPDATE_BUSINESS = "update_business.php";
@@ -53,6 +54,7 @@ public class AppConstant {
     public static final String URL_VERIFY_MOBILE = "/mobile-verify?mobile=";
     public static final String URL_OTP_SERVICE = "/otp_service?mobile=";
     public static final String URL_CHANGE_PASSWORD = "/change-password?mobile=";
+    public static final String URL_FIND_MY_EMAIL = "find_email/find_email.php";
     public static final String URL_CP_PASSWORD = "&password=";
 
     //Crop constants

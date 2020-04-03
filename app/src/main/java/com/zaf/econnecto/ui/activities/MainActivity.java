@@ -84,10 +84,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
     CircleImageView imgUserProfile = headerView.findViewById(R.id.imgUserProfile);
     if (Utils.isLoggedIn(mContext)) {
       textUserName.setText(Utils.getUserName(mContext));
-      textVerifyEmail.setText(
-          Utils.isEmailVerified(mContext)
-              ? Utils.getUserEmail(mContext)
-              : getString(R.string.verify_your_email));
+      textVerifyEmail.setText(Utils.isEmailVerified(mContext) ? Utils.getUserEmail(mContext) : getString(R.string.verify_your_email));
       if (BitmapUtils.getProfileBitmap(mContext) == null)
         Picasso.get()
             .load(Utils.getUserProfilePic(mContext))

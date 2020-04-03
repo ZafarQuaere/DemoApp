@@ -20,10 +20,7 @@ import org.json.JSONObject
 class UserRegisterFragment : Fragment(), FragmentNavigation {
 
     private lateinit var viewModel: UserRegisterViewModel
-
-
     lateinit var navController: NavController
-
 
     companion object {
         fun newInstance() = UserRegisterFragment()
@@ -40,10 +37,8 @@ class UserRegisterFragment : Fragment(), FragmentNavigation {
         super.onViewCreated(view, savedInstanceState)
 
         navController = Navigation.findNavController(view)
-
         viewModel = ViewModelProviders.of(this).get(UserRegisterViewModel::class.java)
         viewModel.registerNavigation(this)
-
 
         txtRegister.setOnClickListener {
             activity?.let { it1 -> viewModel.validateUI(it1, editEmail, editPassword, editConfirmPassword, radioGroup, editBirthYear, editPhone)
@@ -53,18 +48,11 @@ class UserRegisterFragment : Fragment(), FragmentNavigation {
             navController!!.navigate(R.id.action_register_to_terms_condition)
         }
          txtLogin.setOnClickListener {
-
              activity!!.finish()
              //callJsonParsing()
          }
     }
 
-    private fun callJsonParsing() {
-        var fileName : String = "user_register_failure"
-        val loadJSONFromAsset = FileUtils.loadJSONFromAsset(activity, fileName)
-        var obj = JSONObject(loadJSONFromAsset)
-        LogUtils.DEBUG("status : ${obj.optInt("status")}  message ${obj.optJSONArray("message").get(0)}")
-    }
 
     override fun navigate() {
         var bundle = bundleOf("mobile_no" to editPhone.text.toString().trim())

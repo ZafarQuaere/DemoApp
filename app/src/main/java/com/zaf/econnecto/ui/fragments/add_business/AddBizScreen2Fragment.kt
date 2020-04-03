@@ -59,7 +59,7 @@ class AddBizScreen2Fragment : Fragment() {
             state = editState.text.toString().trim()
             address1 = editAddress1.text.toString().trim()
 
-            var addressInfoData = AddressInfo(bizInfo.bizDetail.bizName, bizInfo.bizDetail.category1, bizInfo.bizDetail.estdYear, bizInfo.bizDetail.category2, bizInfo.bizDetail.category3,
+            var addressInfoData = AddressInfo(bizInfo.bizDetail.bizName,bizInfo.bizDetail.shortDesc, bizInfo.bizDetail.category1, bizInfo.bizDetail.estdYear, bizInfo.bizDetail.category2, bizInfo.bizDetail.category3,
                     address1, address2, landmark, pincode, locality, city, state, country)
             validateInputsAndNavigate(addressInfoData)
 

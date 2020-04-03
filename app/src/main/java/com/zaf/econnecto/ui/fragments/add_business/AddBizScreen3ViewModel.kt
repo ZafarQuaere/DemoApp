@@ -24,13 +24,17 @@ class AddBizScreen3ViewModel : ViewModel() {
 
     fun callAddBizApi(activity: Activity?, addressInfo: AddressInfo, mobileNo: String, emailId: String, alternateMobile: String, telephone: String, website: String) {
         mContext = activity
-        var loader = AppDialogLoader.getLoader(mContext)
+        val loader = AppDialogLoader.getLoader(mContext)
         loader.show()
-        //TODO here category is missing..
-        var jsonObject = JSONObject()
+
+        val jsonObject = JSONObject()
         jsonObject.put("jwt_token", Utils.getAccessToken(mContext))
-        jsonObject.put("owner_id", "")
+        jsonObject.put("owner_id", Utils.getUserID(mContext))
         jsonObject.put("business_name", addressInfo.bizName)
+        jsonObject.put("short_description", addressInfo.shortDesc)
+        jsonObject.put("category_id_1", addressInfo.category1)
+        jsonObject.put("category_id_2", addressInfo.category2)
+        jsonObject.put("category_id_3", addressInfo.category3)
         jsonObject.put("year_established", addressInfo.estdYear)
         jsonObject.put("address_1", addressInfo.address1)
         jsonObject.put("address_2", addressInfo.address2)
@@ -45,7 +49,7 @@ class AddBizScreen3ViewModel : ViewModel() {
         jsonObject.put("mobile_2", alternateMobile)
         jsonObject.put("telephone", telephone)
         jsonObject.put("email", emailId)
-        jsonObject.put("website", website)
+        jsonObject.put("website", "http://"+website)
 
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
 
@@ -61,17 +65,20 @@ class AddBizScreen3ViewModel : ViewModel() {
             }
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-
                 val body = JSONObject(Gson().toJson(response.body()))
                 var status = body.optInt("status")
                 loader.dismiss()
 
-                if (status == AppConstant.AB_SUCCESS) {
+                if (status == AppConstant.SUCCESS_501) {
+                    Utils.setBusinessStatus(mContext,"1")
+                    LogUtils.showErrorDialog(mContext,mContext!!.getString(R.string.ok),"Your business is registered added successfully");
+                    mContext!!.finish();
                     // fragNavigation.navigate()
                 } else {
-                    val jsonArray = body.optJSONArray("message")
+                    LogUtils.showErrorDialog(mContext!!, mContext!!.getString(R.string.ok), body.optJSONArray("message").optString(0));
+                  /*  val jsonArray = body.optJSONArray("message")
                     val message = jsonArray!!.get(0) as String
-                    LogUtils.showErrorDialog(mContext, mContext!!.getString(R.string.ok), message)
+                    LogUtils.showErrorDialog(mContext, mContext!!.getString(R.string.ok), message)*/
                 }
             }
         })

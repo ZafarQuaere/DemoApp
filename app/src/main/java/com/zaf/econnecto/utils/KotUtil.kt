@@ -14,6 +14,7 @@ import com.zaf.econnecto.ui.fragments.add_business.AddBizScreen1Fragment
 import com.zaf.econnecto.ui.fragments.add_business.AddBizScreen2Fragment
 import com.zaf.econnecto.ui.fragments.add_business.AddBizScreen3Fragment
 import com.zaf.econnecto.ui.interfaces.ActionBarItemClick
+import org.json.JSONObject
 import java.util.*
 
 class KotUtil {
@@ -95,5 +96,13 @@ class KotUtil {
                 textBack.setOnClickListener { activity.onBackPressedDispatcher.onBackPressed() }
             }
         }
+    }
+
+    public fun loadDataFromAssets(activity: AppCompatActivity,mfileName: String) {
+       // var fileName : String = "user_register_failure"
+        var fileName : String = mfileName
+        val loadJSONFromAsset = FileUtils.loadJSONFromAsset(activity, fileName)
+        var obj = JSONObject(loadJSONFromAsset)
+        LogUtils.DEBUG("status : ${obj.optInt("status")}  message ${obj.optJSONArray("message").get(0)}")
     }
 }

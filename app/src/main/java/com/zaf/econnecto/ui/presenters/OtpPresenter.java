@@ -74,7 +74,7 @@ public class OtpPresenter extends BasePresenter {
 
                 if (response != null && !response.equals("")) {
                     int status = response.optInt("status");
-                    if (status == AppConstant.FP_SUCCESS) {
+                    if (status == AppConstant.SUCCESS_401) {
                         iOtp.moveToLogin();
                         //LogUtils.showToast(mContext, mContext.getString(R.string.your_password_is_changed_successfully));
                     } else {

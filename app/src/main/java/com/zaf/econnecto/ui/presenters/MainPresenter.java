@@ -112,7 +112,7 @@ public class MainPresenter extends BasePresenter {
 
     public void startActivity(Context mContext) {
         Intent intent = new Intent(mContext, ChangePswdActivity.class);
-       // intent.putExtra(AppConstant.COMINGFROM, AppConstant.HOME);
+        // intent.putExtra(AppConstant.COMINGFROM, AppConstant.HOME);
         mContext.startActivity(intent);
     }
 
@@ -157,7 +157,6 @@ public class MainPresenter extends BasePresenter {
                 }
                 loader.dismiss();
             }
-
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -180,17 +179,14 @@ public class MainPresenter extends BasePresenter {
             @Override
             public void onClick(View v) {
                 final String OTP = editOTP.getText().toString().trim();
-
                 if (OTP != null && !OTP.isEmpty()) {
                     dialog.dismiss();
                     callVerfiyEmailApi(OTP);
                 } else {
                     LogUtils.showToast(mContext, mContext.getString(R.string.please_enter_valid_OTP));
                 }
-
             }
         });
-
         dialog.show();
     }
 
@@ -201,31 +197,26 @@ public class MainPresenter extends BasePresenter {
         try {
             requestObject.put("action", mContext.getString(R.string.request_otp));
             requestObject.put("email", Utils.getUserEmail(mContext));
-
         } catch (JSONException e) {
             e.printStackTrace();
             LogUtils.ERROR(e.getMessage());
         }
-        String url = AppConstant.URL_BASE + AppConstant.URL_EMAIL_VERIFY;
+        String url = AppConstant.URL_BASE_MVP + AppConstant.URL_EMAIL_VERIFY;
         LogUtils.DEBUG("URL : " + url + "\nRequest Body ::" + requestObject.toString());
         MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.POST, url, requestObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 LogUtils.DEBUG("Request OTP Response ::" + response.toString());
-
                 if (response != null && !response.equals("")) {
                     int status = response.optInt("status");
-                    if (status == AppConstant.SUCCESS) {
+                    if (status == AppConstant.SUCCESS_501) {
                         showVerifyDialog(mContext);
                     } else {
-                        LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optString("message"));
+                        LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optJSONArray("message").optString(0));
                     }
-
                 }
                 loader.dismiss();
-
             }
-
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -240,7 +231,7 @@ public class MainPresenter extends BasePresenter {
         loader.show();
         JSONObject requestObject = new JSONObject();
         try {
-            requestObject.put("action", mContext.getString(R.string.activate_account));
+            requestObject.put("action", mContext.getString(R.string.verify_email));
             requestObject.put("email", Utils.getUserEmail(mContext));
             requestObject.put("otp", otp);
 
@@ -248,7 +239,7 @@ public class MainPresenter extends BasePresenter {
             e.printStackTrace();
             LogUtils.ERROR(e.getMessage());
         }
-        String url = AppConstant.URL_BASE + AppConstant.URL_EMAIL_VERIFY;
+        String url = AppConstant.URL_BASE_MVP + AppConstant.URL_EMAIL_VERIFY;
         LogUtils.DEBUG("URL : " + url + "\nRequest Body ::" + requestObject.toString());
         MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.POST, url, requestObject, new Response.Listener<JSONObject>() {
             @Override
@@ -257,25 +248,21 @@ public class MainPresenter extends BasePresenter {
 
                 if (response != null && !response.equals("")) {
                     int status = response.optInt("status");
-                    if (status == AppConstant.SUCCESS) {
+                    if (status == AppConstant.SUCCESS_401) {
                         Utils.setEmailVerified(mContext, true);
                         LogUtils.showToast(mContext, mContext.getString(R.string.congrats_your_account_is_verified_now));
                         iMain.updateVerifyEmailUI();
                     } else {
-                        LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optString("message"));
+//                        LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optString("message"));
+                        LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optJSONArray("message").optString(0));
                     }
-
                 }
                 loader.dismiss();
-
             }
 
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                loader.dismiss();
-                LogUtils.ERROR("Verify Email Error ::" + error.getMessage());
-            }
+        }, error -> {
+            loader.dismiss();
+            LogUtils.ERROR("Verify Email Error ::" + error.getMessage());
         });
         AppController.getInstance().addToRequestQueue(objectRequest, "Verify Email");
     }
@@ -284,32 +271,26 @@ public class MainPresenter extends BasePresenter {
         loader.show();
         LogUtils.DEBUG("Upload URL : " + AppConstant.URL_UPLOAD_USER_PROFILE_PIC);
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, AppConstant.URL_UPLOAD_USER_PROFILE_PIC,
-                new Response.Listener<NetworkResponse>() {
-                    @Override
-                    public void onResponse(NetworkResponse response) {
-                        String uploadResponse = new String(response.data);
-                        LogUtils.DEBUG("Upload Profile Pic Response : " + uploadResponse);
-                        try {
-                            JSONObject obj = new JSONObject(new String(response.data));
-                            int status = obj.optInt("status");
-                            if (status == AppConstant.SUCCESS) {
-                                BitmapUtils.saveProfileImage(mContext, bitmapUpload);
-                                iMain.updateProfilePic(bitmapUpload);
-                            }
-                            Toast.makeText(mContext.getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                response -> {
+                    String uploadResponse = new String(response.data);
+                    LogUtils.DEBUG("Upload Profile Pic Response : " + uploadResponse);
+                    try {
+                        JSONObject obj = new JSONObject(new String(response.data));
+                        int status = obj.optInt("status");
+                        if (status == AppConstant.SUCCESS) {
+                            BitmapUtils.saveProfileImage(mContext, bitmapUpload);
+                            iMain.updateProfilePic(bitmapUpload);
                         }
-                        loader.dismiss();
+                        Toast.makeText(mContext.getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
+                    loader.dismiss();
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(mContext.getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                        LogUtils.ERROR("Upload profile pic Error " + error);
-                        loader.dismiss();
-                    }
+                error -> {
+                    Toast.makeText(mContext.getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    LogUtils.ERROR("Upload profile pic Error " + error);
+                    loader.dismiss();
                 }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -318,7 +299,6 @@ public class MainPresenter extends BasePresenter {
                 LogUtils.DEBUG("user_email " + Utils.getUserEmail(mContext));
                 return params;
             }
-
 
             @Override
             protected Map<String, DataPart> getByteData() {
@@ -330,7 +310,6 @@ public class MainPresenter extends BasePresenter {
 
         };
         volleyMultipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        //adding the request to volley
         Volley.newRequestQueue(mContext).add(volleyMultipartRequest);
     }
 }

@@ -4,11 +4,8 @@ import android.graphics.Bitmap;
 
 public interface IMain {
 
-   void onLogoutCall();
-
+    void onLogoutCall();
     void showAddBizFab(boolean show);
-
     void updateVerifyEmailUI();
-
     void updateProfilePic(Bitmap bitmap);
 }

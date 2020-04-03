@@ -41,12 +41,12 @@
                 android:layout_below="@+id/lytHeader"
                 android:layout_marginTop="@dimen/_30dp"
                 android:orientation="vertical"
-                android:paddingLeft="@dimen/_20dp"
-                android:paddingRight="@dimen/_20dp">
+                android:paddingHorizontal="@dimen/_20dp">
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilEmail"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/_20dp"
+                    android:layout_marginTop="@dimen/_10dp"
                     android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -58,6 +58,30 @@
                         android:inputType="textEmailAddress"
                         android:textSize="@dimen/font_regular_text" />
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilPhone"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/_20dp"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="10"
+                        android:hint="@string/enter_mobile_no"
+                        android:inputType="number"
+                        android:textSize="@dimen/font_regular_text" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/textForgotEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="forgotEmail"
+                    android:text="@string/forget_your_email"/>
 
 
                 <Button

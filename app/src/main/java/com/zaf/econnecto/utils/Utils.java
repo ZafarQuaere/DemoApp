@@ -13,7 +13,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
@@ -691,12 +690,6 @@ public class Utils {
         return data;
     }
 
-    public static void setAccessToken(Context mContext, String data) {
-        if (mContext == null)
-            return;
-        AppSharedPrefs prefs = AppSharedPrefs.getInstance(mContext);
-        prefs.put(mContext.getString(R.string.key_access_token), data);
-    }
 
     public static String getAccessToken(Context context) {
         String loginStringData = getLoginData(context);
@@ -705,33 +698,25 @@ public class Utils {
         if (loginData != null) {
             accessToken = loginData.getData().getJWTToken();
         }
-      /*  AppSharedPrefs prefs = AppSharedPrefs.getInstance(context);
-        String accessToken = "";
-        try {
-            accessToken = (String) prefs.get(context.getString(R.string.key_access_token));
-        } catch (Exception e) {
-            e.printStackTrace();
-            LogUtils.ERROR(e.getMessage());
-            return accessToken;
-        }*/
+
         return accessToken;
     }
 
 
 
 
-    public static void saveCompleteOrderData(Context mContext, String completeOrderData) {
+    public static void setBusinessStatus(Context mContext, String bizStatus) {
         if (mContext == null)
             return;
         AppSharedPrefs prefs = AppSharedPrefs.getInstance(mContext);
-        prefs.put(mContext.getString(R.string.key_complete_order_data), completeOrderData);
+        prefs.put(mContext.getString(R.string.key_business_status), bizStatus);
     }
 
-    public static String getCompleteOrderData(Context context) {
+    public static String getBusinessStatus(Context context) {
         AppSharedPrefs prefs = AppSharedPrefs.getInstance(context);
         String data = "";
         try {
-            data = (String) prefs.get(context.getString(R.string.key_complete_order_data));
+            data = (String) prefs.get(context.getString(R.string.key_business_status));
         } catch (Exception e) {
             e.printStackTrace();
             LogUtils.ERROR(e.getMessage());

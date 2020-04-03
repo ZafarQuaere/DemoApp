@@ -58,7 +58,7 @@ public class MyJsonObjectRequest extends JsonObjectRequest {
                 LogUtils.ERROR(e.getMessage());
             }
         } else {
-            LogUtils.DEBUG(AppConstant.TAG + " url : " + url);
+           // LogUtils.DEBUG(AppConstant.TAG + " url : " + url);
         }
 
         setRetryPolicy(new DefaultRetryPolicy((int)context.getResources().getInteger(R.integer.value_request_timeout),
