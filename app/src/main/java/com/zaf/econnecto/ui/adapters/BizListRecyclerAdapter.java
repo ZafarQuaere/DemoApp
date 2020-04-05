@@ -155,13 +155,14 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
 
 
     private void callFollowApi(final ViewHolder holder, final String action, String businessUid) {
-        String url = AppConstant.URL_BASE + AppConstant.URL_FOLLOW;// + 3;
+        String url = AppConstant.URL_BASE_MVP + AppConstant.URL_FOLLOW;// + 3;
 
         JSONObject requestObject = new JSONObject();
         try {
+            requestObject.put("jwt_token", Utils.getAccessToken(mContext));
             requestObject.put("action", action);
-            requestObject.put("user_email", Utils.getUserEmail(mContext));
-            requestObject.put("business_uid", businessUid);
+            requestObject.put("id", Utils.getUserID(mContext));
+            requestObject.put("business_id", businessUid);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -172,10 +173,9 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
             @Override
             public void onResponse(JSONObject response) {
                 LogUtils.DEBUG("Follow Response ::" + response.toString());
-
                 if (response != null && !response.equals("")) {
                     int status = response.optInt("status");
-                    if (status != AppConstant.SUCCESS) {
+                    if (status != AppConstant.SUCCESS_401 && status != AppConstant.SUCCESS_501) {
                         LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.something_wrong_from_server_plz_try_again));
                         if (action.equals("follow")) {
                             holder.textFollow.setText(mContext.getString(R.string.follow));
@@ -184,8 +184,10 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
                             holder.textFollow.setBackground(mContext.getResources().getDrawable(R.drawable.btn_unfollow));
                             holder.textFollow.setText(mContext.getString(R.string.following));
                         }
-                    } else {
-
+                    } else if (status == AppConstant.FAILURE){
+                        LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optJSONArray("message").optString(0));
+                    }
+                    else {
                     }
                 }
             }
@@ -234,8 +236,6 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
                 }
             });
         }
-
-
         @Override
         public String toString() {
             return super.toString() + " '" + textEstd.getText() + "'";

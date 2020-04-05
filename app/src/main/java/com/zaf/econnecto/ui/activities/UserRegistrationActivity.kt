@@ -11,7 +11,6 @@ class UserRegistrationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_registration)
         addActionBar()
-
         findViewById<ImageButton>(R.id.imgBtnCloseAB).setOnClickListener { finish() }
     }
 

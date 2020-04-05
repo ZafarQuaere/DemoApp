@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    android:orientation="vertical"
     android:focusableInTouchMode="true"
+    android:orientation="vertical"
     android:padding="@dimen/_15dp"
     tools:context=".ui.fragments.add_business.AddBizScreen1Fragment">
 
@@ -17,41 +17,72 @@
         android:text="@string/business_details"
         android:textSize="@dimen/font_xx_large_text" />
 
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilBizName"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_50dp"
-        android:hint="@string/business_name">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editBizName"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilBizName"
             android:layout_width="match_parent"
-            android:singleLine="true"
-            android:layout_height="@dimen/_50dp" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_50dp"
+            android:hint="@string/business_name">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editBizName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50dp"
+                android:singleLine="true" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilShortDesc"
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tilBizName"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/_5dp"
+            android:layout_marginBottom="@dimen/_15dp"
+            android:background="@drawable/ic_clear_black"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10dp"
-        android:hint="@string/short_description">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editShortDesc"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilShortDesc"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_50dp"
-            android:inputType="text"
-            android:maxLength="100" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:hint="@string/short_description">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editShortDesc"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50dp"
+                android:inputType="text"
+                android:maxLength="100" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tilShortDesc"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/_5dp"
+            android:layout_marginBottom="@dimen/_15dp"
+            android:background="@drawable/ic_clear_black"
+            android:visibility="gone" />
+    </RelativeLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/font_small_header"
-        android:text="@string/short_description_must_not_be_more_than_30"/>
+        android:text="@string/short_description_must_not_be_more_than_30"
+        android:textSize="@dimen/font_small_header" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilEstdYear"
@@ -124,11 +155,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:drawableLeft="@drawable/ic_add"
-        android:textColor="@color/colorPrimary"
         android:paddingVertical="@dimen/_10dp"
         android:text="@string/add_category"
-        android:textStyle="bold"
-        android:textSize="@dimen/font_large_text" />
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/font_large_text"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/btnNext"

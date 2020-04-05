@@ -87,6 +87,17 @@
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/font_actionbar_title_text" />
 
+       <!-- <TextView
+            android:id="@+id/textPhoneVerification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:gravity="center_horizontal"
+            android:text="Phone Verification"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/font_regular_text"
+            android:visibility="visible" />-->
+
         <TextView
             android:id="@+id/txtRegister"
             android:layout_width="match_parent"

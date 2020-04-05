@@ -34,6 +34,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mContext = this;
+       /* findViewById(R.id.textPhoneVerification).setOnClickListener(view -> {
+            startActivity(new Intent(this, PhoneVerificationActivity.class).putExtra("mobile","7834908329"));
+        });*/
         if (Utils.isLoggedIn(mContext)) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
@@ -100,7 +103,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
                // startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
                 startActivity(new Intent(LoginActivity.this, UserRegistrationActivity.class));
                 break;
-
         }
     }
 }

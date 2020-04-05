@@ -12,6 +12,9 @@ import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
 import com.zaf.econnecto.R;
+import com.zaf.econnecto.utils.DateUtils;
+import com.zaf.econnecto.utils.LogUtils;
+import com.zaf.econnecto.utils.Utils;
 import com.zaf.econnecto.version2.ui.HomeActivity;
 
 import static com.zaf.econnecto.utils.AppConstant.SPLASH_TIME_OUT;
@@ -34,6 +37,12 @@ public class SplashActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                boolean isLoginExpired = DateUtils.isLoginExpired(mContext);
+                if (isLoginExpired){
+                    Utils.setLoggedIn(mContext, false);
+                    Utils.saveLoginData(mContext,null);
+                }
+
                 if(mContext.getResources().getBoolean(R.bool.run_version2_ui)){
                     Intent i = new Intent(SplashActivity.this, HomeActivity.class);
                     startActivity(i);

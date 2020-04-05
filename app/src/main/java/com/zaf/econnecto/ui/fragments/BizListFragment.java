@@ -19,6 +19,7 @@ import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.response_model.biz_list.BizData;
 import com.zaf.econnecto.ui.activities.AddBusinessActivity;
 import com.zaf.econnecto.ui.activities.BizDetailsActivity;
+import com.zaf.econnecto.ui.activities.LoginActivity;
 import com.zaf.econnecto.ui.adapters.BizListRecyclerAdapter;
 import com.zaf.econnecto.ui.interfaces.ActionBarItemClick;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
@@ -108,7 +109,25 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
 
         Utils.updateActionBar(mContext, BizListFragment.class.getSimpleName(), mContext.getString(R.string.business_list), null, this);
         view.findViewById(R.id.btnAddBizns).setOnClickListener(view1 -> {
-            getActivity().startActivity(new Intent(getActivity(), AddBusinessActivity.class));
+            if (Utils.isLoggedIn(mContext)){
+                if (Utils.getBusinessStatus(mContext).equals("0")){
+                    getActivity().startActivity(new Intent(getActivity(), AddBusinessActivity.class));
+                } else {
+                    LogUtils.showErrorDialog(mContext,getString(R.string.ok),getString(R.string.you_have_already_added_business));
+                }
+            }else {
+                LogUtils.showDialogDoubleButton(mContext, mContext.getString(R.string.cancel), mContext.getString(R.string.ok),
+                        mContext.getString(R.string.you_need_to_login_first_to_add_a_business), new DialogButtonClick() {
+                            @Override
+                            public void onOkClick() {
+                                mContext.startActivity(new Intent(mContext, LoginActivity.class));
+                            }
+
+                            @Override
+                            public void onCancelClick() {
+                            }
+                        });
+            }
         });
         /*recylcerProducts.addOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override

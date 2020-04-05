@@ -146,9 +146,7 @@ public class MainPresenter extends BasePresenter {
                 if (response != null && !response.equals("")) {
                     int status = response.optInt("status");
                     if (status == AppConstant.SUCCESS) {
-                        AppSharedPrefs prefs = AppSharedPrefs.getInstance(mContext);
-                        prefs.clear(mContext.getString(R.string.key_logged_in));
-                        Utils.setLoggedIn(mContext, false);
+                        Utils.clearLoginDatas(mContext);
                         LogUtils.showToast(mContext, mContext.getString(R.string.you_are_sucessfully_logout));
                         iMain.onLogoutCall();
                     } else {

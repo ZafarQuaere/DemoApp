@@ -116,7 +116,7 @@
                         android:layout_marginTop="@dimen/_30dp"
                         android:layout_marginBottom="@dimen/_30dp"
                         android:background="@drawable/rounded_background"
-                        android:text="@string/submit_otp"
+                        android:text="@string/change_pswd"
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/font_regular_text" />
 

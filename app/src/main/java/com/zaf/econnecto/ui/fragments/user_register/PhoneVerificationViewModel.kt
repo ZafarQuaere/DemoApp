@@ -1,6 +1,7 @@
 package com.zaf.econnecto.ui.fragments.user_register
 
 import android.app.Activity
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.google.gson.JsonObject
 import com.zaf.econnecto.R
@@ -55,11 +56,9 @@ class PhoneVerificationViewModel : ViewModel() {
         })
     }
 
-
     fun callVerifyPhoneApi(mContext: Activity, mobileNo: String, OTP: String) {
         var loader = AppDialogLoader.getLoader(mContext)
         loader.show()
-        //TODO request OTP API call
         var jsonObject = JSONObject()
         jsonObject.put("action", "validate_otp")
         jsonObject.put("phone", mobileNo)
@@ -73,7 +72,6 @@ class PhoneVerificationViewModel : ViewModel() {
                 loader.dismiss()
                 LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.something_wrong_from_server_plz_try_again))
             }
-
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 val body = JSONObject(response.body().toString())
                 LogUtils.DEBUG("status : ${body!!.optInt("status")}   message ${body!!.optJSONArray("message").get(0)}")
@@ -96,4 +94,38 @@ class PhoneVerificationViewModel : ViewModel() {
         })
     }
 
+
+    public fun callRequestOTPApi(mContext: Activity, mobileNo: String) {
+        var loader = AppDialogLoader.getLoader(mContext)
+        loader.show()
+        var jsonObject = JSONObject()
+        jsonObject.put("action","request_otp")
+        jsonObject.put("phone",mobileNo)
+        val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
+
+        val destinationService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
+        val requestCall = destinationService.phoneVerification(requestBody)
+
+        requestCall.enqueue(object : Callback<JsonObject>{
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                loader.dismiss()
+                LogUtils.showErrorDialog(mContext,mContext.getString(R.string.ok),mContext.getString(R.string.something_wrong_from_server_plz_try_again))
+            }
+
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                loader.dismiss()
+                val body = JSONObject(response.body().toString())
+                LogUtils.DEBUG("status : ${body!!.optInt("status")}   message ${body!!.optJSONArray("message").get(0)}")
+                var status = body.optInt("status")
+                if(status == AppConstant.FAILURE){
+                    val jsonArray = body!!.getJSONArray("message")
+                    val message = jsonArray.get(0) as String
+                    LogUtils.showErrorDialog(mContext,mContext.getString(R.string.ok),message)
+                    // KotUtil.displayResponseError(mContext,message.toString())
+                }else{
+                    LogUtils.showToast(mContext,"an OTP has been sent to your mobile number")
+                }
+            }
+        })
+    }
 }

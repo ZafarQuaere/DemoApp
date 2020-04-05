@@ -1,5 +1,6 @@
 package com.zaf.econnecto.ui.fragments.user_register
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.phone_verification_fragment.*
 class PhoneVerificationFragment : Fragment() {
 
     val args: PhoneVerificationFragmentArgs by navArgs()
-
+    val mContext = activity
     companion object {
         fun newInstance() = PhoneVerificationFragment()
     }
@@ -28,10 +29,19 @@ class PhoneVerificationFragment : Fragment() {
         return inflater.inflate(R.layout.phone_verification_fragment, container, false)
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        viewModel = ViewModelProviders.of(this).get(PhoneVerificationViewModel::class.java)
+
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(PhoneVerificationViewModel::class.java)
+       // viewModel = ViewModelProviders.of(this).get(PhoneVerificationViewModel::class.java)
         editPhone.setText(args.mobileNo)
+        if (mContext != null) {
+            viewModel.callRequestOTPApi(mContext,args.mobileNo)
+        }
         //LogUtils.showToast(activity, "Mobile no is : "+args.stringKeyMobileNo)
         txtVerifyPhone.setOnClickListener {
             if (!editOTP.text.toString().isEmpty()) {

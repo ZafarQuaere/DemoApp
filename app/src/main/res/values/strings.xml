@@ -70,7 +70,7 @@
     <string name="select_app_to_share">Select App to share</string>
     <string name="key_login_data">key_login_data</string>
     <string name="key_new_order_data">key_new_order_data</string>
-    <string name="key_business_status">key_complete_order_data</string>
+    <string name="key_business_status">key_business_status</string>
     <string name="no_data_available">Oops! No data available.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -134,7 +134,7 @@
     <string name="follow">Follow</string>
     <string name="following">Following</string>
     <string name="hot_deals">Hot Deals</string>
-    <string name="register_successful_plz_login">You are Successfully Registered.\nPlease login with email and password</string>
+    <string name="register_successful_plz_login">Your mobile number is verified now.\nPlease login with mobile no and password</string>
     <string name="retry">Retry</string>
     <string name="you_need_to_login_first_to_follow_a_business">You need to Login first to follow a Businness.</string>
     <string name="please_enter_business_name">Please Enter Business Name</string>
@@ -285,7 +285,7 @@
     <string name="enter_valid_year_of_birth">Enter valid year of Birth</string>
     <string name="otp_is_sent_to_your_mobile_no_plz_enter_the_otp">An OTP is sent to your entered mobile number, Please enter the OTP to verify your phone number</string>
     <string name="verify_mobile_no">Verify Phone</string>
-    <string name="resend_otp">Did not received OTP ?<b>Resend OTP</b></string>
+    <string name="resend_otp">Did not received OTP ? <b>Resend OTP</b></string>
     <string name="key_access_token">key_access_token</string>
     <string name="previous">Previous</string>
     <string name="add_category"><b>Add Category</b></string>
@@ -320,4 +320,7 @@
     <string name="find_my_email">Find my email</string>
     <string name="forget_your_email">"Forgot your email ? "</string>
     <string name="forget_your_phone_no">Forgot your phone no ?</string>
+    <string name="you_have_already_added_business">You have already added a business</string>
+    <string name="you_are_successfully_registered_plz_verify_your_phone_no">You are successfully registered, Please verfiy your phone number.</string>
+    <string name="key_login_date">key_login_date</string>
 </resources>

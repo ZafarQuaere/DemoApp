@@ -1,5 +1,6 @@
 package com.zaf.econnecto.ui.presenters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,12 +14,14 @@ import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.MyJsonObjectRequest;
 import com.zaf.econnecto.network_call.response_model.login.LoginData;
 import com.zaf.econnecto.ui.activities.ForgetPswdActivity;
+import com.zaf.econnecto.ui.activities.PhoneVerificationActivity;
 import com.zaf.econnecto.ui.fragments.user_register.PhoneVerificationFragment;
 import com.zaf.econnecto.ui.presenters.operations.ILogin;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppController;
 import com.zaf.econnecto.utils.AppLoaderFragment;
 import com.zaf.econnecto.utils.BitmapUtils;
+import com.zaf.econnecto.utils.DateUtils;
 import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.NetworkUtils;
 import com.zaf.econnecto.utils.Utils;
@@ -62,12 +65,12 @@ public class LoginPresenter extends BasePresenter {
         }
     }
 
-    public void callApi(final String userId, String password) {
+    public void callApi(final String phoneNo, String password) {
         loader.show();
         JSONObject requestObject = new JSONObject();
         try {
             //requestObject.put("email", userId);
-            requestObject.put("phone", userId);
+            requestObject.put("phone", phoneNo);
             requestObject.put("password", password);
 
         } catch (JSONException e) {
@@ -83,16 +86,13 @@ public class LoginPresenter extends BasePresenter {
                 if (response != null && !response.equals("")){
                     int status = response.optInt("status");
                     if (status == AppConstant.SUCCESS){
-                        LoginData loginData = ParseManager.getInstance().fromJSON(response.toString(),LoginData.class);
-                        storeProfileImage(loginData);
-                        Utils.saveLoginData(mContext,response.toString());
                         Utils.setLoggedIn(mContext, true);
-                        Utils.setEmailVerified(mContext, loginData.getData().getIsEmailVerified().equals("1"));
-//                        storeOtherValue(loginData);
+                        LoginData loginData = ParseManager.getInstance().fromJSON(response.toString(),LoginData.class);
+                        Utils.saveLoginData(mContext,response.toString());
+                        storeOtherValue(loginData);
                         mLogin.doLogin();
                     } else if(status == AppConstant.PHONE_NOT_VERIFIED){
-                        //TODO have to move to phone verification screen
-                        Utils.moveToFragment(mContext,new PhoneVerificationFragment(),PhoneVerificationFragment.class.getSimpleName(),null);
+                        mContext.startActivity(new Intent(mContext, PhoneVerificationActivity.class).putExtra("mobile",phoneNo));
                     }
                     else {
                         LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optJSONArray("message").optString(0));
@@ -108,9 +108,10 @@ public class LoginPresenter extends BasePresenter {
     }
 
     private void storeOtherValue(LoginData loginData) {
-        //Utils.saveUserEmail(mContext,loginData.getData().getEmail());
-        //Utils.setUserID(mContext,loginData.getData().getId());
-        //Utils.setAccessToken(mContext,loginData.getData().getJWTToken());
+        storeProfileImage(loginData);
+        Utils.setBusinessStatus(mContext,loginData.getData().getBusinessStatus());
+        Utils.setEmailVerified(mContext, loginData.getData().getIsEmailVerified().equals("1"));
+        DateUtils.setLoginDate(mContext);
     }
 
     private void storeProfileImage(LoginData loginData) {

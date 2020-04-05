@@ -7,6 +7,7 @@ import com.google.gson.JsonObject
 import com.zaf.econnecto.R
 import com.zaf.econnecto.service.EConnectoServices
 import com.zaf.econnecto.service.ServiceBuilder
+import com.zaf.econnecto.ui.interfaces.DialogButtonClick
 import com.zaf.econnecto.utils.AppConstant
 import com.zaf.econnecto.utils.AppDialogLoader
 import com.zaf.econnecto.utils.LogUtils
@@ -49,7 +50,7 @@ class AddBizScreen3ViewModel : ViewModel() {
         jsonObject.put("mobile_2", alternateMobile)
         jsonObject.put("telephone", telephone)
         jsonObject.put("email", emailId)
-        jsonObject.put("website", "http://"+website)
+        jsonObject.put("website", "http://$website")
 
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
 
@@ -71,10 +72,22 @@ class AddBizScreen3ViewModel : ViewModel() {
 
                 if (status == AppConstant.SUCCESS_501) {
                     Utils.setBusinessStatus(mContext,"1")
-                    LogUtils.showErrorDialog(mContext,mContext!!.getString(R.string.ok),"Your business is registered added successfully");
-                    mContext!!.finish();
-                    // fragNavigation.navigate()
+                    LogUtils.showDialogSingleActionButton(mContext,mContext!!.getString(R.string.ok),"Your business is registered added successfully",object : DialogButtonClick{
+                        override fun onCancelClick() {}
+                        override fun onOkClick() {
+                            mContext!!.finish();
+                        }
+                    });
+
                 } else {
+                   /* LogUtils.showDialogSingleActionButton(mContext,mContext!!.getString(R.string.ok), body.optJSONArray("message").optString(0),object : DialogButtonClick{
+                        override fun onCancelClick() {
+                        }
+
+                        override fun onOkClick() {
+                        }
+
+                    })*/
                     LogUtils.showErrorDialog(mContext!!, mContext!!.getString(R.string.ok), body.optJSONArray("message").optString(0));
                   /*  val jsonArray = body.optJSONArray("message")
                     val message = jsonArray!!.get(0) as String

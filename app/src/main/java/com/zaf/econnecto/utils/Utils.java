@@ -12,10 +12,6 @@ import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
@@ -24,6 +20,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.zaf.econnecto.BuildConfig;
 import com.zaf.econnecto.R;
@@ -55,10 +56,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.zip.GZIPInputStream;
 
 
@@ -97,9 +95,6 @@ public class Utils {
         return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
-    public static String getTimeStamp() {
-        return new SimpleDateFormat(AppConstant.TIMESTAMP_FORMAT, Locale.US).format(new Date());
-    }
 
     public static void setLoggedIn(Context mContext, boolean b) {
         if (mContext == null)
@@ -781,6 +776,16 @@ public class Utils {
             return listData;
         }
         return listData;
+    }
+
+    public static void clearLoginDatas(Context mContext) {
+        AppSharedPrefs prefs = AppSharedPrefs.getInstance(mContext);
+        prefs.clear(mContext.getString(R.string.key_logged_in));
+        prefs.clear(mContext.getString(R.string.key_login_data));
+        prefs.clear(mContext.getString(R.string.key_login_date));
+        Utils.setLoggedIn(mContext, false);
+        Utils.setBusinessStatus(mContext,"0");
+        Utils.setEmailVerified(mContext, false);
     }
 
    /* public static void selectImageFromGallery(Activity mContext) {

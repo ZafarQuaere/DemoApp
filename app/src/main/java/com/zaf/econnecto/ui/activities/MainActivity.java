@@ -155,23 +155,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
 
   @SuppressLint("RestrictedApi")
   public void addBusinessClick(View view) {
-    /*if (Utils.isLoggedIn(mContext)) {
-        if (Utils.isEmailVerified(mContext)) {
+    if (Utils.isLoggedIn(mContext)) {
+        if (Utils.getBusinessStatus(mContext).equals("0")) {
            // getPresenter().moveToFragment(AddBusinessFragment.class.getSimpleName());
             startActivity(new Intent(mContext,AddBusinessActivity.class));
-            fabAddBizness.setVisibility(View.GONE);
+            //fabAddBizness.setVisibility(View.GONE);
         } else {
-            LogUtils.showDialogDoubleButton(mContext, mContext.getString(R.string.cancel), mContext.getString(R.string.ok),
-                    mContext.getString(R.string.you_need_to_verify_your_email_to_add_a_business), new DialogButtonClick() {
-                        @Override
-                        public void onOkClick() {
-                            mContext.startActivity(new Intent(mContext, LoginActivity.class));
-                        }
-
-                        @Override
-                        public void onCancelClick() {
-                        }
-                    });
+            LogUtils.showErrorDialog(mContext,getString(R.string.ok),getString(R.string.you_have_already_added_business));
+          //startActivity(new Intent(mContext,AddBusinessActivity.class));
         }
     } else {
         LogUtils.showDialogDoubleButton(mContext, mContext.getString(R.string.cancel), mContext.getString(R.string.ok),
@@ -183,9 +174,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
                     @Override
                     public void onCancelClick() { }
                 });
-    }*/
+    }
 
-    startActivity(new Intent(mContext, AddBusinessActivity.class));
+    //startActivity(new Intent(mContext, AddBusinessActivity.class));
    // overridePendingTransition(R.anim.slide_in_right,R.anim.slide_in_left);
     closeDrawer();
   }
