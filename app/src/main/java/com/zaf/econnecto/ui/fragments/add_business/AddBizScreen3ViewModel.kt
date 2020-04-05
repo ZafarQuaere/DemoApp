@@ -27,7 +27,10 @@ class AddBizScreen3ViewModel : ViewModel() {
         mContext = activity
         val loader = AppDialogLoader.getLoader(mContext)
         loader.show()
-
+         var myWebsite = website
+        if (myWebsite.isNotEmpty()){
+            myWebsite = "http://$website"
+        }
         val jsonObject = JSONObject()
         jsonObject.put("jwt_token", Utils.getAccessToken(mContext))
         jsonObject.put("owner_id", Utils.getUserID(mContext))
@@ -50,7 +53,7 @@ class AddBizScreen3ViewModel : ViewModel() {
         jsonObject.put("mobile_2", alternateMobile)
         jsonObject.put("telephone", telephone)
         jsonObject.put("email", emailId)
-        jsonObject.put("website", "http://$website")
+        jsonObject.put("website", myWebsite)
 
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
 

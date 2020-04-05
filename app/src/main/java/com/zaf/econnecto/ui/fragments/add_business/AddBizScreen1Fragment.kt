@@ -113,6 +113,7 @@ class AddBizScreen1Fragment : Fragment() {
     private fun validateUIandNavigate() {
         val bizName : String = editBizName.text.toString().trim()
         val shortDesc : String = editShortDesc.text.toString().trim()
+        val estdYear : String = editEstdYear.text.toString().trim()
         category1 = editCategory1.text.toString().trim()
         category2 = editCategory2.text.toString().trim()
         category3 = editCategory3.text.toString().trim()
@@ -127,7 +128,10 @@ class AddBizScreen1Fragment : Fragment() {
             bizName.length < 3 -> {
                 LogUtils.showErrorDialog(activity, getString(R.string.ok), getString(R.string.enter_valid_business_name))
             }
-            !KotUtil.validateEstd(estdYear) -> {
+            estdYear .isEmpty() -> {
+                LogUtils.showErrorDialog(activity, getString(R.string.ok), getString(R.string.please_enter_foundation_year_of_business))
+            }
+            !KotUtil.validateEstd(estdYear.toInt()) -> {
                 LogUtils.showErrorDialog(activity, getString(R.string.ok), getString(R.string.enter_valid_establishment_year))
             }
             category1!!.isEmpty() -> {

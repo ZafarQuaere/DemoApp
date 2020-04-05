@@ -5,15 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.utils.DateUtils;
-import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.Utils;
 import com.zaf.econnecto.version2.ui.HomeActivity;
 

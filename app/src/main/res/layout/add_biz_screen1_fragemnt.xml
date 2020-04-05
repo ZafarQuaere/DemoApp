@@ -64,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50dp"
                 android:inputType="text"
-                android:maxLength="100" />
+                android:maxLength="55" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton
@@ -81,7 +81,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/short_description_must_not_be_more_than_30"
+        android:text="@string/short_description_must_not_be_more_than_55_characters"
         android:textSize="@dimen/font_small_header" />
 
     <com.google.android.material.textfield.TextInputLayout

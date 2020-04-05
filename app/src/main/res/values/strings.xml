@@ -19,6 +19,7 @@
     <string name="key_shared_prefs">key_shared_prefs</string>
     <string name="key_logged_in">key_logged_in</string>
     <string name="login_label">Login</string>
+    <string name="do_not_have_an_account">Don\'t have an Account ? </string>
     <string name="password">Password</string>
     <string name="old_password">Old Password</string>
     <string name="new_password">New Password</string>
@@ -158,7 +159,7 @@
     <string name="reset_pwd">reset_pwd</string>
     <string name="please_enter_valid_OTP">Please enter valid OTP.</string>
     <string name="otp_is_sent_to_your_registered_email_plz_enter_otp_for_verification">An OTP wii be sent to your registered Email ID. Please enter the OTP to verify the Email</string>
-    <string name="verify_email">activate_account</string>
+    <string name="verify_email">verify_email</string>
     <string name="congrats_your_account_is_verified_now">Congrats !! Your email is verfied now.</string>
     <string name="key_email_verified">key_email_verified</string>
 
@@ -313,7 +314,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="short_description_must_not_be_more_than_30">Short description should be less than 30 words.</string>
+    <string name="short_description_must_not_be_more_than_55_characters">Short description should be less than 55 characters.</string>
     <string name="an_otp_has_been_sent_to_your_email_plz_check_spam_folder_as_well">An OTP has been sent to your email ID, Please enter in the next Screen.\n If you do not find OTP check the Spam folder as well.</string>
     <string name="please_enter_new_password">Please enter new Password</string>
     <string name="your_password_changed_successfully">Your password changed successfully</string>
@@ -323,4 +324,5 @@
     <string name="you_have_already_added_business">You have already added a business</string>
     <string name="you_are_successfully_registered_plz_verify_your_phone_no">You are successfully registered, Please verfiy your phone number.</string>
     <string name="key_login_date">key_login_date</string>
+    <string name="get_free_business_account">Get free business account</string>
 </resources>

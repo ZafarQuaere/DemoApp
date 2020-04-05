@@ -104,6 +104,12 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/font_small_header"
+                android:textColor="@color/colorPrimary"
+                android:text="eg: www.example.com"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"

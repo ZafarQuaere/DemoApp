@@ -57,6 +57,7 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
         holder.mIdView.setText(mValues.get(position).getBusinessName());
         holder.textEstd.setText(mContext.getString(R.string.establish_year) + ": " + mValues.get(position).getYearEstablished());
         holder.textFollowers.setText(mValues.get(position).getFollowersCount() + " " + mContext.getString(R.string.followers));
+        holder.textViewBusiness.setText(mValues.get(position).getShortDescription());
 
         //TODO default following ui updates have to do.
         //TODO in case of user not logged in isFollowing is not coming in response
@@ -145,8 +146,7 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
         view.startAnimation(anim);*/
 
         // If the bound view wasn't previously displayed on screen, it's animated
-        if (position > lastPosition)
-        {
+        if (position > lastPosition) {
             Animation animation = AnimationUtils.loadAnimation(mContext, android.R.anim.slide_in_left);
             view.startAnimation(animation);
             lastPosition = position;

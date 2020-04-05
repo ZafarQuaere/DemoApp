@@ -13,6 +13,8 @@ import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zaf.econnecto.R;
@@ -42,6 +44,8 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
     private Context mContext;
     private TextView emptyTextView;
     private ActionBarItemClick searchListener;
+    private TextView btnAddBizns;
+    private LinearLayout lytAddBiz;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -106,16 +110,19 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
 
         recylcerProducts.setItemAnimator(new DefaultItemAnimator());
         emptyTextView = (TextView) view.findViewById(R.id.emptyTextView);
+        btnAddBizns = view.findViewById(R.id.btnAddBizns);
+        lytAddBiz = view.findViewById(R.id.lytAddBiz);
+        lytAddBiz.setVisibility(Utils.getBusinessStatus(mContext).equals("0") ? View.VISIBLE : View.GONE);
 
         Utils.updateActionBar(mContext, BizListFragment.class.getSimpleName(), mContext.getString(R.string.business_list), null, this);
-        view.findViewById(R.id.btnAddBizns).setOnClickListener(view1 -> {
-            if (Utils.isLoggedIn(mContext)){
-                if (Utils.getBusinessStatus(mContext).equals("0")){
+        btnAddBizns.setOnClickListener(view1 -> {
+            if (Utils.isLoggedIn(mContext)) {
+                if (Utils.getBusinessStatus(mContext).equals("0")) {
                     getActivity().startActivity(new Intent(getActivity(), AddBusinessActivity.class));
                 } else {
-                    LogUtils.showErrorDialog(mContext,getString(R.string.ok),getString(R.string.you_have_already_added_business));
+                    LogUtils.showErrorDialog(mContext, getString(R.string.ok), getString(R.string.you_have_already_added_business));
                 }
-            }else {
+            } else {
                 LogUtils.showDialogDoubleButton(mContext, mContext.getString(R.string.cancel), mContext.getString(R.string.ok),
                         mContext.getString(R.string.you_need_to_login_first_to_add_a_business), new DialogButtonClick() {
                             @Override

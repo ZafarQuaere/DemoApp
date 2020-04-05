@@ -20,7 +20,7 @@ public class AppConstant {
     public static  boolean MOVE_TO_ADD_BIZ = false;
     public static  boolean NEW_FOLLOW = false;
     // Splash screen timer
-    public static int SPLASH_TIME_OUT = 4500;
+    public static int SPLASH_TIME_OUT = 2100;
     public static final String TIMESTAMP_FORMAT = "yyyyMMdd_HHmmss";
     public static final String TAG = "e-Connecto";
     public static final String RUPEES_SYMBOL = "₹ ";
