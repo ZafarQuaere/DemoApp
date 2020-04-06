@@ -8,6 +8,7 @@ import com.android.volley.Response;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.MyJsonObjectRequest;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
+import com.zaf.econnecto.ui.interfaces.DialogSingleButtonListener;
 import com.zaf.econnecto.ui.presenters.operations.IOtp;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppController;
@@ -133,14 +134,12 @@ public class OtpPresenter extends BasePresenter {
                 if (response != null && !response.equals("")) {
                     int status = response.optInt("status");
                     if (status == AppConstant.SUCCESS) {
-                        LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.your_password_changed_successfully), new DialogButtonClick() {
+                        LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.your_password_changed_successfully), new DialogSingleButtonListener() {
                             @Override
-                            public void onOkClick() {
+                            public void okClick() {
                                 ((Activity)mContext).finish();
                               //  iOtp.moveToLogin();
                             }
-                            @Override
-                            public void onCancelClick() { }
                         });
 
                         //LogUtils.showToast(mContext, mContext.getString(R.string.your_password_is_changed_successfully));

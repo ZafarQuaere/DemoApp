@@ -104,7 +104,7 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
     private TextView textEmail;
     private TextView textWebsite;
     private TextView textShortDescription;
-    private TextView textDetailDescription;
+   // private TextView textDetailDescription;
     private TextView textAddress;
 
     private LinearLayout crop_layout;
@@ -195,17 +195,16 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         textEmail = (TextView) findViewById(R.id.textEmail);
         textWebsite = (TextView) findViewById(R.id.textWebsite);
         textShortDescription = (TextView) findViewById(R.id.textShortDescription);
-        textDetailDescription = (TextView) findViewById(R.id.textDetailDescription);
         textFollowers.setText(bizDetails.getFollowersCount()+" " + mContext.getString(R.string.followers));
-        textAddress.setText(bizDetails.getAddress());
-        textPhone.setText(bizDetails.getPhone1());
-        textEmail.setText(bizDetails.getBusinessEmail());
+        textAddress.setText(bizDetails.getAddress1());
+        textPhone.setText(bizDetails.getMobile1());
+        textEmail.setText(bizDetails.getEmail());
         textWebsite.setText(bizDetails.getWebsite());
         //textWebsite.setVisibility(bizDetails.getWebsite().isEmpty() || bizDetails.getWebsite()== null ? View.GONE : View.VISIBLE);
         textShortDescription.setText(bizDetails.getShortDescription());
-        textDetailDescription.setText(bizDetails.getDetailedDescription());
-        Picasso.get().load(bizDetails.getBusinessPic()).placeholder(R.drawable.avatar_male).into(imgProfile);
-        Picasso.get().load(bizDetails.getBannerPic()).placeholder(R.drawable.gradient).into(imgBanner);
+      //  textDetailDescription.setText(bizDetails.getDetailedDescription());
+        Picasso.get().load(bizDetails.getBizProfilePic()).placeholder(R.drawable.default_biz_profile_pic).into(imgProfile);
+        Picasso.get().load(bizDetails.getBizBannerPic()).placeholder(R.drawable.gradient).into(imgBanner);
     }
 
     @Override
@@ -294,7 +293,6 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         textEmail.setText(email);
         textWebsite.setText(website);
         textShortDescription.setText(shortDesc);
-        textDetailDescription.setText(detailDesc);
     }
 
     @Override

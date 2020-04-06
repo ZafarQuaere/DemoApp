@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.zaf.econnecto.BuildConfig;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
+import com.zaf.econnecto.ui.interfaces.DialogSingleButtonListener;
 
 
 public class LogUtils {
@@ -112,7 +113,7 @@ public class LogUtils {
         dialog.show();
     }
 
-    public static void showDialogSingleActionButton(Context ctx, String btnOkTxt, String message, final DialogButtonClick listener) {
+    public static void showDialogSingleActionButton(Context ctx, String btnOkTxt, String message, final DialogSingleButtonListener listener) {
         final Dialog dialog = new Dialog(ctx);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -128,7 +129,7 @@ public class LogUtils {
             public void onClick(View v) {
                 dialog.dismiss();
                 if (listener != null){
-                    listener.onOkClick();
+                    listener.okClick();
                 }
             }
         });

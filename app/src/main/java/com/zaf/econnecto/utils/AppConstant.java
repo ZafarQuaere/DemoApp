@@ -42,7 +42,7 @@ public class AppConstant {
 //    public static final String URL_EMAIL_VERIFY = "email_verification.php";
     public static final String URL_EMAIL_VERIFY = "email_verification/email_verification.php";
     public static final String URL_ADD_BUSINESS = "add_business.php";
-    public static final String URL_MY_BUSINESS = "mybusiness.php";
+    public static final String URL_MY_BUSINESS = "mybusiness/mybusiness.php?id=";
     public static final String URL_UPDATE_BUSINESS = "update_business.php";
     public static final String URL_BIZ_CATEGORY = URL_BASE+"categories.php";
     public static final String URL_UPLOAD_USER_PROFILE_PIC = URL_BASE+"user_profile_pic.php";

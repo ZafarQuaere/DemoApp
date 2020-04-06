@@ -8,6 +8,7 @@ import com.android.volley.VolleyError;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.MyJsonObjectRequest;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
+import com.zaf.econnecto.ui.interfaces.DialogSingleButtonListener;
 import com.zaf.econnecto.ui.presenters.operations.IFrgtPswd;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppController;
@@ -77,13 +78,11 @@ public class ForgotPswdPresenter extends BasePresenter {
                 if (response != null && !response.equals("")){
                     int status = response.optInt("status");
                     if (status == AppConstant.SUCCESS_501){
-                        LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.an_otp_has_been_sent_to_your_email_plz_check_spam_folder_as_well), new DialogButtonClick() {
+                        LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.an_otp_has_been_sent_to_your_email_plz_check_spam_folder_as_well), new DialogSingleButtonListener() {
                             @Override
-                            public void onOkClick() {
+                            public void okClick() {
                                 iFrgtPswd.startOTPActivity();
                             }
-                            @Override
-                            public void onCancelClick() { }
                         });
 
                     }else {

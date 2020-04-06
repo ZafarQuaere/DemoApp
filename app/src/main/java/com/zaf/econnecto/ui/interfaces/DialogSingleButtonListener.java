@@ -1,5 +1,5 @@
 package com.zaf.econnecto.ui.interfaces;
 
-public interface SuccessDialogListener {
+public interface DialogSingleButtonListener {
     public void okClick();
 }

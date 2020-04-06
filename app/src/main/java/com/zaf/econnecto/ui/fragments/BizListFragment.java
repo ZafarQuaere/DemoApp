@@ -25,6 +25,7 @@ import com.zaf.econnecto.ui.activities.LoginActivity;
 import com.zaf.econnecto.ui.adapters.BizListRecyclerAdapter;
 import com.zaf.econnecto.ui.interfaces.ActionBarItemClick;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
+import com.zaf.econnecto.ui.interfaces.DialogSingleButtonListener;
 import com.zaf.econnecto.ui.presenters.BListPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IFragListing;
 import com.zaf.econnecto.utils.AppConstant;
@@ -84,9 +85,9 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
         if (NetworkUtils.isNetworkEnabled(mContext)) {
             getPresenter().callBListApi();
         } else {
-            LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.retry), mContext.getString(R.string.please_check_your_network_connection), new DialogButtonClick() {
+            LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.retry), mContext.getString(R.string.please_check_your_network_connection), new DialogSingleButtonListener() {
                 @Override
-                public void onOkClick() {
+                public void okClick() {
                     if (NetworkUtils.isNetworkEnabled(mContext)) {
                         getPresenter().callBListApi();
                     } else {
@@ -94,9 +95,6 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
                     }
                 }
 
-                @Override
-                public void onCancelClick() {
-                }
             });
         }
     }
@@ -112,6 +110,7 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
         emptyTextView = (TextView) view.findViewById(R.id.emptyTextView);
         btnAddBizns = view.findViewById(R.id.btnAddBizns);
         lytAddBiz = view.findViewById(R.id.lytAddBiz);
+
         lytAddBiz.setVisibility(Utils.getBusinessStatus(mContext).equals("0") ? View.VISIBLE : View.GONE);
 
         Utils.updateActionBar(mContext, BizListFragment.class.getSimpleName(), mContext.getString(R.string.business_list), null, this);

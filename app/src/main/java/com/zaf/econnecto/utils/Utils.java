@@ -712,10 +712,12 @@ public class Utils {
         String data = "";
         try {
             data = (String) prefs.get(context.getString(R.string.key_business_status));
+            if (data.isEmpty())
+                data ="0";
         } catch (Exception e) {
             e.printStackTrace();
             LogUtils.ERROR(e.getMessage());
-            return data;
+            return "0";
         }
         return data;
     }

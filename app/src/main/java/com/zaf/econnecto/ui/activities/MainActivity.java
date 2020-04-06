@@ -65,8 +65,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
     setUpToolbar();
     updateUI();
     initUI();
-    // moveToBList();
-    moveToHome();
+    moveToBList();
+    //moveToHome();
     // moveToAddBizness();
 
   }
@@ -88,14 +88,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
       if (BitmapUtils.getProfileBitmap(mContext) == null)
         Picasso.get()
             .load(Utils.getUserProfilePic(mContext))
-            .placeholder(R.drawable.avatar_male)
+            .placeholder(R.drawable.default_biz_profile_pic)
             .into(imgUserProfile);
       else imgUserProfile.setImageBitmap(BitmapUtils.getProfileBitmap(mContext));
       // Utils.getProfilePic(mContext);
     } else {
       textUserName.setText("");
       textVerifyEmail.setText("");
-      imgUserProfile.setImageDrawable(getResources().getDrawable(R.drawable.avatar_male));
+      imgUserProfile.setImageDrawable(getResources().getDrawable(R.drawable.default_biz_profile_pic));
     }
   }
 

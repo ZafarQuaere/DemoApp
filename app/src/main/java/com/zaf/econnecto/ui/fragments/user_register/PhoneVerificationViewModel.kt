@@ -8,6 +8,7 @@ import com.zaf.econnecto.R
 import com.zaf.econnecto.service.EConnectoServices
 import com.zaf.econnecto.service.ServiceBuilder
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick
+import com.zaf.econnecto.ui.interfaces.DialogSingleButtonListener
 import com.zaf.econnecto.utils.AppConstant
 import com.zaf.econnecto.utils.AppDialogLoader
 import com.zaf.econnecto.utils.LogUtils
@@ -83,11 +84,10 @@ class PhoneVerificationViewModel : ViewModel() {
                     LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), message)
                     // KotUtil.displayResponseError(mContext,message.toString())
                 } else {
-                    LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.register_successful_plz_login), object : DialogButtonClick {
-                        override fun onOkClick() {
+                    LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.register_successful_plz_login), object : DialogSingleButtonListener {
+                        override fun okClick() {
                             mContext.finish()
                         }
-                        override fun onCancelClick() {}
                     })
                 }
             }

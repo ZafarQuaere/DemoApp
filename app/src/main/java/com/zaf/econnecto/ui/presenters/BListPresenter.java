@@ -45,8 +45,9 @@ public class BListPresenter extends BaseFragmentPresenter {
             @Override
             public void onResponse(JSONObject response) {
                 LogUtils.DEBUG("ProductList Response ::" + response.toString());
-                 data = ParseManager.getInstance().fromJSON(response.toString(), BizListData.class);
-                if (data.getStatus().equals( AppConstant.SUCCESS_501)) {
+                int status = response.optInt("status");
+                if (status == AppConstant.SUCCESS_501) {
+                    data = ParseManager.getInstance().fromJSON(response.toString(), BizListData.class);
                     try {
                         mProductFrag.updateList(data.getData());
                     } catch (Exception e) {

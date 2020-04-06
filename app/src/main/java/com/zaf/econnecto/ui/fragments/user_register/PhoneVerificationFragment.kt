@@ -18,6 +18,7 @@ class PhoneVerificationFragment : Fragment() {
 
     val args: PhoneVerificationFragmentArgs by navArgs()
     val mContext = activity
+
     companion object {
         fun newInstance() = PhoneVerificationFragment()
     }
@@ -26,6 +27,7 @@ class PhoneVerificationFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        activity?.let { viewModel.callRequestOTPApi(it, args.mobileNo) }
         return inflater.inflate(R.layout.phone_verification_fragment, container, false)
     }
 
@@ -37,22 +39,21 @@ class PhoneVerificationFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-       // viewModel = ViewModelProviders.of(this).get(PhoneVerificationViewModel::class.java)
+        // viewModel = ViewModelProviders.of(this).get(PhoneVerificationViewModel::class.java)
         editPhone.setText(args.mobileNo)
-        if (mContext != null) {
-            viewModel.callRequestOTPApi(mContext,args.mobileNo)
-        }
+        activity?.let { viewModel.callRequestOTPApi(it, args.mobileNo) }
+
         //LogUtils.showToast(activity, "Mobile no is : "+args.stringKeyMobileNo)
         txtVerifyPhone.setOnClickListener {
             if (!editOTP.text.toString().isEmpty()) {
                 activity?.let { it -> viewModel.callVerifyPhoneApi(it, editPhone.text.toString(), editOTP.text.toString()) }
-            }else{
-                LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_enter_otp))
+            } else {
+                LogUtils.showErrorDialog(activity, activity!!.getString(R.string.ok), activity!!.getString(R.string.please_enter_otp))
             }
         }
 
-        txtResendOTP.setOnClickListener{
-            activity?.let { it1 -> viewModel.callResendApi(it1,editPhone.text.toString()) }
+        txtResendOTP.setOnClickListener {
+            activity?.let { it1 -> viewModel.callResendApi(it1, editPhone.text.toString()) }
         }
     }
 

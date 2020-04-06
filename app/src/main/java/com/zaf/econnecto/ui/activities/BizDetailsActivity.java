@@ -104,7 +104,7 @@ public class BizDetailsActivity extends BaseActivity<BizDetailPresenter> impleme
         TextView textEmail = (TextView) findViewById(R.id.textEmail);
         TextView textWebsite = (TextView) findViewById(R.id.textWebsite);
 
-        Picasso.get().load(mBizDetailsData.getBusinessPic()).placeholder(R.drawable.avatar_male).into(imgProfile);
+        Picasso.get().load(mBizDetailsData.getBusinessPic()).placeholder(R.drawable.default_biz_profile_pic).into(imgProfile);
         Picasso.get().load(mBizDetailsData.getBannerPic()).placeholder(R.drawable.gradient).into(imgBanner);
         textShortDescription.setText(mBizDetailsData.getShortDescription().trim());
         bizNameTitle.setText(mBizDetailsData.getBusinessName().trim());

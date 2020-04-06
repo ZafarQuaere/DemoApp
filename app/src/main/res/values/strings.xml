@@ -100,7 +100,7 @@
     <string name="add_business">Add Business</string>
     <string name="add_your_business">Add Your Business</string>
     <string name="business_list">Business List</string>
-    <string name="establish_year">Establishment year </string>
+    <string name="establish_year">Establishment year* </string>
     <string name="view_business">View Business</string>
     <string name="basic_details">Basic Details</string>
     <string name="other_details">Other Details</string>

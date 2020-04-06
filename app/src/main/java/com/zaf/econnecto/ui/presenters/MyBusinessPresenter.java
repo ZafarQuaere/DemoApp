@@ -1,5 +1,6 @@
 package com.zaf.econnecto.ui.presenters;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -28,6 +29,8 @@ import com.zaf.econnecto.network_call.VolleyMultipartRequest;
 import com.zaf.econnecto.network_call.response_model.my_business.AddDealsBg;
 import com.zaf.econnecto.network_call.response_model.my_business.MyBusiness;
 import com.zaf.econnecto.network_call.response_model.my_business.MyBusinessData;
+import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
+import com.zaf.econnecto.ui.interfaces.DialogSingleButtonListener;
 import com.zaf.econnecto.ui.presenters.operations.IMyBusiness;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppController;
@@ -63,15 +66,15 @@ public class MyBusinessPresenter extends BasePresenter {
 
     public void callMyBizApi() {
         loader.show();
-        String url = AppConstant.URL_BASE + AppConstant.URL_MY_BUSINESS;
+        String url = AppConstant.URL_BASE_MVP + AppConstant.URL_MY_BUSINESS+Utils.getUserID(mContext);
         LogUtils.DEBUG("URL : " + url + "\nRequest Body ::" );
-        JSONObject object = new JSONObject();
+       /* JSONObject object = new JSONObject();
         try {
             object.put("user_email",Utils.getUserEmail(mContext));
         } catch (JSONException e) {
             e.printStackTrace();
-        }
-        MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.POST, url, object, new Response.Listener<JSONObject>() {
+        }*/
+        MyJsonObjectRequest objectRequest = new MyJsonObjectRequest(mContext, Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 LogUtils.DEBUG("MyBusiness Response ::" + response.toString());
@@ -81,9 +84,13 @@ public class MyBusinessPresenter extends BasePresenter {
                         if (status == AppConstant.SUCCESS) {
                             bizDetailData = ParseManager.getInstance().fromJSON(response.toString(),MyBusiness.class);
                             iMyBusiness.updateUI(bizDetailData.getData().get(0));
-
                         } else {
-                            LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optString("message"));
+                            LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.ok), response.optJSONArray("message").optString(0), new DialogSingleButtonListener() {
+                                @Override
+                                public void okClick() {
+                                    ((Activity)mContext).onBackPressed();
+                                }
+                            });
                         }
                     }
                     loader.dismiss();
@@ -147,19 +154,16 @@ public class MyBusinessPresenter extends BasePresenter {
     private void validateFields(String address, String mobile, String email, String website, String shortDesc, String detailDesc) {
         MyBusinessData myBusinessData = bizDetailData.getData().get(0);
         if (address.isEmpty()){
-            address = myBusinessData.getAddress();
+            address = myBusinessData.getAddress1();
         } if (mobile.isEmpty()){
-            mobile = myBusinessData.getPhone1();
+            mobile = myBusinessData.getMobile1();
         } if (email.isEmpty()){
-            email = myBusinessData.getBusinessEmail();
+            email = myBusinessData.getEmail();
         } if (website.isEmpty()){
             website = myBusinessData.getWebsite();
         } if (shortDesc.isEmpty()){
             shortDesc = myBusinessData.getShortDescription();
-        } if (detailDesc.isEmpty()){
-            detailDesc = myBusinessData.getDetailedDescription();
         }
-
         callUpdateBizApi(address,mobile,email,website,shortDesc,detailDesc,myBusinessData);
     }
 
@@ -171,13 +175,13 @@ public class MyBusinessPresenter extends BasePresenter {
         try {
             object.put("owner_email",Utils.getUserEmail(mContext));
             object.put("short_description",shortDesc);
-            object.put("business_category",myBusinessData.getBusinessCategory());
+//            object.put("business_category",myBusinessData.getBusinessCategory());
             object.put("detailed_description",detailDesc);
-            object.put("year_founded",myBusinessData.getYearFounded());
+//            object.put("year_founded",myBusinessData.getYearFounded());
             object.put("awards","");
             object.put("address",address);
             object.put("phone1", mobile);
-            object.put("phone2", myBusinessData.getPhone2());
+            object.put("phone2", myBusinessData.getMobile2());
             object.put("business_email", email);
             object.put("website",website);
         } catch (JSONException e) {

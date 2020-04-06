@@ -8,6 +8,7 @@ import com.android.volley.VolleyError;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.MyJsonObjectRequest;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
+import com.zaf.econnecto.ui.interfaces.DialogSingleButtonListener;
 import com.zaf.econnecto.ui.presenters.operations.IRegister;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppController;
@@ -90,13 +91,11 @@ public class RegisterPresenter extends BasePresenter {
                 if (response != null && !response.equals("")) {
                     int status = response.optInt("status");
                     if (status == AppConstant.SUCCESS) {
-                        LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.register_successful_plz_login), new DialogButtonClick() {
+                        LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.register_successful_plz_login), new DialogSingleButtonListener() {
                             @Override
-                            public void onOkClick() {
+                            public void okClick() {
                                 mRegister.doRegister();
                             }
-                            @Override
-                            public void onCancelClick() { }
                         });
                     } else {
                         LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optString("message"));

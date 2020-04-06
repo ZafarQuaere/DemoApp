@@ -9,7 +9,7 @@ public class MyBusiness {
 
     @SerializedName("message")
     @Expose
-    private String message;
+    private List<String> message = null;
     @SerializedName("status")
     @Expose
     private Integer status;
@@ -17,11 +17,11 @@ public class MyBusiness {
     @Expose
     private List<MyBusinessData> data = null;
 
-    public String getMessage() {
+    public List<String> getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(List<String> message) {
         this.message = message;
     }
 

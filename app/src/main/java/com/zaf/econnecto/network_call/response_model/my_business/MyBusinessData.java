@@ -5,51 +5,102 @@ import com.google.gson.annotations.SerializedName;
 
 public class MyBusinessData {
 
+    @SerializedName("business_id")
+    @Expose
+    private String businessId;
+    @SerializedName("owner_id")
+    @Expose
+    private String ownerId;
+    @SerializedName("business_uid")
+    @Expose
+    private String businessUid;
     @SerializedName("business_name")
     @Expose
     private String businessName;
     @SerializedName("short_description")
     @Expose
     private String shortDescription;
-    @SerializedName("business_category")
+    @SerializedName("year_established")
     @Expose
-    private String businessCategory;
-    @SerializedName("detailed_description")
+    private String yearEstablished;
+    @SerializedName("address_1")
     @Expose
-    private String detailedDescription;
-    @SerializedName("year_founded")
+    private String address1;
+    @SerializedName("address_2")
     @Expose
-    private String yearFounded;
-    @SerializedName("awards")
+    private String address2;
+    @SerializedName("landmark")
     @Expose
-    private String awards;
-    @SerializedName("address")
+    private String landmark;
+    @SerializedName("pin_code")
     @Expose
-    private String address;
-    @SerializedName("phone1")
+    private String pinCode;
+    @SerializedName("area_locality")
     @Expose
-    private String phone1;
-    @SerializedName("phone2")
+    private String areaLocality;
+    @SerializedName("city_town")
     @Expose
-    private String phone2;
-    @SerializedName("business_email")
+    private String cityTown;
+    @SerializedName("state")
     @Expose
-    private String businessEmail;
+    private String state;
+    @SerializedName("country")
+    @Expose
+    private String country;
+    @SerializedName("is_outside_serve")
+    @Expose
+    private String isOutsideServe;
+    @SerializedName("mobile_1")
+    @Expose
+    private String mobile1;
+    @SerializedName("mobile_2")
+    @Expose
+    private String mobile2;
+    @SerializedName("telephone")
+    @Expose
+    private String telephone;
+    @SerializedName("email")
+    @Expose
+    private String email;
     @SerializedName("website")
     @Expose
     private String website;
-    @SerializedName("charges")
+    @SerializedName("biz_banner_pic")
     @Expose
-    private String charges;
+    private String bizBannerPic;
+    @SerializedName("biz_profile_pic")
+    @Expose
+    private String bizProfilePic;
     @SerializedName("followers_count")
     @Expose
     private String followersCount;
-    @SerializedName("banner_pic")
+    @SerializedName("is_following")
     @Expose
-    private String bannerPic;
-    @SerializedName("business_pic")
-    @Expose
-    private String businessPic;
+    private Integer isFollowing;
+
+    public String getBusinessId() {
+        return businessId;
+    }
+
+    public void setBusinessId(String businessId) {
+        this.businessId = businessId;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public String getBusinessUid() {
+        return businessUid;
+    }
+
+    public void setBusinessUid(String businessUid) {
+        this.businessUid = businessUid;
+    }
 
     public String getBusinessName() {
         return businessName;
@@ -67,68 +118,116 @@ public class MyBusinessData {
         this.shortDescription = shortDescription;
     }
 
-    public String getBusinessCategory() {
-        return businessCategory;
+    public String getYearEstablished() {
+        return yearEstablished;
     }
 
-    public void setBusinessCategory(String businessCategory) {
-        this.businessCategory = businessCategory;
+    public void setYearEstablished(String yearEstablished) {
+        this.yearEstablished = yearEstablished;
     }
 
-    public String getDetailedDescription() {
-        return detailedDescription;
+    public String getAddress1() {
+        return address1;
     }
 
-    public void setDetailedDescription(String detailedDescription) {
-        this.detailedDescription = detailedDescription;
+    public void setAddress1(String address1) {
+        this.address1 = address1;
     }
 
-    public String getYearFounded() {
-        return yearFounded;
+    public String getAddress2() {
+        return address2;
     }
 
-    public void setYearFounded(String yearFounded) {
-        this.yearFounded = yearFounded;
+    public void setAddress2(String address2) {
+        this.address2 = address2;
     }
 
-    public String getAwards() {
-        return awards;
+    public String getLandmark() {
+        return landmark;
     }
 
-    public void setAwards(String awards) {
-        this.awards = awards;
+    public void setLandmark(String landmark) {
+        this.landmark = landmark;
     }
 
-    public String getAddress() {
-        return address;
+    public String getPinCode() {
+        return pinCode;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setPinCode(String pinCode) {
+        this.pinCode = pinCode;
     }
 
-    public String getPhone1() {
-        return phone1;
+    public String getAreaLocality() {
+        return areaLocality;
     }
 
-    public void setPhone1(String phone1) {
-        this.phone1 = phone1;
+    public void setAreaLocality(String areaLocality) {
+        this.areaLocality = areaLocality;
     }
 
-    public String getPhone2() {
-        return phone2;
+    public String getCityTown() {
+        return cityTown;
     }
 
-    public void setPhone2(String phone2) {
-        this.phone2 = phone2;
+    public void setCityTown(String cityTown) {
+        this.cityTown = cityTown;
     }
 
-    public String getBusinessEmail() {
-        return businessEmail;
+    public String getState() {
+        return state;
     }
 
-    public void setBusinessEmail(String businessEmail) {
-        this.businessEmail = businessEmail;
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getIsOutsideServe() {
+        return isOutsideServe;
+    }
+
+    public void setIsOutsideServe(String isOutsideServe) {
+        this.isOutsideServe = isOutsideServe;
+    }
+
+    public String getMobile1() {
+        return mobile1;
+    }
+
+    public void setMobile1(String mobile1) {
+        this.mobile1 = mobile1;
+    }
+
+    public String getMobile2() {
+        return mobile2;
+    }
+
+    public void setMobile2(String mobile2) {
+        this.mobile2 = mobile2;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getWebsite() {
@@ -139,12 +238,20 @@ public class MyBusinessData {
         this.website = website;
     }
 
-    public String getCharges() {
-        return charges;
+    public String getBizBannerPic() {
+        return bizBannerPic;
     }
 
-    public void setCharges(String charges) {
-        this.charges = charges;
+    public void setBizBannerPic(String bizBannerPic) {
+        this.bizBannerPic = bizBannerPic;
+    }
+
+    public String getBizProfilePic() {
+        return bizProfilePic;
+    }
+
+    public void setBizProfilePic(String bizProfilePic) {
+        this.bizProfilePic = bizProfilePic;
     }
 
     public String getFollowersCount() {
@@ -155,19 +262,11 @@ public class MyBusinessData {
         this.followersCount = followersCount;
     }
 
-    public String getBannerPic() {
-        return bannerPic;
+    public Integer getIsFollowing() {
+        return isFollowing;
     }
 
-    public void setBannerPic(String bannerPic) {
-        this.bannerPic = bannerPic;
-    }
-
-    public String getBusinessPic() {
-        return businessPic;
-    }
-
-    public void setBusinessPic(String businessPic) {
-        this.businessPic = businessPic;
+    public void setIsFollowing(Integer isFollowing) {
+        this.isFollowing = isFollowing;
     }
 }

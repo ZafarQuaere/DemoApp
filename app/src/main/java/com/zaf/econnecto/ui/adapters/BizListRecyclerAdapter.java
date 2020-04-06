@@ -66,7 +66,7 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
         } else {
             updateUnfollowUI(holder.textFollow);
         }
-        Picasso.get().load(mValues.get(position).getBizProfilePic()).placeholder(R.drawable.avatar_male).into(holder.imgItem);
+        Picasso.get().load(mValues.get(position).getBizProfilePic()).placeholder(R.drawable.default_biz_profile_pic).into(holder.imgItem);
 
         //scroll animation
         //setFadeAnimation(holder.itemView,position);

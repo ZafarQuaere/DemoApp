@@ -27,6 +27,7 @@
 
 
             <ImageButton
+                android:visibility="gone"
                 android:id="@+id/imgBannerUpload"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -58,7 +59,7 @@
                     android:layout_height="@dimen/_120dp"
                     android:clickable="true"
                     android:cropToPadding="true"
-                    android:src="@drawable/avatar_male"
+                    android:src="@drawable/default_biz_profile_pic"
                     app:civ_border_color="@color/colorPrimary"
                     app:civ_border_width="2dp"
                     app:elevation="6dp"
@@ -137,6 +138,7 @@
 
 
                         <ImageButton
+                            android:visibility="invisible"
                             android:id="@+id/imgEditBusiness"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -240,7 +242,7 @@
                 android:id="@+id/cardViewDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:layout_marginBottom="16dp"
                 card_view:cardElevation="@dimen/_5dp"
                 card_view:cardUseCompatPadding="true">
@@ -276,7 +278,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:visibility="visible"
+                android:visibility="gone"
                 card_view:cardElevation="@dimen/_5dp"
                 card_view:cardUseCompatPadding="true">
                 <LinearLayout
@@ -319,6 +321,7 @@
 
             <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:visibility="gone"
                 android:id="@+id/cardViewAddDeals"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

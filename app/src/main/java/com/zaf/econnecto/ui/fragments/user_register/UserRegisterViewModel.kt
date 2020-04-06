@@ -13,6 +13,7 @@ import com.zaf.econnecto.R
 import com.zaf.econnecto.service.EConnectoServices
 import com.zaf.econnecto.service.ServiceBuilder
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick
+import com.zaf.econnecto.ui.interfaces.DialogSingleButtonListener
 import com.zaf.econnecto.ui.interfaces.FragmentNavigation
 import com.zaf.econnecto.utils.*
 import okhttp3.MediaType
@@ -111,9 +112,8 @@ class UserRegisterViewModel : ViewModel() {
                 loader.dismiss()
 
                 if(status == AppConstant.SUCCESS){
-                    LogUtils.showDialogSingleActionButton(mContext,mContext.getString(R.string.ok),mContext.getString(R.string.you_are_successfully_registered_plz_verify_your_phone_no),object :DialogButtonClick{
-                        override fun onCancelClick() {}
-                        override fun onOkClick() {
+                    LogUtils.showDialogSingleActionButton(mContext,mContext.getString(R.string.ok),mContext.getString(R.string.you_are_successfully_registered_plz_verify_your_phone_no),object :DialogSingleButtonListener{
+                        override fun okClick() {
                              fragNavigation.navigate()
                         }
                     })

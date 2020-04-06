@@ -14,6 +14,7 @@ import android.widget.Spinner;
 
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
+import com.zaf.econnecto.ui.interfaces.DialogSingleButtonListener;
 import com.zaf.econnecto.ui.presenters.AddBizPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IAddBiz;
 import com.zaf.econnecto.utils.LogUtils;
@@ -107,14 +108,10 @@ public class AddBusinessFragment extends BaseFragment<AddBizPresenter> implement
 
     @Override
     public void addBusiness(String msg) {
-        LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.ok), msg, new DialogButtonClick() {
+        LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.ok), msg, new DialogSingleButtonListener() {
             @Override
-            public void onOkClick() {
+            public void okClick() {
                 getActivity().onBackPressed();
-            }
-
-            @Override
-            public void onCancelClick() {
             }
         });
     }

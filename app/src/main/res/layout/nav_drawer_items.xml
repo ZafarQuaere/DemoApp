@@ -160,7 +160,7 @@
                     android:visibility="gone">
 
                     <TextView
-                        android:visibility="gone"
+                        android:visibility="visible"
                         style="@style/NavigationDrawerText"
                         android:drawableLeft="@drawable/ic_my_business"
                         android:onClick="onProfileClick"

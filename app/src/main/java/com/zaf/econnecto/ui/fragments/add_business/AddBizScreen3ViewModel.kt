@@ -8,6 +8,7 @@ import com.zaf.econnecto.R
 import com.zaf.econnecto.service.EConnectoServices
 import com.zaf.econnecto.service.ServiceBuilder
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick
+import com.zaf.econnecto.ui.interfaces.DialogSingleButtonListener
 import com.zaf.econnecto.utils.AppConstant
 import com.zaf.econnecto.utils.AppDialogLoader
 import com.zaf.econnecto.utils.LogUtils
@@ -75,22 +76,9 @@ class AddBizScreen3ViewModel : ViewModel() {
 
                 if (status == AppConstant.SUCCESS_501) {
                     Utils.setBusinessStatus(mContext,"1")
-                    LogUtils.showDialogSingleActionButton(mContext,mContext!!.getString(R.string.ok),"Your business is registered added successfully",object : DialogButtonClick{
-                        override fun onCancelClick() {}
-                        override fun onOkClick() {
-                            mContext!!.finish();
-                        }
-                    });
+                    LogUtils.showDialogSingleActionButton(mContext,mContext!!.getString(R.string.ok),mContext!!.getString(R.string.add_business_success_msg)) { mContext!!.finish(); };
 
                 } else {
-                   /* LogUtils.showDialogSingleActionButton(mContext,mContext!!.getString(R.string.ok), body.optJSONArray("message").optString(0),object : DialogButtonClick{
-                        override fun onCancelClick() {
-                        }
-
-                        override fun onOkClick() {
-                        }
-
-                    })*/
                     LogUtils.showErrorDialog(mContext!!, mContext!!.getString(R.string.ok), body.optJSONArray("message").optString(0));
                   /*  val jsonArray = body.optJSONArray("message")
                     val message = jsonArray!!.get(0) as String
