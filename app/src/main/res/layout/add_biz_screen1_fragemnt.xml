@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,173 +9,182 @@
     android:padding="@dimen/_15dp"
     tools:context=".ui.fragments.add_business.AddBizScreen1Fragment">
 
-    <TextView
-        android:id="@+id/textScreen1Label"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10dp"
-        android:text="@string/business_details"
-        android:textSize="@dimen/font_xx_large_text" />
+        android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilBizName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_50dp"
-            android:hint="@string/business_name">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editBizName"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_50dp"
-                android:singleLine="true" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/tilBizName"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="@dimen/_5dp"
-            android:layout_marginBottom="@dimen/_15dp"
-            android:background="@drawable/ic_clear_black"
-            android:visibility="gone" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilShortDesc"
+        <TextView
+            android:id="@+id/textScreen1Label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10dp"
-            android:hint="@string/short_description">
+            android:text="@string/business_details"
+            android:textSize="@dimen/font_xx_large_text" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilBizName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_50dp"
+                android:hint="@string/business_name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editBizName"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50dp"
+                    android:singleLine="true" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tilBizName"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="@dimen/_5dp"
+                android:layout_marginBottom="@dimen/_15dp"
+                android:background="@drawable/ic_clear_black"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilShortDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp"
+                android:hint="@string/short_description">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editShortDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50dp"
+                    android:inputType="text"
+                    android:maxLength="55" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tilShortDesc"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="@dimen/_5dp"
+                android:layout_marginBottom="@dimen/_15dp"
+                android:background="@drawable/ic_clear_black"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/short_description_must_not_be_more_than_55_characters"
+            android:textSize="@dimen/font_small_header" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilEstdYear"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:hint="@string/establish_year">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editShortDesc"
+                android:id="@+id/editEstdYear"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50dp"
-                android:inputType="text"
-                android:maxLength="55" />
+                android:inputType="number"
+                android:maxLength="4" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
-        <ImageButton
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilCategory1"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:hint="@string/category"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editCategory1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilCategory2"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:hint="@string/category2"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editCategory2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilCategory3"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:hint="@string/category3"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editCategory3"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textAddCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/tilShortDesc"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="@dimen/_5dp"
-            android:layout_marginBottom="@dimen/_15dp"
-            android:background="@drawable/ic_clear_black"
-            android:visibility="gone" />
-    </RelativeLayout>
+            android:layout_gravity="start"
+            android:drawableLeft="@drawable/ic_add"
+            android:paddingVertical="@dimen/_10dp"
+            android:text="@string/add_category"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/font_large_text"
+            android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/short_description_must_not_be_more_than_55_characters"
-        android:textSize="@dimen/font_small_header" />
+        <TextView
+            android:id="@+id/btnNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginEnd="@dimen/_10dp"
+            android:background="@drawable/rounded_background"
+            android:fontFamily="serif-monospace"
+            android:paddingHorizontal="@dimen/_20dp"
+            android:paddingVertical="@dimen/_5dp"
+            android:text="@string/next"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_x_large_text"
+            android:textStyle="bold" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilEstdYear"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10dp"
-        android:hint="@string/establish_year">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editEstdYear"
+        <Space
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_50dp"
-            android:inputType="number"
-            android:maxLength="4" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilCategory1"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10dp"
-        android:hint="@string/category"
-        android:visibility="gone">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editCategory1"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_50dp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilCategory2"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10dp"
-        android:hint="@string/category2"
-        android:visibility="gone">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editCategory2"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_50dp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilCategory3"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10dp"
-        android:hint="@string/category3"
-        android:visibility="gone">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editCategory3"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_50dp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:id="@+id/textAddCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:drawableLeft="@drawable/ic_add"
-        android:paddingVertical="@dimen/_10dp"
-        android:text="@string/add_category"
-        android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/font_large_text"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/btnNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginTop="@dimen/_10dp"
-        android:layout_marginEnd="@dimen/_10dp"
-        android:background="@drawable/rounded_background"
-        android:fontFamily="serif-monospace"
-        android:paddingHorizontal="@dimen/_20dp"
-        android:paddingVertical="@dimen/_5dp"
-        android:text="@string/next"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="@dimen/font_x_large_text"
-        android:textStyle="bold" />
-
-</LinearLayout>
+            android:layout_height="@dimen/_30dp"/>
+    </LinearLayout>
+</ScrollView>

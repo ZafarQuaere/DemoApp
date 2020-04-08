@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.text.Editable;
 import android.view.LayoutInflater;
@@ -60,7 +61,7 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
     public void onResume() {
         super.onResume();
         //LogUtils.DEBUG("OnResume AppConstant.NEW_FOLLOW  "+AppConstant.NEW_FOLLOW);
-        if (AppConstant.NEW_FOLLOW) {
+        if (AppConstant.NEW_FOLLOW || AppConstant.BIZNESS_ADDED) {
             callApi();
         }
     }
@@ -77,7 +78,6 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
         View view = inflater.inflate(R.layout.fragment_biz_list, container, false);
         initUI(view);
         callApi();
-
         return view;
     }
 
@@ -112,6 +112,7 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
         lytAddBiz = view.findViewById(R.id.lytAddBiz);
 
         lytAddBiz.setVisibility(Utils.getBusinessStatus(mContext).equals("0") ? View.VISIBLE : View.GONE);
+
 
         Utils.updateActionBar(mContext, BizListFragment.class.getSimpleName(), mContext.getString(R.string.business_list), null, this);
         btnAddBizns.setOnClickListener(view1 -> {
@@ -185,7 +186,6 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
     private void filter(String string) {
         getPresenter().filterList(string);
     }
-
 
     public interface OnListFragmentInteractionListener {
         void onListFragmentInteraction(BizData item);

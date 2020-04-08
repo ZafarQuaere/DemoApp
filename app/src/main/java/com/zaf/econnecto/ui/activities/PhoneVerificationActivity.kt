@@ -1,9 +1,7 @@
 package com.zaf.econnecto.ui.activities
 
 import android.app.Activity
-import android.content.Context
 import android.os.Bundle
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
@@ -11,6 +9,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.zaf.econnecto.R
 import com.zaf.econnecto.ui.fragments.user_register.PhoneVerificationViewModel
 import com.zaf.econnecto.utils.LogUtils
+import com.zaf.econnecto.utils.Utils
 
 class PhoneVerificationActivity : AppCompatActivity() {
     lateinit var viewModel: PhoneVerificationViewModel
@@ -43,6 +42,7 @@ class PhoneVerificationActivity : AppCompatActivity() {
         }
         txtResendOTP.setOnClickListener {
             viewModel.callResendApi(mContext,mobileNo)
+            Utils.applyDisableTime(txtResendOTP)
         }
     }
 

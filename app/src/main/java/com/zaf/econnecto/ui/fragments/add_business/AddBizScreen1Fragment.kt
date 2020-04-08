@@ -22,13 +22,16 @@ import kotlinx.android.synthetic.main.add_biz_screen1_fragemnt.*
 class AddBizScreen1Fragment : Fragment() {
 
     lateinit var navController: NavController
-    var estdYear : Int = 0
-    var categoryList : MutableList<CategoryListData>? = null
-    var category1 : String? = null
-    var category2 : String? = null
-    var category3 : String? = null
+    var estdYear: Int = 0
+    var categoryList: MutableList<CategoryListData>? = null
+    var category1: String? = null
+    var category2: String? = null
+    var category3: String? = null
+    var categoryid1: String = ""
+    var categoryid2: String = ""
+    var categoryid3: String = ""
 
-            companion object {
+    companion object {
         fun newInstance() = AddBizScreen1Fragment()
     }
 
@@ -64,46 +67,46 @@ class AddBizScreen1Fragment : Fragment() {
     }
 
     private fun textChangeListeners() {
-        editEstdYear.addTextChangedListener(object: TextWatcher{
+        editEstdYear.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(s.toString().trim().isNotEmpty()){
+                if (s.toString().trim().isNotEmpty()) {
                     estdYear = s.toString().toInt()
                 } else estdYear = 0
             }
         })
 
-        editCategory1.addTextChangedListener(object :TextWatcher{
+        editCategory1.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(ch: Editable?) {}
             override fun beforeTextChanged(cs: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(cs: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (cs.toString().trim().isEmpty()){
+                if (cs.toString().trim().isEmpty()) {
                     //LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_tap_on_add_category_text_below_to_select_category))
                     tilCategory1.visibility = View.GONE
                     textAddCategory.visibility = View.VISIBLE
                 }
             }
         })
-        editCategory2.addTextChangedListener(object :TextWatcher{
+        editCategory2.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(ch: Editable?) {}
             override fun beforeTextChanged(cs: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(cs: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (cs.toString().trim().isEmpty()){
+                if (cs.toString().trim().isEmpty()) {
                     tilCategory2.visibility = View.GONE
-                   // LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_tap_on_add_category_text_below_to_select_category))
+                    // LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_tap_on_add_category_text_below_to_select_category))
                     textAddCategory.visibility = View.VISIBLE
                 }
             }
         })
-        editCategory3.addTextChangedListener(object :TextWatcher{
+        editCategory3.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(ch: Editable?) {}
             override fun beforeTextChanged(cs: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(cs: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (cs.toString().trim().isEmpty()){
+                if (cs.toString().trim().isEmpty()) {
                     tilCategory3.visibility = View.GONE
-                   // LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_tap_on_add_category_text_below_to_select_category))
+                    // LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_tap_on_add_category_text_below_to_select_category))
                     textAddCategory.visibility = View.VISIBLE
                 }
             }
@@ -111,9 +114,9 @@ class AddBizScreen1Fragment : Fragment() {
     }
 
     private fun validateUIandNavigate() {
-        val bizName : String = editBizName.text.toString().trim()
-        val shortDesc : String = editShortDesc.text.toString().trim()
-        val estdYear : String = editEstdYear.text.toString().trim()
+        val bizName: String = editBizName.text.toString().trim()
+        val shortDesc: String = editShortDesc.text.toString().trim()
+        val estdYear: String = editEstdYear.text.toString().trim()
         category1 = editCategory1.text.toString().trim()
         category2 = editCategory2.text.toString().trim()
         category3 = editCategory3.text.toString().trim()
@@ -128,7 +131,7 @@ class AddBizScreen1Fragment : Fragment() {
             bizName.length < 3 -> {
                 LogUtils.showErrorDialog(activity, getString(R.string.ok), getString(R.string.enter_valid_business_name))
             }
-            estdYear .isEmpty() -> {
+            estdYear.isEmpty() -> {
                 LogUtils.showErrorDialog(activity, getString(R.string.ok), getString(R.string.please_enter_foundation_year_of_business))
             }
             !KotUtil.validateEstd(estdYear.toInt()) -> {
@@ -138,7 +141,7 @@ class AddBizScreen1Fragment : Fragment() {
                 LogUtils.showErrorDialog(activity, getString(R.string.ok), getString(R.string.select_atleast_one_category_plz_click_on_add_category_text))
             }
             else -> {
-                val bizDetailData = BizDetailData(bizName,shortDesc, estdYear.toInt() , category1, category2, category3)
+                val bizDetailData = BizDetailData(bizName, shortDesc, estdYear.toInt(), categoryid1, categoryid2, categoryid3)
                 val bundle = bundleOf("bizDetail" to bizDetailData)
                 navController.navigate(R.id.action_screen1_to_screen2, bundle)
             }
@@ -150,6 +153,7 @@ class AddBizScreen1Fragment : Fragment() {
             editCategory1.text.toString().isEmpty() -> {
                 tilCategory1.visibility = View.VISIBLE
                 editCategory1.setText(item.categoryName)
+                categoryid1 = item.categoryId
                 if (editCategory1.text.toString().trim() == editCategory2.text.toString().trim() || editCategory1.text.toString().trim() == editCategory3.text.toString().trim()) {
                     LogUtils.showToast(activity, activity!!.getString(R.string.already_selected_plz_select_different_category))
                     editCategory1.setText("")
@@ -159,6 +163,7 @@ class AddBizScreen1Fragment : Fragment() {
             editCategory2.text.toString().isEmpty() -> {
                 tilCategory2.visibility = View.VISIBLE
                 editCategory2.setText(item.categoryName)
+                categoryid2 = item.categoryId
                 if (editCategory2.text.toString().trim() == editCategory1.text.toString().trim() || editCategory2.text.toString().trim() == editCategory3.text.toString().trim()) {
                     LogUtils.showToast(activity, activity!!.getString(R.string.already_selected_plz_select_different_category))
                     editCategory2.setText("")
@@ -168,6 +173,7 @@ class AddBizScreen1Fragment : Fragment() {
             editCategory3.text.toString().isEmpty() -> {
                 tilCategory3.visibility = View.VISIBLE
                 editCategory3.setText(item.categoryName)
+                categoryid3 = item.categoryId
                 if (editCategory3.text.toString().trim() == editCategory2.text.toString().trim() || editCategory3.text.toString().trim() == editCategory1.text.toString().trim()) {
                     LogUtils.showToast(activity, activity!!.getString(R.string.already_selected_plz_select_different_category))
                     editCategory3.setText("")
@@ -177,7 +183,7 @@ class AddBizScreen1Fragment : Fragment() {
                 }
             }
             else -> {
-                LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.you_have_already_selected_max_no_of_category))
+                LogUtils.showErrorDialog(activity, activity!!.getString(R.string.ok), activity!!.getString(R.string.you_have_already_selected_max_no_of_category))
                 textAddCategory.visibility = View.GONE
             }
         }
@@ -202,16 +208,16 @@ class AddBizScreen1Fragment : Fragment() {
                 }
             })
         } else {*/
-        if ( !category1.isNullOrEmpty()){
+        if (!category1.isNullOrEmpty()) {
             tilCategory1.visibility = View.VISIBLE
         }
-        if ( !category2.isNullOrEmpty()){
+        if (!category2.isNullOrEmpty()) {
             tilCategory2.visibility = View.VISIBLE
         }
-        if ( !category3.isNullOrEmpty()){
+        if (!category3.isNullOrEmpty()) {
             tilCategory3.visibility = View.VISIBLE
         }
-        if (category1 != null  && category2 != null && category3 != null){
+        if (category1 != null && category2 != null && category3 != null) {
             textAddCategory.visibility = View.GONE
         }
     }

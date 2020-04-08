@@ -76,6 +76,7 @@ class AddBizScreen3ViewModel : ViewModel() {
 
                 if (status == AppConstant.SUCCESS_501) {
                     Utils.setBusinessStatus(mContext,"1")
+                    AppConstant.BIZNESS_ADDED = true
                     LogUtils.showDialogSingleActionButton(mContext,mContext!!.getString(R.string.ok),mContext!!.getString(R.string.add_business_success_msg)) { mContext!!.finish(); };
 
                 } else {

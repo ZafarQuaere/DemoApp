@@ -41,7 +41,7 @@ class AddBizScreen2Fragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       // LogUtils.showErrorDialog(activity, "Ok", bizInfo.bizDetail.bizName + " " + bizInfo.bizDetail.estdYear)
+        LogUtils.showErrorDialog(activity, "Ok", bizInfo.bizDetail.category1 + " " + bizInfo.bizDetail.category2+" "+bizInfo.bizDetail.category3)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

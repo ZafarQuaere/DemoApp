@@ -19,8 +19,10 @@ public class AppConstant {
     public static final int HOME = 2;
     public static  boolean MOVE_TO_ADD_BIZ = false;
     public static  boolean NEW_FOLLOW = false;
+    public static  boolean BIZNESS_ADDED = false;
     // Splash screen timer
     public static int SPLASH_TIME_OUT = 2100;
+    public static int BUTTON_DISABLE_TIME = 40000;
     public static final String TIMESTAMP_FORMAT = "yyyyMMdd_HHmmss";
     public static final String TAG = "e-Connecto";
     public static final String RUPEES_SYMBOL = "₹ ";

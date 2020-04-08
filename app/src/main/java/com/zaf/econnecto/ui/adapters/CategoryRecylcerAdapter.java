@@ -40,7 +40,7 @@ public class CategoryRecylcerAdapter extends RecyclerView.Adapter<CategoryRecylc
         holder.textName.setText(mValues.get(position).getCategoryName());
         //holder.textEstd.setText(mValues.get(position).getLastName());
 
-        Picasso.get().load(mValues.get(position).getCategoryImage()).placeholder(R.mipmap.ic_launcher).into(holder.imgItem);
+        Picasso.get().load(mValues.get(position).getCategoryImage()).placeholder(R.drawable.default_biz_profile_pic).into(holder.imgItem);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

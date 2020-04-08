@@ -16,6 +16,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -788,6 +789,16 @@ public class Utils {
         Utils.setLoggedIn(mContext, false);
         Utils.setBusinessStatus(mContext,"0");
         Utils.setEmailVerified(mContext, false);
+    }
+
+    public static void applyDisableTime(View btnTestforTime) {
+        btnTestforTime.setEnabled(false);
+        btnTestforTime.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                btnTestforTime.setEnabled(true);
+            }
+        }, AppConstant.BUTTON_DISABLE_TIME);
     }
 
    /* public static void selectImageFromGallery(Activity mContext) {

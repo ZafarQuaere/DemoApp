@@ -46,15 +46,16 @@
     </LinearLayout>
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerBusinessList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/lytAddBiz"
-        android:clipToPadding="false"
-        android:overScrollMode="never"
-        android:paddingBottom="@dimen/recycler_padding_bottom"
-        tools:listitem="@layout/biz_list_items" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerBusinessList"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/lytAddBiz"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingBottom="@dimen/recycler_padding_bottom"
+            tools:listitem="@layout/biz_list_items" />
+
 
     <TextView
         android:id="@+id/emptyTextView"
