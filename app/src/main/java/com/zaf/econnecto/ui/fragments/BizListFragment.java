@@ -94,7 +94,6 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
                         LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.please_enable_your_network_connection_and_launch_again));
                     }
                 }
-
             });
         }
     }

@@ -8,7 +8,7 @@
 
     <com.zaf.imageslider.SliderView
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="140dp"
         android:layout_alignParentTop="true"
         android:id="@+id/imageSlider"/>
 

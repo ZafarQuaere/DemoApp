@@ -10,8 +10,8 @@ android {
         applicationId "com.zaf.econnecto"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 113
-        versionName "9.4.2020"
+        versionCode 114
+        versionName "2020.08.04"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

@@ -175,7 +175,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
                     public void onCancelClick() { }
                 });
     }
-
     //startActivity(new Intent(mContext, AddBusinessActivity.class));
    // overridePendingTransition(R.anim.slide_in_right,R.anim.slide_in_left);
     closeDrawer();
