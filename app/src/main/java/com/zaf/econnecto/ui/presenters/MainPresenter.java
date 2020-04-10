@@ -100,7 +100,8 @@ public class MainPresenter extends BasePresenter {
                 mContext.getString(R.string.do_you_really_want_to_logout), new DialogButtonClick() {
                     @Override
                     public void onOkClick() {
-                        callLogoutApi();
+                       // callLogoutApi();
+                        clearUserDataNLogout();
                     }
 
                     @Override
@@ -134,7 +135,11 @@ public class MainPresenter extends BasePresenter {
         }
     }
 
-
+    private void clearUserDataNLogout(){
+        Utils.clearLoginDatas(mContext);
+        LogUtils.showToast(mContext, mContext.getString(R.string.you_are_sucessfully_logout));
+        iMain.onLogoutCall();
+    }
     private void callLogoutApi() {
         loader.show();
         String url = AppConstant.URL_BASE + AppConstant.URL_LOGOUT;

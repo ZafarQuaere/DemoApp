@@ -13,6 +13,8 @@ import com.zaf.econnecto.R
 import com.zaf.econnecto.ui.fragments.add_business.AddBizScreen1Fragment
 import com.zaf.econnecto.ui.fragments.add_business.AddBizScreen2Fragment
 import com.zaf.econnecto.ui.fragments.add_business.AddBizScreen3Fragment
+import com.zaf.econnecto.ui.fragments.user_register.PhoneVerificationFragment
+import com.zaf.econnecto.ui.fragments.user_register.TermsConditionWebViewFragment
 import com.zaf.econnecto.ui.interfaces.ActionBarItemClick
 import org.json.JSONObject
 import java.util.*
@@ -92,6 +94,14 @@ class KotUtil {
                 textBack.setOnClickListener { activity.onBackPressedDispatcher.onBackPressed() }
             }
             else if (className.equals(AddBizScreen3Fragment.javaClass.simpleName)){
+                textBack.visibility = View.VISIBLE
+                textBack.setOnClickListener { activity.onBackPressedDispatcher.onBackPressed() }
+            }
+            else if (className.equals(PhoneVerificationFragment.javaClass.simpleName)){
+                textBack.visibility = View.VISIBLE
+                textBack.setOnClickListener { activity.onBackPressedDispatcher.onBackPressed() }
+            }
+            else if (className.equals(TermsConditionWebViewFragment.javaClass.simpleName)){
                 textBack.visibility = View.VISIBLE
                 textBack.setOnClickListener { activity.onBackPressedDispatcher.onBackPressed() }
             }

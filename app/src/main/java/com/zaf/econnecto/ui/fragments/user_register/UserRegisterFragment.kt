@@ -10,8 +10,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.zaf.econnecto.R
+import com.zaf.econnecto.ui.fragments.add_business.AddBizScreen2Fragment
 import com.zaf.econnecto.ui.interfaces.FragmentNavigation
 import com.zaf.econnecto.utils.FileUtils
+import com.zaf.econnecto.utils.KotUtil
 import com.zaf.econnecto.utils.LogUtils
 import kotlinx.android.synthetic.main.fragment_user_register.*
 import org.json.JSONObject
@@ -35,7 +37,7 @@ class UserRegisterFragment : Fragment(), FragmentNavigation {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        KotUtil.updateActionBar(activity, UserRegisterFragment.javaClass.simpleName, activity!!.getString(R.string.register), null, null)
         navController = Navigation.findNavController(view)
         viewModel = ViewModelProviders.of(this).get(UserRegisterViewModel::class.java)
         viewModel.registerNavigation(this)

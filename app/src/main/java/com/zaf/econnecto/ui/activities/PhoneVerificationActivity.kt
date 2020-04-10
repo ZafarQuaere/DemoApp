@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.textfield.TextInputEditText
 import com.zaf.econnecto.R
-import com.zaf.econnecto.ui.fragments.user_register.PhoneVerificationViewModel
 import com.zaf.econnecto.utils.LogUtils
 import com.zaf.econnecto.utils.Utils
 

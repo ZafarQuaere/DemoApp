@@ -38,7 +38,7 @@
             android:layout_marginHorizontal="@dimen/_10dp"
             android:layout_toRightOf="@+id/imgItem"
             android:textSize="@dimen/font_small_header"
-            android:text="@string/establish_year"
+            android:text="@string/established_year"
             android:textColor="@color/colorGrey" />
 
         <TextView

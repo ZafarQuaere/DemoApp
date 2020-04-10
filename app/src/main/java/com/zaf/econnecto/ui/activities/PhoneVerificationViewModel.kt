@@ -1,4 +1,4 @@
-package com.zaf.econnecto.ui.fragments.user_register
+package com.zaf.econnecto.ui.activities
 
 import android.app.Activity
 import android.content.Context

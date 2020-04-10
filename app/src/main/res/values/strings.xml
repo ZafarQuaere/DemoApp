@@ -325,4 +325,8 @@
     <string name="you_are_successfully_registered_plz_verify_your_phone_no">You are successfully registered, Please verfiy your phone number.</string>
     <string name="key_login_date">key_login_date</string>
     <string name="get_free_business_account">Get free business account</string>
+    <string name="established_year">Establishment year</string>
+    <string name="terms_condition_text">By clicking Register you agree to the <b><u>Terms and Conditions</u></b>.</string>
+    <string name="terms_condition_label">Terms and Conditions</string>
+    <string name="phone_verification">Phone Verification</string>
 </resources>

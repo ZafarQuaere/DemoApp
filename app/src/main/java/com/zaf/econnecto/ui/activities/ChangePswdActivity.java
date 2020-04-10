@@ -39,7 +39,6 @@ public class ChangePswdActivity extends BaseActivity<OtpPresenter> implements IO
         TextInputEditText editMobile = (TextInputEditText) findViewById(R.id.editMobile);
         TextInputEditText editOldPassword = (TextInputEditText) findViewById(R.id.editOldPassword);
         TextInputEditText editNewPassword = (TextInputEditText) findViewById(R.id.editNewPassword);
-        editMobile.setText(Utils.getMobileNo(mContext));
         getPresenter().validateCPInputs(editMobile.getText().toString().trim(), editOldPassword.getText().toString().trim(), editNewPassword.getText().toString().trim(), email);
     }
 

@@ -127,7 +127,6 @@ class UserRegisterViewModel : ViewModel() {
         })
     }
 
-
     fun registerNavigation(userFragment: UserRegisterFragment) {
         fragNavigation = userFragment
     }

@@ -88,6 +88,9 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:$lifecycleVersion"
     implementation "android.arch.lifecycle:viewmodel:$lifecycleVersion"
 
+    //Html parser
+    implementation 'org.jsoup:jsoup:1.11.1'
+
     //adding paging
 //    implementation "android.arch.paging:runtime:$paging_version"
 

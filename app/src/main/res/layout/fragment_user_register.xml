@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
 
     <ScrollView
@@ -17,7 +18,6 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilEmail"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_15dp"
@@ -36,7 +36,6 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilPhone"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_15dp"
@@ -55,7 +54,6 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilPassword"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_15dp"
@@ -74,7 +72,6 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilConfirmPswd"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_15dp"
@@ -142,14 +139,14 @@
             </RadioGroup>
 
             <TextView
-                android:visibility="invisible"
                 android:id="@+id/txtTermsCondition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20dp"
                 android:gravity="center_horizontal"
-                android:text="terms conditions"
-                android:textColor="@color/colorPrimary" />
+                android:text="@string/terms_condition_text"
+                android:textColor="@color/colorPrimary"
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/txtRegister"

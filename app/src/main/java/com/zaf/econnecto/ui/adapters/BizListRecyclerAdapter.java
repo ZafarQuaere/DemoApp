@@ -55,7 +55,7 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getBusinessName());
-        holder.textEstd.setText(mContext.getString(R.string.establish_year) + ": " + mValues.get(position).getYearEstablished());
+        holder.textEstd.setText(mContext.getString(R.string.established_year) + "- " + mValues.get(position).getYearEstablished());
         holder.textFollowers.setText(mValues.get(position).getFollowersCount() + " " + mContext.getString(R.string.followers));
         holder.textViewBusiness.setText(mValues.get(position).getShortDescription());
 
@@ -94,10 +94,8 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
                                         mValues.get(position).setFollowersCount(followerCount + "");
                                         mValues.get(position).setIsFollowing(0);
                                     }
-
                                     @Override
-                                    public void onCancelClick() {
-                                    }
+                                    public void onCancelClick() { }
                                 });
                     }
                 } else {
