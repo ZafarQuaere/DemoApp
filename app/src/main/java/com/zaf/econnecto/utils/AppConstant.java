@@ -22,7 +22,8 @@ public class AppConstant {
     public static  boolean BIZNESS_ADDED = false;
     // Splash screen timer
     public static int SPLASH_TIME_OUT = 2100;
-    public static int BUTTON_DISABLE_TIME = 40000;
+    public static int RESEND_OTP_TIME = 40000;
+    public static int OTP_TIME = 120000;
     public static final String TIMESTAMP_FORMAT = "yyyyMMdd_HHmmss";
     public static final String TAG = "e-Connecto";
     public static final String RUPEES_SYMBOL = "₹ ";

@@ -137,7 +137,7 @@ class AddBizScreen1Fragment : Fragment() {
             !KotUtil.validateEstd(estdYear.toInt()) -> {
                 LogUtils.showErrorDialog(activity, getString(R.string.ok), getString(R.string.enter_valid_establishment_year))
             }
-            category1!!.isEmpty() -> {
+            category1!!.isEmpty() && category2!!.isEmpty() && category3!!.isEmpty() -> {
                 LogUtils.showErrorDialog(activity, getString(R.string.ok), getString(R.string.select_atleast_one_category_plz_click_on_add_category_text))
             }
             else -> {

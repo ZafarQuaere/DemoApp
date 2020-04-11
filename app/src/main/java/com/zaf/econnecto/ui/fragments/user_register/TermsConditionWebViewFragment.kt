@@ -10,12 +10,18 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ProgressBar
+import androidx.annotation.UiThread
 import androidx.fragment.app.Fragment
 import com.zaf.econnecto.R
 import com.zaf.econnecto.utils.AppConstant
 import com.zaf.econnecto.utils.KotUtil
 import kotlinx.android.synthetic.main.fragment_terms_condition.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
+import org.jsoup.nodes.Element
+import org.jsoup.select.Elements
 
 class TermsConditionWebViewFragment : Fragment() {
     var webView: WebView? = null
@@ -34,7 +40,6 @@ class TermsConditionWebViewFragment : Fragment() {
         webView = view.findViewById(R.id.webView)
         progressBar = view.findViewById(R.id.progressbar)
         KotUtil.updateActionBar(activity, TermsConditionWebViewFragment.javaClass.simpleName, activity!!.getString(R.string.terms_condition_label), null, null)
-
         fab.setOnClickListener {
             if (webView!!.canGoBack()) {
                 webView!!.goBack()
@@ -52,20 +57,33 @@ class TermsConditionWebViewFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         webLoad(webUrl)
       /*  progressBar!!.progressDrawable.setColorFilter(
                 Color.RED, android.graphics.PorterDuff.Mode.SRC_IN
         )*/
     }
 
+
+    @UiThread
+    private suspend fun removeHeader() {
+        // Load the html into jsoup
+        val doc: Document? = Jsoup.connect(AppConstant.URL_TERMS_CONDITIONS).get()
+        val header: Elements? = doc!!.getElementsByClass("default-header")
+        header!!.remove()
+        val footer: Elements? = doc.getElementsByClass("footer-area section-gap")
+        footer!!.remove()
+
+    }
+
     @SuppressLint("SetJavaScriptEnabled")
-    private fun webLoad(Url: String?) {
+    private  fun webLoad(Url: String?) {
         try {
-            Runnable{
-                val document: org.jsoup.nodes.Document? = Jsoup.connect(Url).get()
-                document!!.getElementsByClass("header-container").remove()
-                document!!.getElementsByClass("footer").remove()
-            }
+            //TODO to remove header and footer from webview
+           /* GlobalScope.launch {
+                removeHeader()
+            }*/
+
             val webSettings = webView!!.settings
             webView!!.settings.javaScriptEnabled = true
             webView!!.settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK

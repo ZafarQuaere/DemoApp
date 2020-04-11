@@ -16,6 +16,7 @@ import com.zaf.econnecto.network_call.response_model.login.LoginData;
 import com.zaf.econnecto.ui.activities.ForgetPswdActivity;
 import com.zaf.econnecto.ui.activities.PhoneVerificationActivity;
 import com.zaf.econnecto.ui.fragments.user_register.PhoneVerificationFragment;
+import com.zaf.econnecto.ui.interfaces.DialogSingleButtonListener;
 import com.zaf.econnecto.ui.presenters.operations.ILogin;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppController;
@@ -91,8 +92,10 @@ public class LoginPresenter extends BasePresenter {
                         Utils.saveLoginData(mContext,response.toString());
                         storeOtherValue(loginData);
                         mLogin.doLogin();
-                    } else if(status == AppConstant.PHONE_NOT_VERIFIED){
-                        mContext.startActivity(new Intent(mContext, PhoneVerificationActivity.class).putExtra("mobile",phoneNo));
+                    } else if (status == AppConstant.PHONE_NOT_VERIFIED) {
+                        LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.ok),
+                                mContext.getString(R.string.your_phone_number_is_not_verified_plz_verify_it),
+                                () -> mContext.startActivity(new Intent(mContext, PhoneVerificationActivity.class).putExtra("mobile", phoneNo)));
                     }
                     else {
                         LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optJSONArray("message").optString(0));

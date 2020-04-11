@@ -16,7 +16,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -798,7 +797,7 @@ public class Utils {
             public void run() {
                 btnTestforTime.setEnabled(true);
             }
-        }, AppConstant.BUTTON_DISABLE_TIME);
+        }, AppConstant.RESEND_OTP_TIME);
     }
 
    /* public static void selectImageFromGallery(Activity mContext) {

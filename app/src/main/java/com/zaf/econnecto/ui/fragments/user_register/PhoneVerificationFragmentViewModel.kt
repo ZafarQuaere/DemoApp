@@ -1,13 +1,19 @@
 package com.zaf.econnecto.ui.fragments.user_register
 
+import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
+import android.os.Build
+import android.os.CountDownTimer
+import android.os.SystemClock
+import android.view.View
+import android.widget.Chronometer
+import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import com.google.gson.JsonObject
 import com.zaf.econnecto.R
 import com.zaf.econnecto.service.EConnectoServices
 import com.zaf.econnecto.service.ServiceBuilder
-import com.zaf.econnecto.ui.interfaces.DialogButtonClick
 import com.zaf.econnecto.ui.interfaces.DialogSingleButtonListener
 import com.zaf.econnecto.utils.AppConstant
 import com.zaf.econnecto.utils.AppDialogLoader
@@ -51,7 +57,7 @@ class PhoneVerificationFragmentViewModel : ViewModel() {
                     LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), message)
                     // KotUtil.displayResponseError(mContext,message.toString())
                 } else {
-                    LogUtils.showErrorDialog(mContext,mContext.getString(R.string.ok), mContext.getString(R.string.otp_is_sent_to_your_mobile_no_plz_enter_the_otp))
+                    LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.otp_is_sent_to_your_mobile_no_plz_enter_the_otp))
                 }
             }
         })
@@ -99,17 +105,17 @@ class PhoneVerificationFragmentViewModel : ViewModel() {
         var loader = AppDialogLoader.getLoader(mContext)
         loader.show()
         var jsonObject = JSONObject()
-        jsonObject.put("action","request_otp")
-        jsonObject.put("phone",mobileNo)
+        jsonObject.put("action", "request_otp")
+        jsonObject.put("phone", mobileNo)
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
 
         val destinationService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
         val requestCall = destinationService.phoneVerification(requestBody)
 
-        requestCall.enqueue(object : Callback<JsonObject>{
+        requestCall.enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 loader.dismiss()
-                LogUtils.showErrorDialog(mContext,mContext.getString(R.string.ok),mContext.getString(R.string.something_wrong_from_server_plz_try_again))
+                LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.something_wrong_from_server_plz_try_again))
             }
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
@@ -117,15 +123,37 @@ class PhoneVerificationFragmentViewModel : ViewModel() {
                 val body = JSONObject(response.body().toString())
                 LogUtils.DEBUG("status : ${body!!.optInt("status")}   message ${body!!.optJSONArray("message").get(0)}")
                 var status = body.optInt("status")
-                if(status == AppConstant.FAILURE){
+                if (status == AppConstant.FAILURE) {
                     val jsonArray = body!!.getJSONArray("message")
                     val message = jsonArray.get(0) as String
-                    LogUtils.showErrorDialog(mContext,mContext.getString(R.string.ok),message)
+                    LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), message)
                     // KotUtil.displayResponseError(mContext,message.toString())
-                }else{
-                    LogUtils.showToast(mContext,"an OTP has been sent to your mobile number")
+                } else {
+                    LogUtils.showToast(mContext, "an OTP has been sent to your mobile number")
                 }
             }
         })
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun updateTimerUI(mActivity: Activity, view: View?, time: Int) {
+        val txtResendOTP = view!!.findViewById<TextView>(R.id.txtResendOTP)
+        txtResendOTP.isEnabled = false
+        val chronoResendTime = view.findViewById<Chronometer>(R.id.chronoResendTime)
+        chronoResendTime.visibility = View.VISIBLE
+        chronoResendTime.isCountDown = true
+        chronoResendTime.base = SystemClock.elapsedRealtime() + time
+        chronoResendTime.start()
+        val timer: CountDownTimer = object : CountDownTimer(time.toLong(), 100) {
+            override fun onTick(l: Long) {}
+            @SuppressLint("ResourceAsColor")
+            override fun onFinish() {
+                chronoResendTime.stop()
+                chronoResendTime.visibility = View.GONE
+                txtResendOTP.isEnabled = true
+                txtResendOTP.setTextColor(mActivity.resources.getColor(R.color.colorPrimary))
+            }
+        }
+        timer.start()
     }
 }

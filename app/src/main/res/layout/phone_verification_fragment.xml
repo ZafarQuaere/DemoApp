@@ -68,15 +68,27 @@
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/font_large_text" />
 
-    <TextView
-        android:id="@+id/txtResendOTP"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10dp"
-        android:layout_marginBottom="@dimen/_20dp"
-        android:gravity="center_horizontal"
-        android:text="@string/resend_otp"
-        android:textColor="@color/colorPrimary" />
+        android:layout_marginHorizontal="@dimen/_15dp"
+        android:layout_marginBottom="@dimen/_20dp">
+
+        <TextView
+            android:id="@+id/txtResendOTP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/resend_otp"
+            android:textColor="@color/colorGrey" />
+
+        <Chronometer
+            android:id="@+id/chronoResendTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
 
     <Space
         android:layout_width="match_parent"

@@ -1,13 +1,19 @@
 package com.zaf.econnecto.ui.activities
 
+import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
+import android.os.Build
+import android.os.CountDownTimer
+import android.os.SystemClock
+import android.view.View
+import android.widget.Chronometer
+import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import com.google.gson.JsonObject
 import com.zaf.econnecto.R
 import com.zaf.econnecto.service.EConnectoServices
 import com.zaf.econnecto.service.ServiceBuilder
-import com.zaf.econnecto.ui.interfaces.DialogButtonClick
 import com.zaf.econnecto.ui.interfaces.DialogSingleButtonListener
 import com.zaf.econnecto.utils.AppConstant
 import com.zaf.econnecto.utils.AppDialogLoader
@@ -127,5 +133,26 @@ class PhoneVerificationViewModel : ViewModel() {
                 }
             }
         })
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun updateTimerUI(mActivity: Activity, txtResendOTP: TextView, chronoResendTime: Chronometer, time: Int) {
+        txtResendOTP.isEnabled = false
+        chronoResendTime.visibility = View.VISIBLE
+        chronoResendTime.isCountDown = true
+        chronoResendTime.base = SystemClock.elapsedRealtime() + time
+        chronoResendTime.start()
+        val timer: CountDownTimer = object : CountDownTimer(time.toLong(), 100) {
+            override fun onTick(l: Long) {}
+
+            @SuppressLint("ResourceAsColor")
+            override fun onFinish() {
+                chronoResendTime.stop()
+                chronoResendTime.visibility = View.GONE
+                txtResendOTP.isEnabled = true
+                txtResendOTP.setTextColor(mActivity.resources.getColor(R.color.colorPrimary))
+            }
+        }
+        timer.start()
     }
 }
