@@ -32,14 +32,21 @@ class AddBizScreen3ViewModel : ViewModel() {
         if (myWebsite.isNotEmpty()){
             myWebsite = "http://$website"
         }
+        var category = addressInfo.category1
+        var category2 = addressInfo.category2
+        var category3 = addressInfo.category3
+        if (category.isNullOrEmpty()) {
+            category = if (category2!!.isNotEmpty()) category2
+            else category3
+        }
         val jsonObject = JSONObject()
         jsonObject.put("jwt_token", Utils.getAccessToken(mContext))
         jsonObject.put("owner_id", Utils.getUserID(mContext))
         jsonObject.put("business_name", addressInfo.bizName)
         jsonObject.put("short_description", addressInfo.shortDesc)
-        jsonObject.put("category_id_1", addressInfo.category1)
-        jsonObject.put("category_id_2", addressInfo.category2)
-        jsonObject.put("category_id_3", addressInfo.category3)
+        jsonObject.put("category_id_1", category)
+        jsonObject.put("category_id_2", category2)
+        jsonObject.put("category_id_3", category3)
         jsonObject.put("year_established", addressInfo.estdYear)
         jsonObject.put("address_1", addressInfo.address1)
         jsonObject.put("address_2", addressInfo.address2)
@@ -81,9 +88,9 @@ class AddBizScreen3ViewModel : ViewModel() {
 
                 } else {
                     LogUtils.showErrorDialog(mContext!!, mContext!!.getString(R.string.ok), body.optJSONArray("message").optString(0));
-                  /*  val jsonArray = body.optJSONArray("message")
-                    val message = jsonArray!!.get(0) as String
-                    LogUtils.showErrorDialog(mContext, mContext!!.getString(R.string.ok), message)*/
+//                    val jsonArray = body.optJSONArray("message")
+//                    val message = jsonArray!!.get(0) as String
+//                    LogUtils.showErrorDialog(mContext, mContext!!.getString(R.string.ok), message)
                 }
             }
         })

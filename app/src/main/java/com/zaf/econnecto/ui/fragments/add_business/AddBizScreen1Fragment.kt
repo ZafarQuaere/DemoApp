@@ -86,6 +86,8 @@ class AddBizScreen1Fragment : Fragment() {
                     //LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_tap_on_add_category_text_below_to_select_category))
                     tilCategory1.visibility = View.GONE
                     textAddCategory.visibility = View.VISIBLE
+                    categoryid1 = ""
+                    editEstdYear.requestFocus()
                 }
             }
         })
@@ -97,6 +99,8 @@ class AddBizScreen1Fragment : Fragment() {
                     tilCategory2.visibility = View.GONE
                     // LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_tap_on_add_category_text_below_to_select_category))
                     textAddCategory.visibility = View.VISIBLE
+                    categoryid2 = ""
+                    editEstdYear.requestFocus()
                 }
             }
         })
@@ -108,6 +112,8 @@ class AddBizScreen1Fragment : Fragment() {
                     tilCategory3.visibility = View.GONE
                     // LogUtils.showErrorDialog(activity,activity!!.getString(R.string.ok),activity!!.getString(R.string.please_tap_on_add_category_text_below_to_select_category))
                     textAddCategory.visibility = View.VISIBLE
+                    categoryid3 = ""
+                    editEstdYear.requestFocus()
                 }
             }
         })
