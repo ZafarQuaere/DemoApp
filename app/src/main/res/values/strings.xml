@@ -80,10 +80,10 @@
     <string name="contact_us">Contact Us</string>
 
     <string name="website_link"><a href="http://econnecto.com/"> www.econnecto.com</a></string>
-    <string name="fb_link"><a href="https://m.facebook.com/profile.php?id=2594532897285437&amp;ref=content_filter"> facebook.com/econnecto</a></string>
-    <string name="insta_link"><a href="https://www.instagram.com/imz_zafar/"> instagram.com/econnecto</a></string>
+    <string name="fb_link"><a href="https://m.facebook.com/econnecto/?ref=content_filter"> facebook.com/econnecto</a></string>
+    <string name="insta_link"><a href="https://www.instagram.com/econnecto/"> instagram.com/econnecto</a></string>
+    <string name="twitter_link"><a href="https://mobile.twitter.com/Econnecto1"> twitter.com/econnecto</a></string>
 
-    <string name="twitter_link"><a href="https://twitter.com/ZafarTwit"> twitter.com/econnecto</a></string>
     <string name="playstore_link"><u>play.google.com/store/apps/econnecto</u></string>
     <string name="text_visit_our_website">Visit Our Website : </string>
     <string name="text_like_on_fb">Like Us on Facebook :</string>

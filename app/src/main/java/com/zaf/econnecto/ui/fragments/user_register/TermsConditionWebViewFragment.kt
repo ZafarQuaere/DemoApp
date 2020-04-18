@@ -16,6 +16,7 @@ import com.zaf.econnecto.R
 import com.zaf.econnecto.utils.AppConstant
 import com.zaf.econnecto.utils.KotUtil
 import kotlinx.android.synthetic.main.fragment_terms_condition.*
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.jsoup.Jsoup
@@ -27,6 +28,7 @@ class TermsConditionWebViewFragment : Fragment() {
     var webView: WebView? = null
     var webUrl: String? = AppConstant.URL_TERMS_CONDITIONS
     var progressBar: ProgressBar? = null
+    //var webSettings : WebSettings? = null
 
     companion object {
         fun newInstance() = TermsConditionWebViewFragment()
@@ -57,11 +59,11 @@ class TermsConditionWebViewFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        var removeHnFThread = RemoveHeaderFooter()
+        removeHnFThread.start()
 
-        webLoad(webUrl)
-      /*  progressBar!!.progressDrawable.setColorFilter(
-                Color.RED, android.graphics.PorterDuff.Mode.SRC_IN
-        )*/
+//        webLoad(webUrl)
+       // progressBar!!.progressDrawable.setColorFilter(Color.RED, android.graphics.PorterDuff.Mode.SRC_IN)
     }
 
 
@@ -80,9 +82,10 @@ class TermsConditionWebViewFragment : Fragment() {
     private  fun webLoad(Url: String?) {
         try {
             //TODO to remove header and footer from webview
-           /* GlobalScope.launch {
+            /*GlobalScope.launch {
                 removeHeader()
             }*/
+
 
             val webSettings = webView!!.settings
             webView!!.settings.javaScriptEnabled = true
@@ -95,6 +98,8 @@ class TermsConditionWebViewFragment : Fragment() {
             webView!!.webChromeClient = MyChromeClient()
             webView!!.webViewClient = MyWebViewClient()
             webView!!.loadUrl(Url)
+           /* var removeHnFThread = RemoveHeaderFooter()
+            removeHnFThread.start()*/
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -117,7 +122,19 @@ class TermsConditionWebViewFragment : Fragment() {
             return true
         }
     }
-
+    private inner class RemoveHeaderFooter() : Thread(){
+        /* constructor():super(){} */
+        override fun run() {
+            val doc: Document? = Jsoup.connect(AppConstant.URL_TERMS_CONDITIONS).get()
+            val header: Elements? = doc!!.getElementsByClass("default-header")
+            header!!.remove()
+            val footer: Elements? = doc.getElementsByClass("footer-area section-gap")
+            footer!!.remove()
+            activity!!.runOnUiThread {
+                webLoad(AppConstant.URL_TERMS_CONDITIONS)
+            }
+        }
+    }
 }
 
 

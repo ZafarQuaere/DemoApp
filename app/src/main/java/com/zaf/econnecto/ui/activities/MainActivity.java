@@ -23,6 +23,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.squareup.picasso.Picasso;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.ui.fragments.BizCategoryFragment;
@@ -50,6 +51,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
   private Context mContext;
   private FloatingActionButton fabAddBizness;
   private NavigationView navigationView;
+  private FirebaseAnalytics mFirebaseAnalytics;
 
   @Override
   protected MainPresenter initPresenter() {
@@ -59,16 +61,25 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
     setContentView(R.layout.activity_main);
     mContext = this;
+    mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
     setUpToolbar();
     updateUI();
     initUI();
     moveToBList();
+    addFirebaseAnalytics();
     //moveToHome();
     // moveToAddBizness();
 
+  }
+
+  private void addFirebaseAnalytics() {
+    Bundle bundle = new Bundle();
+    bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "id");
+    bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "name");
+    bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
+    mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
   }
 
   private void moveToAddBizness() {
@@ -321,22 +332,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
   public void changePasswordClick(View view) {
     closeDrawer();
     getPresenter().startActivity(mContext);
-    /*LogUtils.showDialogDoubleButton(
-        mContext,
-        getString(R.string.cancel),
-        getString(R.string.ok),
-        getString(R.string.otp_is_sent_to_your_registered_email_plz_enter_same),
-        new DialogButtonClick() {
-          @Override
-          public void onOkClick() {
-            // getPresenter().requestOtpApi();
-
-           // overridePendingTransition(R.anim.slide_in_right,R.anim.slide_in_left);
-          }
-
-          @Override
-          public void onCancelClick() {}
-        });*/
   }
 
   public void onShareClick(View view) {
@@ -346,7 +341,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
   public void helpNFaqClick(View view) {
     closeDrawer();
     getPresenter().moveToFragment(HelpNAboutFragment.class.getSimpleName());
-    // LogUtils.showToast(mContext, "Development under progress");
   }
 
   @Override
@@ -402,7 +396,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
   }
 
   public void uploadImage(View view) {
-    if (Utils.isLoggedIn(mContext)) {
+    /*if (Utils.isLoggedIn(mContext)) {
       if (PermissionUtils.checkPermission(mContext)) {
         selectImageFromGallery();
       } else {
@@ -424,7 +418,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
             @Override
             public void onCancelClick() {}
           });
-    }
+    }*/
+    startActivity(new Intent(this,UploadImageActivity.class));
   }
 
   @Override
