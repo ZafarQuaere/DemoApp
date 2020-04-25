@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/_10dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textBusinessName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:paddingVertical="@dimen/_5dp"
+            android:text="@string/business_name"
+            android:textAllCaps="true"
+            android:textSize="@dimen/font_x_large_text"
+            android:textStyle="bold"
+            android:visibility="visible" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_follow"
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/_10dp"
+            android:text="@string/follow"
+            android:textAllCaps="false"
+            android:textSize="@dimen/font_large_text"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/terms_condition_text"
+        android:textAllCaps="false"
+        android:textSize="@dimen/font_regular_text"
+        android:visibility="visible" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/established_year"
+        android:textAllCaps="false"
+        android:textSize="@dimen/font_regular_text"
+        android:visibility="visible" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/contact_n_address"
+        android:textAllCaps="false"
+        android:textSize="@dimen/font_regular_text"
+        android:visibility="visible" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/followers"
+        android:textAllCaps="false"
+        android:textSize="@dimen/font_regular_text"
+        android:visibility="visible" />
+
+</LinearLayout>
+
+

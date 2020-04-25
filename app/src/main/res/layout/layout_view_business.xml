@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/htab_collapse_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:titleEnabled="false">
+
+            <androidx.appcompat.widget.Toolbar
+                android:visibility="gone"
+                android:id="@+id/toolbarBd"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:title="@string/business_name"
+                app:layout_collapseMode="parallax"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:titleTextColor="@color/colorBlack" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorWhite">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    tools:ignore="MissingConstraints">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_header"
+                        android:layout_width="match_parent"
+                        android:layout_height="130dp"
+                        android:background="@color/colorWhite"
+                        android:overScrollMode="never"
+                        android:orientation="horizontal"
+                        android:scrollbars="none"
+                        tools:listitem="@layout/header_image_list_item" />
+
+                    <include
+                        layout="@layout/vb_address_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:background="@drawable/btn_follow"
+                        android:layout_marginHorizontal="@dimen/_30dp"
+                        android:paddingVertical="@dimen/_5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="Open Close timing" />
+
+                    <include
+                        layout="@layout/vb_communication_menu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_hotdeals"
+                        android:layout_width="match_parent"
+                        android:layout_height="110dp"
+                        android:background="@color/colorWhite"
+                        android:overScrollMode="never"
+                        android:orientation="horizontal"
+                        android:scrollbars="none"
+                        tools:listitem="@layout/header_image_list_item" />
+
+                    <TextView
+                        android:background="@drawable/btn_follow"
+                        android:layout_marginHorizontal="@dimen/_30dp"
+                        android:paddingVertical="@dimen/_5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="Deals In" />
+
+                   <!-- <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="@dimen/_10dp">-->
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5dp"
+                            android:paddingHorizontal="@dimen/_10dp"
+                            android:background="@drawable/button_transparent_bg"
+                            android:text="my text " />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="@dimen/_10dp"
+                            android:layout_marginTop="@dimen/_5dp"
+                            android:background="@drawable/button_transparent_bg"
+                            android:text="my text " />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="@dimen/_10dp"
+                            android:layout_marginTop="@dimen/_5dp"
+                            android:background="@drawable/button_transparent_bg"
+                            android:text="my text " />
+
+                    <!--</RelativeLayout>-->
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        <!-- if we put tablayout here it stucks at actionbar-->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50dp"
+            app:tabGravity="center"
+            app:tabIndicatorColor="@android:color/white"
+            app:tabMode="scrollable"
+            android:background="@android:color/transparent"
+            android:hapticFeedbackEnabled="true"
+            app:tabSelectedTextColor="@android:color/white"
+            app:tabTextColor="@color/colorLightGrey" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!-- if we put tablayout here it doesn't stuck at actionbar-->
+            <!--<com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40dp"
+                app:tabGravity="center"
+                app:tabIndicatorColor="@color/colorBlack"
+                app:tabMode="scrollable"
+                android:background="@android:color/transparent"
+                android:hapticFeedbackEnabled="false"
+                app:tabSelectedTextColor="@color/colorBlack"
+                app:tabTextColor="@color/colorGrey" />-->
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewpagerTabs"
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"
+                android:layout_below="@+id/tabs"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10dp"
+                        android:text="my text " />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_100dp"
+                        android:text="my text " />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_100dp"
+                        android:text="my text " />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_100dp"
+                        android:text="my text 6666" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_50dp" />
+                </LinearLayout>
+
+            </ScrollView>
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -697,9 +697,6 @@ public class Utils {
         return accessToken;
     }
 
-
-
-
     public static void setBusinessStatus(Context mContext, String bizStatus) {
         if (mContext == null)
             return;
@@ -805,6 +802,30 @@ public class Utils {
         mContext.startActivityForResult(intent, USER_PROFILE_IMG);
     }*/
 
+    public static boolean isValidPassword(String password) {
+        int size = password.length();
+        int pos_lastLetter = size - 1;
+        if (password.length() > 5 && password.length() < 20) {
+            if (Character.isDigit(password.charAt(0)) || Character.isLetter(password.charAt(0))) {
+                if (Character.isDigit(password.charAt(pos_lastLetter)) || Character.isLetter(password.charAt(pos_lastLetter))) {
+                    for (int i = 0; i < password.length(); i++) {
+                        if (Character.isLetter(password.charAt(i)) || Character.isDigit(password.charAt(i)) || password.charAt(i) == '@' || password.charAt(i) == '.' || password.charAt(i) == '_' || password.charAt(i) == '-') {
+
+                        } else {
+                            return false;
+                        }
+                    }
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 
 
 }

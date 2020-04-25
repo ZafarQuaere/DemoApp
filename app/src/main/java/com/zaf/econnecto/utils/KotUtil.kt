@@ -1,6 +1,8 @@
 package com.zaf.econnecto.utils
 
 import android.content.Context
+import android.location.Address
+import android.location.Geocoder
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -17,6 +19,7 @@ import com.zaf.econnecto.ui.fragments.user_register.PhoneVerificationFragment
 import com.zaf.econnecto.ui.fragments.user_register.TermsConditionWebViewFragment
 import com.zaf.econnecto.ui.interfaces.ActionBarItemClick
 import org.json.JSONObject
+import java.io.IOException
 import java.util.*
 
 class KotUtil {
@@ -106,6 +109,24 @@ class KotUtil {
                 textBack.setOnClickListener { activity.onBackPressedDispatcher.onBackPressed() }
             }
         }
+
+        fun getLocationFromAddress(context: Context?, strAddress: String?): Address? {
+            val coder = Geocoder(context)
+            var address: List<Address>? = null
+            //  GeoPoint p1 = null;
+            try {
+                address = coder.getFromLocationName(strAddress, 5)
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            if (address == null) return null
+            val location: Address = address[0]
+            val latitude: Double = location.getLatitude()
+            val longitude: Double = location.getLongitude()
+
+            // return "Latitude : " +latitude + "  Longitude : " + longitude;
+            return location
+        }
     }
 
     public fun loadDataFromAssets(activity: AppCompatActivity,mfileName: String) {
@@ -115,4 +136,6 @@ class KotUtil {
         var obj = JSONObject(loadJSONFromAsset)
         LogUtils.DEBUG("status : ${obj.optInt("status")}  message ${obj.optJSONArray("message").get(0)}")
     }
+
+
 }

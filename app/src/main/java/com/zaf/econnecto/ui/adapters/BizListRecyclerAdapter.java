@@ -229,7 +229,7 @@ public class BizListRecyclerAdapter extends RecyclerView.Adapter<BizListRecycler
                     if (null != mListener) {
                         // Notify the active callbacks interface (the activity, if the
                         // fragment is attached to one) that an item has been selected.
-                     //   mListener.onListFragmentInteraction(mItem);
+                        mListener.onListFragmentInteraction(mItem);
                     }
                 }
             });

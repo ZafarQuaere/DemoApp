@@ -23,6 +23,7 @@ import com.zaf.econnecto.network_call.response_model.biz_list.BizData;
 import com.zaf.econnecto.ui.activities.AddBusinessActivity;
 import com.zaf.econnecto.ui.activities.BizDetailsActivity;
 import com.zaf.econnecto.ui.activities.LoginActivity;
+import com.zaf.econnecto.ui.activities.ViewBusinessActivity;
 import com.zaf.econnecto.ui.adapters.BizListRecyclerAdapter;
 import com.zaf.econnecto.ui.interfaces.ActionBarItemClick;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
@@ -153,10 +154,12 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
         if (data != null) {
             BizListRecyclerAdapter adapter = new BizListRecyclerAdapter(mContext, data, item -> {
                 if (item != null) {
-                    Intent intent = new Intent(getActivity(), BizDetailsActivity.class);
+                    Intent i = new Intent(getActivity(), ViewBusinessActivity.class);
+                    startActivity(i);
+                  /*  Intent intent = new Intent(getActivity(), BizDetailsActivity.class);
                     intent.putExtra(getString(R.string.key_biz_id), item.getBusinessId());
                     intent.putExtra(getString(R.string.is_following), item.getIsFollowing() == 1);
-                    startActivity(intent);
+                    startActivity(intent);*/
                 }
             });
             adapter.notifyDataSetChanged();

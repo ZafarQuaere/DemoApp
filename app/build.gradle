@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     compileSdkVersion 28
@@ -87,6 +88,7 @@ dependencies {
     def paging_version = "1.0.0"
     def lifecycleVersion = "2.2.0-alpha05"
     implementation 'com.google.firebase:firebase-analytics:17.3.0'
+    implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta04'
 
     //adding view model
     implementation "android.arch.lifecycle:extensions:$lifecycleVersion"
@@ -98,15 +100,14 @@ dependencies {
     //adding paging
 //    implementation "android.arch.paging:runtime:$paging_version"
 
-
     // Required -- JUnit 4 framework
     testImplementation 'junit:junit:4.12'
     // Optional -- Robolectric environment
     //testImplementation 'android.test:core:1.0.0' creating build issue
     // Optional -- Mockito framework
-    testImplementation 'org.mockito:mockito-core:2.28.2'
+    testImplementation 'org.mockito:mockito-core:3.3.3'
     implementation project(path: ':ecrop')
-    implementation "androidx.core:core-ktx:1.1.0"
+    implementation "androidx.core:core-ktx:1.2.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     def navVersion = "2.2.0-rc04"
@@ -115,6 +116,7 @@ dependencies {
 
     //for background color picker of hot deals
     implementation 'com.github.skydoves:colorpickerpreference:1.0.2'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
 }
 apply plugin: 'com.google.gms.google-services'
 repositories {

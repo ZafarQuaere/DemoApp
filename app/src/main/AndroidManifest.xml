@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".utils.AppController"
@@ -19,6 +20,16 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+
+        <activity android:name=".ui.activities.ViewBusinessActivity" />
         <activity
             android:name=".ui.activities.UserRegistrationActivity"
             android:label="@string/title_activity_user_registration" />
@@ -71,8 +82,9 @@
         <activity
             android:name=".version2.ui.HomeActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activities.ResetPswdActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activities.ResetPswdActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".ui.activities.PhoneVerificationActivity" />
 
         <uses-library
