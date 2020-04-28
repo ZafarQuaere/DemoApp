@@ -1,13 +1,16 @@
 package com.zaf.econnecto.ui.activities
 
 import android.content.Context
-import android.location.Address
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
-import com.google.android.gms.maps.*
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.UiSettings
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.tabs.TabLayout
@@ -18,8 +21,6 @@ import com.zaf.econnecto.ui.adapters.VBHeaderImageRecylcerAdapter
 import com.zaf.econnecto.ui.fragments.details_frag.*
 import com.zaf.econnecto.ui.presenters.ViewBusinessPresenter
 import com.zaf.econnecto.ui.presenters.operations.IViewBizns
-import com.zaf.econnecto.utils.KotUtil
-import com.zaf.econnecto.utils.LogUtils
 import kotlinx.android.synthetic.main.vb_communication_menu.*
 
 
@@ -30,10 +31,12 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,O
     private lateinit var gMap : GoogleMap
     private var mContext : Context = this
     override fun onCreate(savedInstanceState: Bundle?) {
+        window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_view_business)
         initUI()
         presenter.callCategoryApi()
+        presenter.updateActionbar(this)
 
         presenter.initMap(this,mapFrag)
         /*val mapFragment = supportFragmentManager
@@ -54,7 +57,7 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,O
 
         setupViewPager(viewPagerTabs)
         rlytLocation.setOnClickListener {
-            LogUtils.showToast(this,"clicked location")
+//            LogUtils.showToast(this,"clicked location")
             mapFrag.view!!.visibility = View.VISIBLE
         }
     }
@@ -105,6 +108,5 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,O
         gMap.moveCamera(CameraUpdateFactory.newLatLng(ny))
 
     }
-
 
 }

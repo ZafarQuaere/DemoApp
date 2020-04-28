@@ -1,9 +1,10 @@
 package com.zaf.econnecto.ui.presenters
 
-import android.app.Activity
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.android.volley.Request
 import com.android.volley.Response
@@ -18,7 +19,6 @@ import com.zaf.econnecto.utils.AppController
 import com.zaf.econnecto.utils.AppDialogLoader
 import com.zaf.econnecto.utils.LogUtils
 import com.zaf.econnecto.utils.parser.ParseManager
-import kotlinx.android.synthetic.main.vb_communication_menu.*
 
 class ViewBusinessPresenter(context: Context?, iViewBizns: IViewBizns) : BasePresenter(context) {
     private var mContext: Context = context!!
@@ -51,6 +51,17 @@ class ViewBusinessPresenter(context: Context?, iViewBizns: IViewBizns) : BasePre
                 .findFragmentById(R.id.mapFrag) as SupportMapFragment
         mapFragment.getMapAsync(mContext)
         mapFrag!!.view!!.visibility = View.GONE
+    }
+
+
+    fun updateActionbar(activity: ViewBusinessActivity) {
+        val toolbar = activity.findViewById<Toolbar>(R.id.toolbarBd)
+        activity.setSupportActionBar(toolbar)
+        activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        activity.supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        toolbar.setNavigationOnClickListener { //finish();
+            activity.onBackPressed()
+        }
     }
 
 }

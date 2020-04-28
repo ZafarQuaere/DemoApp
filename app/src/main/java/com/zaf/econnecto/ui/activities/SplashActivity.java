@@ -35,19 +35,18 @@ public class SplashActivity extends Activity {
             @Override
             public void run() {
                 boolean isLoginExpired = DateUtils.isLoginExpired(mContext);
-                if (isLoginExpired){
+                if (isLoginExpired) {
                     Utils.setLoggedIn(mContext, false);
-                    Utils.saveLoginData(mContext,null);
+                    Utils.saveLoginData(mContext, null);
                 }
-
-                if(mContext.getResources().getBoolean(R.bool.run_version2_ui)){
+                if (mContext.getResources().getBoolean(R.bool.run_version2_ui)) {
                     Intent i = new Intent(SplashActivity.this, HomeActivity.class);
                     startActivity(i);
-                }else {
+                } else {
                     Intent i = new Intent(SplashActivity.this, MainActivity.class);
                     startActivity(i);
                 }
-               /* Intent i = new Intent(SplashActivity.this, ViewBusinessActivity.class);
+                /*Intent i = new Intent(SplashActivity.this, MyBusinessActivityLatest.class);
                 startActivity(i);*/
                 finish();
             }
