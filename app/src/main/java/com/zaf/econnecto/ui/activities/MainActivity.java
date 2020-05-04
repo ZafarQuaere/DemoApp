@@ -234,6 +234,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
 
   public void item3Click(View view) {
     closeDrawer();
+    startActivity(new Intent(this, MyBusinessActivityLatest.class));
     // LogUtils.showToast(mContext, "Development under progress");
   }
 
@@ -427,7 +428,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
     if (resultCode == RESULT_OK && null != data) {
       Uri selectedImageUri = data.getData();
       if (requestCode == USER_PROFILE_IMG) {
-        Bitmap bitmap = BitmapUtils.getBitmap(mContext, data, selectedImageUri);
+        Bitmap bitmap = BitmapUtils.getBitmap(mContext, selectedImageUri);
         Bitmap resizedBmp = BitmapUtils.resizeBitmapProfile(bitmap);
         getPresenter().uploadBitmap(resizedBmp);
       }

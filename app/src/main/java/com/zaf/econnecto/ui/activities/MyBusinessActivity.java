@@ -320,19 +320,19 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         if (resultCode == RESULT_OK && null != data) {
             selectedImageUri = data.getData();
             if (requestCode == IMG_PROFILE_RESULT) {
-                Bitmap bitmap = BitmapUtils.getBitmap(mContext, data, selectedImageUri);
+                Bitmap bitmap = BitmapUtils.getBitmap(mContext, selectedImageUri);
                 Bitmap resizedBmp = BitmapUtils.resizeBitmapProfile(bitmap);
                // uploadBitmap(resizedBmp, IMG_PROFILE_RESULT);
                 getPresenter().uploadBitmap(resizedBmp,IMG_PROFILE_RESULT,null,null);
 
             } else if (requestCode == IMG_BANNER_RESULT) {
-                Bitmap bitmap = BitmapUtils.getBitmap(mContext, data, selectedImageUri);
+                Bitmap bitmap = BitmapUtils.getBitmap(mContext, selectedImageUri);
                 crop_layout.setVisibility(View.VISIBLE);
                 performCrop(bitmap);
 
             }
             else if (requestCode == IMG_HOT_DEALS) {
-                hotDealsBitmap = BitmapUtils.getBitmap(mContext, data, selectedImageUri);
+                hotDealsBitmap = BitmapUtils.getBitmap(mContext,selectedImageUri);
                 imgBackground.setVisibility(View.VISIBLE);
                 textUploadImgLable.setVisibility(View.GONE);
                 imgBackground.setImageBitmap(hotDealsBitmap);

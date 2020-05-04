@@ -109,7 +109,7 @@ public class LoginPresenter extends BasePresenter {
     private void storeProfileImage(LoginData loginData) {
         Utils.saveProfileImage(mContext,loginData.getData().getProfilePic());
       try {
-          Bitmap bitmap = BitmapUtils.getBitmap(mContext, null, Uri.parse(loginData.getData().getProfilePic()));
+          Bitmap bitmap = BitmapUtils.getBitmap(mContext,  Uri.parse(loginData.getData().getProfilePic()));
           BitmapUtils.saveProfileImage(mContext,bitmap);
         } catch(Exception e) {
             LogUtils.ERROR(e.getMessage());

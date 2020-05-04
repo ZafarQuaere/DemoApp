@@ -111,7 +111,7 @@ public class UploadImageActivity extends AppCompatActivity implements View.OnCli
         if (resultCode == RESULT_OK && null != data) {
             selectedImageUri = data.getData();
             if (requestCode == IMG_SELECT_GALLERY_REQUEST) {
-               bitmap = BitmapUtils.getBitmap(mContext, data, selectedImageUri);
+               bitmap = BitmapUtils.getBitmap(mContext, selectedImageUri);
                 // imgProfile.setImageBitmap(bitmap);
                 imageBanner.setImageURI(selectedImageUri);
                 imageBanner1.setImageURI(selectedImageUri);

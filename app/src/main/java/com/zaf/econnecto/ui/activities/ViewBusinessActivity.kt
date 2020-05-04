@@ -21,6 +21,7 @@ import com.zaf.econnecto.ui.adapters.VBHeaderImageRecylcerAdapter
 import com.zaf.econnecto.ui.fragments.details_frag.*
 import com.zaf.econnecto.ui.presenters.ViewBusinessPresenter
 import com.zaf.econnecto.ui.presenters.operations.IViewBizns
+import kotlinx.android.synthetic.main.vb_address_detail.*
 import kotlinx.android.synthetic.main.vb_communication_menu.*
 
 
@@ -54,7 +55,6 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,O
         viewPagerTabs = findViewById<ViewPager>(R.id.viewpagerTabs)
         tabLayout = findViewById<TabLayout>(R.id.tabs)
         tabLayout.setupWithViewPager(viewPagerTabs)
-
         setupViewPager(viewPagerTabs)
         rlytLocation.setOnClickListener {
 //            LogUtils.showToast(this,"clicked location")

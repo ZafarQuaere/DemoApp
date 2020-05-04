@@ -37,8 +37,8 @@ public class AppConstant {
     public static final String URL_LOGIN_MVP = "user_login/login.php";
     public static final String URL_BIZ_LIST = "business_list/business_list.php?id="; //(brandname,banner_image)
     public static final String URL_BIZ_DETAIL = "single_business.php?business_uid="; //(brandname,banner_image)
-//    public static final String URL_FOLLOW = "follow.php";
     public static final String URL_FOLLOW = "follow_unfollow/follow_unfollow.php";
+    public static final String URL_ADD_IMAGE = URL_BASE_MVP+"images_api/add_image.php";
     public static final String URL_LOGOUT = "logout.php";
     public static final String URL_FORGOT_PSWD = "forgot_password/forgot_password.php";
     public static final String URL_CHANGE_PSWD = "change_password/change_password.php";

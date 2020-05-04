@@ -4,8 +4,18 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
 import com.google.android.material.snackbar.Snackbar;
+
 import androidx.core.content.ContextCompat;
+
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -17,8 +27,11 @@ import android.widget.Toast;
 
 import com.zaf.econnecto.BuildConfig;
 import com.zaf.econnecto.R;
+import com.zaf.econnecto.ui.interfaces.AddPhotoDialogListener;
 import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.ui.interfaces.DialogSingleButtonListener;
+
+import static com.zaf.econnecto.utils.AppConstant.TAG;
 
 
 public class LogUtils {
@@ -39,13 +52,13 @@ public class LogUtils {
                 for (int i = 0; i <= chunkCount; i++) {
                     int max = 4000 * (i + 1);
                     if (max >= sb.length()) {
-                        Log.d(AppConstant.TAG, " >> " + sb.substring(4000 * i));
+                        Log.d(TAG, " >> " + sb.substring(4000 * i));
                     } else {
-                        Log.d(AppConstant.TAG, " >> " + sb.substring(4000 * i, max));
+                        Log.d(TAG, " >> " + sb.substring(4000 * i, max));
                     }
                 }
             } else {
-                Log.d(AppConstant.TAG, " >> " + sb.toString());
+                Log.d(TAG, " >> " + sb.toString());
             }
         }
     }
@@ -54,7 +67,7 @@ public class LogUtils {
      * @param message
      */
     public static void ERROR(String message) {
-        Log.e(AppConstant.TAG, " >> " + message);
+        Log.e(TAG, " >> " + message);
     }
 
     public static void showSnackBar(Context context, ViewGroup layout, String msg) {
@@ -99,7 +112,7 @@ public class LogUtils {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                if (listener != null){
+                if (listener != null) {
                     listener.onOkClick();
                 }
             }
@@ -128,7 +141,7 @@ public class LogUtils {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                if (listener != null){
+                if (listener != null) {
                     listener.okClick();
                 }
             }
@@ -136,4 +149,68 @@ public class LogUtils {
         dialog.show();
     }
 
+    public static void showAddPhotoDialog(Context ctx, AddPhotoDialogListener listener) {
+        final Dialog dialog = new Dialog(ctx);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setContentView(R.layout.dialog_add_photo);
+        TextView textTakePhoto = dialog.findViewById(R.id.textTakePhoto);
+        TextView textSelectGallery = dialog.findViewById(R.id.textSelectGallery);
+        textTakePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                if (listener != null) {
+                    listener.takePhoto();
+                }
+            }
+        });
+        textSelectGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                if (listener != null) {
+                    listener.selectFromGallery();
+                }
+            }
+        });
+        dialog.show();
+    }
+
+    public static void VolleyError(VolleyError error) {
+        if (error instanceof TimeoutError) {
+            //For example your timeout is 3 seconds but the operation takes longer
+            Log.e(TAG, "TimeoutError: " + (error.getMessage()));
+        } else if (error instanceof ServerError) {
+            Log.e(TAG, "ServerError: " + (error.getMessage()));
+        } else if (error instanceof NetworkError) {
+            Log.e(TAG, "NetworkError: " + (error.getMessage()));
+        } else if (error instanceof ParseError) {
+            //for cant convert data
+            Log.e(TAG, "ParseError: " + (error.getMessage()));
+        } else if (error instanceof AuthFailureError) {
+            //for cant convert data
+            Log.e(TAG, "AuthFailureError: " + (error.getMessage()));
+        } else {
+            //other error
+        }
+        //error.networkResponse.statusCode
+
+        //error.getCause() instanceof JsonSyntaxException
+
+        Log.e(TAG, "NullPointerException: " + (error.getCause() instanceof NullPointerException));
+
+                /*if(error.getCause() instanceof UnknownHostException ||
+                    error.getCause() instanceof EOFException ) {
+                    errorMsg = resources.getString(R.string.net_error_connect_network);
+                } else {
+                    if(error.getCause().toString().contains("Network is unreachable")) {
+                        errorMsg = resources.getString(R.string.net_error_no_network);
+                    } else {
+                        errorMsg = resources.getString(R.string.net_error_connect_network);
+                    }
+                }*/
+
+    }
 }
