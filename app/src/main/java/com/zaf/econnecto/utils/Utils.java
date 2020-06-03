@@ -729,6 +729,22 @@ public class Utils {
         }
     }
 
+    public static void openWhatsApp(Context mContext, String phone) {
+        String url = "https://api.whatsapp.com/send?phone="+phone;
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        mContext.startActivity(i);
+    }
+
+    public static void openMsgInbox(Context mContext, String phone ){
+        Intent smsIntent = new Intent(Intent.ACTION_VIEW);
+//        smsIntent.setType("vnd.android-dir/mms-sms");
+        smsIntent.putExtra("address", phone);
+        smsIntent.setData(Uri.parse("sms:"));
+        smsIntent.putExtra("sms_body", "write your text");
+        mContext.startActivity(smsIntent);
+    }
+
     public static void saveProfileImage(Context mContext,String profilePic) {
         if (mContext == null)
             return;

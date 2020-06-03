@@ -21,7 +21,7 @@ import com.zaf.econnecto.ui.adapters.VBHeaderImageRecylcerAdapter
 import com.zaf.econnecto.ui.fragments.details_frag.*
 import com.zaf.econnecto.ui.presenters.ViewBusinessPresenter
 import com.zaf.econnecto.ui.presenters.operations.IViewBizns
-import kotlinx.android.synthetic.main.vb_address_detail.*
+import com.zaf.econnecto.utils.Utils
 import kotlinx.android.synthetic.main.vb_communication_menu.*
 
 
@@ -56,9 +56,28 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,O
         tabLayout = findViewById<TabLayout>(R.id.tabs)
         tabLayout.setupWithViewPager(viewPagerTabs)
         setupViewPager(viewPagerTabs)
+        onClickEvents()
+
+    }
+
+    private fun onClickEvents() {
         rlytLocation.setOnClickListener {
 //            LogUtils.showToast(this,"clicked location")
-            mapFrag.view!!.visibility = View.VISIBLE
+            mapFrag.requireView().visibility = if (mapFrag.requireView().visibility == View.VISIBLE)
+                View.GONE
+            else
+                View.VISIBLE
+
+        }
+        rlytCall.setOnClickListener {
+            Utils.callPhone(mContext,"7834908329")
+        }
+        rlytWhatsApp.setOnClickListener {
+            Utils.openWhatsApp(mContext,"+91 7677616600")
+        }
+
+        rlytMessage.setOnClickListener {
+            Utils.openMsgInbox(mContext,"7834908329")
         }
     }
 

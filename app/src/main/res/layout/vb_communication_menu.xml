@@ -16,6 +16,7 @@
         android:weightSum="5">
 
         <RelativeLayout
+            android:id="@+id/rlytCall"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1">
@@ -43,6 +44,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rlytMessage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1">
@@ -58,6 +60,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rlytWhatsApp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1">
