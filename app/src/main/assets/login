@@ -1,14 +1,22 @@
 {
-  "message": "Login Done",
+  "message": [
+    "Login Successful"
+  ],
   "status": 1,
   "data": {
-    "id": "13",
-    "name": "zafar",
-    "password": "a1bff398d87251811298aae9f423d930e4571bd07bb4d68d6a280cceb1ccb48e",
-    "mobile": "7834908329",
-    "email": "zafarimam512@gmail.com",
-    "token": "No Available",
-    "userType": "0",
-    "dealerId": "0"
+    "id": "50",
+    "email": "zafarquaere@gmail.com",
+    "phone": "7834908329",
+    "first_name": "",
+    "last_name": null,
+    "gender": "1",
+    "year_of_birth": "1991",
+    "profile_pic": "http:\/\/econnecto.com\/andMVP\/src\/images\/profile_pics\/default_pics\/avatar-default.png",
+    "is_email_verified": "1",
+    "is_phone_verified": "1",
+    "business_status": "1",
+    "following_count": "10",
+    "JWT_Token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9lY29ubmVjdG8uY29tIiwiYXVkIjoiaHR0cDpcL1wvZWNvbm5lY3RvLmNvbSIsImlhdCI6MTU5MTQ3Mzc3NywibmJmIjoxNTkxNDczNzg3LCJkYXRhIjp7ImlkIjoiYzBjN2M3NmQzMGJkM2RjYWVmYzk2ZjQwMjc1YmRjMGEiLCJwaG9uZSI6MTc3MDYxNDYyMjQsImNvbW1lbnQiOiJpZCBhbmQgcGhvbmUgYXJlIGVuY3J5cHRlZC4gU2VlIHRoZSBEb2N1bWVudGF0aW9uIChpbiBnZW5lcmF0ZV9qd3QucGhwKSBiZWZvcmUgdXNlIn19.REWYHc1yQ6sMpbqQH9CtqdqiErdRPDNtLOladlv1IQU"
   }
 }
+

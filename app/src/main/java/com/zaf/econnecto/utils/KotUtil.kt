@@ -1,6 +1,7 @@
 package com.zaf.econnecto.utils
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.location.Address
 import android.location.Geocoder
 import android.view.View
@@ -18,11 +19,22 @@ import com.zaf.econnecto.ui.fragments.add_business.AddBizScreen3Fragment
 import com.zaf.econnecto.ui.fragments.user_register.PhoneVerificationFragment
 import com.zaf.econnecto.ui.fragments.user_register.TermsConditionWebViewFragment
 import com.zaf.econnecto.ui.interfaces.ActionBarItemClick
+import id.zelory.compressor.Compressor
+import id.zelory.compressor.constraint.format
+import id.zelory.compressor.constraint.quality
+import id.zelory.compressor.constraint.resolution
+import id.zelory.compressor.constraint.size
+import kotlinx.coroutines.delay
 import org.json.JSONObject
+import java.io.File
 import java.io.IOException
+import java.text.DecimalFormat
 import java.util.*
+import kotlin.math.log10
+import kotlin.math.pow
 
 class KotUtil {
+
 
     private val PASSWORD_PATTERN = "((?=.*[a-z])(?=.*\\d)(?=.*[A-Z])(?=.*[@#$%!]).{8,40})"
 
@@ -127,15 +139,65 @@ class KotUtil {
             // return "Latitude : " +latitude + "  Longitude : " + longitude;
             return location
         }
+
+
+        @JvmStatic
+        suspend fun compressImage(mContext: Context, file: File): File {
+            LogUtils.DEBUG("Size before compress : ${getReadableFileSize(file.length())}")
+            var compressedFile = Compressor.compress(mContext,file)
+            val imgSizeStr = getReadableFileSize(compressedFile.length())
+            val imgSize: Double = if (imgSizeStr.contains("MB")) {
+                imgSizeStr.substring(0, imgSizeStr.length - 3).toDouble() * 1024.0
+            } else {
+                imgSizeStr.substring(0, imgSizeStr.length - 3).toDouble()
+            }
+            LogUtils.DEBUG("Size after compress : $imgSize")
+            if (imgSize > 500.0){
+                compressedFile = compressFurther(mContext,file)
+                LogUtils.DEBUG("$$ 500 KB Size after compress : ${getReadableFileSize(compressedFile.length())}")
+            }
+            delay(1000)
+            return compressedFile
+        }
+
+        private suspend fun compressFurther(mContext: Context, file: File): File {
+           return Compressor.compress(mContext,file) {
+                resolution(1000, 420)
+                quality(70)
+                format(Bitmap.CompressFormat.WEBP)
+                //size(2_097_152) // 2 MB
+            }
+        }
+
+        /* private fun saveFile(compressFile: File): File {
+             val file = File(compressFile.absolutePath)
+             val bitmap = BitmapFactory.decodeFile(compressFile.absolutePath)
+             val fos = FileOutputStream(file)
+             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+             fos.flush()
+             fos.close()
+             return file
+         }
+ */
+        fun getReadableFileSize(size: Long): String {
+            if (size <= 0) {
+                return "0"
+            }
+            val units = arrayOf("B", "KB", "MB", "GB", "TB")
+            val digitGroups = (log10(size.toDouble()) / log10(1024.0)).toInt()
+            return DecimalFormat("#,##0.#").format(size / 1024.0.pow(digitGroups.toDouble())) + " " + units[digitGroups]
+        }
+
+
     }
+
+
 
     public fun loadDataFromAssets(activity: AppCompatActivity,mfileName: String) {
        // var fileName : String = "user_register_failure"
         var fileName : String = mfileName
-        val loadJSONFromAsset = FileUtils.loadJSONFromAsset(activity, fileName)
+        val loadJSONFromAsset = FileUtil.loadJSONFromAsset(activity, fileName)
         var obj = JSONObject(loadJSONFromAsset)
         LogUtils.DEBUG("status : ${obj.optInt("status")}  message ${obj.optJSONArray("message").get(0)}")
     }
-
-
 }

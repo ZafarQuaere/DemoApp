@@ -10,13 +10,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.zaf.econnecto.R
-import com.zaf.econnecto.ui.fragments.add_business.AddBizScreen2Fragment
 import com.zaf.econnecto.ui.interfaces.FragmentNavigation
-import com.zaf.econnecto.utils.FileUtils
 import com.zaf.econnecto.utils.KotUtil
-import com.zaf.econnecto.utils.LogUtils
 import kotlinx.android.synthetic.main.fragment_user_register.*
-import org.json.JSONObject
 
 
 class UserRegisterFragment : Fragment(), FragmentNavigation {

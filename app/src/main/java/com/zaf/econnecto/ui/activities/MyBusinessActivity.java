@@ -269,7 +269,7 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
             public void onBitmapCropped(@NonNull Uri resultUri, int offsetX, int offsetY, int imageWidth, int imageHeight) {
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), resultUri);
-                    Bitmap resizedBmp = BitmapUtils.resizeBitmapBanner(bitmap);
+                    Bitmap resizedBmp = BitmapUtils.resizeBitmapBanner(bitmap,933,266);
                     // uploadBitmap(resizedBmp, IMG_BANNER_RESULT);
                      getPresenter().uploadBitmap(resizedBmp,IMG_BANNER_RESULT,null,null);
                     //imgBanner.setImageBitmap(bitmap);

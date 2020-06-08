@@ -124,25 +124,34 @@ public class BitmapUtils {
         return Bitmap.createScaledBitmap(bitmap,200,200,true);
     }
 
-    public static Bitmap resizeBitmapBanner(Bitmap bitmap) {
+    public static Bitmap resizeBitmapBanner(Bitmap bitmap,int maxWidth,int maxHeight) {
        /* int maxWidth = 900;
         int maxHeight = 266;
         float scale = Math.min(((float)maxHeight / bitmap.getWidth()), ((float)maxWidth / bitmap.getHeight()));
         Matrix matrix = new Matrix();
         matrix.postScale(scale, scale);*/
         //Bitmap mbitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-        Bitmap mbitmap =   Bitmap.createScaledBitmap(bitmap,933,266,true);
-
+        Bitmap mbitmap =   Bitmap.createScaledBitmap(bitmap,maxWidth,maxHeight,true);
+        if (getByteArrayFromBitmap(bitmap).length > (500 * 1000)) {
+            resizeBitmapBanner(mbitmap,maxWidth-50,maxHeight-20);
+            // reduce size again
+        } else {
+            return mbitmap;
+        }
         return mbitmap;
     }
 
-    public static byte[] getFileDataFromDrawable(Bitmap bitmap) {
+
+
+    public static byte[] getByteArrayFromBitmap(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 50, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         byte[] bytes = byteArrayOutputStream.toByteArray();
-        LogUtils.DEBUG("Image size is : "+bytes.length);
+        LogUtils.DEBUG("Image size is : "+(bytes.length)/1024);
+//        LogUtils.DEBUG("Image size is : "+KotUtil.getReadableFileSize(bytes.length));
         return bytes;
     }
+
 
     public static Bitmap getCircledBitmap(Bitmap bitmap) {
         //Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
@@ -335,8 +344,6 @@ public class BitmapUtils {
                 setDirectoryName("profile").load();
         return bitmap;
     }
-
-
 
     /**
      *

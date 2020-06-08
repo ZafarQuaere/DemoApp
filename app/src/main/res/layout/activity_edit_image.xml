@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activities.EditImageActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarBd"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:visibility="visible"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        android:background="@color/colorBlack"
+        app:titleTextColor="@color/colorWhite" />
+
+    <ImageView
+        android:id="@+id/imgView"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_below="@+id/toolbarBd"
+        android:layout_margin="@dimen/_30dp"
+        android:contentDescription="@string/todo"
+        android:scaleType="fitXY"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/imgView1"
+        android:layout_width="@dimen/_100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/imgView"
+        android:contentDescription="@string/todo"
+        android:scaleType="fitXY"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/_30dp"/>
+
+    <Button
+        android:id="@+id/btnUpload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/upload_image"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/_30dp"/>
+</RelativeLayout>

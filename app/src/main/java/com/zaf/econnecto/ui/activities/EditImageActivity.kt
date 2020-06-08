@@ -1,17 +1,18 @@
 package com.zaf.econnecto.ui.activities
 
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.lifecycleScope
 import com.zaf.econnecto.R
+import com.zaf.econnecto.model.ImageUpdateModelListener
 import com.zaf.econnecto.ui.presenters.EditImagePresenter
 import com.zaf.econnecto.ui.presenters.operations.IEditImage
-import com.zaf.econnecto.utils.BitmapUtils
 import kotlinx.android.synthetic.main.activity_edit_image.*
+import kotlinx.coroutines.launch
 import java.io.File
 
 class EditImageActivity : BaseActivity<EditImagePresenter?>(), IEditImage{
@@ -23,10 +24,9 @@ class EditImageActivity : BaseActivity<EditImagePresenter?>(), IEditImage{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_image)
         val stringPath = intent.getStringExtra("imagePath")
+        val file = File(stringPath)
         stringUri =  Uri.fromFile(File(stringPath))
-
-        imgView.setImageURI(stringUri);
-
+        imgView.setImageURI(stringUri)
         try {
             Handler().postDelayed(Runnable {
                  bitmap = MediaStore.Images.Media.getBitmap(contentResolver, stringUri)
@@ -44,7 +44,10 @@ class EditImageActivity : BaseActivity<EditImagePresenter?>(), IEditImage{
             onBackPressed()
         }
         btnUpload.setOnClickListener {
-            presenter!!.uploadBitmap(bitmap)
+            lifecycleScope.launch {
+                presenter!!.uploadBitmap(bitmap,file)
+            }
+
         }
     }
 
@@ -64,7 +67,13 @@ class EditImageActivity : BaseActivity<EditImagePresenter?>(), IEditImage{
     }
 
     override fun onUploadError(error: String) {
-        TODO("Not yet implemented")
+
     }
+
+    override fun onUploadSuccess() {
+        ImageUpdateModelListener.getInstance().changeState(true)
+        onBackPressed()
+    }
+
 
 }

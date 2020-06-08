@@ -16,6 +16,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.tabs.TabLayout
 import com.zaf.econnecto.R
 import com.zaf.econnecto.network_call.response_model.home.CategoryData
+import com.zaf.econnecto.network_call.response_model.img_data.ViewImageData
 import com.zaf.econnecto.ui.adapters.TabViewPagerAdapter
 import com.zaf.econnecto.ui.adapters.VBHeaderImageRecylcerAdapter
 import com.zaf.econnecto.ui.fragments.details_frag.*
@@ -37,6 +38,7 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,O
         setContentView(R.layout.layout_view_business)
         initUI()
         presenter.callCategoryApi()
+        presenter.callBannerImgApi()
         presenter.updateActionbar(this)
 
         presenter.initMap(this,mapFrag)
@@ -92,15 +94,19 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,O
     }
 
     override fun updateCategory(data: List<CategoryData>) {
+//        val recycler_hotdeals = findViewById<RecyclerView>(R.id.recycler_hotdeals)
+//        recycler_hotdeals.layoutManager = LinearLayoutManager(this)
+//        recycler_hotdeals.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false)
+//        val adapter = VBHeaderImageRecylcerAdapter(this, data, null)
+//        recycler_hotdeals.adapter = adapter
+    }
+
+    override fun updateBannerImage(data: MutableList<ViewImageData>) {
         val recyclerHeader = findViewById<RecyclerView>(R.id.recycler_header)
-        val recycler_hotdeals = findViewById<RecyclerView>(R.id.recycler_hotdeals)
         recyclerHeader.layoutManager = LinearLayoutManager(this)
-        recycler_hotdeals.layoutManager = LinearLayoutManager(this)
         recyclerHeader.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false)
-        recycler_hotdeals.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false)
-        val adapter = VBHeaderImageRecylcerAdapter(this, data, null)
+        val adapter = VBHeaderImageRecylcerAdapter(this, data)
         recyclerHeader.adapter = adapter
-        recycler_hotdeals.adapter = adapter
     }
 
     override fun onMapReady(googleMap: GoogleMap?) {

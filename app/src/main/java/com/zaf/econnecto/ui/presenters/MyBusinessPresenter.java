@@ -19,8 +19,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
-import com.skydoves.colorpickerpreference.ColorEnvelope;
-import com.skydoves.colorpickerpreference.ColorListener;
 import com.skydoves.colorpickerpreference.ColorPickerDialog;
 import com.skydoves.colorpickerpreference.ColorPickerView;
 import com.zaf.econnecto.R;
@@ -29,7 +27,6 @@ import com.zaf.econnecto.network_call.VolleyMultipartRequest;
 import com.zaf.econnecto.network_call.response_model.my_business.AddDealsBg;
 import com.zaf.econnecto.network_call.response_model.my_business.MyBusiness;
 import com.zaf.econnecto.network_call.response_model.my_business.MyBusinessData;
-import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.ui.interfaces.DialogSingleButtonListener;
 import com.zaf.econnecto.ui.presenters.operations.IMyBusiness;
 import com.zaf.econnecto.utils.AppConstant;
@@ -306,7 +303,7 @@ public class MyBusinessPresenter extends BasePresenter {
             protected Map<String, DataPart> getByteData() {
                 Map<String, DataPart> params = new HashMap<>();
                 long imagename = System.currentTimeMillis();
-                params.put(finalUpload_type, new DataPart(imagename + ".png", BitmapUtils.getFileDataFromDrawable(bitmapUpload)));
+                params.put(finalUpload_type, new DataPart(imagename + ".png", BitmapUtils.getByteArrayFromBitmap(bitmapUpload)));
 
                 return params;
             }

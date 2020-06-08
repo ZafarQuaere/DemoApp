@@ -9,7 +9,7 @@ import java.util.*
 class TabViewPagerAdapter(manager: FragmentManager?, messListData: ArrayList<String>?) : FragmentPagerAdapter(manager!!) {
     private val mFragmentList: MutableList<Fragment> = ArrayList()
     private val mFragmentTitleList: MutableList<String> = ArrayList()
-    private var data: ArrayList<String>? =  messListData
+    private var data: ArrayList<String>? = messListData
     private var fragmentManager: FragmentManager? = manager
 
 

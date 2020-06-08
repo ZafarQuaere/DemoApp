@@ -12,6 +12,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.zaf.econnecto.R
 import com.zaf.econnecto.network_call.MyJsonObjectRequest
 import com.zaf.econnecto.network_call.response_model.home.BizCategoryData
+import com.zaf.econnecto.network_call.response_model.img_data.ViewImages
 import com.zaf.econnecto.ui.activities.ViewBusinessActivity
 import com.zaf.econnecto.ui.presenters.operations.IViewBizns
 import com.zaf.econnecto.utils.AppConstant
@@ -62,6 +63,27 @@ class ViewBusinessPresenter(context: Context?, iViewBizns: IViewBizns) : BasePre
         toolbar.setNavigationOnClickListener { //finish();
             activity.onBackPressed()
         }
+    }
+
+    fun callBannerImgApi() {
+        val loader = AppDialogLoader.getLoader(mContext)
+        loader.show()
+        val url = AppConstant.URL_VIEW_IMAGES // + AppConstant.listUrl+ 2;
+
+        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, Response.Listener { response ->
+            LogUtils.DEBUG("View Image Response ::$response")
+            val data = ParseManager.getInstance().fromJSON(response.toString(), ViewImages::class.java)
+            if (data.status == AppConstant.SUCCESS) {
+                mIViewBizns.updateBannerImage(data.data)
+            } else {
+                mIViewBizns.updateBannerImage(data.data)
+            }
+            loader.dismiss()
+        }, Response.ErrorListener { error ->
+            LogUtils.DEBUG("Biz Category Error ::" + error.message)
+            loader.dismiss()
+        })
+        AppController.getInstance().addToRequestQueue(objectRequest, "Biz Category")
     }
 
 }

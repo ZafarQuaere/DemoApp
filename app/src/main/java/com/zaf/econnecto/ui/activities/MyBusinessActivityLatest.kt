@@ -12,13 +12,18 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.zaf.econnecto.R
 import com.zaf.econnecto.crop.CroppingHelper
 import com.zaf.econnecto.crop.view.GestureCropImageView
 import com.zaf.econnecto.crop.view.OverlayView
 import com.zaf.econnecto.crop.view.UCropView
+import com.zaf.econnecto.model.ImageUpdateModelListener
+import com.zaf.econnecto.network_call.response_model.img_data.ViewImageData
 import com.zaf.econnecto.network_call.response_model.my_business.DealsBgData
 import com.zaf.econnecto.network_call.response_model.my_business.MyBusinessData
+import com.zaf.econnecto.ui.adapters.VBHeaderImageRecylcerAdapter
 import com.zaf.econnecto.ui.interfaces.AddPhotoDialogListener
 import com.zaf.econnecto.ui.presenters.MyBusinessPresenterLatest
 import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
@@ -29,43 +34,12 @@ import com.zaf.econnecto.utils.PermissionUtils
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.vb_address_detail.imgEditBusiness
 
-class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMyBusinessLatest, View.OnClickListener {
-    private var mContext: Context? = null
-    private var textFollowers: TextView? = null
-    private var imgBannerUpload: ImageButton? = null
-    private var imgProfileUpload: ImageButton? = null
-    private var imgProfile: CircleImageView? = null
-    private var imgBanner: ImageView? = null
-    private var selectedImageUri: Uri? = null
-    private var textPhone: TextView? = null
-    private var loader: AppLoaderFragment? = null
-    private var textEmail: TextView? = null
-    private var textWebsite: TextView? = null
-    private var textShortDescription: TextView? = null
+class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMyBusinessLatest,ImageUpdateModelListener.ImageUpdateListener, View.OnClickListener {
 
-    // private TextView textDetailDescription;
-    private var textAddress: TextView? = null
-    private var crop_layout: LinearLayout? = null
-    private var mCroppingHelper: CroppingHelper? = null
-    private var cropOptionintent: Intent? = null
-    private var mUCropView: UCropView? = null
-    private var mGestureCropImageView: GestureCropImageView? = null
-    private var mOverlayView: OverlayView? = null
-    private var mCompressFormat: Bitmap.CompressFormat? = null
-    private var mCompressQuality = 0
-    private lateinit var mAllowedGestures: IntArray
-    private var btCancelCrop: ImageButton? = null
-    private var btApplyCrop: ImageButton? = null
-    private var dealsBgData: List<DealsBgData>? = null
-    private var textUploadImgLable: TextView? = null
-    private var imgBtnHotDeals: ImageButton? = null
-    private var imgBackground: ImageView? = null
-    private var editEnterDealsInfo: EditText? = null
-    private var hotDealsBitmap: Bitmap? = null
-    private var btnSubmitHotDeals: Button? = null
-    private var textDealsNOffers: TextView? = null
-    private var btnSelectBgColor: Button? = null
-    private var mCurrentPhotoPath: String? = null
+    private var mContext: Context? = null
+
+    private var selectedImageUri: Uri? = null
+    private var loader: AppLoaderFragment? = null
 
     companion object {
         private const val GALLERY_IMAGE_CODE = 100
@@ -84,10 +58,10 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         loader = AppLoaderFragment.getInstance(mContext)
         updateActionbar()
         //presenter!!.callMyBizApi()
+        presenter!!.callBannerImgApi()
     }
 
     private fun updateActionbar() {
-        //TODO this has to be done in update UI
         imgEditBusiness.visibility = View.VISIBLE
         imgEditBusiness.isEnabled = false
 
@@ -100,20 +74,13 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         }
     }
 
-    override fun onValidationError(msg: String?) {
-    }
 
-    override fun updateUI(bizDetails: MyBusinessData?) {
-        // imgEditBusiness.visibility = View.VISIBLE
-    }
-
-    override fun updateImage(imageType: Int, bitmapUpload: Bitmap?) {
-    }
-
-    override fun updateBizData(address: String?, mobile: String?, email: String?, website: String?, shortDesc: String?, detailDesc: String?) {
-    }
-
-    override fun updateDealBackground(dealsBgData: MutableList<DealsBgData>?) {
+    override fun updateBannerImage(data: MutableList<out ViewImageData>) {
+        val recyclerHeader = findViewById<RecyclerView>(R.id.recycler_header)
+        recyclerHeader.layoutManager = LinearLayoutManager(this)
+        recyclerHeader.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false)
+        val adapter = VBHeaderImageRecylcerAdapter(this, data.toList() as MutableList<ViewImageData>)
+        recyclerHeader.adapter = adapter
     }
 
     override fun onClick(v: View?) {
@@ -142,13 +109,6 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
                 startActivityForResult(takePictureIntent, CAMERA_IMAGE_CODE)
             }
         }
-      /*  val values = ContentValues()
-        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg")
-        val image_uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-        //camera intent
-        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
-        startActivityForResult(cameraIntent, CAMERA_IMAGE_CODE)*/
     }
 
 
@@ -179,6 +139,8 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
 
     private fun moveToEditImage(data: Intent, requestCode: Int) {
         val intent = Intent(this,EditImageActivity::class.java)
+        ImageUpdateModelListener.getInstance().setImageUpdateListener(this)
+        LogUtils.DEBUG("isImageUpdate CurrentState ${ImageUpdateModelListener.getInstance().changeState(false)} ")
         if (requestCode == GALLERY_IMAGE_CODE) {
             //val byteArray = BitmapUtils.getFileDataFromDrawable(BitmapUtils.getBitmap(mContext,selectedImageUri))
             intent.putExtra("imagePath",BitmapUtils.getImagePath(this,selectedImageUri,null,BitmapUtils.URI_IMAGE))
@@ -189,4 +151,14 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         //intent.putExtra("imageUri",selectedImageUri)
         startActivity(intent)
     }
+
+    override fun isImageAdded() {
+      var isImageUpdate =  ImageUpdateModelListener.getInstance().state
+        LogUtils.DEBUG("isImageUpdate $isImageUpdate ")
+        if (isImageUpdate){
+            presenter!!.callBannerImgApi()
+        }
+
+    }
+
 }

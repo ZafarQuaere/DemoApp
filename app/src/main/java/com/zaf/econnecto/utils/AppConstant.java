@@ -57,6 +57,7 @@ public class AppConstant {
 
     public static final String URL_VERIFY_MOBILE = "/mobile-verify?mobile=";
     public static final String URL_OTP_SERVICE = "/otp_service?mobile=";
+    public static final String URL_VIEW_IMAGES = URL_BASE_MVP+"images_api/view_images.php?business_id=39";
     public static final String URL_CHANGE_PASSWORD = "/change-password?mobile=";
     public static final String URL_FIND_MY_EMAIL = "find_email/find_email.php";
     public static final String URL_CP_PASSWORD = "&password=";

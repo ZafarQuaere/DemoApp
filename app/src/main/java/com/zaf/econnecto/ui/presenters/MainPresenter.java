@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -38,7 +37,6 @@ import com.zaf.econnecto.utils.AppLoaderFragment;
 import com.zaf.econnecto.utils.BitmapUtils;
 import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.Utils;
-import com.zaf.econnecto.utils.storage.AppSharedPrefs;
 import com.zaf.econnecto.version2.ui.home.HomeFragment;
 
 import org.json.JSONException;
@@ -307,7 +305,7 @@ public class MainPresenter extends BasePresenter {
             protected Map<String, DataPart> getByteData() {
                 Map<String, DataPart> params = new HashMap<>();
                 long imagename = System.currentTimeMillis();
-                params.put("user_image", new DataPart(imagename + ".png", BitmapUtils.getFileDataFromDrawable(bitmapUpload)));
+                params.put("user_image", new DataPart(imagename + ".png", BitmapUtils.getByteArrayFromBitmap(bitmapUpload)));
                 return params;
             }
 

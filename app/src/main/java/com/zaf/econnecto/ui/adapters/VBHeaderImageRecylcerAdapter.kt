@@ -10,9 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.zaf.econnecto.R
 import com.zaf.econnecto.network_call.response_model.home.CategoryData
+import com.zaf.econnecto.network_call.response_model.img_data.ViewImageData
 import com.zaf.econnecto.ui.fragments.BizCategoryFragment
 
-class VBHeaderImageRecylcerAdapter(private val context: Context, private val mValues: List<CategoryData>, private val mListener: BizCategoryFragment.OnCategoryItemClickListener?) : RecyclerView.Adapter<VBHeaderImageRecylcerAdapter.ViewHolder>() {
+class VBHeaderImageRecylcerAdapter(private val context: Context, private val mValues: MutableList<ViewImageData>) : RecyclerView.Adapter<VBHeaderImageRecylcerAdapter.ViewHolder>() {
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.header_image_list_item, parent, false)
@@ -21,10 +24,10 @@ class VBHeaderImageRecylcerAdapter(private val context: Context, private val mVa
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.mItem = mValues[position]
-        holder.textName.text = mValues[position].categoryName
+//        holder.textName.text = mValues[position].categoryName
         //holder.textEstd.setText(mValues.get(position).getLastName());
-        Picasso.get().load(mValues[position].categoryImage).placeholder(R.drawable.default_biz_profile_pic).into(holder.imgItem)
-        holder.mView.setOnClickListener { mListener?.onCategoryItemClick(holder.mItem) }
+        Picasso.get().load(mValues[position].imageLink).placeholder(R.drawable.default_biz_profile_pic).into(holder.imgItem)
+
     }
 
     override fun getItemCount(): Int {
@@ -36,7 +39,7 @@ class VBHeaderImageRecylcerAdapter(private val context: Context, private val mVa
 
         // final TextView textEstd;
         val imgItem: ImageView
-        var mItem: CategoryData? = null
+        var mItem: ViewImageData? = null
         override fun toString(): String {
             return super.toString() + " '" + textName.text + "'"
         }

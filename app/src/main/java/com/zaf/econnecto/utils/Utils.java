@@ -779,7 +779,7 @@ public class Utils {
     public static List<CategoryListData> readDataFromFile(@Nullable Activity activity) {
         List<CategoryListData> listData = null;
         try {
-            JSONObject category = new JSONObject(FileUtils.loadJSONFromAsset(activity, "category"));
+            JSONObject category = new JSONObject(FileUtil.loadJSONFromAsset(activity, "category"));
             CategoryData data = ParseManager.getInstance().fromJSON(category, CategoryData.class);
             listData = data.getData();
             //LogUtils.DEBUG(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> item1 : "+data.getData().get(0).getCategoryName()+" item2 "+data.getData().get(1).getCategoryName());

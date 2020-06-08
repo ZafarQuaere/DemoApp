@@ -198,7 +198,7 @@ public class UploadImageActivity extends AppCompatActivity implements View.OnCli
             protected Map<String, DataPart> getByteData() {
                 Map<String, DataPart> params = new HashMap<>();
                 long imagename = System.currentTimeMillis();
-                params.put("user_image", new DataPart(imagename + ".png", BitmapUtils.getFileDataFromDrawable(bitmapUpload)));
+                params.put("user_image", new DataPart(imagename + ".png", BitmapUtils.getByteArrayFromBitmap(bitmapUpload)));
                 return params;
             }
 
