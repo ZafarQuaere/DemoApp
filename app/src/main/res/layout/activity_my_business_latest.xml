@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:focusable="false"
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -24,95 +26,111 @@
             app:titleEnabled="false">
 
 
-                <LinearLayout
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="@dimen/_150dp">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_header"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/headerImageBannerHeight"
                         android:background="@color/colorWhite"
-                        android:overScrollMode="never"
                         android:orientation="horizontal"
+                        android:overScrollMode="never"
                         android:scrollbars="none"
+                        android:visibility="visible"
                         tools:listitem="@layout/header_image_list_item" />
 
-                    <include
-                        layout="@layout/vb_address_detail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="visible" />
+                    <ImageView
+                        android:id="@+id/imgProfileUpload"
+                        android:layout_width="@dimen/_50dp"
+                        android:layout_height="@dimen/_50dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_upload_pic"
+                        android:onClick="uploadPhoto"
+                        android:padding="@dimen/_10dp" />
+                </FrameLayout>
 
-                    <TextView
-                        android:background="@drawable/btn_follow"
-                        android:layout_marginHorizontal="@dimen/_30dp"
-                        android:paddingVertical="@dimen/_5dp"
-                        android:drawableEnd="@drawable/ic_edit_black"
-                        android:paddingEnd="@dimen/_20dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:text="Open Close timing" />
+                <include
+                    layout="@layout/vb_address_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible" />
 
-                    <include
-                        layout="@layout/vb_communication_menu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="visible" />
+                <TextView
+                    android:id="@+id/textOperatingHours"
+                    android:background="@drawable/btn_follow"
+                    android:layout_marginHorizontal="@dimen/_30dp"
+                    android:paddingVertical="@dimen/_5dp"
+                    android:drawableEnd="@drawable/ic_edit_black"
+                    android:paddingEnd="@dimen/_20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/operatingHours" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_hotdeals"
-                        android:layout_width="match_parent"
-                        android:layout_height="110dp"
-                        android:background="@color/colorWhite"
-                        android:overScrollMode="never"
-                        android:orientation="horizontal"
-                        android:scrollbars="none"
-                        android:visibility="gone"
-                        tools:listitem="@layout/header_image_list_item" />
+                <include
+                    layout="@layout/vb_communication_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible" />
 
-                    <TextView
-                        android:background="@drawable/btn_follow"
-                        android:layout_marginHorizontal="@dimen/_30dp"
-                        android:paddingVertical="@dimen/_5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:text="Deals In" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:visibility="gone"
+                    android:id="@+id/recycler_hotdeals"
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:background="@color/colorWhite"
+                    android:overScrollMode="never"
+                    android:orientation="horizontal"
+                    android:scrollbars="none"
+                    tools:listitem="@layout/header_image_list_item" />
 
-                   <!-- <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingHorizontal="@dimen/_10dp">-->
+                <TextView
+                    android:background="@drawable/btn_follow"
+                    android:layout_marginHorizontal="@dimen/_30dp"
+                    android:paddingVertical="@dimen/_5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Deals In" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_5dp"
-                            android:paddingHorizontal="@dimen/_10dp"
-                            android:background="@drawable/button_transparent_bg"
-                            android:text="my text " />
+                <!-- <RelativeLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:paddingHorizontal="@dimen/_10dp">-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingHorizontal="@dimen/_10dp"
-                            android:layout_marginTop="@dimen/_5dp"
-                            android:background="@drawable/button_transparent_bg"
-                            android:text="my text " />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5dp"
+                    android:paddingHorizontal="@dimen/_10dp"
+                    android:background="@drawable/button_transparent_bg"
+                    android:text="my text " />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingHorizontal="@dimen/_10dp"
-                            android:layout_marginTop="@dimen/_5dp"
-                            android:background="@drawable/button_transparent_bg"
-                            android:text="my text " />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/_10dp"
+                    android:layout_marginTop="@dimen/_5dp"
+                    android:background="@drawable/button_transparent_bg"
+                    android:text="my text " />
 
-                    <!--</RelativeLayout>-->
-                </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/_10dp"
+                    android:layout_marginTop="@dimen/_5dp"
+                    android:background="@drawable/button_transparent_bg"
+                    android:text="my text " />
+
+                <!--</RelativeLayout>-->
+            </LinearLayout>
 
             <androidx.appcompat.widget.Toolbar
                 android:visibility="visible"
@@ -140,6 +158,7 @@
             app:tabTextColor="@color/colorGrey" />
 
     </com.google.android.material.appbar.AppBarLayout>
+
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll"

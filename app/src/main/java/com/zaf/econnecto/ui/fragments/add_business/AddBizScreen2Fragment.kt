@@ -82,7 +82,7 @@ class AddBizScreen2Fragment : Fragment() {
             LogUtils.showErrorDialog(activity, activity!!.getString(R.string.ok), activity!!.getString(R.string.please_enter_locality))
         }
         data.city.isNullOrEmpty() -> {
-            LogUtils.showErrorDialog(activity, activity!!.getString(R.string.ok), activity!!.getString(R.string.please_enter_city_name))
+            LogUtils.showErrorDialog(activity, requireActivity().getString(R.string.ok), activity!!.getString(R.string.please_enter_city_name))
         }
         data.state.isNullOrEmpty() -> {
             LogUtils.showErrorDialog(activity, activity!!.getString(R.string.ok), activity!!.getString(R.string.please_enter_state))

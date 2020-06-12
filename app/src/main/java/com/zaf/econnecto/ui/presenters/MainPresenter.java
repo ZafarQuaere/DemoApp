@@ -23,7 +23,6 @@ import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.MyJsonObjectRequest;
 import com.zaf.econnecto.network_call.VolleyMultipartRequest;
 import com.zaf.econnecto.ui.activities.ChangePswdActivity;
-import com.zaf.econnecto.ui.fragments.AddBusinessFragment;
 import com.zaf.econnecto.ui.fragments.BizCategoryFragment;
 import com.zaf.econnecto.ui.fragments.BizListFragment;
 import com.zaf.econnecto.ui.fragments.FragmentProfile;
@@ -65,10 +64,7 @@ public class MainPresenter extends BasePresenter {
                 Utils.moveToFragment(mContext, new BizCategoryFragment(), BizCategoryFragment.class.getSimpleName(), null);
                 Utils.updateActionBar(mContext, BizCategoryFragment.class.getSimpleName(), mContext.getString(R.string.hot_deals), null, null);
                 break;
-            case "AddBusinessFragment":
-                Utils.moveToFragment(mContext, new AddBusinessFragment(), AddBusinessFragment.class.getSimpleName(), null);
-                Utils.updateActionBar(mContext, AddBusinessFragment.class.getSimpleName(), mContext.getString(R.string.add_business), null, null);
-                break;
+
             case "AddBizScreen1Fragemnt":
                 Utils.moveToFragment(mContext, new AddBizScreen1Fragment(), AddBizScreen1Fragment.class.getSimpleName(), null);
                 Utils.updateActionBar(mContext, AddBizScreen1Fragment.class.getSimpleName(), mContext.getString(R.string.add_business), null, null);

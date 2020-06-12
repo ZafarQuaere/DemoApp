@@ -92,7 +92,7 @@
         android:id="@+id/mapFrag"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="@dimen/map_height"
         android:visibility="gone"
         app:liteMode="true" />
 

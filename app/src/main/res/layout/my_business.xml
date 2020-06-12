@@ -2,103 +2,170 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coLytMyBusiness"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    android:id="@+id/coLytMyBusiness"
     android:clickable="true"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:focusable="true">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:background="@color/colorWhite"
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleTextAppearance="@android:color/transparent"
+            app:titleEnabled="false"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-
-            <ImageButton
-                android:visibility="gone"
-                android:id="@+id/imgBannerUpload"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|right"
-                android:layout_margin="@dimen/_10dp"
-                android:background="@drawable/ic_upload_pic"
-                android:padding="15dp" />
-
-
-            <ImageView
-                android:id="@+id/imgBanner"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:background="@drawable/gradient"
-                android:contentDescription="@string/app_name"
-                android:fitsSystemWindows="true"
-                android:scaleType="centerCrop"
-                app:layout_collapseMode="parallax" />
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/_10dp">
+                android:orientation="vertical">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imgProfile"
-                    android:layout_width="@dimen/_120dp"
-                    android:layout_height="@dimen/_120dp"
-                    android:clickable="true"
-                    android:cropToPadding="true"
-                    android:src="@drawable/default_biz_profile_pic"
-                    app:civ_border_color="@color/colorPrimary"
-                    app:civ_border_width="2dp"
-                    app:elevation="6dp"
-                    app:layout_collapseMode="parallax" />
+               <FrameLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="@dimen/_150dp">
 
-                <ImageButton
-                    android:id="@+id/imgProfileUpload"
-                    android:layout_width="wrap_content"
+                   <androidx.recyclerview.widget.RecyclerView
+                       android:id="@+id/recycler_header"
+                       android:layout_width="match_parent"
+                       android:layout_height="150dp"
+                       android:background="@color/colorWhite"
+                       android:orientation="horizontal"
+                       android:overScrollMode="never"
+                       android:scrollbars="none"
+                       android:visibility="visible"
+                       tools:listitem="@layout/header_image_list_item" />
+
+                   <ImageView
+                       android:id="@+id/imgProfileUpload"
+                       android:layout_width="@dimen/_50dp"
+                       android:layout_height="@dimen/_50dp"
+                       android:layout_gravity="center"
+                       android:background="@drawable/ic_upload_pic"
+                       android:onClick="uploadPhoto"
+                       android:padding="@dimen/_10dp" />
+               </FrameLayout>
+
+                <include
+                    layout="@layout/vb_address_detail"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/imgProfile"
-                    android:layout_marginLeft="20dp"
-                    android:background="@drawable/ic_upload_pic"
-                    android:padding="@dimen/_10dp" />
+                    android:visibility="visible" />
 
-            </RelativeLayout>
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/imgTemp"
+                    android:layout_width="match_parent"
+                    android:scaleType="fitXY"
+                    android:layout_height="150dp"/>
+
+                <TextView
+                    android:background="@drawable/btn_follow"
+                    android:layout_marginHorizontal="@dimen/_30dp"
+                    android:paddingVertical="@dimen/_5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/operatingHours" />
+
+                <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/cardViewAddDeals"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="visible"
+                    card_view:cardElevation="@dimen/_5dp"
+                    card_view:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:id="@+id/rlytAddDealsExpand"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorPrimary"
+                            android:onClick="addDealsExpandCollapse"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:text="@string/add_new_deal"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="@dimen/font_x_large_text" />
+
+                            <ImageView
+                                android:id="@+id/imgExpandAddDeals"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:background="@drawable/ic_expand_more"
+                                android:paddingEnd="@dimen/_10dp"
+                                tools:ignore="RtlSymmetry" />
+                        </RelativeLayout>
+
+                        <include
+                            android:id="@+id/lytAddDeals"
+                            layout="@layout/layout__add_hot_deals"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
 
-            <TextView
-                android:id="@+id/textShortDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center_horizontal"
-                android:paddingBottom="@dimen/_5dp"
-                android:text="Business description"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/font_short_description"
-                android:textStyle="bold|italic"
-                app:elevation="6dp"
-                app:layout_collapseMode="parallax" />
+            </LinearLayout>
+            <!--   <TextView
+                   android:id="@+id/textShortDescription"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="bottom|center_horizontal"
+                   android:paddingBottom="@dimen/_5dp"
+                   android:text="Business Name"
+                   android:textColor="@color/colorWhite"
+                   android:textSize="@dimen/font_short_description"
+                   android:textStyle="bold|italic"
+                   app:elevation="6dp"
+                   app:layout_collapseMode="parallax" />-->
 
             <androidx.appcompat.widget.Toolbar
+                android:visibility="visible"
                 android:id="@+id/toolbarBd"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:title="@string/business_name"
+                app:titleTextColor="@color/colorTransparent"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:titleTextColor="@color/colorBlack" />
+                app:theme="@style/toolbarLightTheme"/>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40dp"
+            app:tabGravity="center"
+            app:tabIndicatorColor="@color/colorBlack"
+            app:tabMode="scrollable"
+            android:background="@color/colorTransparent"
+            android:hapticFeedbackEnabled="true"
+            app:tabSelectedTextColor="@color/colorBlack"
+            app:tabTextColor="@color/colorGrey" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -138,7 +205,6 @@
 
 
                         <ImageButton
-                            android:visibility="invisible"
                             android:id="@+id/imgEditBusiness"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -147,7 +213,8 @@
                             android:layout_marginRight="@dimen/_10dp"
                             android:background="@drawable/ic_edit_black"
                             android:onClick="editBusinessClick"
-                            android:textColor="@color/colorBlack" />
+                            android:textColor="@color/colorBlack"
+                            android:visibility="invisible" />
 
 
                         <TextView
@@ -242,8 +309,8 @@
                 android:id="@+id/cardViewDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:layout_marginBottom="16dp"
+                android:visibility="visible"
                 card_view:cardElevation="@dimen/_5dp"
                 card_view:cardUseCompatPadding="true">
 
@@ -281,6 +348,7 @@
                 android:visibility="visible"
                 card_view:cardElevation="@dimen/_5dp"
                 card_view:cardUseCompatPadding="true">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -305,13 +373,13 @@
                     </RelativeLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:layout_marginTop="@dimen/_10dp"
-                        android:overScrollMode="never"
                         android:id="@+id/recyclerYourDeals"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10dp"
                         android:minHeight="@dimen/_120dp"
                         android:orientation="horizontal"
+                        android:overScrollMode="never"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:listitem="@layout/layout_add_deals_bg_item" />
 
@@ -319,63 +387,10 @@
 
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:visibility="visible"
-                android:id="@+id/cardViewAddDeals"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                card_view:cardElevation="@dimen/_5dp"
-                card_view:cardUseCompatPadding="true">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <RelativeLayout
-                        android:id="@+id/rlytAddDealsExpand"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/colorPrimary"
-                        android:onClick="addDealsExpandCollapse"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/_5dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:text="@string/add_new_deal"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="@dimen/font_x_large_text" />
-
-                        <ImageView
-                            android:id="@+id/imgExpandAddDeals"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:paddingEnd="@dimen/_10dp"
-                            android:background="@drawable/ic_expand_more"
-                            tools:ignore="RtlSymmetry" />
-                    </RelativeLayout>
-
-                    <include
-                        android:visibility="gone"
-                        android:id="@+id/lytAddDeals"
-                        layout="@layout/layout__add_hot_deals"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_120dp"/>
+                android:layout_height="@dimen/_120dp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

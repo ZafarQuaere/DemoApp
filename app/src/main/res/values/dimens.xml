@@ -40,6 +40,7 @@
     <dimen name="_120dp">120dp</dimen>
     <dimen name="_150dp">150dp</dimen>
 
+    <dimen name="font_small_text">12sp</dimen>
     <dimen name="font_regular_text">14sp</dimen>
     <dimen name="font_actionbar_title_text">16sp</dimen>
     <dimen name="font_x_large_text">20sp</dimen>
@@ -70,6 +71,7 @@
 
     <!-- My Business Screen  -->
     <dimen name="previewAddDealImageWidth">300dp</dimen>
+    <dimen name="headerImageBannerHeight">160dp</dimen>
 
     <!--Crop View-->
     <dimen name="ucrop_default_crop_grid_stoke_width">1dp</dimen>
@@ -80,6 +82,7 @@
 
     <!--uCrop Activity-->
     <dimen name="ucrop_padding_crop_frame">0dp</dimen>
+    <dimen name="map_height">200dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
 
 

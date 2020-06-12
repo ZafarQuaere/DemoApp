@@ -33,7 +33,7 @@
     <string name="password_must_have_atleast_8_character">Password must have atleast 8 character</string>
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">Close</string>
-    <string name="nav_header_title">E-Connecto</string>
+    <string name="nav_header_title">eConnecto</string>
     <string name="nav_header_subtitle">e-connecto@support.com</string>
     <string name="key_serializable">key_serializable</string>
     <string name="submit">Submit</string>
@@ -336,4 +336,9 @@
     <string name="todo">TODO</string>
     <string name="editImage">Edit Photo</string>
     <string name="operatingHours">Operating Hours</string>
+    <string name="edit_details">Edit details</string>
+    <string name="key_bundle_data">key_bundle_data</string>
+    <string name="copy_for_weekdays">Copy for weekdays</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
 </resources>

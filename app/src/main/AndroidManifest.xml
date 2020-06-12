@@ -21,7 +21,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.activities.EditImageActivity"></activity>
+        <activity android:name=".ui.activities.mybiz.EditDetails"></activity>
+        <activity android:name=".ui.activities.EditImageActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -87,7 +88,8 @@
             android:name=".ui.activities.ResetPswdActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.activities.PhoneVerificationActivity" />
-        <activity android:name=".ui.activities.MyBusinessActivityLatest" />
+        <activity android:name=".ui.activities.mybiz.MyBusinessActivityLatest" />
+        <activity android:name="com.zaf.econnecto.ui.activities.mybiz.OperatingHour" />
 
         <uses-library
             android:name="org.apache.http.legacy"

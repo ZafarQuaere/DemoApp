@@ -25,7 +25,7 @@ public class AppConstant {
     public static int RESEND_OTP_TIME = 40000;
     public static int OTP_TIME = 120000;
     public static final String TIMESTAMP_FORMAT = "yyyyMMdd_HHmmss";
-    public static final String TAG = "e-Connecto";
+    public static final String TAG = "eConnecto";
     public static final String RUPEES_SYMBOL = "₹ ";
 
 
@@ -46,6 +46,7 @@ public class AppConstant {
     public static final String URL_EMAIL_VERIFY = "email_verification/email_verification.php";
     public static final String URL_ADD_BUSINESS = "add_business.php";
     public static final String URL_MY_BUSINESS = "mybusiness/mybusiness.php?id=";
+    public static final String URL_MY_BUSINESS_BASIC = "my_biz/my_biz_basic.php";
     public static final String URL_UPDATE_BUSINESS = "update_business.php";
     public static final String URL_BIZ_CATEGORY = URL_BASE+"categories.php";
     public static final String URL_UPLOAD_USER_PROFILE_PIC = URL_BASE+"user_profile_pic.php";
@@ -57,7 +58,7 @@ public class AppConstant {
 
     public static final String URL_VERIFY_MOBILE = "/mobile-verify?mobile=";
     public static final String URL_OTP_SERVICE = "/otp_service?mobile=";
-    public static final String URL_VIEW_IMAGES = URL_BASE_MVP+"images_api/view_images.php?business_id=39";
+    public static final String URL_VIEW_IMAGES = URL_BASE_MVP+"images_api/view_images.php?business_id=";
     public static final String URL_CHANGE_PASSWORD = "/change-password?mobile=";
     public static final String URL_FIND_MY_EMAIL = "find_email/find_email.php";
     public static final String URL_CP_PASSWORD = "&password=";

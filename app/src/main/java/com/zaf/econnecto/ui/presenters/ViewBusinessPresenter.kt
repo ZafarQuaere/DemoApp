@@ -1,5 +1,6 @@
 package com.zaf.econnecto.ui.presenters
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -13,13 +14,14 @@ import com.zaf.econnecto.R
 import com.zaf.econnecto.network_call.MyJsonObjectRequest
 import com.zaf.econnecto.network_call.response_model.home.BizCategoryData
 import com.zaf.econnecto.network_call.response_model.img_data.ViewImages
+import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsResponse
 import com.zaf.econnecto.ui.activities.ViewBusinessActivity
 import com.zaf.econnecto.ui.presenters.operations.IViewBizns
-import com.zaf.econnecto.utils.AppConstant
-import com.zaf.econnecto.utils.AppController
-import com.zaf.econnecto.utils.AppDialogLoader
-import com.zaf.econnecto.utils.LogUtils
+import com.zaf.econnecto.utils.*
 import com.zaf.econnecto.utils.parser.ParseManager
+import com.zaf.econnecto.utils.storage.PrefUtil
+import org.json.JSONException
+import org.json.JSONObject
 
 class ViewBusinessPresenter(context: Context?, iViewBizns: IViewBizns) : BasePresenter(context) {
     private var mContext: Context = context!!
@@ -51,7 +53,7 @@ class ViewBusinessPresenter(context: Context?, iViewBizns: IViewBizns) : BasePre
         val mapFragment = mContext.supportFragmentManager
                 .findFragmentById(R.id.mapFrag) as SupportMapFragment
         mapFragment.getMapAsync(mContext)
-        mapFrag!!.view!!.visibility = View.GONE
+        mapFrag!!.requireView().visibility = View.GONE
     }
 
 
@@ -68,7 +70,7 @@ class ViewBusinessPresenter(context: Context?, iViewBizns: IViewBizns) : BasePre
     fun callBannerImgApi() {
         val loader = AppDialogLoader.getLoader(mContext)
         loader.show()
-        val url = AppConstant.URL_VIEW_IMAGES // + AppConstant.listUrl+ 2;
+        val url = AppConstant.URL_VIEW_IMAGES + PrefUtil.getBizId(mContext)
 
         val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, Response.Listener { response ->
             LogUtils.DEBUG("View Image Response ::$response")
@@ -86,4 +88,43 @@ class ViewBusinessPresenter(context: Context?, iViewBizns: IViewBizns) : BasePre
         AppController.getInstance().addToRequestQueue(objectRequest, "Biz Category")
     }
 
+    fun callBasicDetailsApi(imageUpdate: Boolean) {
+        val loader = AppDialogLoader.getLoader(mContext)
+        loader.show()
+        val url = AppConstant.URL_BASE_MVP + AppConstant.URL_MY_BUSINESS_BASIC
+        val jObj = JSONObject();
+        try {
+            jObj.put("jwt_token", Utils.getAccessToken(mContext))
+            jObj.put("owner_id", Utils.getUserID(mContext))
+        } catch (e : JSONException) {
+            e.printStackTrace();
+        }
+        LogUtils.DEBUG("URL : $url\nRequest Body ::${jObj.toString()}")
+
+        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.POST, url, jObj, Response.Listener { response ->
+            LogUtils.DEBUG("MyBusiness Response ::$response")
+            try {
+                if (response != null) {
+                    val status = response.optInt("status")
+                    if (status == AppConstant.SUCCESS) {
+                        val basicDetailsResponse = ParseManager.getInstance().fromJSON(response.toString(), BasicDetailsResponse::class.java)
+                        PrefUtil.setBizId(mContext,basicDetailsResponse.data[0].businessId)
+//                        iMyBusiness.updateBasicDetails(basicDetailsResponse,imageUpdate)
+
+                    } else {
+                        LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.ok), response.optJSONArray("message").optString(0)) { (mContext as Activity).onBackPressed() }
+                    }
+                }
+                loader.dismiss()
+            } catch (e: Exception) {
+                loader.dismiss()
+                e.printStackTrace()
+                LogUtils.ERROR(e.message)
+            }
+        }, Response.ErrorListener { error ->
+            loader.dismiss()
+            LogUtils.DEBUG("MyBusiness Error ::" + error.message)
+        })
+        AppController.getInstance().addToRequestQueue(objectRequest, "MyBusiness")
+    }
 }

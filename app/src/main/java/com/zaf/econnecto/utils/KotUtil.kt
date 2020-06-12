@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.location.Address
 import android.location.Geocoder
+import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -23,11 +24,11 @@ import id.zelory.compressor.Compressor
 import id.zelory.compressor.constraint.format
 import id.zelory.compressor.constraint.quality
 import id.zelory.compressor.constraint.resolution
-import id.zelory.compressor.constraint.size
 import kotlinx.coroutines.delay
 import org.json.JSONObject
 import java.io.File
 import java.io.IOException
+import java.io.Serializable
 import java.text.DecimalFormat
 import java.util.*
 import kotlin.math.log10
@@ -39,14 +40,8 @@ class KotUtil {
     private val PASSWORD_PATTERN = "((?=.*[a-z])(?=.*\\d)(?=.*[A-Z])(?=.*[@#$%!]).{8,40})"
 
     companion object {
-        // Extension function to replace fragment
-        fun AppCompatActivity?.replaceFragment(activity: AppCompatActivity, fragment: Fragment) {
-            val fragmentManager = this?.supportFragmentManager
-            val transaction = fragmentManager!!.beginTransaction()
-            transaction.replace(R.id.lytMain, fragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
-        }
+
+
 
         fun validateDOB(birthYear: String): Boolean {
             if (birthYear.isNullOrEmpty()) return false
@@ -75,6 +70,20 @@ class KotUtil {
 
         fun displayResponseError(context: Context, messages: List<String?>?) {
             LogUtils.showErrorDialog(context, context.getString(R.string.ok), messages!!.get(0).toString())
+        }
+
+        fun moveToFragment(activity: AppCompatActivity, parentLayout: Int, fragment: Fragment, data: Any?) {
+            val fragmentManager = activity?.supportFragmentManager
+            val transaction = fragmentManager!!.beginTransaction()
+            transaction.add(parentLayout, fragment)
+            // if data is transfered
+            val bundle = Bundle()
+            if (data != null) {
+                bundle.putSerializable(activity.getString(R.string.key_bundle_data), data as Serializable)
+                fragment.arguments = bundle
+            }
+            transaction.addToBackStack(fragment.javaClass.simpleName)
+            transaction.commit()
         }
 
         fun updateActionBar(activity: FragmentActivity?, className: String, dynamicTitle: String, customHeaderData: Any?,
@@ -144,20 +153,28 @@ class KotUtil {
         @JvmStatic
         suspend fun compressImage(mContext: Context, file: File): File {
             LogUtils.DEBUG("Size before compress : ${getReadableFileSize(file.length())}")
-            var compressedFile = Compressor.compress(mContext,file)
-            val imgSizeStr = getReadableFileSize(compressedFile.length())
+            val kbSize = convertImageSizeToKb(getReadableFileSize(file.length()))
+            if (kbSize > 250 ) {
+                var compressedFile = Compressor.compress(mContext, file)
+                val imgSize = convertImageSizeToKb(getReadableFileSize(compressedFile.length()))
+                if (imgSize > 500.0) {
+                    compressedFile = compressFurther(mContext, file)
+                    LogUtils.DEBUG("$$ 500 KB Size after compress : ${getReadableFileSize(compressedFile.length())}")
+                }
+                delay(1000)
+                return compressedFile
+            } else return file
+        }
+
+        private fun convertImageSizeToKb(imgSizeStr: String): Double {
             val imgSize: Double = if (imgSizeStr.contains("MB")) {
                 imgSizeStr.substring(0, imgSizeStr.length - 3).toDouble() * 1024.0
-            } else {
+            } else  {
                 imgSizeStr.substring(0, imgSizeStr.length - 3).toDouble()
             }
             LogUtils.DEBUG("Size after compress : $imgSize")
-            if (imgSize > 500.0){
-                compressedFile = compressFurther(mContext,file)
-                LogUtils.DEBUG("$$ 500 KB Size after compress : ${getReadableFileSize(compressedFile.length())}")
-            }
-            delay(1000)
-            return compressedFile
+
+            return imgSize
         }
 
         private suspend fun compressFurther(mContext: Context, file: File): File {
