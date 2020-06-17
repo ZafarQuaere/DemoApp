@@ -45,6 +45,9 @@ android {
             signingConfig signingConfigs.econnecto
         }
     }
+    dataBinding {
+        enabled = true
+    }
 
     compileOptions {
         sourceCompatibility = 1.8

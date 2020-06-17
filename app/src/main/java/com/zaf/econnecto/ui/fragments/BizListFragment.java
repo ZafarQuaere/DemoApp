@@ -53,7 +53,7 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+//        setHasOptionsMenu(true);
         mContext = getActivity();
         searchListener = this;
     }

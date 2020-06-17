@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface IMyBusinessLatest {
 
-    void updateBannerImage(@NotNull List<? extends ViewImageData> data);
+    void updateBannerImage(@NotNull List<ViewImageData> data);
     void updateBasicDetails(BasicDetailsResponse basicDetailsResponse, boolean imageUpdate);
 }

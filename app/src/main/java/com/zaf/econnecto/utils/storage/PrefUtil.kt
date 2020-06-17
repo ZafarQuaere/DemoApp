@@ -2,7 +2,10 @@ package com.zaf.econnecto.utils.storage
 
 import android.content.Context
 import com.zaf.econnecto.R
+import com.zaf.econnecto.network_call.response_model.img_data.ViewImageData
+import com.zaf.econnecto.network_call.response_model.img_data.ViewImages
 import com.zaf.econnecto.utils.LogUtils
+import com.zaf.econnecto.utils.parser.ParseManager
 
 object PrefUtil {
 
@@ -23,6 +26,26 @@ object PrefUtil {
             return data
         }
         return data
+    }
+
+    fun saveImageData(mContext: Context, data: String) {
+        if (mContext == null) return
+        val prefs = AppSharedPrefs.getInstance(mContext)
+        prefs.put("Key_image_data", data)
+    }
+
+    fun getImageData(mContext: Context): MutableList<ViewImageData>? {
+        val prefs = AppSharedPrefs.getInstance(mContext)
+        var data = ""
+        data = try {
+            prefs["Key_image_data"] as String
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+            LogUtils.ERROR(e.message)
+            return null
+        }
+        val viewImage = ParseManager.getInstance().fromJSON<ViewImages>(data, ViewImages::class.java)
+        return viewImage.data
     }
 
 }

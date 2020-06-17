@@ -21,7 +21,6 @@ import com.zaf.econnecto.network_call.response_model.my_business.AddDealsBg
 import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsResponse
 import com.zaf.econnecto.network_call.response_model.my_business.MyBusiness
 import com.zaf.econnecto.network_call.response_model.my_business.MyBusinessData
-import com.zaf.econnecto.ui.activities.ViewBusinessActivity
 import com.zaf.econnecto.ui.activities.mybiz.MyBusinessActivityLatest
 import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
 import com.zaf.econnecto.utils.*
@@ -202,6 +201,7 @@ class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBu
             val data = ParseManager.getInstance().fromJSON(response.toString(), ViewImages::class.java)
             if (data.status == AppConstant.SUCCESS) {
                 iMyBusiness.updateBannerImage(data.data)
+                PrefUtil.saveImageData(mContext,response.toString())
             } else {
                 LogUtils.showToast(mContext, data.message.toString())
             }

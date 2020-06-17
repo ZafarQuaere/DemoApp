@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorLightGrey"
-    tools:context=".ui.fragments.details_frag.FourthFragment">
+    tools:context=".ui.fragments.details_frag.FourthFragment"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerCategory"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Fourth Fragment" />
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        android:visibility="visible"
+        tools:listitem="@layout/category_list_items" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/emptyTextView"
+        style="@style/EmptyTextView"
+        android:text="@string/no_data_available"
+        android:visibility="gone" />
+</LinearLayout>

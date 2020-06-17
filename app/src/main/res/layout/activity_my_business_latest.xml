@@ -187,10 +187,12 @@
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewpagerTabs"
                 android:layout_width="wrap_content"
-                android:layout_height="300dp"
+                android:minHeight="300dp"
+                android:layout_height="500dp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-            <ScrollView
+            <!--<ScrollView
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -199,36 +201,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10dp"
-                        android:text="my text " />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_100dp"
-                        android:text="my text " />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_100dp"
-                        android:text="my text " />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_100dp"
-                        android:text="my text 6666" />
 
                     <Space
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_50dp" />
                 </LinearLayout>
 
-            </ScrollView>
+            </ScrollView>-->
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

@@ -155,7 +155,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
     }
 
 
-    override fun updateBannerImage(data: MutableList<out ViewImageData>) {
+    override fun updateBannerImage(data: MutableList<ViewImageData>) {
         val recyclerHeader = findViewById<RecyclerView>(R.id.recycler_header)
         recyclerHeader.layoutManager = LinearLayoutManager(this)
         recyclerHeader.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false)
