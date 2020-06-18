@@ -84,7 +84,7 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,O
     }
 
     private fun setupViewPager(viewPagerTabs: ViewPager) {
-        val adapter = TabViewPagerAdapter(this.getSupportFragmentManager(), arrayListOf<String>("First Fragment","Second Fragment","Third Fragment","Fourth Fragment","Fifth Fragment"))
+        val adapter = TabViewPagerAdapter(this.supportFragmentManager, arrayListOf<String>("First Fragment","Second Fragment","Third Fragment","Fourth Fragment","Fifth Fragment"))
         adapter.addFragment(FirstFragment(), "Menu")
         adapter.addFragment(SecondFragment(), "About")
         adapter.addFragment(ThirdFragment(), "Amenities")
