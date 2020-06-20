@@ -20,13 +20,12 @@
     <color name="dialog_btn_text_color">@color/colorPrimary</color>
 
     <!-- Home Screen -->
-
     <color name="colorInputText">#111111</color>
     <color name="colorSplash">#b7b7b7</color>
     <color name="colorRed">#FF3624</color>
 
-    <!--Welcome Screen-->
-
+    <!--Business Screen-->
+    <color name="businessBackground">#f1f1f1</color>
     <!-- Screens background color-->
 
     <!-- dots inactive colors -->

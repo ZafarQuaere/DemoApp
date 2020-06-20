@@ -11,7 +11,11 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import android.view.WindowManager
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.ViewCompat
+import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
@@ -30,9 +34,7 @@ import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsDat
 import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsResponse
 import com.zaf.econnecto.ui.activities.BaseActivity
 import com.zaf.econnecto.ui.activities.EditImageActivity
-import com.zaf.econnecto.ui.adapters.TabViewPagerAdapter
 import com.zaf.econnecto.ui.adapters.VBHeaderImageRecylcerAdapter
-import com.zaf.econnecto.ui.fragments.details_frag.*
 import com.zaf.econnecto.ui.interfaces.AddPhotoDialogListener
 import com.zaf.econnecto.ui.presenters.MyBusinessPresenterLatest
 import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
@@ -40,6 +42,13 @@ import com.zaf.econnecto.utils.*
 import kotlinx.android.synthetic.main.activity_my_business_latest.*
 import kotlinx.android.synthetic.main.vb_address_detail.*
 import kotlinx.android.synthetic.main.vb_communication_menu.*
+import kotlinx.android.synthetic.main.vb_layout_about.*
+import kotlinx.android.synthetic.main.vb_layout_amenities.*
+import kotlinx.android.synthetic.main.vb_layout_brochure.*
+import kotlinx.android.synthetic.main.vb_layout_categories.*
+import kotlinx.android.synthetic.main.vb_layout_payment.*
+import kotlinx.android.synthetic.main.vb_layout_photos.*
+import kotlinx.android.synthetic.main.vb_layout_pricing.*
 
 class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMyBusinessLatest,ImageUpdateModelListener.ImageUpdateListener,OnMapReadyCallback {
 
@@ -70,16 +79,16 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         loader = AppLoaderFragment.getInstance(mContext)
         updateActionbar()
         presenter!!.callBasicDetailsApi(true)
-//        presenter!!.callBannerImgApi()
         presenter!!.initMap(this,mapFrag)
         updateMyBizUI()
     }
 
     private fun updateMyBizUI() {
-        viewPagerTabs = findViewById<ViewPager>(R.id.viewpagerTabs)
+//        viewPagerTabs = findViewById<ViewPager>(R.id.viewpagerTabs)
         tabLayout = findViewById<TabLayout>(R.id.tabs)
-        tabLayout.setupWithViewPager(viewPagerTabs)
-        setupViewPager(viewPagerTabs)
+        addTabsWithoutVP()
+//        tabLayout.setupWithViewPager(viewPagerTabs)
+//        setupViewPager(viewPagerTabs)
 
         textFollow.text = getString(R.string.edit_details)
         textOperatingHours.setOnClickListener {
@@ -98,14 +107,93 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         }
     }
 
-    private fun setupViewPager(viewPagerTabs: ViewPager?) {
-        val adapter = TabViewPagerAdapter(this.getSupportFragmentManager(), arrayListOf<String>("First Fragment","Second Fragment","Third Fragment","Fourth Fragment","Fifth Fragment"))
-        adapter.addFragment(FirstFragment(), "Menu")
-        adapter.addFragment(SecondFragment(), "About")
-        adapter.addFragment(ThirdFragment(), "Amenities")
-        adapter.addFragment(FourthFragment(), "Photos")
-        adapter.addFragment(FifthFragment(), "Payment")
-        viewPagerTabs!!.adapter = adapter
+    private fun addTabsWithoutVP() {
+        tabLayout.addTab(tabLayout.newTab().setText("Brochure"))
+        tabLayout.addTab(tabLayout.newTab().setText("About"))
+        tabLayout.addTab(tabLayout.newTab().setText("Photos"))
+        tabLayout.addTab(tabLayout.newTab().setText("Amenities"))
+        tabLayout.addTab(tabLayout.newTab().setText("Payment"))
+        tabLayout.addTab(tabLayout.newTab().setText("Pricing"))
+        tabLayout.addTab(tabLayout.newTab().setText("Categories"))
+
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                scrollUpto(tab!!.text as String?)
+            }
+
+        })
+    }
+
+    private fun scrollUpto(text: String?) {
+        when (text) {
+            "About" -> {
+                scroll.scrollTo(0, textAboutWhyUs.top + 100)
+                textAboutWhyUs.requestFocus()
+            }
+            "Brochure" -> {
+                scroll.scrollTo(0, textUploadBrochure.top-50)
+                textUploadBrochure.requestFocus()
+            }
+            "Photos" -> {
+//                scrollToRow(scroll,layoutPhotos,textAddPhotos)
+                scroll.scrollTo(0, textAddPhotos.top + 1000)
+                textAddPhotos.requestFocus()
+            }
+            "Amenities" -> {
+                scroll.scrollTo(0, textAddAmenities.top + 2000)
+                textAddAmenities.requestFocus()
+            }
+            "Payment" -> {
+                scroll.scrollTo(0, textAddPayments.top + 2500)
+                textAddPayments.requestFocus()
+            }
+
+            "Pricing" -> {
+                scroll.scrollTo(0, textAddPricing.top + 2900)
+                textAddPricing.requestFocus()
+            }
+            "Categories" -> {
+                scroll.scrollTo(0, textCategory1.bottom + 3100)
+                textCategory1.requestFocus()
+            }
+//            "Payment" ->  scroll.scrollTo(0,textAddPayments.top +2600) //scrollToRow(scroll,layoutPayment,textAddPayments)
+            else -> scroll.scrollTo(0, textAboutWhyUs.top + 2600)
+        }
+
+    }
+
+    fun scrollToRow(nsv: NestedScrollView, layout: LinearLayout, tv: TextView){
+//        val delay : Long = 100
+//        nsv.postDelayed(object: Runnable{
+//            override fun run() {
+//                val rect = Rect()
+//                tv.getHitRect(rect)
+//                nsv.requestChildRectangleOnScreen(layout,rect,false)
+//            }
+//
+//        },delay)
+
+//        val targetScroll: Int = nsv.getScrollY() + 1000
+        val targetScroll: Int = tv.getScrollY()
+        nsv.scrollTo(0, targetScroll)
+        nsv.setSmoothScrollingEnabled(true)
+        ViewCompat.setNestedScrollingEnabled(nsv, false)
+        val currentScrollY: Int = nsv.getScrollY()
+        ViewCompat.postOnAnimationDelayed(nsv, object : Runnable {
+            var currentY = currentScrollY
+            override fun run() {
+                if (currentScrollY == nsv.getScrollY()) {
+                    ViewCompat.setNestedScrollingEnabled(nsv, true)
+                    return
+                }
+                currentY = nsv.getScrollY()
+                ViewCompat.postOnAnimation(nsv, this)
+            }
+        }, 10)
     }
 
     private fun updateActionbar() {
@@ -123,8 +211,19 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         //update address related data
         //get the business owner id and call image api
             updateBasicDetails(basicDetailsResponse)
-        if (imageUpdate)
-             presenter!!.callBannerImgApi()
+        if (imageUpdate) {
+            presenter!!.callImageApi()
+            presenter!!.callAboutApi()
+            presenter!!.callAmenitiesApi()
+            presenter!!.callBrochureApi()
+            presenter!!.callOperationTimeApi()
+            presenter!!.callCategoriesApi()
+            presenter!!.callPaymentApi()
+            presenter!!.callPricingApi()
+            presenter!!.callProdServicesApi()
+            presenter!!.callCategoriesApi()
+
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -240,7 +339,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
       var isImageUpdate =  ImageUpdateModelListener.getInstance().state
         LogUtils.DEBUG("isImageUpdate $isImageUpdate ")
         if (isImageUpdate){
-            presenter!!.callBannerImgApi()
+            presenter!!.callImageApi()
         }
 
     }
@@ -256,20 +355,38 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         uiSettings.isMapToolbarEnabled = true
         uiSettings.isCompassEnabled = true
         uiSettings.isZoomControlsEnabled = true
+    }
 
-//        val fullAddress: String = basicDetailsDta.address1 + ", " + basicDetailsDta.cityTown + ", " + basicDetailsDta.state + ", " + basicDetailsDta.pinCode
-//        val location: Address = KotUtil.getLocationFromAddress(this, fullAddress)!!
-//        val address = AddressData(basicDetailsDta.address1, basicDetailsDta.state, basicDetailsDta.cityTown , basicDetailsDta.pinCode, location.latitude.toString() + "", "" + location.longitude)
-//
-////        location.latitude,location.longitude
-//        println(address)
 
-//        val ny = LatLng(28.6523644, 77.1907413)
-//        val ny = LatLng(location!!.latitude, location!!.longitude)
-//        //val ny = LatLng(-34.0, 151.0)
-//        val markerOptions = MarkerOptions()
-//        markerOptions.position(ny)
-//        gMap.addMarker(markerOptions)
-//        gMap.moveCamera(CameraUpdateFactory.newLatLng(ny))
+    override fun updateOperatingHours() {
+        TODO("Not yet implemented")
+    }
+
+    override fun updateProductServiceSection() {
+        TODO("Not yet implemented")
+    }
+
+    override fun updateBrochureSection() {
+        TODO("Not yet implemented")
+    }
+
+    override fun updateAboutSection() {
+        TODO("Not yet implemented")
+    }
+
+    override fun updateAmenitiesSection() {
+        TODO("Not yet implemented")
+    }
+
+    override fun updatePaymentSection() {
+        TODO("Not yet implemented")
+    }
+
+    override fun updatePricingSection() {
+        TODO("Not yet implemented")
+    }
+
+    override fun updateCategories() {
+        TODO("Not yet implemented")
     }
 }

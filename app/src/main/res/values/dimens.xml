@@ -71,7 +71,8 @@
 
     <!-- My Business Screen  -->
     <dimen name="previewAddDealImageWidth">300dp</dimen>
-    <dimen name="headerImageBannerHeight">160dp</dimen>
+    <dimen name="headerImageBannerHeight">250dp</dimen>
+    <dimen name="headerImageBannerWidth">300dp</dimen>
 
     <!--Crop View-->
     <dimen name="ucrop_default_crop_grid_stoke_width">1dp</dimen>

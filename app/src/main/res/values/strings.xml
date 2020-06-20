@@ -341,4 +341,13 @@
     <string name="copy_for_weekdays">Copy for weekdays</string>
     <string name="from">From</string>
     <string name="to">To</string>
+    <string name="product_n_services">Product and Services</string>
+    <string name="add_product_or_services">Add Product or Services</string>
+    <string name="add_brochure">Upload Brochure</string>
+    <string name="about">About</string>
+    <string name="why_us">Why Us ?</string>
+    <string name="amenities">Amenities</string>
+    <string name="payment_options">Payment Options</string>
+    <string name="pricing">Pricing</string>
+    <string name="categories">Categories</string>
 </resources>

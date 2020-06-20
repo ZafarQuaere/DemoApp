@@ -76,7 +76,7 @@ class EditImagePresenter(var mContext: Context, var iEditImage: IEditImage) : Ba
                 return params
             }
         }
-        volleyMultipartRequest.retryPolicy = DefaultRetryPolicy(10000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
+        volleyMultipartRequest.retryPolicy = DefaultRetryPolicy(5000, 3, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         Volley.newRequestQueue(mContext).add(volleyMultipartRequest)
     }
 

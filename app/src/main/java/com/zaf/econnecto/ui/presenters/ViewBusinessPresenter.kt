@@ -70,7 +70,7 @@ class ViewBusinessPresenter(context: Context?, iViewBizns: IViewBizns) : BasePre
     fun callBannerImgApi() {
         val loader = AppDialogLoader.getLoader(mContext)
         loader.show()
-        val url = AppConstant.URL_VIEW_IMAGES + PrefUtil.getBizId(mContext)
+        val url = AppConstant.URL_BIZ_IMAGES + PrefUtil.getBizId(mContext)
 
         val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, Response.Listener { response ->
             LogUtils.DEBUG("View Image Response ::$response")
@@ -91,7 +91,7 @@ class ViewBusinessPresenter(context: Context?, iViewBizns: IViewBizns) : BasePre
     fun callBasicDetailsApi(imageUpdate: Boolean) {
         val loader = AppDialogLoader.getLoader(mContext)
         loader.show()
-        val url = AppConstant.URL_BASE_MVP + AppConstant.URL_MY_BUSINESS_BASIC
+        val url = AppConstant.URL_BIZ_BASIC_DETAILS
         val jObj = JSONObject();
         try {
             jObj.put("jwt_token", Utils.getAccessToken(mContext))

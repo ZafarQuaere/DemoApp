@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_edit_image.*
 import kotlinx.coroutines.launch
 import java.io.File
 
-class EditImageActivity : BaseActivity<EditImagePresenter?>(), IEditImage{
+class EditImageActivity : BaseActivity<EditImagePresenter?>(), IEditImage {
 
     private var stringUri: Uri? = null
     private var bitmap: Bitmap? = null
@@ -25,19 +25,17 @@ class EditImageActivity : BaseActivity<EditImagePresenter?>(), IEditImage{
         setContentView(R.layout.activity_edit_image)
         val stringPath = intent.getStringExtra("imagePath")
         val file = File(stringPath)
-        stringUri =  Uri.fromFile(File(stringPath))
+        stringUri = Uri.fromFile(File(stringPath))
         imgView.setImageURI(stringUri)
         try {
             Handler().postDelayed(Runnable {
-                 bitmap = MediaStore.Images.Media.getBitmap(contentResolver, stringUri)
+                bitmap = MediaStore.Images.Media.getBitmap(contentResolver, stringUri)
                 //  bitmap = BitmapUtils.getBitmap(this,stringUri)
-                imgView1.setImageBitmap(bitmap)
             }, 100)
 
         } catch (e: Exception) {
             e.stackTrace
         }
-        //imgView.setImageBitmap(bitmap)
         updateActionbar()
 
         btnCancel.setOnClickListener {
@@ -45,9 +43,8 @@ class EditImageActivity : BaseActivity<EditImagePresenter?>(), IEditImage{
         }
         btnUpload.setOnClickListener {
             lifecycleScope.launch {
-                presenter!!.uploadBitmap(bitmap,file)
+                presenter!!.uploadBitmap(bitmap, file)
             }
-
         }
     }
 
@@ -56,24 +53,22 @@ class EditImageActivity : BaseActivity<EditImagePresenter?>(), IEditImage{
         setSupportActionBar(toolbar)
         supportActionBar!!.title = resources.getString(R.string.editImage)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-       // supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        // supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         toolbar.setNavigationOnClickListener { //finish();
             onBackPressed()
         }
     }
 
     override fun initPresenter(): EditImagePresenter? {
-        return EditImagePresenter(this,this)
+        return EditImagePresenter(this, this)
     }
 
     override fun onUploadError(error: String) {
-
     }
 
     override fun onUploadSuccess() {
         ImageUpdateModelListener.getInstance().changeState(true)
         onBackPressed()
     }
-
 
 }

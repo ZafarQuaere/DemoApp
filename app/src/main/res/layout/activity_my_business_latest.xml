@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
+    android:background="@color/white"
     android:focusable="false"
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
@@ -33,7 +34,7 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_150dp">
+                    android:layout_height="@dimen/headerImageBannerHeight">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_header"
@@ -91,43 +92,12 @@
                     android:scrollbars="none"
                     tools:listitem="@layout/header_image_list_item" />
 
-                <TextView
-                    android:background="@drawable/btn_follow"
-                    android:layout_marginHorizontal="@dimen/_30dp"
-                    android:paddingVertical="@dimen/_5dp"
+                <include
+                    layout="@layout/vb_layout_product_services"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="Deals In" />
+                    android:visibility="visible" />
 
-                <!-- <RelativeLayout
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:paddingHorizontal="@dimen/_10dp">-->
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5dp"
-                    android:paddingHorizontal="@dimen/_10dp"
-                    android:background="@drawable/button_transparent_bg"
-                    android:text="my text " />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/_10dp"
-                    android:layout_marginTop="@dimen/_5dp"
-                    android:background="@drawable/button_transparent_bg"
-                    android:text="my text " />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/_10dp"
-                    android:layout_marginTop="@dimen/_5dp"
-                    android:background="@drawable/button_transparent_bg"
-                    android:text="my text " />
 
                 <!--</RelativeLayout>-->
             </LinearLayout>
@@ -152,7 +122,7 @@
             app:tabGravity="center"
             app:tabIndicatorColor="@color/colorBlack"
             app:tabMode="scrollable"
-            android:background="@color/colorTransparent"
+            android:background="@color/colorLightGrey"
             android:hapticFeedbackEnabled="true"
             app:tabSelectedTextColor="@color/colorBlack"
             app:tabTextColor="@color/colorGrey" />
@@ -165,32 +135,61 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
+        android:background="@color/businessBackground"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <!-- if we put tablayout here it doesn't stuck at actionbar-->
-            <!--<com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabs"
+
+            <include
+                layout="@layout/vb_layout_brochure"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_40dp"
-                app:tabGravity="center"
-                app:tabIndicatorColor="@color/colorBlack"
-                app:tabMode="scrollable"
-                android:background="@android:color/transparent"
-                android:hapticFeedbackEnabled="false"
-                app:tabSelectedTextColor="@color/colorBlack"
-                app:tabTextColor="@color/colorGrey" />-->
+                android:layout_height="wrap_content"
+                android:visibility="visible" />
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewpagerTabs"
-                android:layout_width="wrap_content"
-                android:minHeight="300dp"
-                android:layout_height="500dp"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            <include
+                android:layout_marginTop="@dimen/_3dp"
+                layout="@layout/vb_layout_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible" />
 
+            <include
+                android:layout_marginTop="@dimen/_3dp"
+                layout="@layout/vb_layout_photos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible" />
+
+            <include
+                layout="@layout/vb_layout_amenities"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible" />
+            <include
+                layout="@layout/vb_layout_payment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible" />
+
+
+            <include
+                layout="@layout/vb_layout_pricing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible" />
+
+            <include
+                layout="@layout/vb_layout_categories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_60dp" />
             <!--<ScrollView
                 android:visibility="gone"
                 android:layout_width="match_parent"
