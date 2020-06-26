@@ -28,7 +28,7 @@ import com.zaf.econnecto.utils.storage.PrefUtil
 /**
  * A simple [Fragment] subclass.
  */
- class FourthFragment : Fragment(), IMyBusinessLatest {
+ class FourthFragment : Fragment() {
     private var recyclerCategory: RecyclerView? = null
     private var layoutManager: StaggeredGridLayoutManager? = null
     var mImageData: MutableList<out ViewImageData>? = null
@@ -82,13 +82,9 @@ import com.zaf.econnecto.utils.storage.PrefUtil
         }
     }
 
-    override fun updateBasicDetails(basicDetailsResponse: BasicDetailsResponse?, imageUpdate: Boolean) {
 
-    }
-
-    override fun updateBannerImage(imageData: MutableList<ViewImageData>) {
-        LogUtils.showToast(requireActivity(),"ImageData is null ${imageData.toString()}")
-        mImageData = imageData
-//        updateAdapter(data)
-    }
+//    override fun updateBannerImage(imageData: MutableList<ViewImageData>) {
+//        LogUtils.showToast(requireActivity(),"ImageData is null ${imageData.toString()}")
+//        mImageData = imageData
+//    }
 }

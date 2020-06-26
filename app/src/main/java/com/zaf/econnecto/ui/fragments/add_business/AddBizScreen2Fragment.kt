@@ -52,7 +52,7 @@ class AddBizScreen2Fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
-        KotUtil.updateActionBar(activity, AddBizScreen2Fragment.javaClass.simpleName, activity!!.getString(R.string.add_business), null, null)
+        KotUtil.updateActionBar(activity, AddBizScreen2Fragment.javaClass.simpleName, requireActivity().getString(R.string.add_business), null, null)
         btnNext.setOnClickListener {
             pincode = editPinCode.text.toString().trim()
             city = editCity.text.toString().trim()
@@ -66,29 +66,29 @@ class AddBizScreen2Fragment : Fragment() {
         }
 
         btnPrevious.setOnClickListener {
-            activity!!.onBackPressedDispatcher.onBackPressed()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
     }
 
     private fun validateInputsAndNavigate(data: AddressInfo) = when {
         data.address1.isNullOrEmpty() -> {
-            LogUtils.showErrorDialog(activity, activity!!.getString(R.string.ok), activity!!.getString(R.string.please_enter_address))
+            LogUtils.showErrorDialog(activity, requireActivity().getString(R.string.ok), requireActivity().getString(R.string.please_enter_address))
         }
         data.pincode.isNullOrEmpty() -> {
-            LogUtils.showErrorDialog(activity, activity!!.getString(R.string.ok), activity!!.getString(R.string.please_enter_valid_pincode))
+            LogUtils.showErrorDialog(activity, requireActivity().getString(R.string.ok), requireActivity().getString(R.string.please_enter_valid_pincode))
         }
         data.locality.isNullOrEmpty() -> {
-            LogUtils.showErrorDialog(activity, activity!!.getString(R.string.ok), activity!!.getString(R.string.please_enter_locality))
+            LogUtils.showErrorDialog(activity, requireActivity().getString(R.string.ok), requireActivity().getString(R.string.please_enter_locality))
         }
         data.city.isNullOrEmpty() -> {
-            LogUtils.showErrorDialog(activity, requireActivity().getString(R.string.ok), activity!!.getString(R.string.please_enter_city_name))
+            LogUtils.showErrorDialog(activity, requireActivity().getString(R.string.ok), requireActivity().getString(R.string.please_enter_city_name))
         }
         data.state.isNullOrEmpty() -> {
-            LogUtils.showErrorDialog(activity, activity!!.getString(R.string.ok), activity!!.getString(R.string.please_enter_state))
+            LogUtils.showErrorDialog(activity, requireActivity().getString(R.string.ok), requireActivity().getString(R.string.please_enter_state))
         }
         data.country.isNullOrEmpty() -> {
-            LogUtils.showErrorDialog(activity, activity!!.getString(R.string.ok), activity!!.getString(R.string.please_enter_country))
+            LogUtils.showErrorDialog(activity, requireActivity().getString(R.string.ok), requireActivity().getString(R.string.please_enter_country))
         }
         else -> {
             var bundle = bundleOf("addressInfo" to data)

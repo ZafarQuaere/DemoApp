@@ -33,8 +33,8 @@ class AddBizScreen3ViewModel : ViewModel() {
             myWebsite = "http://$website"
         }
         var category = addressInfo.category1
-        var category2 = addressInfo.category2
-        var category3 = addressInfo.category3
+        val category2 = addressInfo.category2
+        val category3 = addressInfo.category3
         if (category.isNullOrEmpty()) {
             category = if (category2!!.isNotEmpty()) category2
             else category3
@@ -88,10 +88,7 @@ class AddBizScreen3ViewModel : ViewModel() {
 
                 } else {
                     LogUtils.showErrorDialog(mContext!!, mContext!!.getString(R.string.ok), body.optJSONArray("message").optString(0));
-//                    val jsonArray = body.optJSONArray("message")
-//                    val message = jsonArray!!.get(0) as String
-//                    LogUtils.showErrorDialog(mContext, mContext!!.getString(R.string.ok), message)
-                }
+            }
             }
         })
     }

@@ -46,7 +46,7 @@ class AddBizScreen3Fragment : Fragment() {
         }
         navController = Navigation.findNavController(view)
         btnPrevious.setOnClickListener {
-            activity!!.onBackPressedDispatcher.onBackPressed()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
     }
 

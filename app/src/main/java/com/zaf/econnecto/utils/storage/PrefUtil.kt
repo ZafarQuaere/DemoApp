@@ -9,7 +9,7 @@ import com.zaf.econnecto.utils.parser.ParseManager
 
 object PrefUtil {
 
-    fun setBizId(mContext: Context?, data: String?) {
+    fun setBizId(mContext: Context?, data: String) {
         if (mContext == null) return
         val prefs = AppSharedPrefs.getInstance(mContext)
         prefs.put(mContext.getString(R.string.key_biz_id), data)

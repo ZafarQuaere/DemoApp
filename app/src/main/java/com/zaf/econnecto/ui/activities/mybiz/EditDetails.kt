@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_edit_details.*
 
 class EditDetails : BaseActivity<EditDetailsPresenter?>(), IEditDetails {
     val mContext = this
+    lateinit var locality : String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_details)
@@ -22,6 +23,13 @@ class EditDetails : BaseActivity<EditDetailsPresenter?>(), IEditDetails {
     private fun initUI() {
         textUpdateBizDetails.setOnClickListener {
            presenter!!.validateBasicInputs(editBizName.text.toString(),editShortDesc.text.toString(),editEstdYear.text.toString())
+        }
+        textUpdateAddressDetails.setOnClickListener {
+            presenter!!.validateAddressInputs(editAddress1.text.toString(),editPinCode.text.toString(),locality,editCity.text.toString(),editState.text.toString(),editCountry.text.toString())
+        }
+
+        textUpdateContactDetails.setOnClickListener {
+            presenter!!.validateContactInputs(editMobile.text.toString(),editAlternateMobile.text.toString(),editPhone.text.toString(),editEmail.text.toString(),editWebsite.text.toString())
         }
         textBack.setOnClickListener {
             onBackPressed()
@@ -34,15 +42,15 @@ class EditDetails : BaseActivity<EditDetailsPresenter?>(), IEditDetails {
 
 
     override fun updateAddressDetails(msg: String?) {
-        TODO("Not yet implemented")
+
     }
 
     override fun updateContactDetails(msg: String?) {
-        TODO("Not yet implemented")
+
     }
 
     override fun updateBusinessDetails(msg: String?) {
-        TODO("Not yet implemented")
+
     }
 
     private fun updateInfoNReturn(){

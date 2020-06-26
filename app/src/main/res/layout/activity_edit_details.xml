@@ -182,6 +182,46 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <LinearLayout
+                    android:id="@+id/lytLocalitySpin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textLocalityLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10dp"
+                        android:paddingLeft="@dimen/_5dp"
+                        android:text="@string/post_office"
+                        android:textSize="@dimen/font_small_header"
+                        android:visibility="visible" />
+
+                    <!--  <LinearLayout
+                          android:id="@+id/lytLocalitySpin"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center_vertical"
+                          android:visibility="visible">-->
+
+                    <Spinner
+                        android:id="@+id/spinnerLocality"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_50dp"
+                        android:layout_centerVertical="true"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:gravity="right"
+                        android:visibility="visible" />
+                    <!-- </LinearLayout>-->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1dp"
+                        android:background="@color/colorPrimary"/>
+
+                </LinearLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -225,7 +265,7 @@
 
 
                 <TextView
-                    android:id="@+id/textUpdateAddDetails"
+                    android:id="@+id/textUpdateAddressDetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
@@ -258,6 +298,7 @@
                     android:hint="@string/mobile_no">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editMobile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -268,6 +309,7 @@
                     android:hint="@string/alternate_mobile">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editAlternateMobile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -278,6 +320,7 @@
                     android:hint="@string/telephone_with_code">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -288,6 +331,7 @@
                     android:hint="@string/email_id">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -298,6 +342,7 @@
                     android:hint="@string/website">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editWebsite"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </com.google.android.material.textfield.TextInputLayout>
