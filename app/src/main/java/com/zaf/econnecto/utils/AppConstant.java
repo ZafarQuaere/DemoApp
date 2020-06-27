@@ -57,6 +57,8 @@ public class AppConstant {
     public static final String URL_BIZ_PRICING = URL_BASE_MVP+"my_biz/my_biz_pricing.php?business_id=";
     public static final String URL_BIZ_IMAGES = URL_BASE_MVP+"images_api/view_images.php?business_id=";
 
+    public static final String URL_EDIT_ABOUT_WHY = URL_BASE_MVP+"my_biz_add_edit/about_section/add_edit_about.php";
+
     public static final String URL_UPDATE_BUSINESS = "update_business.php";
     public static final String URL_BIZ_CATEGORY = URL_BASE+"categories.php";
     public static final String URL_UPLOAD_USER_PROFILE_PIC = URL_BASE+"user_profile_pic.php";

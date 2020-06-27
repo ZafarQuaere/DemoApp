@@ -160,7 +160,7 @@
                 android:layout_marginTop="@dimen/_3dp"
                 layout="@layout/vb_layout_photos"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="400dp"
                 android:visibility="visible" />
 
             <include

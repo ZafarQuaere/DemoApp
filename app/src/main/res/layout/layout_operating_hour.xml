@@ -465,11 +465,5 @@
         android:textColor="@color/colorWhite"
         android:text="@string/submit" />
 
-    <TextView
-        android:background="@color/colorWhite"
-        android:layout_width="match_parent"
-        android:paddingTop="@dimen/_10dp"
-        android:visibility="invisible"
-        android:layout_height="300dp"/>
 
 </LinearLayout>

@@ -4,29 +4,38 @@ import android.content.Context
 import com.zaf.econnecto.R
 import com.zaf.econnecto.network_call.response_model.img_data.ViewImageData
 import com.zaf.econnecto.network_call.response_model.img_data.ViewImages
+import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsData
+import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsResponse
 import com.zaf.econnecto.utils.LogUtils
 import com.zaf.econnecto.utils.parser.ParseManager
 
 object PrefUtil {
 
-    fun setBizId(mContext: Context?, data: String) {
-        if (mContext == null) return
-        val prefs = AppSharedPrefs.getInstance(mContext)
-        prefs.put(mContext.getString(R.string.key_biz_id), data)
+    fun getBizId(context: Context): String? {
+        val basicDetailsData = getBasicDetailsData(context)
+        return  basicDetailsData!!.businessId
     }
 
-    fun getBizId(context: Context): String? {
-        val prefs = AppSharedPrefs.getInstance(context)
+    fun setBasicDetailsData(mContext: Context, data: String) {
+        if (mContext == null) return
+        val prefs = AppSharedPrefs.getInstance(mContext)
+        prefs.put(mContext.getString(R.string.key_basic_info), data)
+    }
+
+    fun getBasicDetailsData(mContext: Context): BasicDetailsData? {
+        val prefs = AppSharedPrefs.getInstance(mContext)
         var data = ""
         data = try {
-            prefs[context.getString(R.string.key_biz_id)] as String
-        } catch (e: Exception) {
+            prefs[mContext.getString(R.string.key_basic_info)] as String
+        } catch (e: java.lang.Exception) {
             e.printStackTrace()
             LogUtils.ERROR(e.message)
-            return data
+            return null
         }
-        return data
+        val basicDetailsResponse = ParseManager.getInstance().fromJSON(data, BasicDetailsResponse::class.java)
+        return basicDetailsResponse.data[0]
     }
+
 
     fun saveImageData(mContext: Context, data: String) {
         if (mContext == null) return

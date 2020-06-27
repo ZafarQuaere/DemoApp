@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center_horizontal"
-            android:text="@string/operatingHours"
+            android:text="@string/edit_details"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/font_actionbar_title_text" />
 

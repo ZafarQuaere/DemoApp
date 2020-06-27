@@ -25,8 +25,6 @@ import org.json.JSONObject
 
 
 class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBusiness: IMyBusinessLatest) : BasePresenter(mContext) {
-    private var bizDetailData: MyBusiness? = null
-    private var addDealsBg: AddDealsBg? = null
 
 
     fun callBasicDetailsApi(imageUpdate: Boolean) {
@@ -49,7 +47,7 @@ class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBu
                     val status = response.optInt("status")
                     if (status == AppConstant.SUCCESS) {
                         val basicDetailsResponse = ParseManager.getInstance().fromJSON(response.toString(), BasicDetailsResponse::class.java)
-                        PrefUtil.setBizId(mContext, basicDetailsResponse.data[0].businessId)
+                        PrefUtil.setBasicDetailsData(mContext, response.toString())
                         iMyBusiness.updateBasicDetails(basicDetailsResponse, imageUpdate)
 
                     } else {
@@ -255,7 +253,7 @@ class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBu
     }
 
     fun callImageApi() {
-        val url = AppConstant.URL_BIZ_IMAGES + "21" //PrefUtil.getBizId(mContext)
+        val url = AppConstant.URL_BIZ_IMAGES + PrefUtil.getBizId(mContext)
         LogUtils.DEBUG("URL : $url")
         val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, Response.Listener { response ->
             LogUtils.DEBUG("View Image Response ::$response")

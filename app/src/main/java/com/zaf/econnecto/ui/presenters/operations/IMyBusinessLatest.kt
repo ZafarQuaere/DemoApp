@@ -10,7 +10,6 @@ interface IMyBusinessLatest {
     fun updateOperatingHours()
     fun updateProductServiceSection()
     fun updateBrochureSection()
-    fun updateAboutSection()
     fun updateAmenitiesSection()
     fun updatePaymentSection()
     fun updatePricingSection()

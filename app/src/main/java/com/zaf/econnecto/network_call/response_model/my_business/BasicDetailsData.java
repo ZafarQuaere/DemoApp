@@ -22,10 +22,10 @@ public class BasicDetailsData {
     private String shortDescription;
     @SerializedName("about_description")
     @Expose
-    private Object aboutDescription;
+    private String aboutDescription;
     @SerializedName("about_why_us")
     @Expose
-    private Object aboutWhyUs;
+    private String aboutWhyUs;
     @SerializedName("year_established")
     @Expose
     private String yearEstablished;
@@ -115,19 +115,19 @@ public class BasicDetailsData {
         this.shortDescription = shortDescription;
     }
 
-    public Object getAboutDescription() {
+    public String getAboutDescription() {
         return aboutDescription;
     }
 
-    public void setAboutDescription(Object aboutDescription) {
+    public void setAboutDescription(String aboutDescription) {
         this.aboutDescription = aboutDescription;
     }
 
-    public Object getAboutWhyUs() {
+    public String getAboutWhyUs() {
         return aboutWhyUs;
     }
 
-    public void setAboutWhyUs(Object aboutWhyUs) {
+    public void setAboutWhyUs(String aboutWhyUs) {
         this.aboutWhyUs = aboutWhyUs;
     }
 

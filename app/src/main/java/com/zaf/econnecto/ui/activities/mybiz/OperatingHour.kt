@@ -24,7 +24,7 @@ class OperatingHour : AppCompatActivity() {
     private fun initUI() {
         textSubmit.setOnClickListener {
             val returnIntent = Intent()
-            returnIntent.putExtra("result", "data from seconActivity")
+            returnIntent.putExtra("result", "data from secondActivity")
             setResult(Activity.RESULT_OK, returnIntent)
             finish()
         }

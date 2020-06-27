@@ -16,8 +16,10 @@ import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.widget.NestedScrollView
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -34,6 +36,8 @@ import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsDat
 import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsResponse
 import com.zaf.econnecto.ui.activities.BaseActivity
 import com.zaf.econnecto.ui.activities.EditImageActivity
+import com.zaf.econnecto.ui.adapters.AmenitiesStaggeredAdapter
+import com.zaf.econnecto.ui.adapters.StaggeredImageAdapter
 import com.zaf.econnecto.ui.adapters.VBHeaderImageRecylcerAdapter
 import com.zaf.econnecto.ui.interfaces.AddPhotoDialogListener
 import com.zaf.econnecto.ui.presenters.MyBusinessPresenterLatest
@@ -49,6 +53,7 @@ import kotlinx.android.synthetic.main.vb_layout_categories.*
 import kotlinx.android.synthetic.main.vb_layout_payment.*
 import kotlinx.android.synthetic.main.vb_layout_photos.*
 import kotlinx.android.synthetic.main.vb_layout_pricing.*
+import kotlinx.android.synthetic.main.vb_layout_product_services.*
 
 class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMyBusinessLatest,ImageUpdateModelListener.ImageUpdateListener,OnMapReadyCallback {
 
@@ -64,7 +69,11 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         private const val GALLERY_IMAGE_CODE = 100
         private const val CAMERA_IMAGE_CODE = 200
         private const val UPDATE_DETAILS_CODE = 111
-        private const val UPDATE_OPERATING_HOUR_CODE = 222
+        private const val UPDATE_OPERATING_HOUR_CODE = 112
+        private const val UPDATE_PRODUCT_SERVICES = 113
+        private const val UPDATE_ABOUT_US = 114
+        private const val UPDATE_AMENITIES = 115
+        private const val UPDATE_PHOTOS = 116
     }
 
     override fun initPresenter(): MyBusinessPresenterLatest {
@@ -91,19 +100,30 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
 //        setupViewPager(viewPagerTabs)
 
         textFollow.text = getString(R.string.edit_details)
-        textOperatingHours.setOnClickListener {
-            startActivityForResult(Intent(this,OperatingHour::class.java), UPDATE_OPERATING_HOUR_CODE)
-        }
         textFollow.setOnClickListener {
             startActivityForResult(Intent(this, EditDetails::class.java), UPDATE_DETAILS_CODE)
         }
+        textOperatingHours.setOnClickListener {
+            startActivityForResult(Intent(this,OperatingHour::class.java), UPDATE_OPERATING_HOUR_CODE)
+        }
         rlytLocation.setOnClickListener {
-//            LogUtils.showToast(this,"clicked location")
-            mapFrag.requireView().visibility = if (mapFrag.requireView().visibility == View.VISIBLE)
-                View.GONE
-            else
-                View.VISIBLE
+            mapFrag.requireView().visibility = if (mapFrag.requireView().visibility == View.VISIBLE) View.GONE else View.VISIBLE
+        }
+        textAddProductNServices.setOnClickListener{
+            startActivityForResult(Intent(this, ProductAndServices::class.java), UPDATE_PRODUCT_SERVICES)
+        }
+        textAboutDescLabel.setOnClickListener {
+            startActivityForResult(Intent(this, AboutActivity::class.java), UPDATE_ABOUT_US)
+        }
+        textAboutWhyUsLabel.setOnClickListener {
+            startActivityForResult(Intent(this, AboutActivity::class.java), UPDATE_ABOUT_US)
+        }
+        textAboutEdit.setOnClickListener {
+            startActivityForResult(Intent(this, AboutActivity::class.java), UPDATE_ABOUT_US)
+        }
 
+        textAddAmenities.setOnClickListener {
+            startActivityForResult(Intent(this, AmenitiesActivity::class.java), UPDATE_AMENITIES)
         }
     }
 
@@ -131,8 +151,8 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
     private fun scrollUpto(text: String?) {
         when (text) {
             "About" -> {
-                scroll.scrollTo(0, textAboutWhyUs.top + 100)
-                textAboutWhyUs.requestFocus()
+                scroll.scrollTo(0, textAboutWhyUsLabel.top + 100)
+                textAboutWhyUsLabel.requestFocus()
             }
             "Brochure" -> {
                 scroll.scrollTo(0, textUploadBrochure.top-50)
@@ -161,7 +181,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
                 textCategory1.requestFocus()
             }
 //            "Payment" ->  scroll.scrollTo(0,textAddPayments.top +2600) //scrollToRow(scroll,layoutPayment,textAddPayments)
-            else -> scroll.scrollTo(0, textAboutWhyUs.top + 2600)
+            else -> scroll.scrollTo(0, textAboutWhyUsLabel.top + 2600)
         }
 
     }
@@ -197,7 +217,6 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
     }
 
     private fun updateActionbar() {
-
         val toolbar = findViewById<Toolbar>(R.id.toolbarBd)
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -235,6 +254,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         textEstablishedDate.text =  getString(R.string.established_year)+": ${basicDetailsDta.yearEstablished}"
         textAddress.text =  basicDetailsDta.address1
         textWebsite.text =  if (!basicDetailsDta.website.isNullOrEmpty()) basicDetailsDta.website else ""
+        updateAboutSection(basicDetailsDta)
         updateMap(basicDetailsDta)
 
     }
@@ -260,6 +280,20 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         recyclerHeader.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false)
         val adapter = VBHeaderImageRecylcerAdapter(this, data.toList() as MutableList<ViewImageData>)
         recyclerHeader.adapter = adapter
+        updatePhotoSection(data)
+    }
+
+    private fun updatePhotoSection(data: MutableList<ViewImageData>) {
+        val layoutManager = StaggeredGridLayoutManager( 2, LinearLayout.VERTICAL)
+        recycler_photos!!.layoutManager = layoutManager
+        recycler_photos!!.setItemAnimator(DefaultItemAnimator())
+        val list1 = mutableListOf<ViewImageData>(data[0],data[1],data[2],data[3])
+        val adapter = StaggeredImageAdapter(this, list1)
+        recycler_photos!!.adapter = adapter
+        textSeeMore.setOnClickListener {
+            startActivityForResult(Intent(this, PhotosActivity::class.java), UPDATE_PHOTOS)
+        }
+
     }
 
     fun uploadPhoto(view: View) {
@@ -293,12 +327,21 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
             if (resultCode == RESULT_OK && data != null) {
+
                 when (requestCode) {
+
                     UPDATE_DETAILS_CODE -> {
                         presenter!!.callBasicDetailsApi(false)
                     }
                     UPDATE_OPERATING_HOUR_CODE -> {
                         LogUtils.showToast(this,"Coming from operating hour")
+                    }
+                    UPDATE_PRODUCT_SERVICES -> {
+                        LogUtils.showToast(this,"Coming from product services")
+                    }
+                    UPDATE_ABOUT_US -> {
+                        LogUtils.showToast(this,"Coming from about services")
+                        presenter!!.callBasicDetailsApi(false)
                     }
                     else -> {
                         selectedImageUri = data.data
@@ -315,7 +358,6 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
                //imgTemp.setImageURI(uri)
                 LogUtils.showToast(mContext, "From Camera")
             }*/
-
         }
 
     }
@@ -331,7 +373,6 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
            val bitmap = data.extras.get("data") as Bitmap
             intent.putExtra("imagePath",BitmapUtils.getImagePath(this,null,bitmap,BitmapUtils.BITMAP_IMAGE))
         }
-        //intent.putExtra("imageUri",selectedImageUri)
         startActivity(intent)
     }
 
@@ -370,8 +411,16 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         TODO("Not yet implemented")
     }
 
-    override fun updateAboutSection() {
-        TODO("Not yet implemented")
+    private fun updateAboutSection(basicDetailsDta: BasicDetailsData) {
+        if (basicDetailsDta.aboutWhyUs != null && !basicDetailsDta.aboutWhyUs.equals("")) {
+            lytAboutEmpty.visibility = View.GONE
+            lytAboutData.visibility = View.VISIBLE
+            textAboutDesc.text = basicDetailsDta.aboutDescription
+            textAboutWhyUs.text = basicDetailsDta.aboutWhyUs
+        } else {
+            lytAboutData.visibility = View.GONE
+            lytAboutEmpty.visibility = View.VISIBLE
+        }
     }
 
     override fun updateAmenitiesSection() {

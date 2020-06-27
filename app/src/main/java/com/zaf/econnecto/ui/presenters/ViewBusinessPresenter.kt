@@ -108,9 +108,8 @@ class ViewBusinessPresenter(context: Context?, iViewBizns: IViewBizns) : BasePre
                     val status = response.optInt("status")
                     if (status == AppConstant.SUCCESS) {
                         val basicDetailsResponse = ParseManager.getInstance().fromJSON(response.toString(), BasicDetailsResponse::class.java)
-                        PrefUtil.setBizId(mContext,basicDetailsResponse.data[0].businessId)
+                        PrefUtil.setBasicDetailsData(mContext, response.toString())
 //                        iMyBusiness.updateBasicDetails(basicDetailsResponse,imageUpdate)
-
                     } else {
                         LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.ok), response.optJSONArray("message").optString(0)) { (mContext as Activity).onBackPressed() }
                     }

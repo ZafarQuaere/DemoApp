@@ -87,7 +87,11 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ui.activities.PhoneVerificationActivity" />
         <activity android:name=".ui.activities.mybiz.MyBusinessActivityLatest" />
-        <activity android:name="com.zaf.econnecto.ui.activities.mybiz.OperatingHour" />
+        <activity android:name=".ui.activities.mybiz.OperatingHour" />
+        <activity android:name=".ui.activities.mybiz.ProductAndServices" />
+        <activity android:name=".ui.activities.mybiz.AmenitiesActivity" />
+        <activity android:name=".ui.activities.mybiz.AboutActivity" />
+        <activity android:name=".ui.activities.mybiz.PhotosActivity" />
 
         <uses-library
             android:name="org.apache.http.legacy"

@@ -44,7 +44,6 @@ class EditDetailsPresenter(private val mContext: Context, private val iEditDetai
                     val status = response.optInt("status")
                     if (status == AppConstant.SUCCESS) {
                         val basicDetailsResponse = ParseManager.getInstance().fromJSON(response.toString(), BasicDetailsResponse::class.java)
-                        PrefUtil.setBizId(mContext, basicDetailsResponse.data[0].businessId)
                         iEditDetails.updateBusinessDetails("")
 
                     } else {

@@ -1,0 +1,33 @@
+{
+  "message": [
+    "Business found successfully"
+  ],
+  "status": 1,
+  "data": [
+    {
+      "business_id": "39",
+      "owner_id": "50",
+      "business_uid": "memers_50",
+      "business_name": "Memers",
+      "short_description": "It's an idea that spread via internet.",
+      "about_description": null,
+      "about_why_us": null,
+      "year_established": "2014",
+      "address_1": "Karimganj Road No 2, Gali no 9",
+      "address_2": "",
+      "landmark": "",
+      "pin_code": "823001",
+      "area_locality": "Karimganj S.O",
+      "city_town": "Gaya",
+      "state": "BIHAR",
+      "country": "India",
+      "is_outside_serve": "2",
+      "mobile_1": "9998887776",
+      "mobile_2": "",
+      "telephone": "",
+      "email": "zafarimam512@gmail.com",
+      "website": "",
+      "followers_count": "1"
+    }
+  ]
+}

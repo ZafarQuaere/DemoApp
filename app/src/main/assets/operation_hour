@@ -1,0 +1,30 @@
+{
+  "message": [
+    "Operating Hours fetched successfully"
+  ],
+  "status": 1,
+  "data": {
+    "Mon": [
+      "10:30 AM - 5:30 PM"
+    ],
+    "Tue": [
+      "10:30 AM - 5:30 PM"
+    ],
+    "Wed": [
+      "10:30 AM - 5:30 PM"
+    ],
+    "Thu": [
+      "10:30 AM - 5:30 PM"
+    ],
+    "Fri": [
+      "10:30 AM - 5:30 PM"
+    ],
+    "Sat": [
+      "10:30 AM - 2:30 PM"
+    ],
+    "Sun": [
+      "Closed"
+    ],
+    "CurrentStatus": "Closed"
+  }
+}

@@ -137,12 +137,12 @@
     <string name="hot_deals">Hot Deals</string>
     <string name="register_successful_plz_login">Your mobile number is verified now.\nPlease login with mobile no and password</string>
     <string name="retry">Retry</string>
-    <string name="you_need_to_login_first_to_follow_a_business">You need to Login first to follow a Businness.</string>
+    <string name="you_need_to_login_first_to_follow_a_business">You need to Login first to follow a Business.</string>
     <string name="please_enter_business_name">Please Enter Business Name</string>
     <string name="please_enter_a_short_description">Please enter a short description or tagline of your business.</string>
     <string name="Select_Category">Select Category</string>
     <string name="please_select_business_category">Please select business category</string>
-    <string name="please_enter_a_detail_description">Please enter detail description of your business.</string>
+    <string name="please_enter_a_detail_description">Please enter description of your business.</string>
     <string name="please_enter_foundation_year_of_business">Please enter Foundation Year of the business.</string>
     <string name="add_business_success_msg">Congratulations !!  Your business is added Successfully.</string>
     <string name="please_enable_your_network_connection_and_launch_again">Please enable your network connection and launch again.</string>
@@ -336,7 +336,7 @@
     <string name="todo">TODO</string>
     <string name="editImage">Edit Photo</string>
     <string name="operatingHours">Operating Hours</string>
-    <string name="edit_details">Edit details</string>
+    <string name="edit_details">Edit Details</string>
     <string name="key_bundle_data">key_bundle_data</string>
     <string name="copy_for_weekdays">Copy for weekdays</string>
     <string name="from">From</string>
@@ -350,4 +350,19 @@
     <string name="payment_options">Payment Options</string>
     <string name="pricing">Pricing</string>
     <string name="categories">Categories</string>
+    <string name="product">Product</string>
+    <string name="product_name">Product Name</string>
+    <string name="add_more_product">Add more product</string>
+    <string name="service_name">Service Name</string>
+    <string name="services">Services</string>
+    <string name="add_more_services">Add more services</string>
+    <string name="add_amenities">Add Amenities</string>
+    <string name="select_amenities">Select Amenities</string>
+    <string name="enter_description">Enter Description</string>
+    <string name="enter_why_us">Why Us ?</string>
+    <string name="description_is_too_short">Description is too short</string>
+    <string name="please_enter_why_to_go_with_your_biz">Please enter why to use your business</string>
+    <string name="about_is_too_short">About detail is too short</string>
+    <string name="key_basic_info">key_basic_info</string>
+    <string name="photos">Photos</string>
 </resources>
