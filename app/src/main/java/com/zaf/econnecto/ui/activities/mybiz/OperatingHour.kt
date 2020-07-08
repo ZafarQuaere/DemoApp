@@ -5,6 +5,7 @@ import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import android.widget.TimePicker
 import androidx.appcompat.app.AppCompatActivity
 import com.zaf.econnecto.R
@@ -28,7 +29,21 @@ class OperatingHour : AppCompatActivity() {
             setResult(Activity.RESULT_OK, returnIntent)
             finish()
         }
-        monFromTime.setOnClickListener {
+
+        textBack.setOnClickListener {
+            onBackPressed();
+        }
+        selectTimeClickEvents()
+
+    }
+
+    private fun selectTimeClickEvents() {
+        val list = listOf<TextView>(monFromTime,monEndTime,tueFromTime,tueEndTime,wedFromTime,wedEndTime,
+                                thuFromTime,thuEndTime,friFromTime,friEndTime,satFromTime,satEndTime,sunFromTime,sunEndTime)
+        for (text in list){
+            text.setOnClickListener { onTimeClick(text) }
+        }
+        /*monFromTime.setOnClickListener {
             onTimeClick(monFromTime)
         }
         monEndTime.setOnClickListener {
@@ -40,8 +55,42 @@ class OperatingHour : AppCompatActivity() {
         tueEndTime.setOnClickListener {
             onTimeClick(tueEndTime)
         }
-        textBack.setOnClickListener {
-            onBackPressed();
+        wedFromTime.setOnClickListener {
+            onTimeClick(wedFromTime)
+        }
+        wedEndTime.setOnClickListener {
+            onTimeClick(wedEndTime)
+        }
+        thuFromTime.setOnClickListener {
+            onTimeClick(thuFromTime)
+        }
+        thuEndTime.setOnClickListener {
+            onTimeClick(thuEndTime)
+        }
+        friFromTime.setOnClickListener {
+            onTimeClick(friFromTime)
+        }
+        friEndTime.setOnClickListener {
+            onTimeClick(friEndTime)
+        }
+        satFromTime.setOnClickListener {
+            onTimeClick(satFromTime)
+        }
+        satEndTime.setOnClickListener {
+            onTimeClick(satEndTime)
+        }
+        sunFromTime.setOnClickListener {
+            onTimeClick(sunFromTime)
+        }
+        sunEndTime.setOnClickListener {
+            onTimeClick(sunEndTime)
+        }*/
+        checkCopyForWeekday.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                LogUtils.showToast(this, "isChecked : $isChecked")
+            } else {
+                LogUtils.showToast(this, "isChecked : $isChecked")
+            }
         }
 
     }
@@ -64,6 +113,17 @@ class OperatingHour : AppCompatActivity() {
                     R.id.monEndTime -> monEndTime.text = String.format("%d:%d %s", hours, minute, am_pm)
                     R.id.tueFromTime -> tueFromTime.text = String.format("%d:%d %s", hours, minute, am_pm)
                     R.id.tueEndTime -> tueEndTime.text = String.format("%d:%d %s", hours, minute, am_pm)
+
+                    R.id.wedFromTime -> wedFromTime.text = String.format("%d:%d %s", hours, minute, am_pm)
+                    R.id.wedEndTime ->  wedEndTime.text = String.format("%d:%d %s", hours, minute, am_pm)
+                    R.id.thuFromTime -> thuFromTime.text = String.format("%d:%d %s", hours, minute, am_pm)
+                    R.id.thuEndTime ->  thuEndTime.text = String.format("%d:%d %s", hours, minute, am_pm)
+                    R.id.friFromTime -> friFromTime.text = String.format("%d:%d %s", hours, minute, am_pm)
+                    R.id.friEndTime ->  friEndTime.text = String.format("%d:%d %s", hours, minute, am_pm)
+                    R.id.satFromTime -> satFromTime.text = String.format("%d:%d %s", hours, minute, am_pm)
+                    R.id.satEndTime ->  satEndTime.text = String.format("%d:%d %s", hours, minute, am_pm)
+                    R.id.sunFromTime -> sunFromTime.text = String.format("%d:%d %s", hours, minute, am_pm)
+                    R.id.sunEndTime ->  sunEndTime.text = String.format("%d:%d %s", hours, minute, am_pm)
                     else -> LogUtils.showToast(this@OperatingHour, "Tue tueEndTime Time")
 
                 }
