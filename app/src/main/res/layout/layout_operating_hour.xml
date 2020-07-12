@@ -79,20 +79,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.1"
-            android:background="@drawable/btn_follow"
-            android:gravity="center_horizontal"
-            android:paddingHorizontal="@dimen/_3dp"
-            android:paddingVertical="@dimen/_5dp"
-            android:text="10:00 AM"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/font_small_text"
-            android:textStyle="bold" />
+            android:text="@string/default_start_time"
+            style="@style/OpHourText"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.6"
             android:gravity="center"
+            android:textSize="@dimen/font_small_text"
             android:text="@string/to" />
 
         <TextView
@@ -100,14 +95,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.1"
-            android:background="@drawable/btn_follow"
-            android:gravity="center_horizontal"
-            android:paddingHorizontal="@dimen/_3dp"
-            android:paddingVertical="@dimen/_5dp"
-            android:text="12:00PM"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/font_small_text"
-            android:textStyle="bold" />
+            android:text="@string/default_end_time"
+            style="@style/OpHourText"/>
     </LinearLayout>
 
     <LinearLayout
@@ -145,17 +134,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.1"
-            android:background="@drawable/btn_follow"
-            android:gravity="center_horizontal"
-            android:paddingHorizontal="@dimen/_10dp"
-            android:paddingVertical="@dimen/_5dp"
-            android:text="9 AM" />
+            style="@style/OpHourText"
+            android:text="@string/default_start_time" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.6"
             android:gravity="center"
+            android:textSize="@dimen/font_small_text"
             android:text="@string/to" />
 
         <TextView
@@ -163,11 +150,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.1"
-            android:background="@drawable/btn_follow"
-            android:gravity="center_horizontal"
-            android:paddingHorizontal="@dimen/_10dp"
-            android:paddingVertical="@dimen/_5dp"
-            android:text="7 PM" />
+            style="@style/OpHourText"
+            android:text="@string/default_end_time" />
     </LinearLayout>
 
     <LinearLayout
@@ -204,17 +188,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.1"
-            android:background="@drawable/btn_follow"
-            android:gravity="center_horizontal"
-            android:paddingHorizontal="@dimen/_10dp"
-            android:paddingVertical="@dimen/_5dp"
-            android:text="9 AM" />
+            style="@style/OpHourText"
+            android:text="@string/default_start_time" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.6"
             android:gravity="center"
+            android:textSize="@dimen/font_small_text"
             android:text="@string/to" />
 
         <TextView
@@ -222,11 +204,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.1"
-            android:background="@drawable/btn_follow"
-            android:gravity="center_horizontal"
-            android:paddingHorizontal="@dimen/_10dp"
-            android:paddingVertical="@dimen/_5dp"
-            android:text="7 PM" />
+            style="@style/OpHourText"
+            android:text="@string/default_end_time" />
     </LinearLayout>
 
     <LinearLayout
@@ -264,17 +243,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.1"
-            android:background="@drawable/btn_follow"
-            android:gravity="center_horizontal"
-            android:paddingHorizontal="@dimen/_10dp"
-            android:paddingVertical="@dimen/_5dp"
-            android:text="9 AM" />
+            style="@style/OpHourText"
+            android:text="@string/default_start_time" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.6"
             android:gravity="center"
+            android:textSize="@dimen/font_small_text"
             android:text="@string/to" />
 
         <TextView
@@ -282,11 +259,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.1"
-            android:background="@drawable/btn_follow"
-            android:gravity="center_horizontal"
-            android:paddingHorizontal="@dimen/_10dp"
-            android:paddingVertical="@dimen/_5dp"
-            android:text="7 PM" />
+            style="@style/OpHourText"
+            android:text="@string/default_end_time" />
     </LinearLayout>
 
     <LinearLayout
@@ -324,17 +298,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.1"
-            android:background="@drawable/btn_follow"
-            android:gravity="center_horizontal"
-            android:paddingHorizontal="@dimen/_10dp"
-            android:paddingVertical="@dimen/_5dp"
-            android:text="9 AM" />
+            style="@style/OpHourText"
+            android:text="@string/default_start_time" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.6"
             android:gravity="center"
+            android:textSize="@dimen/font_small_text"
             android:text="@string/to" />
 
         <TextView
@@ -342,11 +314,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.1"
-            android:background="@drawable/btn_follow"
-            android:gravity="center_horizontal"
-            android:paddingHorizontal="@dimen/_10dp"
-            android:paddingVertical="@dimen/_5dp"
-            android:text="7 PM" />
+            style="@style/OpHourText"
+            android:text="@string/default_end_time" />
     </LinearLayout>
 
     <LinearLayout
@@ -384,18 +353,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.1"
-            android:background="@drawable/btn_follow"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:gravity="center_horizontal"
-            android:paddingHorizontal="@dimen/_10dp"
-            android:paddingVertical="@dimen/_5dp"
-            android:text="9 AM" />
+            style="@style/OpHourText"
+            android:text="@string/default_start_time" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.6"
             android:gravity="center"
+            android:textSize="@dimen/font_small_text"
             android:text="@string/to" />
 
         <TextView
@@ -403,11 +369,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.1"
-            android:background="@drawable/btn_follow"
-            android:gravity="center_horizontal"
-            android:paddingHorizontal="@dimen/_10dp"
-            android:paddingVertical="@dimen/_5dp"
-            android:text="7 PM" />
+            style="@style/OpHourText"
+            android:text="@string/default_end_time" />
     </LinearLayout>
 
     <LinearLayout
@@ -446,13 +409,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.1"
-            android:text="9 AM" />
+            android:text="@string/default_start_time" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.6"
             android:gravity="center"
+            android:textSize="@dimen/font_small_text"
             android:text="@string/to" />
 
         <TextView
@@ -461,7 +425,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.1"
-            android:text="@string/_7pm" />
+            android:text="@string/default_end_time" />
     </LinearLayout>
 
     <TextView

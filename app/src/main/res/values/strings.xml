@@ -365,7 +365,8 @@
     <string name="about_is_too_short">About detail is too short</string>
     <string name="key_basic_info">key_basic_info</string>
     <string name="photos">Photos</string>
-    <string name="_7pm">7 PM</string>
+    <string name="default_start_time">10 AM</string>
+    <string name="default_end_time">8:30 PM</string>
     <string name="monday">Monday</string>
     <string name="tuesday">Tuesday</string>
     <string name="wednesday">Wednesday</string>

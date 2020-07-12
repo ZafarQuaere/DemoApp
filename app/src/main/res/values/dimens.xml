@@ -75,7 +75,7 @@
     <dimen name="headerImageBannerWidth">300dp</dimen>
 
     <!-- Operating Hour Screen  -->
-    <dimen name="textSizeFromTime">10sp</dimen>
+    <dimen name="textSizeFromTime">11sp</dimen>
 
 
     <!--Crop View-->

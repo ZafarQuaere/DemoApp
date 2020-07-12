@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.zaf.econnecto.R;
+import com.zaf.econnecto.ui.activities.mybiz.MyBusinessActivityLatest;
 import com.zaf.econnecto.utils.DateUtils;
 import com.zaf.econnecto.utils.Utils;
 import com.zaf.econnecto.version2.ui.HomeActivity;
@@ -39,15 +40,15 @@ public class SplashActivity extends Activity {
                     Utils.setLoggedIn(mContext, false);
                     Utils.saveLoginData(mContext, null);
                 }
-                if (mContext.getResources().getBoolean(R.bool.run_version2_ui)) {
+              /*  if (mContext.getResources().getBoolean(R.bool.run_version2_ui)) {
                     Intent i = new Intent(SplashActivity.this, HomeActivity.class);
                     startActivity(i);
                 } else {
                     Intent i = new Intent(SplashActivity.this, MainActivity.class);
                     startActivity(i);
-                }
-                /*Intent i = new Intent(SplashActivity.this, MyBusinessActivityLatest.class);
-                startActivity(i);*/
+                }*/
+                Intent i = new Intent(SplashActivity.this, MyBusinessActivityLatest.class);
+                startActivity(i);
                 finish();
             }
         }, SPLASH_TIME_OUT);

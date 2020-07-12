@@ -35,101 +35,152 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/_20dp">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/product"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/font_x_large_text" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilProduct"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_3dp"
-            android:hint="@string/product_name">
+            android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editProductName"
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_50dp"
-                android:inputType="text"
-                android:maxLength="55" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/_20dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_add"
-            android:gravity="center_horizontal"
-            android:text="@string/add_more_product"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/font_large_text" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/product"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/font_x_large_text" />
 
-    </LinearLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_3dp"
+                    android:hint="@string/product_name">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editProductName"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_50dp"
+                        android:inputType="text"
+                        android:maxLength="55" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilProduct2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_3dp"
+                    android:hint="@string/product_name">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editProductName2"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_50dp"
+                        android:inputType="text"
+                        android:maxLength="55" />
+                </com.google.android.material.textfield.TextInputLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_20dp"
-        android:orientation="vertical"
-        android:padding="@dimen/_20dp">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilProduct3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_3dp"
+                    android:hint="@string/product_name">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/services"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/font_x_large_text" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editProductName3"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_50dp"
+                        android:inputType="text"
+                        android:maxLength="55" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilServices"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_3dp"
-            android:hint="@string/service_name">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilProduct4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_3dp"
+                    android:hint="@string/product_name">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editServiceName1"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editProductName4"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_50dp"
+                        android:inputType="text"
+                        android:maxLength="55" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_add"
+                    android:gravity="center_horizontal"
+                    android:text="@string/add_more_product"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/font_large_text" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_50dp"
-                android:inputType="text"
-                android:maxLength="55" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20dp"
+                android:orientation="vertical"
+                android:padding="@dimen/_20dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_add"
-            android:gravity="center_horizontal"
-            android:text="@string/add_more_services"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/font_large_text" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/services"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/font_x_large_text" />
 
-    </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/layoutServices"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"/>
 
-    <TextView
-        android:id="@+id/textSubmit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginTop="@dimen/_20dp"
-        android:layout_marginEnd="@dimen/_20dp"
-        android:layout_marginBottom="@dimen/_20dp"
-        android:background="@drawable/rounded_background"
-        android:paddingHorizontal="@dimen/_15dp"
-        android:paddingVertical="@dimen/_5dp"
-        android:text="@string/submit"
-        android:textColor="@color/colorWhite" />
+                <TextView
+                    android:id="@+id/textAddServices"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_add"
+                    android:gravity="center_horizontal"
+                    android:text="@string/add_more_services"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/font_large_text" />
 
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="@dimen/_20dp"
+                android:layout_marginEnd="@dimen/_20dp"
+                android:layout_marginBottom="@dimen/_20dp"
+                android:background="@drawable/rounded_background"
+                android:paddingHorizontal="@dimen/_15dp"
+                android:paddingVertical="@dimen/_5dp"
+                android:text="@string/submit"
+                android:textColor="@color/colorWhite" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

@@ -86,13 +86,42 @@ class OperatingHour : AppCompatActivity() {
             onTimeClick(sunEndTime)
         }*/
         checkCopyForWeekday.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                LogUtils.showToast(this, "isChecked : $isChecked")
-            } else {
-                LogUtils.showToast(this, "isChecked : $isChecked")
-            }
+            setWeekdaysTiming(isChecked)
+//            if (isChecked) {
+//                setWeekdaysTiming(isChecked)
+//            } else {
+//                setWeekdaysTiming(true)
+//            }
         }
 
+    }
+
+    private fun setWeekdaysTiming( setSameTiming : Boolean) {
+        if (setSameTiming) {
+            val fromTime = monFromTime.text.toString()
+            val endTime = monEndTime.text.toString()
+            tueFromTime.text = fromTime
+            tueEndTime.text = endTime
+            wedFromTime.text = fromTime
+            wedEndTime.text = endTime
+            thuFromTime.text = fromTime
+            thuEndTime.text = endTime
+            friFromTime.text = fromTime
+            friEndTime.text = endTime
+            satFromTime.text = fromTime
+            satEndTime.text = endTime
+        } else {
+            tueFromTime.text = getString(R.string.default_start_time)
+            tueEndTime.text = getString(R.string.default_end_time)
+            wedFromTime.text = getString(R.string.default_start_time)
+            wedEndTime.text = getString(R.string.default_end_time)
+            thuFromTime.text = getString(R.string.default_start_time)
+            thuEndTime.text = getString(R.string.default_end_time)
+            friFromTime.text = getString(R.string.default_start_time)
+            friEndTime.text = getString(R.string.default_end_time)
+            satFromTime.text = getString(R.string.default_start_time)
+            satEndTime.text = getString(R.string.default_end_time)
+        }
     }
 
     private fun onTimeClick(v: View?) {
@@ -112,8 +141,7 @@ class OperatingHour : AppCompatActivity() {
                     R.id.monFromTime -> monFromTime.text = String.format("%d:%d %s", hours, minute, am_pm)
                     R.id.monEndTime -> monEndTime.text = String.format("%d:%d %s", hours, minute, am_pm)
                     R.id.tueFromTime -> tueFromTime.text = String.format("%d:%d %s", hours, minute, am_pm)
-                    R.id.tueEndTime -> tueEndTime.text = String.format("%d:%d %s", hours, minute, am_pm)
-
+                    R.id.tueEndTime ->  tueEndTime.text = String.format("%d:%d %s", hours, minute, am_pm)
                     R.id.wedFromTime -> wedFromTime.text = String.format("%d:%d %s", hours, minute, am_pm)
                     R.id.wedEndTime ->  wedEndTime.text = String.format("%d:%d %s", hours, minute, am_pm)
                     R.id.thuFromTime -> thuFromTime.text = String.format("%d:%d %s", hours, minute, am_pm)

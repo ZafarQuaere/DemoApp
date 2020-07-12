@@ -115,8 +115,10 @@
         <item name="android:fontFamily">sans-serif-condensed-medium</item>
         <item name="android:gravity">center_horizontal</item>
         <item name="android:background">@drawable/btn_follow</item>
-        <item name="android:paddingHorizontal" tools:targetApi="o">@dimen/_3dp</item>
-        <item name="android:paddingVertical" tools:targetApi="o">@dimen/_5dp</item>
+        <item name="android:paddingLeft" >@dimen/_3dp</item>
+        <item name="android:paddingRight" >@dimen/_3dp</item>
+        <item name="android:paddingTop">@dimen/_5dp</item>
+        <item name="android:paddingBottom">@dimen/_5dp</item>
         <item name="android:textSize">@dimen/textSizeFromTime</item>
         <item name="android:textColor">@color/colorBlack</item>
         <item name="android:textStyle">bold</item>
