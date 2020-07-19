@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,11 +15,13 @@ import com.zaf.econnecto.R;
 import com.zaf.econnecto.ui.fragments.user_register.UserRegisterFragment;
 import com.zaf.econnecto.ui.presenters.LoginPresenter;
 import com.zaf.econnecto.ui.presenters.operations.ILogin;
+import com.zaf.econnecto.utils.ApiViewModel;
 import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.Utils;
+import com.zaf.econnecto.utils.VmTempInterface;
 
 
-public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogin, View.OnClickListener {
+public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogin, VmTempInterface, View.OnClickListener {
 
     private EditText editUserName;
     private EditText editPassword;
@@ -85,7 +89,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
 
     @Override
     public void callLoginApi(String userId, String password) {
-        getPresenter().callApi(userId, password);
+//        getPresenter().callApi(userId, password);
+        ApiViewModel aVm = ViewModelProviders.of(this).get(ApiViewModel.class);
+        aVm.callLoginApi(this,this,userId,password);
     }
 
     @Override
@@ -104,5 +110,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
                 startActivity(new Intent(LoginActivity.this, UserRegistrationActivity.class));
                 break;
         }
+    }
+
+    @Override
+    public void doLoginFromVm() {
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        finish();
     }
 }

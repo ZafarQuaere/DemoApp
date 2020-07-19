@@ -1,6 +1,7 @@
 package com.zaf.econnecto.ui.activities.mybiz
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -16,6 +17,8 @@ import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.widget.NestedScrollView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -36,7 +39,6 @@ import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsDat
 import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsResponse
 import com.zaf.econnecto.ui.activities.BaseActivity
 import com.zaf.econnecto.ui.activities.EditImageActivity
-import com.zaf.econnecto.ui.adapters.AmenitiesStaggeredAdapter
 import com.zaf.econnecto.ui.adapters.StaggeredImageAdapter
 import com.zaf.econnecto.ui.adapters.VBHeaderImageRecylcerAdapter
 import com.zaf.econnecto.ui.interfaces.AddPhotoDialogListener
@@ -64,6 +66,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
     private lateinit var gMap : GoogleMap
     private lateinit var viewPagerTabs : ViewPager
     private lateinit var tabLayout : TabLayout
+    private lateinit var myBizViewModel : MyBusinessViewModel
 
     companion object {
         private const val GALLERY_IMAGE_CODE = 100
@@ -84,12 +87,26 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_business_latest)
+        myBizViewModel = ViewModelProviders.of(this).get(MyBusinessViewModel::class.java)
+
         mContext = this
         loader = AppLoaderFragment.getInstance(mContext)
         updateActionbar()
-        presenter!!.callBasicDetailsApi(true)
+//        presenter!!.callBasicDetailsApi(true)
+        myBizViewModel!!.callBasicDetailsApi(this,true, this)
+        subscribeViewModels()
         presenter!!.initMap(this,mapFrag)
         updateMyBizUI()
+    }
+
+    private fun subscribeViewModels() {
+
+        myBizViewModel.basicDetailsData.observe(this,object : Observer<MutableList<BasicDetailsData>>  {
+
+            override fun onChanged(t: MutableList<BasicDetailsData>?) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 
     private fun updateMyBizUI() {
@@ -231,15 +248,22 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         //get the business owner id and call image api
             updateBasicDetails(basicDetailsResponse)
         if (imageUpdate) {
+            myBizViewModel.bizImageList(mContext as Activity?,this)
+            myBizViewModel.bizOperatingHours(mContext as Activity?,this)
+            myBizViewModel.bizProductServicesList(mContext as Activity?,this)
+            myBizViewModel.bizAmenityList(mContext as Activity?,this)
+            myBizViewModel.bizBrochureList(mContext as Activity?,this)
+            myBizViewModel.bizPaymentMethodList(mContext as Activity?,this)
+            myBizViewModel.bizPricingList(mContext as Activity?,this)
+            myBizViewModel.bizCategoryList(mContext as Activity?,this)
             presenter!!.callImageApi()
-            presenter!!.callAboutApi()
+            presenter!!.callOperationTimeApi()
+            presenter!!.callProdServicesApi()
             presenter!!.callAmenitiesApi()
             presenter!!.callBrochureApi()
-            presenter!!.callOperationTimeApi()
             presenter!!.callCategoriesApi()
             presenter!!.callPaymentApi()
             presenter!!.callPricingApi()
-            presenter!!.callProdServicesApi()
             presenter!!.callCategoriesApi()
 
         }
@@ -284,16 +308,25 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
     }
 
     private fun updatePhotoSection(data: MutableList<ViewImageData>) {
-        val layoutManager = StaggeredGridLayoutManager( 2, LinearLayout.VERTICAL)
-        recycler_photos!!.layoutManager = layoutManager
-        recycler_photos!!.setItemAnimator(DefaultItemAnimator())
-        val list1 = mutableListOf<ViewImageData>(data[0],data[1],data[2],data[3])
-        val adapter = StaggeredImageAdapter(this, list1)
-        recycler_photos!!.adapter = adapter
-        textSeeMore.setOnClickListener {
-            startActivityForResult(Intent(this, PhotosActivity::class.java), UPDATE_PHOTOS)
-        }
+        if (data != null) {
+            textAddPhotos.visibility = View.GONE
+            recycler_photos.visibility = View.VISIBLE
+            textSeeMore.visibility = View.VISIBLE
+            // textSeeMore.bringToFront()
+            val layoutManager = StaggeredGridLayoutManager(2, LinearLayout.VERTICAL)
+            recycler_photos!!.layoutManager = layoutManager
+            recycler_photos!!.itemAnimator = DefaultItemAnimator()
 
+            val list1 = mutableListOf<ViewImageData>(data[0], data[1], data[2], data[3])
+            val adapter = StaggeredImageAdapter(this, list1, false, null)
+            recycler_photos!!.adapter = adapter
+            textSeeMore.setOnClickListener {
+                startActivityForResult(Intent(this, PhotosActivity::class.java), UPDATE_PHOTOS)
+            }
+        } else {
+            textAddPhotos.visibility = View.VISIBLE
+            recycler_photos.visibility = View.GONE
+        }
     }
 
     fun uploadPhoto(view: View) {
@@ -385,7 +418,14 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
 
     }
 
-
+    override fun onResume() {
+        super.onResume()
+        var isImageUpdate = ImageUpdateModelListener.getInstance().state
+        LogUtils.DEBUG("isImageUpdate $isImageUpdate ")
+        if (isImageUpdate) {
+            presenter!!.callImageApi()
+        }
+    }
     override fun onMapReady(googleMap: GoogleMap?) {
         gMap = googleMap!!
         gMap.setMinZoomPreference(12F)

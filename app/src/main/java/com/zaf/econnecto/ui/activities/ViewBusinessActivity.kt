@@ -64,13 +64,12 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,O
 
     private fun onClickEvents() {
         rlytLocation.setOnClickListener {
-//            LogUtils.showToast(this,"clicked location")
             mapFrag.requireView().visibility = if (mapFrag.requireView().visibility == View.VISIBLE)
                 View.GONE
             else
                 View.VISIBLE
-
         }
+
         rlytCall.setOnClickListener {
             Utils.callPhone(mContext,"7834908329")
         }

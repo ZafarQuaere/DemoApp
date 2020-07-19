@@ -37,7 +37,11 @@ public class AppConstant {
     public static final String URL_BIZ_LIST = "business_list/business_list.php?id="; //(brandname,banner_image)
     public static final String URL_BIZ_DETAIL = "single_business.php?business_uid="; //(brandname,banner_image)
     public static final String URL_FOLLOW = "follow_unfollow/follow_unfollow.php";
+
     public static final String URL_ADD_IMAGE = URL_BASE_MVP+"images_api/add_image.php";
+    public static final String URL_BIZ_IMAGES = "images_api/view_images.php?business_id=";
+    public static final String URL_DELETE_IMAGE = URL_BASE_MVP+"images_api/delete_image.php";
+
 
     public static final String URL_LOGOUT = "logout.php";
     public static final String URL_FORGOT_PSWD = "forgot_password/forgot_password.php";
@@ -47,15 +51,19 @@ public class AppConstant {
     public static final String URL_ADD_BUSINESS = "add_business.php";
     public static final String URL_MY_BUSINESS = "mybusiness/mybusiness.php?id=";
 
-    public static final String URL_BIZ_BASIC_DETAILS = URL_BASE_MVP+ "my_biz/my_biz_basic.php";
-    public static final String URL_BIZ_OPERATING_HOURS = URL_BASE_MVP+"my_biz/my_biz_operating_hrs.php?business_id=";
-    public static final String URL_BIZ_PROD_SERVICES = URL_BASE_MVP+"my_biz/my_biz_prod_serv.php?business_id=";
-    public static final String URL_BIZ_AMENITIES = URL_BASE_MVP+"my_biz/my_biz_amenities.php?business_id=";
-    public static final String URL_BIZ_PAYMENT = URL_BASE_MVP+"my_biz/my_biz_pay_methods.php?business_id=";
-    public static final String URL_BIZ_CATEGORIES = URL_BASE_MVP+"my_biz/my_biz_categories.php?business_id=";
-    public static final String URL_BIZ_BROCHURE = URL_BASE_MVP+"my_biz/my_biz_brochure.php?business_id=";
-    public static final String URL_BIZ_PRICING = URL_BASE_MVP+"my_biz/my_biz_pricing.php?business_id=";
-    public static final String URL_BIZ_IMAGES = URL_BASE_MVP+"images_api/view_images.php?business_id=";
+    public static final String URL_BIZ_BASIC_DETAILS = "my_biz/my_biz_basic.php";
+    public static final String URL_BIZ_OPERATING_HOURS = "my_biz/my_biz_operating_hrs.php?business_id=";
+    public static final String URL_BIZ_PROD_SERVICES = "my_biz/my_biz_prod_serv.php?business_id=";
+    public static final String URL_BIZ_REMOVE_PROD_SERVICES = "my_biz_add_edit/prod_serv/remove_prod_serv.php";
+    public static final String URL_BIZ_ADD_AMENITIES = "my_biz_add_edit/amenities/add_amenity.php";
+    public static final String URL_BIZ_REMOVE_AMENITIES = "my_biz_add_edit/amenities/remove_amenity.php";
+    public static final String URL_BIZ_AMENITY_LIST = "my_biz_add_edit/amenities/amenities_list.php";
+    public static final String URL_BIZ_PAYMENT_LIST = "my_biz/my_biz_pay_methods.php?business_id=";
+    public static final String URL_BIZ_CATEGORIES = "my_biz/my_biz_categories.php?business_id=";
+    public static final String URL_BIZ_BROCHURE_LIST = "my_biz/my_biz_brochure.php?business_id=";
+    public static final String URL_BIZ_PRICING = "my_biz/my_biz_pricing.php?business_id=";
+    public static final String URL_BIZ_PAYMENT = "my_biz_add_edit/payment_methods/p_methods_list.php";
+    public static final String URL_BIZ_ADD_BROCHURE = "my_biz_add_edit/brochure/add_brochure.php";
 
     public static final String URL_EDIT_ABOUT_WHY = URL_BASE_MVP+"my_biz_add_edit/about_section/add_edit_about.php";
 

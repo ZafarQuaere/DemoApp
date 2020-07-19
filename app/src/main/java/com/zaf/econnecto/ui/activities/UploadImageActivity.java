@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 import android.util.Base64;
@@ -30,6 +31,7 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.Volley;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.network_call.VolleyMultipartRequest;
+import com.zaf.econnecto.utils.ApiViewModel;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppDialogLoader;
 import com.zaf.econnecto.utils.BitmapUtils;
@@ -57,7 +59,8 @@ public class UploadImageActivity extends AppCompatActivity implements View.OnCli
     private Uri selectedImageUri;
     private static int IMG_SELECT_GALLERY_REQUEST = 1;
     private Bitmap bitmap;
-
+    private ApiViewModel apiViewModel;
+    private Button btnCallApi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,14 +70,17 @@ public class UploadImageActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void initUI() {
+        apiViewModel = ViewModelProviders.of(this).get(ApiViewModel.class);
         btnChooseImg = (Button)findViewById(R.id.btnChooseImg);
         btnUploadImage = (Button)findViewById(R.id.btnUploadImage);
         editText2 = (EditText)findViewById(R.id.editText2);
         imageBanner = (ImageView)findViewById(R.id.imageBanner);
         imageBanner1 = (ImageView)findViewById(R.id.imageBanner1);
         imageProfile = (ImageView)findViewById(R.id.imageProfile);
+        btnCallApi = (Button)findViewById(R.id.btnCallApi);
         btnChooseImg.setOnClickListener(this);
         btnUploadImage.setOnClickListener(this);
+        btnCallApi.setOnClickListener(this);
     }
 
     @Override
@@ -87,6 +93,8 @@ public class UploadImageActivity extends AppCompatActivity implements View.OnCli
             } else {
                 PermissionUtils.requestPermission(UploadImageActivity.this);
             }
+        }else if (v.getId() == R.id.btnCallApi){
+            callApi();
         }
     }
 
@@ -246,5 +254,8 @@ public class UploadImageActivity extends AppCompatActivity implements View.OnCli
                 .create()
                 .show();
     }
-
+    public void callApi() {
+        LogUtils.showToast(mContext,"Call Api");
+        // dummyViewModel.callCategoryApi((Activity) mContext,null);
+        }
 }

@@ -1,9 +1,12 @@
 package com.zaf.econnecto.ui.presenters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+
+import androidx.annotation.UiThread;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -100,21 +103,13 @@ public class LoginPresenter extends BasePresenter {
     }
 
     private void storeOtherValue(LoginData loginData) {
-        storeProfileImage(loginData);
+        Utils.storeProfileImage((Activity) mContext,loginData);
         Utils.setBusinessStatus(mContext,loginData.getData().getBusinessStatus());
         Utils.setEmailVerified(mContext, loginData.getData().getIsEmailVerified().equals("1"));
         DateUtils.setLoginDate(mContext);
     }
 
-    private void storeProfileImage(LoginData loginData) {
-        Utils.saveProfileImage(mContext,loginData.getData().getProfilePic());
-      try {
-          Bitmap bitmap = BitmapUtils.getBitmap(mContext,  Uri.parse(loginData.getData().getProfilePic()));
-          BitmapUtils.saveProfileImage(mContext,bitmap);
-        } catch(Exception e) {
-            LogUtils.ERROR(e.getMessage());
-        }
-    }
+
 
     public void startActivity(Context mContext) {
         Intent intent = new Intent(mContext, ForgetPswdActivity.class);

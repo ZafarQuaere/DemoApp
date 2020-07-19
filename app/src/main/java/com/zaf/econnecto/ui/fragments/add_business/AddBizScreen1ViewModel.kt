@@ -82,41 +82,5 @@ class AddBizScreen1ViewModel : ViewModel() {
         updateCategoryList(catList)
     }
 
-    fun callCategoryApi(activity: Activity?, catDataListner: CategoryDataListener) {
-        if (activity != null)
-            mActivity = activity
-        var loader = AppDialogLoader.getLoader(mActivity)
-        loader.show()
-
-        val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = categoryService.getCategoryList()
-        requestCall.enqueue(object : Callback<JsonObject> {
-
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                loader.dismiss()
-                LogUtils.showErrorDialog(mActivity, mActivity!!.getString(R.string.ok), mActivity!!.getString(R.string.something_wrong_from_server_plz_try_again) + "\n" + t.localizedMessage)
-
-            }
-
-            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                val body = JSONObject(Gson().toJson(response.body()))
-                var status = body.optInt("status")
-                loader.dismiss()
-
-                if (status == AppConstant.SUCCESS) {
-                    val body = JSONObject(Gson().toJson(response.body()))
-                    val categoryData: CategoryData = ParseManager.getInstance().fromJSON(body, CategoryData::class.java)
-                    val categoryList: MutableList<CategoryListData>? = categoryData.data
-                    catDataListner.onCategoryListLoaded(categoryList)
-                    LogUtils.DEBUG("Response : ${categoryList!!.get(3).categoryName}")
-                } else {
-                    val jsonArray = body.optJSONArray("message")
-                    val message = jsonArray!!.get(0) as String
-                    LogUtils.showErrorDialog(mActivity, mActivity!!.getString(R.string.ok), message)
-                }
-            }
-
-        })
-    }
 }
 

@@ -11,7 +11,7 @@ import com.zaf.econnecto.utils.parser.ParseManager
 
 object PrefUtil {
 
-    fun getBizId(context: Context): String? {
+    fun getBizId(context: Context): String {
         val basicDetailsData = getBasicDetailsData(context)
         return  basicDetailsData!!.businessId
     }

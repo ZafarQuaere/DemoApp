@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
@@ -605,10 +606,15 @@ public class Utils {
         }, AppConstant.RESEND_OTP_TIME);
     }
 
-   /* public static void selectImageFromGallery(Activity mContext) {
-        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        mContext.startActivityForResult(intent, USER_PROFILE_IMG);
-    }*/
+    public static void storeProfileImage(Activity mContext,LoginData loginData) {
+        Utils.saveProfileImage(mContext,loginData.getData().getProfilePic());
+        try {
+            Bitmap bitmap = BitmapUtils.getBitmap(mContext,  Uri.parse(loginData.getData().getProfilePic()));
+            BitmapUtils.saveProfileImage(mContext,bitmap);
+        } catch(Exception e) {
+            LogUtils.ERROR(e.getMessage());
+        }
+    }
 
     public static boolean isValidPassword(String password) {
         int size = password.length();
@@ -634,6 +640,5 @@ public class Utils {
             return false;
         }
     }
-
 
 }

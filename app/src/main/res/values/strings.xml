@@ -352,10 +352,10 @@
     <string name="categories">Categories</string>
     <string name="product">Product</string>
     <string name="product_name">Product Name</string>
-    <string name="add_more_product">Add more product</string>
+    <string name="add_more_product">Add products</string>
     <string name="service_name">Service Name</string>
     <string name="services">Services</string>
-    <string name="add_more_services">Add more services</string>
+    <string name="add_more_services">Add services</string>
     <string name="add_amenities">Add Amenities</string>
     <string name="select_amenities">Select Amenities</string>
     <string name="enter_description">Enter Description</string>

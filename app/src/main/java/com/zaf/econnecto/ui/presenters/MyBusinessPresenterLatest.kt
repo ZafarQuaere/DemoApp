@@ -11,9 +11,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.zaf.econnecto.R
 import com.zaf.econnecto.network_call.MyJsonObjectRequest
 import com.zaf.econnecto.network_call.response_model.img_data.ViewImages
-import com.zaf.econnecto.network_call.response_model.my_business.AddDealsBg
 import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsResponse
-import com.zaf.econnecto.network_call.response_model.my_business.MyBusiness
 import com.zaf.econnecto.ui.activities.mybiz.MyBusinessActivityLatest
 import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
 import com.zaf.econnecto.utils.*
@@ -30,7 +28,7 @@ class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBu
     fun callBasicDetailsApi(imageUpdate: Boolean) {
         val loader = AppDialogLoader.getLoader(mContext)
         loader.show()
-        val url = AppConstant.URL_BIZ_BASIC_DETAILS
+        val url = AppConstant.URL_BASE_MVP + AppConstant.URL_BIZ_BASIC_DETAILS
         val jObj = JSONObject();
         try {
             jObj.put("jwt_token", Utils.getAccessToken(mContext))
@@ -49,7 +47,6 @@ class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBu
                         val basicDetailsResponse = ParseManager.getInstance().fromJSON(response.toString(), BasicDetailsResponse::class.java)
                         PrefUtil.setBasicDetailsData(mContext, response.toString())
                         iMyBusiness.updateBasicDetails(basicDetailsResponse, imageUpdate)
-
                     } else {
                         LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.ok), response.optJSONArray("message").optString(0)) { (mContext as Activity).onBackPressed() }
                     }
@@ -67,8 +64,9 @@ class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBu
         AppController.getInstance().addToRequestQueue(objectRequest, "callBasicDetailsApi")
     }
 
+
     fun callAboutApi() {
-        val url = AppConstant.URL_BIZ_BROCHURE + "21" //PrefUtil.getBizId(mContext)
+        val url = AppConstant.URL_BASE_MVP + AppConstant.URL_BIZ_BROCHURE_LIST + "21"
         LogUtils.DEBUG("URL : $url\nRequest Body ::")
         val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, Response.Listener { response: JSONObject? ->
             LogUtils.DEBUG("callAboutApi Response ::" + response.toString())
@@ -91,7 +89,7 @@ class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBu
     }
 
     fun callBrochureApi() {
-        val url = AppConstant.URL_BIZ_BROCHURE + "21" //PrefUtil.getBizId(mContext)
+        val url = AppConstant.URL_BIZ_BROCHURE_LIST + "21" //PrefUtil.getBizId(mContext)
         LogUtils.DEBUG("URL : $url")
         val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, Response.Listener { response: JSONObject? ->
             LogUtils.DEBUG("callBrochureApi Response ::" + response.toString())
@@ -114,7 +112,7 @@ class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBu
     }
 
     fun callAmenitiesApi() {
-        val url = AppConstant.URL_BIZ_AMENITIES + "21" //PrefUtil.getBizId(mContext)
+        val url = AppConstant.URL_BIZ_ADD_AMENITIES + "21" //PrefUtil.getBizId(mContext)
         LogUtils.DEBUG("URL : $url\nRequest Body ::$")
         val objectRequest = MyJsonObjectRequest(mContext, Request.Method.POST, url, null, Response.Listener { response ->
             LogUtils.DEBUG("callAmenitiesApi Response ::$response")
@@ -207,7 +205,7 @@ class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBu
     }
 
     fun callOperationTimeApi() {
-        val url = AppConstant.URL_BIZ_OPERATING_HOURS + "21" //PrefUtil.getBizId(mContext)
+        val url = AppConstant.URL_BASE_MVP+AppConstant.URL_BIZ_OPERATING_HOURS + "21" //PrefUtil.getBizId(mContext)
         LogUtils.DEBUG("URL : $url\nRequest Body ::")
         val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, Response.Listener { response: JSONObject? ->
             LogUtils.DEBUG("callOperationTimeApi Response ::" + response.toString())
@@ -253,7 +251,7 @@ class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBu
     }
 
     fun callImageApi() {
-        val url = AppConstant.URL_BIZ_IMAGES + PrefUtil.getBizId(mContext)
+        val url =  AppConstant.URL_BASE_MVP+AppConstant.URL_BIZ_IMAGES + PrefUtil.getBizId(mContext)
         LogUtils.DEBUG("URL : $url")
         val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, Response.Listener { response ->
             LogUtils.DEBUG("View Image Response ::$response")

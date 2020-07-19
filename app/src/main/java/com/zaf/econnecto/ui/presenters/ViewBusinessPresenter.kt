@@ -70,7 +70,7 @@ class ViewBusinessPresenter(context: Context?, iViewBizns: IViewBizns) : BasePre
     fun callBannerImgApi() {
         val loader = AppDialogLoader.getLoader(mContext)
         loader.show()
-        val url = AppConstant.URL_BIZ_IMAGES + PrefUtil.getBizId(mContext)
+        val url = AppConstant.URL_BASE_MVP +AppConstant.URL_BIZ_IMAGES + PrefUtil.getBizId(mContext)
 
         val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, Response.Listener { response ->
             LogUtils.DEBUG("View Image Response ::$response")

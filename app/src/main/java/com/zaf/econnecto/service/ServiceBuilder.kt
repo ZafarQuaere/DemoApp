@@ -9,7 +9,6 @@ import java.util.concurrent.TimeUnit
 
 object ServiceBuilder {
 
-    //private val baseUrl = AppConstant.URL_BASE
     private val baseUrl = "http://econnecto.com/andMVP/api/"
 
     private val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -25,6 +24,5 @@ object ServiceBuilder {
     fun<T> buildConnectoService(serviceType : Class<T>):T{
         return retrofit.create(serviceType)
     }
-
 
 }

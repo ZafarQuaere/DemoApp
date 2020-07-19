@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +31,7 @@ import com.zaf.econnecto.ui.interfaces.DialogButtonClick;
 import com.zaf.econnecto.ui.interfaces.DialogSingleButtonListener;
 import com.zaf.econnecto.ui.presenters.BListPresenter;
 import com.zaf.econnecto.ui.presenters.operations.IFragListing;
+import com.zaf.econnecto.utils.ApiViewModel;
 import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.AppLoaderFragment;
 import com.zaf.econnecto.utils.LogUtils;
@@ -49,6 +51,7 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
     private ActionBarItemClick searchListener;
     private TextView btnAddBizns;
     private LinearLayout lytAddBiz;
+    private ApiViewModel apiViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,13 +87,15 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
 
     private void callApi() {
         if (NetworkUtils.isNetworkEnabled(mContext)) {
-            getPresenter().callBListApi();
+//            getPresenter().callBListApi();
+            apiViewModel.callBizListApi(getActivity(),this);
         } else {
             LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.retry), mContext.getString(R.string.please_check_your_network_connection), new DialogSingleButtonListener() {
                 @Override
                 public void okClick() {
                     if (NetworkUtils.isNetworkEnabled(mContext)) {
-                        getPresenter().callBListApi();
+//                        getPresenter().callBListApi();
+                        apiViewModel.callBizListApi(getActivity(),(IFragListing)mContext);
                     } else {
                         LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), mContext.getString(R.string.please_enable_your_network_connection_and_launch_again));
                     }
@@ -100,6 +105,7 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
     }
 
     private void initUI(View view) {
+        apiViewModel = ViewModelProviders.of(this).get(ApiViewModel.class);
         recylcerProducts = (RecyclerView) view.findViewById(R.id.recyclerBusinessList);
         recylcerProducts.setHasFixedSize(true);
 
@@ -111,7 +117,7 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
         btnAddBizns = view.findViewById(R.id.btnAddBizns);
         lytAddBiz = view.findViewById(R.id.lytAddBiz);
 
-        lytAddBiz.setVisibility(Utils.getBusinessStatus(mContext).equals("0") ? View.VISIBLE : View.GONE);
+       lytAddBiz.setVisibility(Utils.getBusinessStatus(mContext).equals("0") ? View.VISIBLE : View.GONE);
 
 
         Utils.updateActionBar(mContext, BizListFragment.class.getSimpleName(), mContext.getString(R.string.business_list), null, this);
@@ -136,6 +142,7 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
                         });
             }
         });
+
         /*recylcerProducts.addOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy){

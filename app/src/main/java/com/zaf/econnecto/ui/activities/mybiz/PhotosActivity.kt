@@ -5,19 +5,35 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.VolleyError
 import com.zaf.econnecto.R
+import com.zaf.econnecto.model.ImageUpdateModelListener
+import com.zaf.econnecto.network_call.MyJsonObjectRequest
+import com.zaf.econnecto.network_call.response_model.img_data.ViewImageData
 import com.zaf.econnecto.ui.adapters.StaggeredImageAdapter
+import com.zaf.econnecto.ui.interfaces.DeleteImageListener
+import com.zaf.econnecto.utils.*
 import com.zaf.econnecto.utils.storage.PrefUtil
 import kotlinx.android.synthetic.main.layout_photos.*
+import kotlinx.coroutines.launch
+import org.json.JSONException
+import org.json.JSONObject
 
 
 class PhotosActivity : AppCompatActivity() {
-    lateinit var recyclerPhotos: RecyclerView
+    private lateinit var recyclerPhotos: RecyclerView
     lateinit var layoutManager: GridLayoutManager
+    lateinit var adapter: StaggeredImageAdapter
+    lateinit var imageList: MutableList<ViewImageData>
+    private val mContext = this
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_photos)
@@ -29,18 +45,68 @@ class PhotosActivity : AppCompatActivity() {
         recyclerPhotos!!.setHasFixedSize(true)
 //        gridView()
         staggeredGridView()
-       clickEvents()
+        clickEvents()
     }
 
     private fun staggeredGridView() {
-       val layoutManager = StaggeredGridLayoutManager( 3, LinearLayout.VERTICAL)
-        recyclerPhotos!!.setLayoutManager(layoutManager)
-        recyclerPhotos!!.setItemAnimator(DefaultItemAnimator())
-        val list = PrefUtil.getImageData(this)
-        val adapter = StaggeredImageAdapter(this, list)
+        val layoutManager = StaggeredGridLayoutManager(2, LinearLayout.VERTICAL)
+        recyclerPhotos!!.layoutManager = layoutManager
+        recyclerPhotos!!.itemAnimator = DefaultItemAnimator()
+        imageList = PrefUtil.getImageData(this)!!
+        adapter = imageList?.let {
+            StaggeredImageAdapter(this, it, true, object : DeleteImageListener {
+                override fun onDeleteClick(data: ViewImageData?, position: Int) {
+                    lifecycleScope.launch {
+                        callDeleteImageApi(data, position)
+                    }
+                }
+            })
+        }!!
         recyclerPhotos!!.adapter = adapter
     }
 
+    suspend fun callDeleteImageApi(imageData: ViewImageData?, position: Int) {
+        val loader = AppDialogLoader.getLoader(mContext)
+        loader.show()
+        val url = AppConstant.URL_DELETE_IMAGE
+        val jObj = JSONObject();
+        try {
+            jObj.put("jwt_token", Utils.getAccessToken(mContext))
+            jObj.put("owner_id", Utils.getUserID(mContext))
+            jObj.put("img_id", imageData!!.imgId)
+        } catch (e: JSONException) {
+            e.printStackTrace();
+        }
+        LogUtils.DEBUG("URL : $url\nRequest Body ::${jObj.toString()}")
+        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.POST, url, jObj, Response.Listener { response: JSONObject? ->
+            LogUtils.DEBUG("DeletePhoto Response ::" + response.toString())
+            try {
+                if (response != null) {
+                    val status = response.optInt("status")
+                    if (status == AppConstant.SUCCESS) {
+                        LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optJSONArray("message").optString(0))
+                        imageList.remove(imageData)
+                        adapter.notifyDataSetChanged()
+                        recyclerPhotos.removeViewAt(position)
+                        adapter.notifyItemRemoved(position)
+                        ImageUpdateModelListener.getInstance().changeState(true)
+                    } else {
+                        LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok),
+                                response.optJSONArray("message").optString(0))
+                    }
+                    loader.dismiss()
+                }
+            } catch (e: Exception) {
+                loader.dismiss()
+                e.printStackTrace()
+                LogUtils.ERROR(e.message)
+            }
+        }, Response.ErrorListener { error: VolleyError ->
+            LogUtils.DEBUG("DeletePhoto Error ::" + error.message)
+            loader.dismiss()
+        })
+        AppController.getInstance().addToRequestQueue(objectRequest, "DeletePhoto")
+    }
 
 
     private fun clickEvents() {

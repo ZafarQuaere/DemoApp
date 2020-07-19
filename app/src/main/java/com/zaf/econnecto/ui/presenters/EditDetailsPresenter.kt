@@ -38,7 +38,7 @@ class EditDetailsPresenter(private val mContext: Context, private val iEditDetai
         LogUtils.DEBUG("URL : $url\nRequest Body ::${jObj.toString()}")
 
         val objectRequest = MyJsonObjectRequest(mContext, Request.Method.POST, url, jObj, Response.Listener { response ->
-            LogUtils.DEBUG("MyBusiness Response ::$response")
+            LogUtils.DEBUG("BasicInfo Response ::$response")
             try {
                 if (response != null) {
                     val status = response.optInt("status")
@@ -60,9 +60,9 @@ class EditDetailsPresenter(private val mContext: Context, private val iEditDetai
             }
         }, Response.ErrorListener { error ->
             loader.dismiss()
-            LogUtils.DEBUG("MyBusiness Error ::" + error.message)
+            LogUtils.DEBUG("BasicInfo Error ::" + error.message)
         })
-        AppController.getInstance().addToRequestQueue(objectRequest, "MyBusiness")
+        AppController.getInstance().addToRequestQueue(objectRequest, "BasicInfo")
     }
 
     fun validateBasicInputs(bizName: String, shortDesc: String, estdYear: String) {
@@ -111,7 +111,7 @@ class EditDetailsPresenter(private val mContext: Context, private val iEditDetai
         }
 
         fun callContactInfoApi() {
-            val url = AppConstant.URL_BIZ_AMENITIES + PrefUtil.getBizId(mContext)
+            val url = AppConstant.URL_BIZ_ADD_AMENITIES + PrefUtil.getBizId(mContext)
             LogUtils.DEBUG("URL : $url\nRequest Body ::$")
             val objectRequest = MyJsonObjectRequest(mContext, Request.Method.POST, url, null, Response.Listener { response ->
                 LogUtils.DEBUG("UpdateBusiness Response ::$response")
@@ -141,7 +141,7 @@ class EditDetailsPresenter(private val mContext: Context, private val iEditDetai
         val url = AppConstant.URL_BIZ_BROCHURE + PrefUtil.getBizId(mContext)
         LogUtils.DEBUG("URL : $url\nRequest Body ::")
         val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, Response.Listener { response: JSONObject? ->
-            LogUtils.DEBUG("Deal Background Response ::" + response.toString())
+            LogUtils.DEBUG("BasicInfo Response ::" + response.toString())
             try {
                 if (response != null) {
                     val status = response.optInt("status")
@@ -155,8 +155,8 @@ class EditDetailsPresenter(private val mContext: Context, private val iEditDetai
                 e.printStackTrace()
                 LogUtils.ERROR(e.message)
             }
-        }, Response.ErrorListener { error: VolleyError -> LogUtils.DEBUG("MyBusiness Error ::" + error.message) })
-        AppController.getInstance().addToRequestQueue(objectRequest, "MyBusiness")
+        }, Response.ErrorListener { error: VolleyError -> LogUtils.DEBUG("BasicInfo Error ::" + error.message) })
+        AppController.getInstance().addToRequestQueue(objectRequest, "BasicInfo")
     }
 
     fun validateAddressInputs(address1: String, pincode: String, locality: String, city: String, state: String, country: String) {
@@ -229,7 +229,7 @@ class EditDetailsPresenter(private val mContext: Context, private val iEditDetai
         val url = AppConstant.URL_BIZ_BROCHURE + PrefUtil.getBizId(mContext)
         LogUtils.DEBUG("URL : $url\nRequest Body ::")
         val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, Response.Listener { response: JSONObject? ->
-            LogUtils.DEBUG("Deal Background Response ::" + response.toString())
+            LogUtils.DEBUG("ContactInfo Response ::" + response.toString())
             try {
                 if (response != null) {
                     val status = response.optInt("status")
@@ -243,8 +243,8 @@ class EditDetailsPresenter(private val mContext: Context, private val iEditDetai
                 e.printStackTrace()
                 LogUtils.ERROR(e.message)
             }
-        }, Response.ErrorListener { error: VolleyError -> LogUtils.DEBUG("MyBusiness Error ::" + error.message) })
-        AppController.getInstance().addToRequestQueue(objectRequest, "MyBusiness")
+        }, Response.ErrorListener { error: VolleyError -> LogUtils.DEBUG("ContactInfo Error ::" + error.message) })
+        AppController.getInstance().addToRequestQueue(objectRequest, "ContactInfo")
     }
 
 }
