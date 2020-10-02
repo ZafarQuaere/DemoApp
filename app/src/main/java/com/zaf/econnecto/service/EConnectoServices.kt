@@ -65,4 +65,9 @@ interface EConnectoServices {
     @GET(AppConstant.URL_BIZ_PAYMENT_LIST)
     fun bizPaymentList(@Query("business_id") businessId: String): Call<JsonObject>
 
+    @POST(AppConstant.URL_CHANGE_PSWD)
+    fun changePassword(@Body requestBody: RequestBody) : Call<JsonObject>
+
+    @POST(AppConstant.URL_FORGOT_PSWD)
+    fun resetPassword(@Body requestBody: RequestBody): Call<JsonObject>
 }

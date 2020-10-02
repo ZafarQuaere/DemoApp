@@ -289,12 +289,12 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         val address = AddressData(basicDetailsDta.address1, basicDetailsDta.state, basicDetailsDta.cityTown , basicDetailsDta.pinCode, location.latitude.toString() + "", "" + location.longitude)
 //        location.latitude,location.longitude
         LogUtils.DEBUG(address.toString())
-        val ny = LatLng(location!!.latitude, location!!.longitude)
+        val storeLocation = LatLng(location!!.latitude, location!!.longitude)
         //val ny = LatLng(-34.0, 151.0)
         val markerOptions = MarkerOptions()
-        markerOptions.position(ny)
+        markerOptions.position(storeLocation)
         gMap.addMarker(markerOptions)
-        gMap.moveCamera(CameraUpdateFactory.newLatLng(ny))
+        gMap.moveCamera(CameraUpdateFactory.newLatLng(storeLocation))
     }
 
 
