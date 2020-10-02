@@ -37,7 +37,7 @@ class EditDetailsPresenter(private val mContext: Context, private val iEditDetai
         }
         LogUtils.DEBUG("URL : $url\nRequest Body ::${jObj.toString()}")
 
-        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.POST, url, jObj, Response.Listener { response ->
+        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.POST, url, jObj, { response ->
             LogUtils.DEBUG("BasicInfo Response ::$response")
             try {
                 if (response != null) {
@@ -58,7 +58,7 @@ class EditDetailsPresenter(private val mContext: Context, private val iEditDetai
                 e.printStackTrace()
                 LogUtils.ERROR(e.message)
             }
-        }, Response.ErrorListener { error ->
+        }, { error ->
             loader.dismiss()
             LogUtils.DEBUG("BasicInfo Error ::" + error.message)
         })
@@ -88,9 +88,9 @@ class EditDetailsPresenter(private val mContext: Context, private val iEditDetai
         }
 
         fun callAddressInfoApi() {
-            val url = AppConstant.URL_BIZ_BROCHURE + PrefUtil.getBizId(mContext)
+            val url = AppConstant.URL_BIZ_BROCHURE_LIST + PrefUtil.getBizId(mContext)
             LogUtils.DEBUG("URL : $url")
-            val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, Response.Listener { response: JSONObject? ->
+            val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, { response: JSONObject? ->
                 LogUtils.DEBUG("Deal Background Response ::" + response.toString())
                 try {
                     if (response != null) {
@@ -106,14 +106,14 @@ class EditDetailsPresenter(private val mContext: Context, private val iEditDetai
                     e.printStackTrace()
                     LogUtils.ERROR(e.message)
                 }
-            }, Response.ErrorListener { error: VolleyError -> LogUtils.DEBUG("MyBusiness Error ::" + error.message) })
+            }, { error: VolleyError -> LogUtils.DEBUG("MyBusiness Error ::" + error.message) })
             AppController.getInstance().addToRequestQueue(objectRequest, "MyBusiness")
         }
 
         fun callContactInfoApi() {
             val url = AppConstant.URL_BIZ_ADD_AMENITIES + PrefUtil.getBizId(mContext)
             LogUtils.DEBUG("URL : $url\nRequest Body ::$")
-            val objectRequest = MyJsonObjectRequest(mContext, Request.Method.POST, url, null, Response.Listener { response ->
+            val objectRequest = MyJsonObjectRequest(mContext, Request.Method.POST, url, null, { response ->
                 LogUtils.DEBUG("UpdateBusiness Response ::$response")
                 try {
                     if (response != null) {
@@ -128,7 +128,7 @@ class EditDetailsPresenter(private val mContext: Context, private val iEditDetai
                     e.printStackTrace()
                     LogUtils.ERROR(e.message)
                 }
-            }, Response.ErrorListener { error ->
+            }, { error ->
                 LogUtils.DEBUG("UpdateBusiness Error ::" + error.message)
             })
             AppController.getInstance().addToRequestQueue(objectRequest, "UpdateBusiness")
@@ -138,9 +138,9 @@ class EditDetailsPresenter(private val mContext: Context, private val iEditDetai
     }
 
     private fun updateBasicInfoApi() {
-        val url = AppConstant.URL_BIZ_BROCHURE + PrefUtil.getBizId(mContext)
+        val url = AppConstant.URL_BIZ_BROCHURE_LIST + PrefUtil.getBizId(mContext)
         LogUtils.DEBUG("URL : $url\nRequest Body ::")
-        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, Response.Listener { response: JSONObject? ->
+        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, { response: JSONObject? ->
             LogUtils.DEBUG("BasicInfo Response ::" + response.toString())
             try {
                 if (response != null) {
@@ -155,7 +155,7 @@ class EditDetailsPresenter(private val mContext: Context, private val iEditDetai
                 e.printStackTrace()
                 LogUtils.ERROR(e.message)
             }
-        }, Response.ErrorListener { error: VolleyError -> LogUtils.DEBUG("BasicInfo Error ::" + error.message) })
+        }, { error: VolleyError -> LogUtils.DEBUG("BasicInfo Error ::" + error.message) })
         AppController.getInstance().addToRequestQueue(objectRequest, "BasicInfo")
     }
 
@@ -186,9 +186,9 @@ class EditDetailsPresenter(private val mContext: Context, private val iEditDetai
     }
 
     private fun updateAddressInfoApi() {
-        val url = AppConstant.URL_BIZ_BROCHURE + PrefUtil.getBizId(mContext)
+        val url = AppConstant.URL_BIZ_ADD_BROCHURE + PrefUtil.getBizId(mContext)
         LogUtils.DEBUG("URL : $url\nRequest Body ::")
-        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, Response.Listener { response: JSONObject? ->
+        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, { response: JSONObject? ->
             LogUtils.DEBUG("Deal Background Response ::" + response.toString())
             try {
                 if (response != null) {
@@ -203,7 +203,7 @@ class EditDetailsPresenter(private val mContext: Context, private val iEditDetai
                 e.printStackTrace()
                 LogUtils.ERROR(e.message)
             }
-        }, Response.ErrorListener { error: VolleyError -> LogUtils.DEBUG("MyBusiness Error ::" + error.message) })
+        }, { error: VolleyError -> LogUtils.DEBUG("MyBusiness Error ::" + error.message) })
         AppController.getInstance().addToRequestQueue(objectRequest, "MyBusiness")
     }
 
@@ -226,9 +226,9 @@ class EditDetailsPresenter(private val mContext: Context, private val iEditDetai
     }
 
     private fun updateContactInfoApi(mContext: Context, mobileNo: String, emailId: String, alternateMobile: String, telephone: String, website: String) {
-        val url = AppConstant.URL_BIZ_BROCHURE + PrefUtil.getBizId(mContext)
+        val url = AppConstant.URL_BIZ_ADD_BROCHURE + PrefUtil.getBizId(mContext)
         LogUtils.DEBUG("URL : $url\nRequest Body ::")
-        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, Response.Listener { response: JSONObject? ->
+        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, { response: JSONObject? ->
             LogUtils.DEBUG("ContactInfo Response ::" + response.toString())
             try {
                 if (response != null) {
@@ -243,7 +243,7 @@ class EditDetailsPresenter(private val mContext: Context, private val iEditDetai
                 e.printStackTrace()
                 LogUtils.ERROR(e.message)
             }
-        }, Response.ErrorListener { error: VolleyError -> LogUtils.DEBUG("ContactInfo Error ::" + error.message) })
+        }, { error: VolleyError -> LogUtils.DEBUG("ContactInfo Error ::" + error.message) })
         AppController.getInstance().addToRequestQueue(objectRequest, "ContactInfo")
     }
 
