@@ -101,12 +101,9 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
 
     private fun subscribeViewModels() {
 
-        myBizViewModel.basicDetailsData.observe(this,object : Observer<MutableList<BasicDetailsData>>  {
-
-            override fun onChanged(t: MutableList<BasicDetailsData>?) {
-                TODO("Not yet implemented")
-            }
-        })
+        myBizViewModel.basicDetailsData.observe(this, Observer { data -> data.let {
+            //TODO from here you can update the basic details data
+        } })
     }
 
     private fun updateMyBizUI() {

@@ -38,7 +38,7 @@ class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBu
         }
         LogUtils.DEBUG("URL : $url\nRequest Body ::${jObj.toString()}")
 
-        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.POST, url, jObj, Response.Listener { response ->
+        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.POST, url, jObj, { response ->
             LogUtils.DEBUG("callBasicDetailsApi Response ::$response")
             try {
                 if (response != null) {
@@ -57,7 +57,7 @@ class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBu
                 e.printStackTrace()
                 LogUtils.ERROR(e.message)
             }
-        }, Response.ErrorListener { error ->
+        }, { error ->
             loader.dismiss()
             LogUtils.DEBUG("callBasicDetailsApi Error ::" + error.message)
         })
@@ -68,7 +68,7 @@ class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBu
     fun callAboutApi() {
         val url = AppConstant.URL_BASE_MVP + AppConstant.URL_BIZ_BROCHURE_LIST + "21"
         LogUtils.DEBUG("URL : $url\nRequest Body ::")
-        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, Response.Listener { response: JSONObject? ->
+        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, { response: JSONObject? ->
             LogUtils.DEBUG("callAboutApi Response ::" + response.toString())
             try {
                 if (response != null) {
@@ -84,14 +84,14 @@ class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBu
                 e.printStackTrace()
                 LogUtils.ERROR(e.message)
             }
-        }, Response.ErrorListener { error: VolleyError -> LogUtils.DEBUG("callAboutApi Error ::" + error.message) })
+        }, { error: VolleyError -> LogUtils.DEBUG("callAboutApi Error ::" + error.message) })
         AppController.getInstance().addToRequestQueue(objectRequest, "callAboutApi")
     }
 
     fun callBrochureApi() {
         val url = AppConstant.URL_BIZ_BROCHURE_LIST + "21" //PrefUtil.getBizId(mContext)
         LogUtils.DEBUG("URL : $url")
-        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, Response.Listener { response: JSONObject? ->
+        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, { response: JSONObject? ->
             LogUtils.DEBUG("callBrochureApi Response ::" + response.toString())
             try {
                 if (response != null) {
@@ -107,14 +107,14 @@ class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBu
                 e.printStackTrace()
                 LogUtils.ERROR(e.message)
             }
-        }, Response.ErrorListener { error: VolleyError -> LogUtils.DEBUG("callBrochureApi Error ::" + error.message) })
+        }, { error: VolleyError -> LogUtils.DEBUG("callBrochureApi Error ::" + error.message) })
         AppController.getInstance().addToRequestQueue(objectRequest, "callBrochureApi")
     }
 
     fun callAmenitiesApi() {
         val url = AppConstant.URL_BIZ_ADD_AMENITIES + "21" //PrefUtil.getBizId(mContext)
         LogUtils.DEBUG("URL : $url\nRequest Body ::$")
-        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.POST, url, null, Response.Listener { response ->
+        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.POST, url, null, { response ->
             LogUtils.DEBUG("callAmenitiesApi Response ::$response")
             try {
                 if (response != null) {
@@ -129,7 +129,7 @@ class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBu
                 e.printStackTrace()
                 LogUtils.ERROR(e.message)
             }
-        }, Response.ErrorListener { error ->
+        }, { error ->
             LogUtils.DEBUG("callAmenitiesApi Error ::" + error.message)
         })
         AppController.getInstance().addToRequestQueue(objectRequest, "callAmenitiesApi")
@@ -138,7 +138,7 @@ class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBu
     fun callPaymentApi() {
         val url = AppConstant.URL_BIZ_PAYMENT + "21" //PrefUtil.getBizId(mContext)
         LogUtils.DEBUG("URL : $url\nRequest Body ::")
-        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, Response.Listener { response: JSONObject? ->
+        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, { response: JSONObject? ->
             LogUtils.DEBUG("callPaymentApi Response ::" + response.toString())
             try {
                 if (response != null) {
@@ -154,14 +154,14 @@ class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBu
                 e.printStackTrace()
                 LogUtils.ERROR(e.message)
             }
-        }, Response.ErrorListener { error: VolleyError -> LogUtils.DEBUG("callPaymentApi Error ::" + error.message) })
+        }, { error: VolleyError -> LogUtils.DEBUG("callPaymentApi Error ::" + error.message) })
         AppController.getInstance().addToRequestQueue(objectRequest, "callPaymentApi")
     }
 
     fun callPricingApi() {
         val url = AppConstant.URL_BIZ_PRICING + "21" //PrefUtil.getBizId(mContext)
         LogUtils.DEBUG("URL : $url\nRequest Body ::")
-        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, Response.Listener { response: JSONObject? ->
+        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, { response: JSONObject? ->
             LogUtils.DEBUG("callPricingApi Response ::" + response.toString())
             try {
                 if (response != null) {
@@ -177,14 +177,14 @@ class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBu
                 e.printStackTrace()
                 LogUtils.ERROR(e.message)
             }
-        }, Response.ErrorListener { error: VolleyError -> LogUtils.DEBUG("callPricingApi Error ::" + error.message) })
+        }, { error: VolleyError -> LogUtils.DEBUG("callPricingApi Error ::" + error.message) })
         AppController.getInstance().addToRequestQueue(objectRequest, "callPricingApi")
     }
 
     fun callCategoriesApi() {
         val url = AppConstant.URL_BIZ_CATEGORIES + "21" //PrefUtil.getBizId(mContext)
         LogUtils.DEBUG("URL : $url\nRequest Body ::")
-        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, Response.Listener { response: JSONObject? ->
+        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, { response: JSONObject? ->
             LogUtils.DEBUG("callCategoriesApi Response ::" + response.toString())
             try {
                 if (response != null) {
@@ -200,14 +200,14 @@ class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBu
                 e.printStackTrace()
                 LogUtils.ERROR(e.message)
             }
-        }, Response.ErrorListener { error: VolleyError -> LogUtils.DEBUG("callCategoriesApi Error ::" + error.message) })
+        }, { error: VolleyError -> LogUtils.DEBUG("callCategoriesApi Error ::" + error.message) })
         AppController.getInstance().addToRequestQueue(objectRequest, "callCategoriesApi")
     }
 
     fun callOperationTimeApi() {
         val url = AppConstant.URL_BASE_MVP+AppConstant.URL_BIZ_OPERATING_HOURS + "21" //PrefUtil.getBizId(mContext)
         LogUtils.DEBUG("URL : $url\nRequest Body ::")
-        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, Response.Listener { response: JSONObject? ->
+        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, { response: JSONObject? ->
             LogUtils.DEBUG("callOperationTimeApi Response ::" + response.toString())
             try {
                 if (response != null) {
@@ -223,14 +223,14 @@ class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBu
                 e.printStackTrace()
                 LogUtils.ERROR(e.message)
             }
-        }, Response.ErrorListener { error: VolleyError -> LogUtils.DEBUG("callOperationTimeApi Error ::" + error.message) })
+        }, { error: VolleyError -> LogUtils.DEBUG("callOperationTimeApi Error ::" + error.message) })
         AppController.getInstance().addToRequestQueue(objectRequest, "callOperationTimeApi")
     }
 
     fun callProdServicesApi() {
         val url = AppConstant.URL_BIZ_PROD_SERVICES + "21" //PrefUtil.getBizId(mContext)
         LogUtils.DEBUG("URL : $url\nRequest Body ::")
-        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, Response.Listener { response: JSONObject? ->
+        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, { response: JSONObject? ->
             LogUtils.DEBUG("callProdServicesApi Response ::" + response.toString())
             try {
                 if (response != null) {
@@ -246,14 +246,14 @@ class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBu
                 e.printStackTrace()
                 LogUtils.ERROR(e.message)
             }
-        }, Response.ErrorListener { error: VolleyError -> LogUtils.DEBUG("callProdServicesApi Error ::" + error.message) })
+        }, { error: VolleyError -> LogUtils.DEBUG("callProdServicesApi Error ::" + error.message) })
         AppController.getInstance().addToRequestQueue(objectRequest, "callProdServicesApi")
     }
 
     fun callImageApi() {
         val url =  AppConstant.URL_BASE_MVP+AppConstant.URL_BIZ_IMAGES + PrefUtil.getBizId(mContext)
         LogUtils.DEBUG("URL : $url")
-        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, Response.Listener { response ->
+        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, { response ->
             LogUtils.DEBUG("View Image Response ::$response")
             val status = response.optInt("status")
             if (status == AppConstant.SUCCESS) {
@@ -263,7 +263,7 @@ class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBu
             } else {
                 LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optString("message"))
             }
-        }, Response.ErrorListener { error ->
+        }, { error ->
             LogUtils.DEBUG("callImageApi Error ::" + error.message)
 
         })
