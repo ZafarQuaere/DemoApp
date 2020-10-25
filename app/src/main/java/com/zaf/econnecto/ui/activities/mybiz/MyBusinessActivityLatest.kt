@@ -93,7 +93,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         loader = AppLoaderFragment.getInstance(mContext)
         updateActionbar()
 //        presenter!!.callBasicDetailsApi(true)
-        myBizViewModel!!.callBasicDetailsApi(this,true, this)
+        myBizViewModel.callBasicDetailsApi(this,true, this)
         subscribeViewModels()
         presenter!!.initMap(this,mapFrag)
         updateMyBizUI()

@@ -65,7 +65,11 @@ public class AppConstant {
     public static final String URL_BIZ_PAYMENT = "my_biz_add_edit/payment_methods/p_methods_list.php";
     public static final String URL_BIZ_ADD_BROCHURE = "my_biz_add_edit/brochure/add_brochure.php";
 
+    //Edit My Business Endpoints
     public static final String URL_EDIT_ABOUT_WHY = URL_BASE_MVP+"my_biz_add_edit/about_section/add_edit_about.php";
+    public static final String URL_EDIT_BIZ_DETAILS = URL_BASE_MVP+"my_biz_add_edit/basic_details/biz_details.php";
+    public static final String URL_EDIT_ADDRESS_DETAILS = URL_BASE_MVP+"my_biz_add_edit/basic_details/address_details.php";
+    public static final String URL_EDIT_CONTACT_DETAILS = URL_BASE_MVP+"my_biz_add_edit/basic_details/contact_details.php";
 
     public static final String URL_UPDATE_BUSINESS = "update_business.php";
     public static final String URL_BIZ_CATEGORY = URL_BASE+"categories.php";
@@ -74,6 +78,7 @@ public class AppConstant {
     public static final String URL_UPLOAD_BUSINESS_BANNER_PIC = URL_BASE+"business_banner_pic.php";
     public static final String URL_DEAL_BACKGROUND = URL_BASE+"deal_backgrounds.php";
     public static final String URL_ADD_DEAL = URL_BASE+"add_deal.php";
+
 
 
     public static final String URL_VERIFY_MOBILE = "/mobile-verify?mobile=";

@@ -41,7 +41,7 @@ class AddBizScreen2ViewModel : ViewModel() {
         var loader = AppDialogLoader.getLoader(activity)
         var url = AppConstant.URL_PINCODE + pincode
         LogUtils.DEBUG("URL : $url")
-        val objectRequest = MyJsonObjectRequest(activity, Request.Method.GET, url, null, Response.Listener { response ->
+        val objectRequest = MyJsonObjectRequest(activity, Request.Method.GET, url, null, { response ->
             LogUtils.DEBUG("PinCode Response ::$response")
             when (response.optInt("status")) {
                 200 -> {
@@ -49,6 +49,7 @@ class AddBizScreen2ViewModel : ViewModel() {
                     pinCodeDataListener.onDataFetched(responseData)
                     // mProductFrag.updateList(data.getData())
                 }
+
 
                 else -> {
                     //update UI with null
@@ -58,7 +59,7 @@ class AddBizScreen2ViewModel : ViewModel() {
             }
 
             loader.dismiss()
-        }, Response.ErrorListener { error ->
+        }, { error ->
             val statusCode = error.networkResponse.statusCode
             loader.dismiss()
             LogUtils.DEBUG("PinCode  error.networkResponse.statusCode:  $statusCode")
