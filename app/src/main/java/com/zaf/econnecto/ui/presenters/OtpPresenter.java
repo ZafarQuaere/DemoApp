@@ -78,7 +78,7 @@ public class OtpPresenter extends BasePresenter {
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), requestObject.toString());
         EConnectoServices eConnectoServices = ServiceBuilder.INSTANCE.buildConnectoService(EConnectoServices.class);
         Call<JsonObject> requestCall = eConnectoServices.resetPassword(requestBody);
-
+        LogUtils.DEBUG("Url: "+requestCall.request().url()+"nBody: "+requestObject.toString());
         requestCall.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(@NotNull Call<JsonObject> call, retrofit2.Response<JsonObject> jObject) {
@@ -171,7 +171,7 @@ public class OtpPresenter extends BasePresenter {
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), requestObject.toString());
         EConnectoServices eConnectoServices = ServiceBuilder.INSTANCE.buildConnectoService(EConnectoServices.class);
         Call<JsonObject> requestCall = eConnectoServices.changePassword(requestBody);
-
+        LogUtils.DEBUG("Url: "+requestCall.request().url()+  "\nBody: "+requestObject.toString());
         requestCall.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, retrofit2.Response<JsonObject> response) {

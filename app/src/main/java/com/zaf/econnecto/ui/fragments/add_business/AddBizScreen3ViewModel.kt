@@ -64,10 +64,10 @@ class AddBizScreen3ViewModel : ViewModel() {
         jsonObject.put("website", myWebsite)
 
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
-
-
         val destinationService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
         val requestCall = destinationService.addYourBusiness(requestBody)
+
+        LogUtils.DEBUG("Url: ${requestCall.request().url()}  \nBody: $jsonObject")
 
         requestCall.enqueue(object : Callback<JsonObject> {
 

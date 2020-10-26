@@ -95,6 +95,8 @@ class UserRegisterViewModel : ViewModel() {
         val destinationService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
         val requestCall = destinationService.registerUser(requestBody)
 
+        LogUtils.DEBUG("Url: ${requestCall.request().url()}  \nBody: ${jsonObject.toString()}")
+
         requestCall.enqueue(object : Callback<JsonObject>{
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {

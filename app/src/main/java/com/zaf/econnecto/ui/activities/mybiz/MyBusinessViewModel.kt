@@ -42,6 +42,7 @@ class MyBusinessViewModel : ViewModel() {
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
 
         val requestCall = categoryService.bizBasicDetails(requestBody)
+        LogUtils.DEBUG("Url: ${requestCall.request().url()}  \nBody: ${jsonObject.toString()}")
 
         requestCall.enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
@@ -51,7 +52,7 @@ class MyBusinessViewModel : ViewModel() {
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 val body = JSONObject(Gson().toJson(response.body()))
-                LogUtils.DEBUG("Login Response:->> ${body.toString()}")
+                LogUtils.DEBUG("callBasicDetailsApi Response:->> $body")
                 val status = body.optInt("status")
                 loader.dismiss()
                 if (status == AppConstant.SUCCESS) {
@@ -67,31 +68,36 @@ class MyBusinessViewModel : ViewModel() {
         })
     }
 
-    fun bizAmenityList(activity: Activity?, listing: IMyBusinessLatest) {
+    fun bizAmenityList(activity: Activity?, listener: IMyBusinessLatest) {
         if (activity != null)
             mActivity = activity
         var loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = categoryService.bizAmenityList(PrefUtil.getBizId(mActivity))
-        requestCall.enqueue(object : Callback<JsonObject> {
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+        val requestCall = categoryService.bizAmenityList("21"/*PrefUtil.getBizId(mActivity)*/)
+        LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
+
+        requestCall.enqueue(object : Callback<Amenities> {
+            override fun onFailure(call: Call<Amenities>, t: Throwable) {
                 loader.dismiss()
                 LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok),
-                        mActivity.getString(R.string.something_wrong_from_server_plz_try_again) + "\n" + t.localizedMessage)
+                        mActivity.getString(R.string.something_wrong_from_server_plz_try_again) + "\n" + t.message)
             }
 
-            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                val body = JSONObject(Gson().toJson(response.body()))
-                LogUtils.DEBUG("BizList Response:->> ${body.toString()}")
-                var status = body.optInt("status")
+            override fun onResponse(call: Call<Amenities>, response: Response<Amenities>) {
+//                val body = JSONObject(Gson().toJson(response.body()))
+//                LogUtils.DEBUG("BizList Response:->> ${body.toString()}")
+//                var status = body.optInt("status")
+                val status = response.body()!!.status
                 loader.dismiss()
                 if (status == AppConstant.SUCCESS) {
-
+                    LogUtils.DEBUG("bizAmenityList response: "+response.body()!!.message)
+                    LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), response.body()!!.message[0])
+                    listener.updateAmenitiesSection()
                 } else {
-
-                    val jsonArray = body.optJSONArray("message")
-                    val message = jsonArray!!.get(0) as String
+//                    val jsonArray = body.optJSONArray("message")
+//                    val message = jsonArray!!.get(0) as String
+                    val message = response.body()!!.message[0]
                     LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), message)
                 }
             }
@@ -105,6 +111,7 @@ class MyBusinessViewModel : ViewModel() {
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
         val requestCall = categoryService.bizImageList(PrefUtil.getBizId(mActivity))
+        LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
         requestCall.enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 loader.dismiss()
@@ -130,43 +137,45 @@ class MyBusinessViewModel : ViewModel() {
         })
     }
 
-    fun bizOperatingHours(activity: Activity?, listing: IMyBusinessLatest) {
+
+
+    fun bizOperatingHours(activity: Activity?, listener: IMyBusinessLatest){
         if (activity != null)
             mActivity = activity
-        var loader = AppDialogLoader.getLoader(mActivity)
+        val loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = categoryService.bizOperatingHours(PrefUtil.getBizId(mActivity))
-        requestCall.enqueue(object : Callback<JsonObject> {
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+        val requestCall = categoryService.bizOperatingHours("21"/*PrefUtil.getBizId(mActivity)*/)
+        LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
+        requestCall.enqueue( object : Callback<OPHours> {
+            override fun onResponse(call: Call<OPHours>, response: Response<OPHours>) {
                 loader.dismiss()
-                LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok),
-                        mActivity.getString(R.string.something_wrong_from_server_plz_try_again) + "\n" + t.localizedMessage)
-            }
-
-            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                val body = JSONObject(Gson().toJson(response.body()))
-                LogUtils.DEBUG("BizList Response:->> ${body.toString()}")
-                var status = body.optInt("status")
-                loader.dismiss()
-                if (status == AppConstant.SUCCESS) {
-//                    val bizListData: BizListData = ParseManager.getInstance().fromJSON(body, BizListData::class.java)
+                if (response.body()!!.status == AppConstant.SUCCESS) {
+                    LogUtils.DEBUG("bizOperatingHours response: "+response.body()!!.message)
+                    LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), response.body()!!.message[0])
+                    listener.updateOperatingHours()
                 } else {
-                    val jsonArray = body.optJSONArray("message")
-                    val message = jsonArray!!.get(0) as String
-                    LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), message)
+                    LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), response.body()!!.message[0])
                 }
             }
+
+            override fun onFailure(call: Call<OPHours>, t: Throwable) {
+                loader.dismiss()
+                LogUtils.DEBUG("bizOperatingHours error: "+t.localizedMessage)
+            }
+
         })
     }
 
-    fun bizBrochureList(activity: Activity?, listing: IMyBusinessLatest) {
+    fun bizBrochureList(activity: Activity?, listener: IMyBusinessLatest) {
         if (activity != null)
             mActivity = activity
         var loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
         val requestCall = categoryService.bizBrochureList(PrefUtil.getBizId(mActivity))
+        LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
+
         requestCall.enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 loader.dismiss()
@@ -176,8 +185,8 @@ class MyBusinessViewModel : ViewModel() {
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 val body = JSONObject(Gson().toJson(response.body()))
-                LogUtils.DEBUG("BizList Response:->> ${body.toString()}")
-                var status = body.optInt("status")
+                LogUtils.DEBUG("bizBrochureList Response:->> $body")
+                val status = body.optInt("status")
                 loader.dismiss()
                 if (status == AppConstant.SUCCESS) {
 //                    val bizListData: BizListData = ParseManager.getInstance().fromJSON(body, BizListData::class.java)
@@ -190,13 +199,15 @@ class MyBusinessViewModel : ViewModel() {
         })
     }
 
-    fun bizProductServicesList(activity: Activity?, listing: IMyBusinessLatest) {
+    fun bizProductServicesList(activity: Activity?, listener: IMyBusinessLatest) {
         if (activity != null)
             mActivity = activity
         var loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
         val requestCall = categoryService.bizProductServicesList(PrefUtil.getBizId(mActivity))
+        LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
+
         requestCall.enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 loader.dismiss()
@@ -220,13 +231,14 @@ class MyBusinessViewModel : ViewModel() {
         })
     }
 
-    fun bizPaymentMethodList(activity: Activity?, listing: IMyBusinessLatest) {
+    fun bizPaymentMethodList(activity: Activity?, listener: IMyBusinessLatest) {
         if (activity != null)
             mActivity = activity
         var loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
         val requestCall = categoryService.bizPaymentList(PrefUtil.getBizId(mActivity))
+        LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
         requestCall.enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 loader.dismiss()
@@ -250,13 +262,15 @@ class MyBusinessViewModel : ViewModel() {
         })
     }
 
-    fun bizPricingList(activity: Activity?, listing: IMyBusinessLatest) {
+    fun bizPricingList(activity: Activity?, listener: IMyBusinessLatest) {
         if (activity != null)
             mActivity = activity
         var loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
         val requestCall = categoryService.bizPricingList(PrefUtil.getBizId(mActivity))
+        LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
+
         requestCall.enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 loader.dismiss()
@@ -280,13 +294,14 @@ class MyBusinessViewModel : ViewModel() {
         })
     }
 
-    fun bizCategoryList(activity: Activity?, listing: IMyBusinessLatest) {
+    fun bizCategoryList(activity: Activity?, listener: IMyBusinessLatest) {
         if (activity != null)
             mActivity = activity
         var loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
         val requestCall = categoryService.bizCategoryList(PrefUtil.getBizId(mActivity))
+        LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
         requestCall.enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 loader.dismiss()
@@ -324,6 +339,7 @@ class MyBusinessViewModel : ViewModel() {
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
 
         val requestCall = categoryService.addProductServices(requestBody)
+        LogUtils.DEBUG("Url: ${requestCall.request().url()}  \nBody: $jsonObject")
 
         requestCall.enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {

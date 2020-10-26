@@ -4,6 +4,8 @@ import com.google.gson.JsonObject
 import com.zaf.econnecto.network_call.request_model.UserRegisterData
 import com.zaf.econnecto.network_call.response_model.UserRegisterResponse
 import com.zaf.econnecto.network_call.response_model.biz_list.BizListData
+import com.zaf.econnecto.ui.activities.mybiz.Amenities
+import com.zaf.econnecto.ui.activities.mybiz.OPHours
 import com.zaf.econnecto.utils.AppConstant
 import okhttp3.RequestBody
 import org.json.JSONObject
@@ -42,13 +44,13 @@ interface EConnectoServices {
 
 
     @GET(AppConstant.URL_BIZ_AMENITY_LIST)
-    fun bizAmenityList(@Query("business_id") businessId: String): Call<JsonObject>
+    fun bizAmenityList(@Query("business_id") businessId: String): Call<Amenities>
 
     @GET(AppConstant.URL_BIZ_IMAGES)
     fun bizImageList(@Query("business_id") businessId: String): Call<JsonObject>
 
     @GET(AppConstant.URL_BIZ_OPERATING_HOURS)
-    fun bizOperatingHours(@Query("business_id") businessId: String): Call<JsonObject>
+    fun bizOperatingHours(@Query("business_id") businessId: String): Call<OPHours>
 
     @GET(AppConstant.URL_BIZ_BROCHURE_LIST)
     fun bizBrochureList(@Query("business_id") businessId: String): Call<JsonObject>

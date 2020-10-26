@@ -31,6 +31,8 @@ class ApiViewModel : ViewModel() {
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
         val requestCall = categoryService.getBusinessList(Utils.getUserEmail(mActivity))
+        LogUtils.DEBUG("Url: ${requestCall.request().url()}  ")
+
         requestCall.enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 loader.dismiss()
@@ -68,6 +70,8 @@ class ApiViewModel : ViewModel() {
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
         val requestCall = categoryService.login(requestBody)
+        LogUtils.DEBUG("Url: ${requestCall.request().url()}  \nBody: ${jsonObject.toString()}")
+
         requestCall.enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 loader.dismiss()

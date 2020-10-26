@@ -39,6 +39,7 @@ class PhoneVerificationViewModel : ViewModel() {
 
         val destinationService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
         val requestCall = destinationService.phoneVerification(requestBody)
+        LogUtils.DEBUG("Url: ${requestCall.request().url()}  \nBody: ${jsonObject.toString()}")
 
         requestCall.enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
@@ -74,6 +75,8 @@ class PhoneVerificationViewModel : ViewModel() {
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
         val destinationService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
         val requestCall = destinationService.phoneVerification(requestBody)
+        LogUtils.DEBUG("Url: ${requestCall.request().url()}  \nBody: ${jsonObject.toString()}")
+
         requestCall.enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 loader.dismiss()
@@ -111,6 +114,7 @@ class PhoneVerificationViewModel : ViewModel() {
 
         val destinationService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
         val requestCall = destinationService.phoneVerification(requestBody)
+        LogUtils.DEBUG("Url: ${requestCall.request().url()}  \nBody: ${jsonObject.toString()}")
 
         requestCall.enqueue(object : Callback<JsonObject>{
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {

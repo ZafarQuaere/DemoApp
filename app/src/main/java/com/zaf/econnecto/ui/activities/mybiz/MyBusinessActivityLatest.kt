@@ -247,21 +247,21 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         if (imageUpdate) {
             myBizViewModel.bizImageList(mContext as Activity?,this)
             myBizViewModel.bizOperatingHours(mContext as Activity?,this)
-            myBizViewModel.bizProductServicesList(mContext as Activity?,this)
             myBizViewModel.bizAmenityList(mContext as Activity?,this)
+            myBizViewModel.bizProductServicesList(mContext as Activity?,this)
             myBizViewModel.bizBrochureList(mContext as Activity?,this)
             myBizViewModel.bizPaymentMethodList(mContext as Activity?,this)
             myBizViewModel.bizPricingList(mContext as Activity?,this)
             myBizViewModel.bizCategoryList(mContext as Activity?,this)
-            presenter!!.callImageApi()
-            presenter!!.callOperationTimeApi()
-            presenter!!.callProdServicesApi()
-            presenter!!.callAmenitiesApi()
-            presenter!!.callBrochureApi()
-            presenter!!.callCategoriesApi()
-            presenter!!.callPaymentApi()
-            presenter!!.callPricingApi()
-            presenter!!.callCategoriesApi()
+//            presenter!!.callImageApi()
+//            presenter!!.callOperationTimeApi()
+//            presenter!!.callProdServicesApi()
+//            presenter!!.callAmenitiesApi()
+//            presenter!!.callBrochureApi()
+//            presenter!!.callCategoriesApi()
+//            presenter!!.callPaymentApi()
+//            presenter!!.callPricingApi()
+//            presenter!!.callCategoriesApi()
 
         }
     }
@@ -359,9 +359,8 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
             if (resultCode == RESULT_OK && data != null) {
 
                 when (requestCode) {
-
                     UPDATE_DETAILS_CODE -> {
-                        presenter!!.callBasicDetailsApi(false)
+                        myBizViewModel.callBasicDetailsApi(this,false,this)
                     }
                     UPDATE_OPERATING_HOUR_CODE -> {
                         LogUtils.showToast(this,"Coming from operating hour")
@@ -371,7 +370,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
                     }
                     UPDATE_ABOUT_US -> {
                         LogUtils.showToast(this,"Coming from about services")
-                        presenter!!.callBasicDetailsApi(false)
+                        myBizViewModel.callBasicDetailsApi(this,false,this)
                     }
                     else -> {
                         selectedImageUri = data.data
@@ -437,7 +436,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
 
 
     override fun updateOperatingHours() {
-        TODO("Not yet implemented")
+        LogUtils.showToast(this,"update op hours")
     }
 
     override fun updateProductServiceSection() {
@@ -461,7 +460,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
     }
 
     override fun updateAmenitiesSection() {
-        TODO("Not yet implemented")
+       LogUtils.showToast(this,"Update Amenities")
     }
 
     override fun updatePaymentSection() {

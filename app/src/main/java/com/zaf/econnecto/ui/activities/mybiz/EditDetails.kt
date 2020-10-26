@@ -13,31 +13,19 @@ import com.zaf.econnecto.R
 import com.zaf.econnecto.network_call.response_model.add_biz.PinCodeResponse
 import com.zaf.econnecto.ui.activities.BaseActivity
 import com.zaf.econnecto.ui.fragments.add_business.AddBizScreen2ViewModel
-import com.zaf.econnecto.ui.interfaces.DialogSingleButtonListener
 import com.zaf.econnecto.ui.interfaces.PinCodeDataListener
 import com.zaf.econnecto.ui.presenters.EditDetailsPresenter
 import com.zaf.econnecto.ui.presenters.operations.IEditDetails
 import com.zaf.econnecto.utils.LogUtils
 import com.zaf.econnecto.utils.storage.PrefUtil
-import kotlinx.android.synthetic.main.add_biz_screen2_fragment.*
 import kotlinx.android.synthetic.main.layout_edit_details.*
-import kotlinx.android.synthetic.main.layout_edit_details.editAddress1
-import kotlinx.android.synthetic.main.layout_edit_details.editAddress2
-import kotlinx.android.synthetic.main.layout_edit_details.editCity
-import kotlinx.android.synthetic.main.layout_edit_details.editCountry
-import kotlinx.android.synthetic.main.layout_edit_details.editLandMark
-import kotlinx.android.synthetic.main.layout_edit_details.editPinCode
-import kotlinx.android.synthetic.main.layout_edit_details.editState
-import kotlinx.android.synthetic.main.layout_edit_details.lytLocalitySpin
-import kotlinx.android.synthetic.main.layout_edit_details.spinnerLocality
-import kotlinx.android.synthetic.main.layout_edit_details.textLocalityLabel
 
 class EditDetails : BaseActivity<EditDetailsPresenter?>(), IEditDetails {
     val mContext = this
-    lateinit var locality : String
-    lateinit var pincode : String
-    lateinit var city : String
-    lateinit var state : String
+    lateinit var locality: String
+    lateinit var pincode: String
+    lateinit var city: String
+    lateinit var state: String
 
     private lateinit var viewModel: AddBizScreen2ViewModel
 
@@ -121,36 +109,33 @@ class EditDetails : BaseActivity<EditDetailsPresenter?>(), IEditDetails {
         }
 
         onClickEvents()
-        editPinCode.addTextChangedListener(object:TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                TODO("Not yet implemented")
-            }
+        editPinCode.addTextChangedListener(object : TextWatcher {
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                TODO("Not yet implemented")
-            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
-               if (s.toString().isEmpty()) {
-                   editLocality.visibility = View.GONE
-                   lytLocalitySpin.visibility = View.VISIBLE
-               } else if (s.toString().length == 6 ){
-                   getLocalityData()
-               }
+                if (s.toString().isEmpty()) {
+                    editLocality.visibility = View.GONE
+                    lytLocalitySpin.visibility = View.VISIBLE
+                } else if (s.toString().length == 6) {
+                    getLocalityData()
+                }
             }
         })
     }
 
     private fun onClickEvents() {
         textUpdateBizDetails.setOnClickListener {
-            presenter!!.validateBasicInputs(editBizName.text.toString(),editShortDesc.text.toString(),editEstdYear.text.toString())
+            presenter!!.validateBasicInputs(editBizName.text.toString(), editShortDesc.text.toString(), editEstdYear.text.toString())
         }
         textUpdateAddressDetails.setOnClickListener {
-            presenter!!.validateAddressInputs(editAddress1.text.toString(),editAddress2.text.toString(),editLandMark.text.toString(),editPinCode.text.toString(),locality,editCity.text.toString(),editState.text.toString(),editCountry.text.toString())
+            presenter!!.validateAddressInputs(editAddress1.text.toString(), editAddress2.text.toString(), editLandMark.text.toString(), editPinCode.text.toString(), locality, editCity.text.toString(), editState.text.toString(), editCountry.text.toString())
         }
 
         textUpdateContactDetails.setOnClickListener {
-            presenter!!.validateContactInputs(editMobile.text.toString(),editAlternateMobile.text.toString(),editPhone.text.toString(),editEmail.text.toString(),editWebsite.text.toString())
+            presenter!!.validateContactInputs(editMobile.text.toString(), editAlternateMobile.text.toString(), editPhone.text.toString(), editEmail.text.toString(), editWebsite.text.toString())
         }
         textBack.setOnClickListener {
             onBackPressed()
@@ -158,31 +143,31 @@ class EditDetails : BaseActivity<EditDetailsPresenter?>(), IEditDetails {
     }
 
     override fun initPresenter(): EditDetailsPresenter? {
-       return EditDetailsPresenter(this,this)
+        return EditDetailsPresenter(this, this)
     }
 
 
     override fun updateAddressDetails(msg: String?) {
-        LogUtils.showDialogSingleActionButton(mContext,getString(R.string.ok),msg) {
-            onBackPressed()
+        LogUtils.showDialogSingleActionButton(mContext, getString(R.string.ok), msg) {
+            updateInfoNReturn("AddressDetail")
         }
     }
 
     override fun updateContactDetails(msg: String?) {
-        LogUtils.showDialogSingleActionButton(mContext,getString(R.string.ok),msg) {
-            onBackPressed()
+        LogUtils.showDialogSingleActionButton(mContext, getString(R.string.ok), msg) {
+            updateInfoNReturn("ContactDetail")
         }
     }
 
     override fun updateBusinessDetails(msg: String?) {
-        LogUtils.showDialogSingleActionButton(mContext,getString(R.string.ok),msg) {
-           onBackPressed()
+        LogUtils.showDialogSingleActionButton(mContext, getString(R.string.ok), msg) {
+            updateInfoNReturn("BusinessDetail")
         }
     }
 
-    private fun updateInfoNReturn(){
+    private fun updateInfoNReturn(s: String) {
         val returnIntent = Intent()
-        returnIntent.putExtra("result", "data from secondActivity")
+        returnIntent.putExtra("update", s)
         setResult(Activity.RESULT_OK, returnIntent)
         finish()
     }

@@ -1,6 +1,7 @@
 package com.zaf.econnecto.service
 
 import com.zaf.econnecto.utils.AppConstant
+import com.zaf.econnecto.utils.LogUtils
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
