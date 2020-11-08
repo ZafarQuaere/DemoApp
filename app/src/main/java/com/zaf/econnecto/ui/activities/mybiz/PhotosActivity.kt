@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,8 +18,11 @@ import com.zaf.econnecto.R
 import com.zaf.econnecto.model.ImageUpdateModelListener
 import com.zaf.econnecto.network_call.MyJsonObjectRequest
 import com.zaf.econnecto.network_call.response_model.img_data.ViewImageData
+import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsResponse
 import com.zaf.econnecto.ui.adapters.StaggeredImageAdapter
 import com.zaf.econnecto.ui.interfaces.DeleteImageListener
+import com.zaf.econnecto.ui.presenters.operations.IMyBizImage
+import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
 import com.zaf.econnecto.utils.*
 import com.zaf.econnecto.utils.storage.PrefUtil
 import kotlinx.android.synthetic.main.layout_photos.*
@@ -27,42 +31,30 @@ import org.json.JSONException
 import org.json.JSONObject
 
 
-class PhotosActivity : AppCompatActivity() {
+class PhotosActivity : AppCompatActivity(), IMyBizImage {
     private lateinit var recyclerPhotos: RecyclerView
     lateinit var layoutManager: GridLayoutManager
     lateinit var adapter: StaggeredImageAdapter
     lateinit var imageList: MutableList<ViewImageData>
     private val mContext = this
+    private lateinit var myBizViewModel : MyBusinessViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_photos)
         initUI()
+        myBizViewModel = ViewModelProviders.of(this).get(MyBusinessViewModel::class.java)
+        myBizViewModel.bizImageList(mContext as Activity?,this)
     }
 
     private fun initUI() {
-        recyclerPhotos = findViewById<RecyclerView>(R.id.recycler_photos)
-        recyclerPhotos!!.setHasFixedSize(true)
-//        gridView()
+
         staggeredGridView()
         clickEvents()
     }
 
     private fun staggeredGridView() {
-        val layoutManager = StaggeredGridLayoutManager(2, LinearLayout.VERTICAL)
-        recyclerPhotos!!.layoutManager = layoutManager
-        recyclerPhotos!!.itemAnimator = DefaultItemAnimator()
-        imageList = PrefUtil.getImageData(this)!!
-        adapter = imageList?.let {
-            StaggeredImageAdapter(this, it, true, object : DeleteImageListener {
-                override fun onDeleteClick(data: ViewImageData?, position: Int) {
-                    lifecycleScope.launch {
-                        callDeleteImageApi(data, position)
-                    }
-                }
-            })
-        }!!
-        recyclerPhotos!!.adapter = adapter
+
     }
 
     suspend fun callDeleteImageApi(imageData: ViewImageData?, position: Int) {
@@ -121,4 +113,25 @@ class PhotosActivity : AppCompatActivity() {
             onBackPressed()
         }
     }
+
+    override fun updateBannerImage(data: MutableList<ViewImageData>) {
+        recyclerPhotos = findViewById<RecyclerView>(R.id.recycler_photos)
+        recyclerPhotos.setHasFixedSize(true)
+        val layoutManager = StaggeredGridLayoutManager(2, LinearLayout.VERTICAL)
+        recyclerPhotos.layoutManager = layoutManager
+        recyclerPhotos.itemAnimator = DefaultItemAnimator()
+        imageList = data
+//        imageList = PrefUtil.getImageData(this)!!
+        adapter = imageList?.let {
+            StaggeredImageAdapter(this, it, true, object : DeleteImageListener {
+                override fun onDeleteClick(data: ViewImageData?, position: Int) {
+                    lifecycleScope.launch {
+                        callDeleteImageApi(data, position)
+                    }
+                }
+            })
+        }!!
+        recyclerPhotos!!.adapter = adapter
+    }
+
 }

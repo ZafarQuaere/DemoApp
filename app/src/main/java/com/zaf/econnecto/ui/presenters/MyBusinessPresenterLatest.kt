@@ -258,8 +258,8 @@ class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBu
             val status = response.optInt("status")
             if (status == AppConstant.SUCCESS) {
                 val data = ParseManager.getInstance().fromJSON(response.toString(), ViewImages::class.java)
-                iMyBusiness.updateBannerImage(data.data)
-                PrefUtil.saveImageData(mContext, response.toString())
+//                iMyBusiness.updateBannerImage(data.data)
+//                PrefUtil.saveImageData(mContext, response.toString())
             } else {
                 LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optString("message"))
             }

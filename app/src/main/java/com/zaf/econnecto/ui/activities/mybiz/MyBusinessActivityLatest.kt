@@ -19,10 +19,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.*
 import androidx.viewpager.widget.ViewPager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -43,6 +40,7 @@ import com.zaf.econnecto.ui.adapters.StaggeredImageAdapter
 import com.zaf.econnecto.ui.adapters.VBHeaderImageRecylcerAdapter
 import com.zaf.econnecto.ui.interfaces.AddPhotoDialogListener
 import com.zaf.econnecto.ui.presenters.MyBusinessPresenterLatest
+import com.zaf.econnecto.ui.presenters.operations.IMyBizImage
 import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
 import com.zaf.econnecto.utils.*
 import kotlinx.android.synthetic.main.activity_my_business_latest.*
@@ -57,7 +55,7 @@ import kotlinx.android.synthetic.main.vb_layout_photos.*
 import kotlinx.android.synthetic.main.vb_layout_pricing.*
 import kotlinx.android.synthetic.main.vb_layout_product_services.*
 
-class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMyBusinessLatest,ImageUpdateModelListener.ImageUpdateListener,OnMapReadyCallback {
+class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyBizImage, IMyBusinessLatest,ImageUpdateModelListener.ImageUpdateListener,OnMapReadyCallback {
 
     private var mContext: Context? = null
 
@@ -308,16 +306,17 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         if (data != null) {
             textAddPhotos.visibility = View.GONE
             recycler_photos.visibility = View.VISIBLE
-            textSeeMore.visibility = View.VISIBLE
-            // textSeeMore.bringToFront()
-            val layoutManager = StaggeredGridLayoutManager(2, LinearLayout.VERTICAL)
+            textPhotoLabel.visibility = View.VISIBLE
+            textSeeMorePhotos.bringToFront()
+            val layoutManager = GridLayoutManager(mContext,2)
             recycler_photos!!.layoutManager = layoutManager
             recycler_photos!!.itemAnimator = DefaultItemAnimator()
 
             val list1 = mutableListOf<ViewImageData>(data[0], data[1], data[2], data[3])
             val adapter = StaggeredImageAdapter(this, list1, false, null)
             recycler_photos!!.adapter = adapter
-            textSeeMore.setOnClickListener {
+            textSeeMorePhotos.setOnClickListener {
+                LogUtils.showToast(mContext,"see more..")
                 startActivityForResult(Intent(this, PhotosActivity::class.java), UPDATE_PHOTOS)
             }
         } else {

@@ -37,7 +37,7 @@ object PrefUtil {
     }
 
 
-    fun saveImageData(mContext: Context, data: String) {
+   /* fun saveImageData(mContext: Context, data: String) {
         if (mContext == null) return
         val prefs = AppSharedPrefs.getInstance(mContext)
         prefs.put("Key_image_data", data)
@@ -55,6 +55,6 @@ object PrefUtil {
         }
         val viewImage = ParseManager.getInstance().fromJSON<ViewImages>(data, ViewImages::class.java)
         return viewImage.data
-    }
+    }*/
 
 }

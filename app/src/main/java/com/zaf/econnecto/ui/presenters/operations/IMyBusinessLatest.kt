@@ -5,7 +5,6 @@ import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsRes
 
 interface IMyBusinessLatest {
 
-    fun updateBannerImage(data: MutableList<ViewImageData>)
     fun updateBasicDetails(basicDetailsResponse: BasicDetailsResponse, imageUpdate: Boolean)
     fun updateOperatingHours()
     fun updateProductServiceSection()
