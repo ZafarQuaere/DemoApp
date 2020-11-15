@@ -38,6 +38,7 @@ class PhotosActivity : AppCompatActivity(), IMyBizImage {
     lateinit var imageList: MutableList<ViewImageData>
     private val mContext = this
     private lateinit var myBizViewModel : MyBusinessViewModel
+    private var imageUpdated = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,14 +49,9 @@ class PhotosActivity : AppCompatActivity(), IMyBizImage {
     }
 
     private fun initUI() {
-
-        staggeredGridView()
         clickEvents()
     }
 
-    private fun staggeredGridView() {
-
-    }
 
     suspend fun callDeleteImageApi(imageData: ViewImageData?, position: Int) {
         val loader = AppDialogLoader.getLoader(mContext)
@@ -70,7 +66,7 @@ class PhotosActivity : AppCompatActivity(), IMyBizImage {
             e.printStackTrace();
         }
         LogUtils.DEBUG("URL : $url\nRequest Body ::${jObj.toString()}")
-        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.POST, url, jObj, Response.Listener { response: JSONObject? ->
+        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.POST, url, jObj, { response: JSONObject? ->
             LogUtils.DEBUG("DeletePhoto Response ::" + response.toString())
             try {
                 if (response != null) {
@@ -93,7 +89,7 @@ class PhotosActivity : AppCompatActivity(), IMyBizImage {
                 e.printStackTrace()
                 LogUtils.ERROR(e.message)
             }
-        }, Response.ErrorListener { error: VolleyError ->
+        }, { error: VolleyError ->
             LogUtils.DEBUG("DeletePhoto Error ::" + error.message)
             loader.dismiss()
         })

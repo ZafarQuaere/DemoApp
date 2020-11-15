@@ -77,7 +77,7 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,O
             Utils.openWhatsApp(mContext,"+91 7677616600")
         }
 
-        rlytMessage.setOnClickListener {
+        rlytMail.setOnClickListener {
             Utils.openMsgInbox(mContext,"7834908329")
         }
     }

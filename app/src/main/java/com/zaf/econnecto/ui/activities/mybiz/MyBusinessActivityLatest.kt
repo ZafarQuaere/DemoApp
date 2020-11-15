@@ -86,7 +86,6 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_business_latest)
         myBizViewModel = ViewModelProviders.of(this).get(MyBusinessViewModel::class.java)
-
         mContext = this
         loader = AppLoaderFragment.getInstance(mContext)
         updateActionbar()
@@ -98,7 +97,6 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
     }
 
     private fun subscribeViewModels() {
-
         myBizViewModel.basicDetailsData.observe(this, Observer { data -> data.let {
             //TODO from here you can update the basic details data
         } })
@@ -137,6 +135,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
         textAddAmenities.setOnClickListener {
             startActivityForResult(Intent(this, AmenitiesActivity::class.java), UPDATE_AMENITIES)
         }
+
     }
 
     private fun addTabsWithoutVP() {
@@ -276,6 +275,19 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
         updateAboutSection(basicDetailsDta)
         updateMap(basicDetailsDta)
 
+        rlytCall.setOnClickListener {
+            Utils.callPhone(mContext,basicDetailsDta.mobile1)
+        }
+
+        rlytWhatsApp.setOnClickListener {
+            Utils.openWhatsApp(mContext,basicDetailsDta.mobile1)
+        }
+        rlytMail.setOnClickListener {
+            basicDetailsDta.email?.let {  Utils.openMail(mContext,it) }
+        }
+        rlytExpandAddress.setOnClickListener {
+            LogUtils.showToast(mContext,"expand address")
+        }
     }
 
     private fun updateMap(basicDetailsDta: BasicDetailsData) {
@@ -313,7 +325,8 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
             recycler_photos!!.itemAnimator = DefaultItemAnimator()
 
             val list1 = mutableListOf<ViewImageData>(data[0], data[1], data[2], data[3])
-            val adapter = StaggeredImageAdapter(this, list1, false, null)
+//            val adapter = StaggeredImageAdapter(this, list1, false, null)
+            val adapter = VBHeaderImageRecylcerAdapter(this, list1)
             recycler_photos!!.adapter = adapter
             textSeeMorePhotos.setOnClickListener {
                 LogUtils.showToast(mContext,"see more..")

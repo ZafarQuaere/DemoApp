@@ -46,6 +46,7 @@ import com.zaf.econnecto.ui.interfaces.ActionBarItemClick;
 import com.zaf.econnecto.utils.parser.ParseManager;
 import com.zaf.econnecto.utils.storage.AppSharedPrefs;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -523,7 +524,7 @@ public class Utils {
     }
 
     public static void openWhatsApp(Context mContext, String phone) {
-        String url = "https://api.whatsapp.com/send?phone="+phone;
+        String url = "https://api.whatsapp.com/send?phone="+"+91"+phone;
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         mContext.startActivity(i);
@@ -641,4 +642,12 @@ public class Utils {
         }
     }
 
+    public static void openMail(@Nullable Context mContext, @NotNull String mail) {
+        Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("mailto: "+mail));
+        intent.putExtra(Intent.EXTRA_SUBJECT, "");
+        intent.putExtra(Intent.EXTRA_TEXT, "");
+        if (mContext != null) {
+            mContext.startActivity(intent);
+        }
+    }
 }
