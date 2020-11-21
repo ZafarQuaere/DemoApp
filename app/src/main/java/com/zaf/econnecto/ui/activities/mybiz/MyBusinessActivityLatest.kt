@@ -36,7 +36,6 @@ import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsDat
 import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsResponse
 import com.zaf.econnecto.ui.activities.BaseActivity
 import com.zaf.econnecto.ui.activities.EditImageActivity
-import com.zaf.econnecto.ui.adapters.StaggeredImageAdapter
 import com.zaf.econnecto.ui.adapters.VBHeaderImageRecylcerAdapter
 import com.zaf.econnecto.ui.interfaces.AddPhotoDialogListener
 import com.zaf.econnecto.ui.presenters.MyBusinessPresenterLatest
@@ -447,16 +446,15 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
     }
 
 
-    override fun updateOperatingHours() {
+    override fun updateOperatingHours(data: OPHoursData) {
         LogUtils.showToast(this,"update op hours")
     }
 
-    override fun updateProductServiceSection() {
-        TODO("Not yet implemented")
+    override fun updateProductServiceSection(PnSData: List<ProductNServiceData>) {
+        LogUtils.showToast(this,"update Product and Service data")
     }
 
-    override fun updateBrochureSection() {
-        TODO("Not yet implemented")
+    override fun updateBrochureSection(data: List<CategoryData>) {
     }
 
     private fun updateAboutSection(basicDetailsDta: BasicDetailsData) {
@@ -471,19 +469,19 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
         }
     }
 
-    override fun updateAmenitiesSection() {
+    override fun updateAmenitiesSection(data: List<AmenityData>) {
        LogUtils.showToast(this,"Update Amenities")
     }
 
-    override fun updatePaymentSection() {
-        TODO("Not yet implemented")
+    override fun updatePaymentSection(data: List<PaymentMethodData>) {
+        LogUtils.showToast(this,"Update PaymentMethodData")
     }
 
-    override fun updatePricingSection() {
-        TODO("Not yet implemented")
+    override fun updatePricingSection(data: List<PricingData>) {
+        LogUtils.showToast(this,"Update PricingData")
     }
 
-    override fun updateCategories() {
-        TODO("Not yet implemented")
+    override fun updateCategories(data: List<CategoryData>) {
+        LogUtils.showToast(this,"Update CategoryData")
     }
 }
