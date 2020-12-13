@@ -13,6 +13,7 @@ import android.provider.MediaStore
 import android.view.View
 import android.view.WindowManager
 import android.widget.LinearLayout
+import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
@@ -36,8 +37,10 @@ import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsDat
 import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsResponse
 import com.zaf.econnecto.ui.activities.BaseActivity
 import com.zaf.econnecto.ui.activities.EditImageActivity
+import com.zaf.econnecto.ui.adapters.BizCategoryListAdapter
 import com.zaf.econnecto.ui.adapters.VBHeaderImageRecylcerAdapter
 import com.zaf.econnecto.ui.interfaces.AddPhotoDialogListener
+import com.zaf.econnecto.ui.interfaces.DeleteCategoryListener
 import com.zaf.econnecto.ui.presenters.MyBusinessPresenterLatest
 import com.zaf.econnecto.ui.presenters.operations.IMyBizImage
 import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
@@ -187,8 +190,8 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
                 textAddPricing.requestFocus()
             }
             "Categories" -> {
-                scroll.scrollTo(0, textCategory1.bottom + 3100)
-                textCategory1.requestFocus()
+                scroll.scrollTo(0, textAddCategory.bottom + 3100)
+                textAddCategory.requestFocus()
             }
 //            "Payment" ->  scroll.scrollTo(0,textAddPayments.top +2600) //scrollToRow(scroll,layoutPayment,textAddPayments)
             else -> scroll.scrollTo(0, textAboutWhyUsLabel.top + 2600)
@@ -249,15 +252,6 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
             myBizViewModel.bizPaymentMethodList(mContext as Activity?,this)
             myBizViewModel.bizPricingList(mContext as Activity?,this)
             myBizViewModel.bizCategoryList(mContext as Activity?,this)
-//            presenter!!.callImageApi()
-//            presenter!!.callOperationTimeApi()
-//            presenter!!.callProdServicesApi()
-//            presenter!!.callAmenitiesApi()
-//            presenter!!.callBrochureApi()
-//            presenter!!.callCategoriesApi()
-//            presenter!!.callPaymentApi()
-//            presenter!!.callPricingApi()
-//            presenter!!.callCategoriesApi()
 
         }
     }
@@ -454,7 +448,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
         LogUtils.showToast(this,"update Product and Service data")
     }
 
-    override fun updateBrochureSection(data: List<CategoryData>) {
+    override fun updateBrochureSection(data: List<BrochureData>) {
     }
 
     private fun updateAboutSection(basicDetailsDta: BasicDetailsData) {
@@ -482,6 +476,22 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
     }
 
     override fun updateCategories(data: List<CategoryData>) {
-        LogUtils.showToast(this,"Update CategoryData")
+        updateCategoryList(data)
+    }
+
+    private fun updateCategoryList(data: List<CategoryData>) {
+        if (data.isNotEmpty()) {
+            val catListView = findViewById<ListView>(R.id.myBizCategoryList)
+            catListView.visibility = View.VISIBLE
+
+            val adapter = BizCategoryListAdapter(this, data, object : DeleteCategoryListener {
+                override fun deleteCategory(categorydata: CategoryData) {
+                    LogUtils.showToast(mContext, "delete ${categorydata.category_name} and ${categorydata.category_id}now call delete api")
+                    myBizViewModel.deleteCategoriesApi(mContext as Activity?,false,this as IMyBusinessLatest)
+                }
+
+            })
+            catListView.adapter = adapter
+        }
     }
 }

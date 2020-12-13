@@ -168,6 +168,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="visible" />
+
             <include
                 layout="@layout/vb_layout_payment"
                 android:layout_width="match_parent"

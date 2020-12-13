@@ -29,6 +29,7 @@ class AmenitiesRecyclerAdapter(private val context: Context, private val mValues
         return mValues.size
     }
 
+
     inner class ViewHolder internal constructor(val mView: View) : RecyclerView.ViewHolder(mView) {
         val textName: TextView
 

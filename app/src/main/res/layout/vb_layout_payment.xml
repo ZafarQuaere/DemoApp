@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:id="@+id/layoutPayment"
+    android:background="@color/white"
     android:padding="@dimen/_20dp">
 
     

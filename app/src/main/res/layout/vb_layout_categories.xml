@@ -4,60 +4,47 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@color/white"
     android:padding="@dimen/_20dp">
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_x_large_text"
+        android:textColor="@color/colorBlack"
+        android:textStyle="bold"
         android:text="@string/categories" />
-    
-    <RelativeLayout
+
+    <ListView
+        android:visibility="gone"
+        android:id="@+id/myBizCategoryList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:overScrollMode="never"
+        tools:listitem="@layout/my_biz_category_item" />
 
-
-        <TextView
-            android:id="@+id/textCategory1"
-            android:layout_marginTop="@dimen/_10dp"
-            android:drawableStart="@drawable/ic_address"
-            android:drawablePadding="@dimen/_10dp"
-            android:layout_width="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_height="wrap_content"
-            android:text="Category1" />
-
-        <TextView
-            android:layout_alignParentRight="true"
-            android:drawablePadding="@dimen/_10dp"
-            android:layout_width="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_height="wrap_content"
-            android:text="Delete" />
-
-
-    </RelativeLayout>
 
     <TextView
+        android:id="@+id/textAddCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10dp"
         android:drawableStart="@drawable/ic_add"
-        android:paddingStart="@dimen/_10dp"
-        android:layout_width="match_parent"
         android:gravity="center_vertical"
-        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/_10dp"
         android:text="@string/add_category" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:visibility="gone"
         android:id="@+id/recycler_product_services"
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/_10dp"
         android:layout_height="110dp"
+        android:layout_marginTop="@dimen/_10dp"
         android:background="@color/colorWhite"
-        android:overScrollMode="never"
         android:orientation="horizontal"
+        android:overScrollMode="never"
         android:scrollbars="none"
+        android:visibility="gone"
         tools:listitem="@layout/header_image_list_item" />
 
 </LinearLayout>

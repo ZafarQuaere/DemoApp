@@ -17,6 +17,15 @@
         android:textSize="@dimen/font_regular_text"
         android:textStyle="bold" />
 
+    <ImageView
+        android:id="@+id/imgSelect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_tick_point"
+        android:layout_alignEnd="@+id/textName"
+        android:layout_marginEnd="@dimen/_20dp"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
 </RelativeLayout>
 
 

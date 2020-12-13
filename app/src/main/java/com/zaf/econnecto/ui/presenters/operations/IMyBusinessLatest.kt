@@ -8,7 +8,7 @@ interface IMyBusinessLatest {
     fun updateBasicDetails(basicDetailsResponse: BasicDetailsResponse, imageUpdate: Boolean)
     fun updateOperatingHours(data: OPHoursData)
     fun updateProductServiceSection(data: List<ProductNServiceData>)
-    fun updateBrochureSection(data: List<CategoryData>)
+    fun updateBrochureSection(data: List<BrochureData>)
     fun updateAmenitiesSection(data: List<AmenityData>)
     fun updatePaymentSection(data: List<PaymentMethodData>)
     fun updatePricingSection(data: List<PricingData>)
