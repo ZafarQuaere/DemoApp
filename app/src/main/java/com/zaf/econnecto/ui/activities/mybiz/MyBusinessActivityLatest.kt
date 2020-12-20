@@ -37,8 +37,7 @@ import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsDat
 import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsResponse
 import com.zaf.econnecto.ui.activities.BaseActivity
 import com.zaf.econnecto.ui.activities.EditImageActivity
-import com.zaf.econnecto.ui.adapters.BizCategoryListAdapter
-import com.zaf.econnecto.ui.adapters.VBHeaderImageRecylcerAdapter
+import com.zaf.econnecto.ui.adapters.*
 import com.zaf.econnecto.ui.interfaces.AddPhotoDialogListener
 import com.zaf.econnecto.ui.interfaces.DeleteCategoryListener
 import com.zaf.econnecto.ui.presenters.MyBusinessPresenterLatest
@@ -105,11 +104,8 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
     }
 
     private fun updateMyBizUI() {
-//        viewPagerTabs = findViewById<ViewPager>(R.id.viewpagerTabs)
         tabLayout = findViewById<TabLayout>(R.id.tabs)
         addTabsWithoutVP()
-//        tabLayout.setupWithViewPager(viewPagerTabs)
-//        setupViewPager(viewPagerTabs)
 
         textFollow.text = getString(R.string.edit_details)
         textFollow.setOnClickListener {
@@ -362,20 +358,22 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
             if (resultCode == RESULT_OK && data != null) {
-
                 when (requestCode) {
                     UPDATE_DETAILS_CODE -> {
                         myBizViewModel.callBasicDetailsApi(this,false,this)
                     }
                     UPDATE_OPERATING_HOUR_CODE -> {
-                        LogUtils.showToast(this,"Coming from operating hour")
+                        LogUtils.DEBUG("Coming from operating hour")
                     }
                     UPDATE_PRODUCT_SERVICES -> {
-                        LogUtils.showToast(this,"Coming from product services")
+                        LogUtils.DEBUG("Coming from product services")
                     }
                     UPDATE_ABOUT_US -> {
-                        LogUtils.showToast(this,"Coming from about services")
+                        LogUtils.DEBUG("Coming from about services")
                         myBizViewModel.callBasicDetailsApi(this,false,this)
+                    }
+                    UPDATE_AMENITIES -> {
+                        LogUtils.DEBUG("Coming from amenities")
                     }
                     else -> {
                         selectedImageUri = data.data
@@ -463,16 +461,68 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
         }
     }
 
-    override fun updateAmenitiesSection(data: List<AmenityData>) {
-       LogUtils.showToast(this,"Update Amenities")
+    override fun updateAmenitiesSection(data: List<AmenityData>?) {
+       if (data == null) {
+           textAddAmenities.visibility = View.VISIBLE
+           lytAmenity.visibility = View.GONE
+       } else {
+           updateAmenitiesUI(data)
+       }
+    }
+
+    private fun updateAmenitiesUI(data: List<AmenityData>) {
+        textAddAmenities.visibility = View.GONE
+        lytAmenity.visibility = View.VISIBLE
+        val layoutManager = StaggeredGridLayoutManager(2, LinearLayout.VERTICAL)
+        recyclerAmenities.layoutManager = layoutManager
+        recyclerAmenities.itemAnimator = DefaultItemAnimator()
+        val amenityAdapter = AmenitiesMyBizStaggeredAdapter(this, data)
+        recyclerAmenities.adapter = amenityAdapter
+        textAmenityEdit.setOnClickListener {
+            startActivityForResult(Intent(this, AmenitiesActivity::class.java), UPDATE_AMENITIES)
+        }
+
     }
 
     override fun updatePaymentSection(data: List<PaymentMethodData>) {
-        LogUtils.showToast(this,"Update PaymentMethodData")
+        if (data == null) {
+            textAddPayments.visibility = View.VISIBLE
+            lytPayments.visibility = View.GONE
+        } else {
+            updatePaymentsUI(data)
+        }
+    }
+
+    private fun updatePaymentsUI(data: List<PaymentMethodData>) {
+        textAddPayments.visibility = View.GONE
+        lytPayments.visibility = View.VISIBLE
+        val layoutManager = StaggeredGridLayoutManager(2, LinearLayout.VERTICAL)
+        recyclerPayments.layoutManager = layoutManager
+        recyclerPayments.itemAnimator = DefaultItemAnimator()
+        val adapter = PaymentsMyBizStaggeredAdapter(this, data)
+        recyclerPayments.adapter = adapter
+        textPaymentEdit.setOnClickListener {
+//            startActivityForResult(Intent(this, AmenitiesActivity::class.java), UPDATE_AMENITIES)
+        }
     }
 
     override fun updatePricingSection(data: List<PricingData>) {
-        LogUtils.showToast(this,"Update PricingData")
+        if (data == null) {
+            textAddPricing.visibility = View.VISIBLE
+            lytPricing.visibility = View.GONE
+        } else {
+            updatePricingUI(data)
+        }
+    }
+
+    private fun updatePricingUI(data: List<PricingData>) {
+        textAddPricing.visibility = View.GONE
+        lytPricing.visibility = View.VISIBLE
+        val layoutManager = LinearLayoutManager(mContext)
+        recyclerPricing.layoutManager = layoutManager
+        recyclerPricing.itemAnimator = DefaultItemAnimator()
+        val adapter = PricingMyBizStaggeredAdapter(this, data)
+        recyclerPricing.adapter = adapter
     }
 
     override fun updateCategories(data: List<CategoryData>) {
@@ -483,13 +533,11 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
         if (data.isNotEmpty()) {
             val catListView = findViewById<ListView>(R.id.myBizCategoryList)
             catListView.visibility = View.VISIBLE
-
             val adapter = BizCategoryListAdapter(this, data, object : DeleteCategoryListener {
                 override fun deleteCategory(categorydata: CategoryData) {
                     LogUtils.showToast(mContext, "delete ${categorydata.category_name} and ${categorydata.category_id}now call delete api")
                     myBizViewModel.deleteCategoriesApi(mContext as Activity?,false,this as IMyBusinessLatest)
                 }
-
             })
             catListView.adapter = adapter
         }

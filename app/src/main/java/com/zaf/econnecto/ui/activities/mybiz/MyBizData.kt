@@ -23,5 +23,5 @@ data class CategoryData(val category_id: String, val category_name: String)
 data class Brochure(val status: Int, val message:List<String>, val data: List<BrochureData>)
 data class BrochureData(val brochure_id: String, val brochure_link: String)
 
-data class AmenityDummyData(var isChecked: Boolean = false, val amenity_id: String, val amenity_name: String) {
+data class AmenitySelectedData(var isChecked: Boolean = false, val amenity_id: String, val amenity_name: String) {
 }

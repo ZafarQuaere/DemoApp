@@ -274,7 +274,6 @@ class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBu
         val mapFragment = mContext.supportFragmentManager
                 .findFragmentById(R.id.mapFrag) as SupportMapFragment
         mapFragment.getMapAsync(mContext)
-        mapFrag!!.requireView().visibility = View.GONE
     }
 
 }

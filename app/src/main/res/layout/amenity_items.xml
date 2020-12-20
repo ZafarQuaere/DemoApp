@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/btn_follow"
+    android:padding="@dimen/_5dp"
+    android:layout_margin="@dimen/_5dp">
+
+    <ImageButton
+        android:id="@+id/iconCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_circle_check" />
+
+    <TextView
+        android:id="@+id/textAmenityName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/iconCategory"
+        android:gravity="center_vertical"
+        android:paddingEnd="@dimen/_15dp"
+        android:textSize="@dimen/font_large_text"
+        android:paddingStart="@dimen/_5dp"
+        tools:text="@string/Select_Category"
+        tools:ignore="RtlSymmetry" />
+
+
+</RelativeLayout>
+
+
+

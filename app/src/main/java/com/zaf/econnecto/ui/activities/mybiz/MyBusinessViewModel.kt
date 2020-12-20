@@ -93,6 +93,7 @@ class MyBusinessViewModel : ViewModel() {
                     if (amenities?.status == AppConstant.SUCCESS) {
                         listener.updateAmenitiesSection(amenities!!.data)
                     } else {
+                        listener.updateAmenitiesSection(null)
                         LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), amenities!!.message[0])
                     }
                 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_5dp"
+    android:padding="@dimen/_5dp">
+
+
+    <TextView
+        android:id="@+id/textPricingLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingEnd="@dimen/_15dp"
+        android:textSize="@dimen/font_large_text"
+        tools:ignore="RtlSymmetry"
+        tools:text="@string/Select_Category" />
+
+
+    <TextView
+        android:id="@+id/textPricingValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/font_large_text"
+        tools:ignore="RtlSymmetry"
+        tools:text="@string/Select_Category" />
+</RelativeLayout>
+
+
+

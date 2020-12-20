@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_10dp"
         android:text="@string/take_photo"
+        android:visibility="gone"
         android:textColor="@color/dialog_text_color"
         android:textSize="@dimen/font_large_text" />
 
@@ -29,6 +30,7 @@
         android:id="@+id/textSelectGallery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
         android:layout_marginBottom="@dimen/_20dp"
         android:text="@string/select_from_gallery"
         android:textColor="@color/dialog_text_color"

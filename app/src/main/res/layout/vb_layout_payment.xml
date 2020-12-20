@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/layoutPayment"
     android:background="@color/white"
@@ -19,8 +20,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
+        android:visibility="gone"
         android:text="@string/payment_options" />
 
+    <LinearLayout
+        android:id="@+id/lytPayments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/textPaymentEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_10dp"
+            android:text="@string/payment_options"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/font_x_large_text"
+            app:drawableEndCompat="@drawable/ic_edit_black" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerPayments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:background="@color/colorWhite"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            android:visibility="visible"
+            tools:listitem="@layout/amenity_items" />
+    </LinearLayout>
 
 </LinearLayout>
 

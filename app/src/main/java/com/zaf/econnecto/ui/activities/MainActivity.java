@@ -202,7 +202,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
     closeDrawer();
     // getPresenter().moveToFragment(FragmentProfile.class.getSimpleName());
     updateMyAccountUI(false);
-    startActivity(new Intent(MainActivity.this, MyBusinessActivity.class));
+//    startActivity(new Intent(MainActivity.this, MyBusinessActivity.class));
+    startActivity(new Intent(MainActivity.this, MyBusinessActivityLatest.class));
   }
 
   public void verifyEmailClick(View view) {

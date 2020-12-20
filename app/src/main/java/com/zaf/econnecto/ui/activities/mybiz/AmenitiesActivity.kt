@@ -6,29 +6,33 @@ import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.zaf.econnecto.R
-import com.zaf.econnecto.ui.adapters.AmenitiesRecyclerAdapter
-import com.zaf.econnecto.ui.adapters.AmenitiesStaggeredAdapter
-import com.zaf.econnecto.ui.adapters.StaggeredImageAdapter
+import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsResponse
+import com.zaf.econnecto.ui.adapters.AmenitiesAddEditStaggeredAdapter
+import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
 import com.zaf.econnecto.utils.LogUtils
-import com.zaf.econnecto.utils.storage.PrefUtil
 import kotlinx.android.synthetic.main.layout_amenities.*
+import java.util.*
 
 
-class AmenitiesActivity : AppCompatActivity() {
-    private lateinit var adapter: AmenitiesStaggeredAdapter
+ class AmenitiesActivity : AppCompatActivity(),IMyBusinessLatest {
+    private lateinit var adapterAddEdit: AmenitiesAddEditStaggeredAdapter
     lateinit var recyclerAmenity: RecyclerView
     lateinit var layoutManager: GridLayoutManager
     lateinit var emptyTextView: TextView
     var mContext: Activity = this
+    private lateinit var myBizViewModel : MyBusinessViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_amenities)
+        myBizViewModel = ViewModelProviders.of(this).get(MyBusinessViewModel::class.java)
+        myBizViewModel.bizAmenityList(this,this)
         initUI()
     }
 
@@ -36,31 +40,71 @@ class AmenitiesActivity : AppCompatActivity() {
         recyclerAmenity = findViewById<RecyclerView>(R.id.recycler_amenities)
         recyclerAmenity.setHasFixedSize(true)
         emptyTextView = findViewById(R.id.emptyTextView)
-//        gridView()
-        staggeredGridView()
+
         clickEvents()
     }
 
-    private fun staggeredGridView() {
+     override fun updateBasicDetails(basicDetailsResponse: BasicDetailsResponse, imageUpdate: Boolean) {
+         TODO("Not yet implemented")
+     }
+
+     override fun updateOperatingHours(data: OPHoursData) {
+         TODO("Not yet implemented")
+     }
+
+     override fun updateProductServiceSection(data: List<ProductNServiceData>) {
+         TODO("Not yet implemented")
+     }
+
+     override fun updateBrochureSection(data: List<BrochureData>) {
+         TODO("Not yet implemented")
+     }
+
+     override fun updateAmenitiesSection(data: List<AmenityData>?) {
+        if (data == null) {
+
+        } else {
+            staggeredGridView(data)
+//            updateAmenitiesUI(data)
+        }
+    }
+
+     override fun updatePaymentSection(data: List<PaymentMethodData>) {
+         TODO("Not yet implemented")
+     }
+
+     override fun updatePricingSection(data: List<PricingData>) {
+         TODO("Not yet implemented")
+     }
+
+     override fun updateCategories(data: List<CategoryData>) {
+         TODO("Not yet implemented")
+     }
+
+     private fun staggeredGridView(data: List<AmenityData>) {
         val layoutManager = StaggeredGridLayoutManager(3, LinearLayout.VERTICAL)
         recyclerAmenity.layoutManager = layoutManager
         recyclerAmenity.itemAnimator = DefaultItemAnimator()
 
-        val amenityList = emptyList<AmenityDummyData>().toMutableList()
-        val data = AmenityDummyData(false,"123","ABC ")
-        amenityList[0] = data
-        val data1 = AmenityDummyData(false,"1234","ABCDEF ")
-        amenityList[1] = data1
-        val data2 = AmenityDummyData(false,"1235","GHIJK ")
-        amenityList[2] = data2
-        val data3 = AmenityDummyData(false,"1236","LMNOP ")
-        amenityList[3] = data3
-        val data4 = AmenityDummyData(false,"1237","XYZ ")
-        amenityList[4] = data4
+        val amenityList = mutableListOf<AmenitySelectedData>()
+        for (i in data.indices){
+            val amnData = AmenitySelectedData(false,data[i].amenity_id,data[i].amenity_name)
+            amenityList.add(i,amnData)
+        }
+       /* val data = AmenitySelectedData(false,"123","ABC ")
+        amenityList.add(0, data)
+        val data1 = AmenitySelectedData(false,"1234","ABCDEF ")
+        amenityList.add(1, data1)
+        val data2 = AmenitySelectedData(false,"1235","GHIJK ")
+        amenityList.add(2, data2)
+        val data3 = AmenitySelectedData(false,"1236","LMNOP ")
+        amenityList.add(3, data3)
+        val data4 = AmenitySelectedData(false,"1237","XYZ ")
+        amenityList.add(4, data4)*/
 
 //        val list = mutableListOf<String>("ABC", "DEF", "GHIJKL", "MNOP", "QRSTU", "VWXYZ", "ABCD")
-        val adapter = AmenitiesStaggeredAdapter(this, amenityList)
-        recyclerAmenity.adapter = adapter
+        adapterAddEdit = AmenitiesAddEditStaggeredAdapter(this, amenityList)
+        recyclerAmenity.adapter = adapterAddEdit
     }
 
 
@@ -77,12 +121,13 @@ class AmenitiesActivity : AppCompatActivity() {
 
     private fun clickEvents() {
         textSubmit.setOnClickListener {
-//            adapter.getSelectedItems()
-            LogUtils.showToast(mContext,"submit clicked")
-           /* val returnIntent = Intent()
+          val selectedItem = adapterAddEdit.getSelectedItems()
+            LogUtils.DEBUG("Selected Items : "+ Arrays.asList(selectedItem))
+            LogUtils.showToast(mContext,"Submitted")
+             val returnIntent = Intent()
             returnIntent.putExtra("result", "data from secondActivity")
             setResult(Activity.RESULT_OK, returnIntent)
-            finish()*/
+            finish()
         }
 
         textBack.setOnClickListener {
