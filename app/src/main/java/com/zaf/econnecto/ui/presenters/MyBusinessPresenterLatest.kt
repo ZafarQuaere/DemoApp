@@ -2,10 +2,8 @@ package com.zaf.econnecto.ui.presenters
 
 import android.app.Activity
 import android.content.Context
-import android.view.View
 import androidx.fragment.app.Fragment
 import com.android.volley.Request
-import com.android.volley.Response
 import com.android.volley.VolleyError
 import com.google.android.gms.maps.SupportMapFragment
 import com.zaf.econnecto.R
@@ -228,7 +226,7 @@ class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBu
     }
 
     fun callProdServicesApi() {
-        val url = AppConstant.URL_BIZ_PROD_SERVICES + "21" //PrefUtil.getBizId(mContext)
+        val url = AppConstant.URL_BIZ_ADD_PROD_SERVICES + "21" //PrefUtil.getBizId(mContext)
         LogUtils.DEBUG("URL : $url\nRequest Body ::")
         val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, { response: JSONObject? ->
             LogUtils.DEBUG("callProdServicesApi Response ::" + response.toString())

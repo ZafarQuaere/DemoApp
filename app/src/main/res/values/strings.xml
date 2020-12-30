@@ -375,4 +375,6 @@
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
     <string name="see_more">See more ..</string>
+    <string name="enter_service_name">Enter service name</string>
+    <string name="enter_product_name">Enter product name</string>
 </resources>

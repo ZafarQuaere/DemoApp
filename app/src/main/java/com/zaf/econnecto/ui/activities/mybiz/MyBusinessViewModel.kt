@@ -314,7 +314,7 @@ class MyBusinessViewModel : ViewModel() {
         })
     }
 
-    fun removeProductServiceApi(activity: Activity?, imageUpdate: Boolean, listener : IMyBusinessLatest) {
+    fun addProductServicesApi(activity: Activity?, imageUpdate: Boolean, listener: IMyBusinessLatest?, prodNService: String) {
         if (activity != null)
             mActivity = activity
         val loader = AppDialogLoader.getLoader(mActivity)
@@ -322,7 +322,7 @@ class MyBusinessViewModel : ViewModel() {
         val jsonObject = JSONObject()
         jsonObject.put("jwt_token", Utils.getAccessToken(mActivity))
         jsonObject.put("owner_id", Utils.getUserID(mActivity))
-        jsonObject.put("prod_serv_id", 0)
+        jsonObject.put("prod_serv_name", prodNService)
 
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)

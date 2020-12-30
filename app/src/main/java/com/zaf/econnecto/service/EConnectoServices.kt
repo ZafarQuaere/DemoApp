@@ -31,7 +31,7 @@ interface EConnectoServices {
     @POST(AppConstant.URL_BIZ_BASIC_DETAILS)
     fun bizBasicDetails(@Body requestBody: RequestBody): Call<JsonObject>
 
-    @POST(AppConstant.URL_BIZ_PROD_SERVICES)
+    @POST(AppConstant.URL_BIZ_ADD_PROD_SERVICES)
     fun addProductServices(@Body requestBody: RequestBody): Call<JsonObject>
 
     @POST(AppConstant.URL_BIZ_REMOVE_PROD_SERVICES)
@@ -53,7 +53,7 @@ interface EConnectoServices {
     @GET(AppConstant.URL_BIZ_BROCHURE_LIST)
     fun bizBrochureList(@Query("business_id") businessId: String): Call<Brochure>
 
-    @GET(AppConstant.URL_BIZ_PROD_SERVICES)
+    @GET(AppConstant.URL_BIZ_ADD_PROD_SERVICES)
     fun bizProductServicesList(@Query("business_id") businessId: String): Call<ProductNService>
 
     @GET(AppConstant.URL_BIZ_PRICING)

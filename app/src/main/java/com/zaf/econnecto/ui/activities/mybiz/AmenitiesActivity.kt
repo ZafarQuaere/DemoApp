@@ -91,6 +91,7 @@ import java.util.*
             val amnData = AmenitySelectedData(false,data[i].amenity_id,data[i].amenity_name)
             amenityList.add(i,amnData)
         }
+
        /* val data = AmenitySelectedData(false,"123","ABC ")
         amenityList.add(0, data)
         val data1 = AmenitySelectedData(false,"1234","ABCDEF ")
