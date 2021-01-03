@@ -5,17 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:focusable="false"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:focusable="false">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
-        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
-        app:elevation="@dimen/_5dp"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:visibility="visible"
+        app:elevation="@dimen/_5dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/htab_collapse_toolbar"
@@ -57,6 +57,7 @@
                         android:padding="@dimen/_10dp" />
                 </FrameLayout>
 
+
                 <include
                     layout="@layout/vb_address_detail"
                     android:layout_width="match_parent"
@@ -65,14 +66,14 @@
 
                 <TextView
                     android:id="@+id/textOperatingHours"
-                    android:background="@drawable/btn_follow"
-                    android:layout_marginHorizontal="@dimen/_30dp"
-                    android:paddingVertical="@dimen/_5dp"
-                    android:drawableEnd="@drawable/ic_edit_black"
-                    android:paddingEnd="@dimen/_20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_30dp"
+                    android:background="@drawable/btn_follow"
+                    android:drawableEnd="@drawable/ic_edit_black"
                     android:gravity="center_horizontal"
+                    android:paddingVertical="@dimen/_5dp"
+                    android:paddingEnd="@dimen/_20dp"
                     android:text="@string/operatingHours" />
 
                 <include
@@ -82,14 +83,14 @@
                     android:visibility="visible" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:visibility="gone"
                     android:id="@+id/recycler_hotdeals"
                     android:layout_width="match_parent"
                     android:layout_height="110dp"
                     android:background="@color/colorWhite"
-                    android:overScrollMode="never"
                     android:orientation="horizontal"
+                    android:overScrollMode="never"
                     android:scrollbars="none"
+                    android:visibility="gone"
                     tools:listitem="@layout/header_image_list_item" />
 
                 <include
@@ -98,32 +99,34 @@
                     android:layout_height="wrap_content"
                     android:visibility="visible" />
 
-
-                <!--</RelativeLayout>-->
             </LinearLayout>
 
+
+                <!--</RelativeLayout>-->
+
+
             <androidx.appcompat.widget.Toolbar
-                android:visibility="visible"
                 android:id="@+id/toolbarBd"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:titleTextColor="@color/colorTransparent"
+                android:visibility="visible"
                 app:layout_collapseMode="pin"
-                app:theme="@style/toolbarLightTheme"/>
+                app:theme="@style/toolbarLightTheme"
+                app:titleTextColor="@color/colorTransparent" />
 
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-        <!-- if we put tablayout here it stucks at actionbar-->
+        <!-- if we put tablayout here it stucks at aconbar-->
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40dp"
+            android:background="@color/colorLightGrey"
+            android:hapticFeedbackEnabled="true"
             app:tabGravity="center"
             app:tabIndicatorColor="@color/colorBlack"
             app:tabMode="scrollable"
-            android:background="@color/colorLightGrey"
-            android:hapticFeedbackEnabled="true"
             app:tabSelectedTextColor="@color/colorBlack"
             app:tabTextColor="@color/colorGrey" />
 
@@ -134,8 +137,8 @@
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
         android:background="@color/businessBackground"
+        android:clipToPadding="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -150,46 +153,46 @@
                 android:visibility="visible" />
 
             <include
-                android:layout_marginTop="@dimen/_3dp"
                 layout="@layout/vb_layout_about"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3dp"
                 android:visibility="visible" />
 
             <include
-                android:layout_marginTop="@dimen/_3dp"
                 layout="@layout/vb_layout_photos"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
+                android:layout_marginTop="@dimen/_3dp"
                 android:visibility="visible" />
 
             <include
-                android:layout_marginTop="@dimen/_3dp"
                 layout="@layout/vb_layout_amenities"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3dp"
                 android:visibility="visible" />
 
             <include
-                android:layout_marginTop="@dimen/_3dp"
                 layout="@layout/vb_layout_payment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3dp"
                 android:visibility="visible" />
 
 
             <include
-                android:layout_marginTop="@dimen/_3dp"
                 layout="@layout/vb_layout_pricing"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3dp"
                 android:visibility="visible" />
 
             <include
-                android:layout_marginTop="@dimen/_3dp"
                 layout="@layout/vb_layout_categories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3dp"
                 android:visibility="visible" />
 
             <Space

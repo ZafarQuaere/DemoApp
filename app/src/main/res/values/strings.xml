@@ -377,4 +377,8 @@
     <string name="see_more">See more ..</string>
     <string name="enter_service_name">Enter service name</string>
     <string name="enter_product_name">Enter product name</string>
+    <string name="please_enter_product_or_service_name">Please enter Product or Service Name</string>
+    <string name="details_successfully_added">Details added successfully</string>
+    <string name="deals_in">Deals in</string>
+    <string name="add">Add</string>
 </resources>

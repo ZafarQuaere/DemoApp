@@ -72,7 +72,7 @@ class ViewBusinessPresenter(context: Context?, iViewBizns: IViewBizns) : BasePre
         loader.show()
         val url = AppConstant.URL_BASE_MVP +AppConstant.URL_BIZ_IMAGES + PrefUtil.getBizId(mContext)
 
-        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, Response.Listener { response ->
+        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.GET, url, null, { response ->
             LogUtils.DEBUG("View Image Response ::$response")
             val data = ParseManager.getInstance().fromJSON(response.toString(), ViewImages::class.java)
             if (data.status == AppConstant.SUCCESS) {
@@ -81,7 +81,7 @@ class ViewBusinessPresenter(context: Context?, iViewBizns: IViewBizns) : BasePre
                 mIViewBizns.updateBannerImage(data.data)
             }
             loader.dismiss()
-        }, Response.ErrorListener { error ->
+        }, { error ->
             LogUtils.DEBUG("Biz Category Error ::" + error.message)
             loader.dismiss()
         })

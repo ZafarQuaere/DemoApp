@@ -53,7 +53,7 @@ interface EConnectoServices {
     @GET(AppConstant.URL_BIZ_BROCHURE_LIST)
     fun bizBrochureList(@Query("business_id") businessId: String): Call<Brochure>
 
-    @GET(AppConstant.URL_BIZ_ADD_PROD_SERVICES)
+    @GET(AppConstant.URL_BIZ_PRODUCT_SERVICES_LIST)
     fun bizProductServicesList(@Query("business_id") businessId: String): Call<ProductNService>
 
     @GET(AppConstant.URL_BIZ_PRICING)

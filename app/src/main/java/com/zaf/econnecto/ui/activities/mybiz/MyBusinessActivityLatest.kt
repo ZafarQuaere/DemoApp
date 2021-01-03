@@ -1,8 +1,9 @@
+@file:Suppress("CAST_NEVER_SUCCEEDS")
+
 package com.zaf.econnecto.ui.activities.mybiz
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -40,6 +41,7 @@ import com.zaf.econnecto.ui.activities.EditImageActivity
 import com.zaf.econnecto.ui.adapters.*
 import com.zaf.econnecto.ui.interfaces.AddPhotoDialogListener
 import com.zaf.econnecto.ui.interfaces.DeleteCategoryListener
+import com.zaf.econnecto.ui.interfaces.DeleteProductListener
 import com.zaf.econnecto.ui.presenters.MyBusinessPresenterLatest
 import com.zaf.econnecto.ui.presenters.operations.IMyBizImage
 import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
@@ -58,7 +60,7 @@ import kotlinx.android.synthetic.main.vb_layout_product_services.*
 
 class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyBizImage, IMyBusinessLatest,ImageUpdateModelListener.ImageUpdateListener,OnMapReadyCallback {
 
-    private var mContext: Context? = null
+    private var mContext: Activity? = null
 
     private var selectedImageUri: Uri? = null
     private var loader: AppLoaderFragment? = null
@@ -66,6 +68,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
     private lateinit var viewPagerTabs : ViewPager
     private lateinit var tabLayout : TabLayout
     private lateinit var myBizViewModel : MyBusinessViewModel
+    private var isBrochure : Boolean = false
 
     companion object {
         private const val GALLERY_IMAGE_CODE = 100
@@ -329,7 +332,9 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
 
     fun uploadPhoto(view: View) {
         if (PermissionUtils.checkPermission(mContext)) {
+            isBrochure = false
             LogUtils.showAddPhotoDialog(mContext, object : AddPhotoDialogListener{
+
                 override fun selectFromGallery() {
                     chooseFromGallery()
                 }
@@ -337,6 +342,15 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
                     captureFromCamera()
                 }
             })
+        } else {
+            PermissionUtils.requestPermission(this@MyBusinessActivityLatest)
+        }
+    }
+
+    fun uploadBrochure(view: View) {
+        if (PermissionUtils.checkPermission(mContext)) {
+            isBrochure = true
+            chooseFromGallery()
         } else {
             PermissionUtils.requestPermission(this@MyBusinessActivityLatest)
         }
@@ -366,7 +380,8 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
                         LogUtils.DEBUG("Coming from operating hour")
                     }
                     UPDATE_PRODUCT_SERVICES -> {
-                        LogUtils.DEBUG("Coming from product services")
+                        //call product and service api to update UI
+                        myBizViewModel.bizProductServicesList(mContext as Activity?,this)
                     }
                     UPDATE_ABOUT_US -> {
                         LogUtils.DEBUG("Coming from about services")
@@ -442,11 +457,43 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
         LogUtils.showToast(this,"update op hours")
     }
 
-    override fun updateProductServiceSection(PnSData: List<ProductNServiceData>) {
-        LogUtils.showToast(this,"update Product and Service data")
+    override fun updateProductServiceSection(data: List<ProductNServiceData>) {
+        if (data == null || data.isEmpty()) {
+            textPnDHeader.text = getString(R.string.product_n_services)
+            textAddProductNServices.visibility = View.VISIBLE
+            listViewProductServices.visibility = View.GONE
+            textAdd.visibility = View.GONE
+        } else {
+            updateProductServiceUI(data)
+        }
+    }
+
+    private fun updateProductServiceUI(data: List<ProductNServiceData>) {
+        if (data.isNotEmpty()) {
+            val listViewProductServices = findViewById<RecyclerView>(R.id.listViewProductServices)
+            textPnDHeader.text = getString(R.string.deals_in)
+            textAddProductNServices.visibility = View.GONE
+            textAdd.visibility = View.VISIBLE
+            listViewProductServices.visibility = View.VISIBLE
+            val layoutManager = LinearLayoutManager(mContext)
+            listViewProductServices.layoutManager = layoutManager
+            listViewProductServices.itemAnimator = DefaultItemAnimator()
+
+            val adapter = BizProdNServiceListAdapter(this, data, object : DeleteProductListener {
+                override fun deleteProd(prodData: ProductNServiceData) {
+                    myBizViewModel.removeProductOrService(mContext ,prodData.prod_serv_id,this@MyBusinessActivityLatest)
+                }
+            })
+            listViewProductServices.adapter = adapter
+            textAdd.setOnClickListener {
+                startActivityForResult(Intent(this, ProductAndServices::class.java), UPDATE_PRODUCT_SERVICES)
+            }
+        }
+
     }
 
     override fun updateBrochureSection(data: List<BrochureData>) {
+
     }
 
     private fun updateAboutSection(basicDetailsDta: BasicDetailsData) {
@@ -507,7 +554,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
     }
 
     override fun updatePricingSection(data: List<PricingData>) {
-        if (data == null) {
+        if (data == null || data.isEmpty()) {
             textAddPricing.visibility = View.VISIBLE
             lytPricing.visibility = View.GONE
         } else {
@@ -526,7 +573,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
     }
 
     override fun updateCategories(data: List<CategoryData>) {
-        updateCategoryList(data)
+            updateCategoryList(data)
     }
 
     private fun updateCategoryList(data: List<CategoryData>) {
@@ -536,10 +583,12 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
             val adapter = BizCategoryListAdapter(this, data, object : DeleteCategoryListener {
                 override fun deleteCategory(categorydata: CategoryData) {
                     LogUtils.showToast(mContext, "delete ${categorydata.category_name} and ${categorydata.category_id}now call delete api")
-                    myBizViewModel.deleteCategoriesApi(mContext as Activity?,false,this as IMyBusinessLatest)
+                    myBizViewModel.deleteCategoriesApi(mContext as Activity?,categorydata.category_id,false,this as IMyBusinessLatest)
                 }
             })
             catListView.adapter = adapter
         }
     }
+
+
 }

@@ -137,13 +137,10 @@ public class LogUtils {
         textMessage.setText(message);
 
         btnOk.setText(btnOkTxt);
-        btnOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                if (listener != null) {
-                    listener.okClick();
-                }
+        btnOk.setOnClickListener(v -> {
+            dialog.dismiss();
+            if (listener != null) {
+                listener.okClick();
             }
         });
         dialog.show();

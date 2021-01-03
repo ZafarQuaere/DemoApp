@@ -12,8 +12,10 @@ import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsDat
 import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsResponse
 import com.zaf.econnecto.service.EConnectoServices
 import com.zaf.econnecto.service.ServiceBuilder
+import com.zaf.econnecto.ui.interfaces.DeleteProductListener
 import com.zaf.econnecto.ui.presenters.operations.IMyBizImage
 import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
+import com.zaf.econnecto.ui.presenters.operations.IProductNService
 import com.zaf.econnecto.utils.*
 import com.zaf.econnecto.utils.parser.ParseManager
 import com.zaf.econnecto.utils.storage.PrefUtil
@@ -202,7 +204,7 @@ class MyBusinessViewModel : ViewModel() {
         var loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = categoryService.bizProductServicesList("21"/*PrefUtil.getBizId(mActivity)*/)
+        val requestCall = categoryService.bizProductServicesList(PrefUtil.getBizId(mActivity))
         LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
         requestCall.enqueue(object : Callback<ProductNService> {
             override fun onFailure(call: Call<ProductNService>, t: Throwable) {
@@ -211,7 +213,7 @@ class MyBusinessViewModel : ViewModel() {
                         mActivity.getString(R.string.something_wrong_from_server_plz_try_again) + "\n" + t.localizedMessage)
             }
             override fun onResponse(call: Call<ProductNService>, response: Response<ProductNService>) {
-                LogUtils.DEBUG("bizProductServicesList Response:->> ${response.toString()}")
+                LogUtils.DEBUG("bizProductServicesList Response:->> ${response.body()}")
                 if (response != null && response.isSuccessful ){
                     val PnService: ProductNService = response.body()!!
                     if (PnService.status == AppConstant.SUCCESS) {
@@ -314,7 +316,7 @@ class MyBusinessViewModel : ViewModel() {
         })
     }
 
-    fun addProductServicesApi(activity: Activity?, imageUpdate: Boolean, listener: IMyBusinessLatest?, prodNService: String) {
+    fun addProductServicesApi(activity: Activity?, imageUpdate: Boolean, listener: IProductNService?, prodNService: String) {
         if (activity != null)
             mActivity = activity
         val loader = AppDialogLoader.getLoader(mActivity)
@@ -342,8 +344,7 @@ class MyBusinessViewModel : ViewModel() {
                 val status = body.optInt("status")
                 loader.dismiss()
                 if (status == AppConstant.SUCCESS) {
-//                    listener.updateBasicDetails(basicDetailsResponse, imageUpdate)
-
+                  listener?.updateProductServices()
                 }  else {
                     LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) { (mActivity ).onBackPressed() }
                 }
@@ -351,7 +352,7 @@ class MyBusinessViewModel : ViewModel() {
         })
     }
 
-    fun deleteCategoriesApi(activity: Activity?, imageUpdate: Boolean, listener : IMyBusinessLatest) {
+    fun deleteCategoriesApi(activity: Activity?, prodId: String,imageUpdate: Boolean, listener : IMyBusinessLatest) {
         if (activity != null)
             mActivity = activity
         val loader = AppDialogLoader.getLoader(mActivity)
@@ -359,7 +360,7 @@ class MyBusinessViewModel : ViewModel() {
         val jsonObject = JSONObject()
         jsonObject.put("jwt_token", Utils.getAccessToken(mActivity))
         jsonObject.put("owner_id", Utils.getUserID(mActivity))
-        jsonObject.put("prod_serv_id", 0)
+        jsonObject.put("prod_serv_id", prodId)
 
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
@@ -381,6 +382,43 @@ class MyBusinessViewModel : ViewModel() {
                 if (status == AppConstant.SUCCESS) {
                     bizCategoryList(mActivity,listener)
 
+                }  else {
+                    LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) { (mActivity ).onBackPressed() }
+                }
+            }
+        })
+    }
+
+
+    fun removeProductOrService(activity: Activity?, prodId: String, listener: IMyBusinessLatest) {
+        if (activity != null)
+            mActivity = activity
+        val loader = AppDialogLoader.getLoader(mActivity)
+        loader.show()
+        val jsonObject = JSONObject()
+        jsonObject.put("jwt_token", Utils.getAccessToken(mActivity))
+        jsonObject.put("owner_id", Utils.getUserID(mActivity))
+        jsonObject.put("prod_serv_id", Integer.parseInt(prodId))
+
+        val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
+        val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
+
+        val requestCall = categoryService.removeProductServices(requestBody)
+        LogUtils.DEBUG("Url: ${requestCall.request().url()}  \nBody: $jsonObject")
+
+        requestCall.enqueue(object : Callback<JsonObject> {
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                loader.dismiss()
+                LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), mActivity.getString(R.string.something_wrong_from_server_plz_try_again) + "\n" + t.localizedMessage)
+            }
+
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                val body = JSONObject(Gson().toJson(response.body()))
+                LogUtils.DEBUG("removeProductServiceApi Response:->> $body")
+                val status = body.optInt("status")
+                loader.dismiss()
+                if (status == AppConstant.SUCCESS) {
+                    bizProductServicesList(mActivity,listener)
                 }  else {
                     LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) { (mActivity ).onBackPressed() }
                 }
