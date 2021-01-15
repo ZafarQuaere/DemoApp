@@ -13,25 +13,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zaf.econnecto.R
 import com.zaf.econnecto.ui.adapters.AmenitiesAddEditAdapter
 import com.zaf.econnecto.ui.interfaces.AmenityAddedListener
-import com.zaf.econnecto.ui.interfaces.DialogSingleButtonListener
 import com.zaf.econnecto.ui.interfaces.IGeneralAmenityList
 import com.zaf.econnecto.utils.LogUtils
 import kotlinx.android.synthetic.main.layout_amenities.*
 
 
-class AmenitiesActivity : AppCompatActivity() , IGeneralAmenityList, AmenityAddedListener{
+class AmenitiesActivity : AppCompatActivity(), IGeneralAmenityList, AmenityAddedListener {
     private lateinit var adapterAddEdit: AmenitiesAddEditAdapter
     lateinit var recyclerAmenity: RecyclerView
     lateinit var layoutManager: GridLayoutManager
     lateinit var emptyTextView: TextView
     var mContext: Activity = this
-    private lateinit var myBizViewModel : MyBusinessViewModel
+    private lateinit var myBizViewModel: MyBusinessViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_amenities)
         myBizViewModel = ViewModelProviders.of(this).get(MyBusinessViewModel::class.java)
-        myBizViewModel.bizAllAmenityList(this,this)
+        myBizViewModel.bizAllAmenityList(this, this)
         initUI()
     }
 
@@ -44,9 +43,9 @@ class AmenitiesActivity : AppCompatActivity() , IGeneralAmenityList, AmenityAdde
 
     private fun clickEvents() {
         textSubmit.setOnClickListener {
-          val selectedItem = adapterAddEdit.getSelected()
+            val selectedItem = adapterAddEdit.getSelected()
             LogUtils.DEBUG("Selected Items : $selectedItem")
-            myBizViewModel.addAmenityApi(mContext,this,selectedItem)
+            myBizViewModel.addAmenityApi(mContext, this, selectedItem)
         }
 
         textBack.setOnClickListener {
@@ -54,18 +53,18 @@ class AmenitiesActivity : AppCompatActivity() , IGeneralAmenityList, AmenityAdde
         }
     }
 
-     override fun updateAmenityList(data: List<GeneralAmenities>?) {
-         if (data != null) {
-             val layoutManager = LinearLayoutManager(this)
-             recyclerAmenity.layoutManager = layoutManager
-             recyclerAmenity.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
-             adapterAddEdit = AmenitiesAddEditAdapter(this, data)
-             adapterAddEdit.setListItem(data as MutableList<GeneralAmenities>)
-             recyclerAmenity.adapter = adapterAddEdit
-         } else {
-             LogUtils.showDialogSingleActionButton(mContext,getString(R.string.ok),getString(R.string.something_wrong_from_server_plz_try_again)) { onBackPressed() }
-         }
-     }
+    override fun updateAmenityList(data: List<GeneralAmenities>?) {
+        if (data != null) {
+            val layoutManager = LinearLayoutManager(this)
+            recyclerAmenity.layoutManager = layoutManager
+            recyclerAmenity.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
+            adapterAddEdit = AmenitiesAddEditAdapter(this, data)
+            adapterAddEdit.setListItem(data as MutableList<GeneralAmenities>)
+            recyclerAmenity.adapter = adapterAddEdit
+        } else {
+            LogUtils.showDialogSingleActionButton(mContext, getString(R.string.ok), getString(R.string.something_wrong_from_server_plz_try_again)) { onBackPressed() }
+        }
+    }
 
     override fun updateAmenities() {
         LogUtils.showDialogSingleActionButton(mContext, getString(R.string.ok), getString(R.string.amenity_added_successfully)) {

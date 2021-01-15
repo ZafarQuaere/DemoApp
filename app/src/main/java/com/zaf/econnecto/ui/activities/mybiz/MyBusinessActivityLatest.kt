@@ -58,17 +58,17 @@ import kotlinx.android.synthetic.main.vb_layout_photos.*
 import kotlinx.android.synthetic.main.vb_layout_pricing.*
 import kotlinx.android.synthetic.main.vb_layout_product_services.*
 
-class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyBizImage, IMyBusinessLatest,ImageUpdateModelListener.ImageUpdateListener,OnMapReadyCallback {
+class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMyBizImage, IMyBusinessLatest, ImageUpdateModelListener.ImageUpdateListener, OnMapReadyCallback {
 
     private var mContext: Activity? = null
 
     private var selectedImageUri: Uri? = null
     private var loader: AppLoaderFragment? = null
-    private lateinit var gMap : GoogleMap
-    private lateinit var viewPagerTabs : ViewPager
-    private lateinit var tabLayout : TabLayout
-    private lateinit var myBizViewModel : MyBusinessViewModel
-    private var isBrochure : Boolean = false
+    private lateinit var gMap: GoogleMap
+    private lateinit var viewPagerTabs: ViewPager
+    private lateinit var tabLayout: TabLayout
+    private lateinit var myBizViewModel: MyBusinessViewModel
+    private var isBrochure: Boolean = false
 
     companion object {
         private const val GALLERY_IMAGE_CODE = 100
@@ -95,16 +95,18 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
         loader = AppLoaderFragment.getInstance(mContext)
         updateActionbar()
 //        presenter!!.callBasicDetailsApi(true)
-        myBizViewModel.callBasicDetailsApi(this,true, this)
+        myBizViewModel.callBasicDetailsApi(this, true, this)
         subscribeViewModels()
-        presenter!!.initMap(this,mapFrag)
+        presenter!!.initMap(this, mapFrag)
         updateMyBizUI()
     }
 
     private fun subscribeViewModels() {
-        myBizViewModel.basicDetailsData.observe(this, Observer { data -> data.let {
-            //TODO from here you can update the basic details data
-        } })
+        myBizViewModel.basicDetailsData.observe(this, Observer { data ->
+            data.let {
+                //TODO from here you can update the basic details data
+            }
+        })
     }
 
     private fun updateMyBizUI() {
@@ -116,12 +118,12 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
             startActivityForResult(Intent(this, EditDetails::class.java), UPDATE_DETAILS_CODE)
         }
         textOperatingHours.setOnClickListener {
-            startActivityForResult(Intent(this,OperatingHour::class.java), UPDATE_OPERATING_HOUR_CODE)
+            startActivityForResult(Intent(this, OperatingHour::class.java), UPDATE_OPERATING_HOUR_CODE)
         }
         rlytLocation.setOnClickListener {
             mapFrag.requireView().visibility = if (mapFrag.requireView().visibility == View.VISIBLE) View.GONE else View.VISIBLE
         }
-        textAddProductNServices.setOnClickListener{
+        textAddProductNServices.setOnClickListener {
             startActivityForResult(Intent(this, ProductAndServices::class.java), UPDATE_PRODUCT_SERVICES)
         }
         textAboutDescLabel.setOnClickListener {
@@ -172,7 +174,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
                 textAboutWhyUsLabel.requestFocus()
             }
             "Brochure" -> {
-                scroll.scrollTo(0, textUploadBrochure.top-50)
+                scroll.scrollTo(0, textUploadBrochure.top - 50)
                 textUploadBrochure.requestFocus()
             }
             "Photos" -> {
@@ -203,7 +205,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
 
     }
 
-    fun scrollToRow(nsv: NestedScrollView, layout: LinearLayout, tv: TextView){
+    fun scrollToRow(nsv: NestedScrollView, layout: LinearLayout, tv: TextView) {
 //        val delay : Long = 100
 //        nsv.postDelayed(object: Runnable{
 //            override fun run() {
@@ -246,51 +248,51 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
     override fun updateBasicDetails(basicDetailsResponse: BasicDetailsResponse, imageUpdate: Boolean) {
         //update address related data
         //get the business owner id and call image api
-            updateBasicDetails(basicDetailsResponse)
+        updateBasicDetails(basicDetailsResponse)
         if (imageUpdate) {
-            myBizViewModel.bizImageList(mContext as Activity?,this)
-            myBizViewModel.bizOperatingHours(mContext as Activity?,this)
-            myBizViewModel.bizAmenityList(mContext as Activity?,this)
-            myBizViewModel.bizProductServicesList(mContext as Activity?,this)
-            myBizViewModel.bizBrochureList(mContext as Activity?,this)
-            myBizViewModel.bizPaymentMethodList(mContext as Activity?,this)
-            myBizViewModel.bizPricingList(mContext as Activity?,this)
-            myBizViewModel.bizCategoryList(mContext as Activity?,this)
+            myBizViewModel.bizImageList(mContext as Activity?, this)
+            myBizViewModel.bizOperatingHours(mContext as Activity?, this)
+            myBizViewModel.bizAmenityList(mContext as Activity?, this)
+            myBizViewModel.bizProductServicesList(mContext as Activity?, this)
+            myBizViewModel.bizBrochureList(mContext as Activity?, this)
+            myBizViewModel.bizPaymentMethodList(mContext as Activity?, this)
+            myBizViewModel.bizPricingList(mContext as Activity?, this)
+            myBizViewModel.bizCategoryList(mContext as Activity?, this)
 
         }
     }
 
     @SuppressLint("SetTextI18n")
     private fun updateBasicDetails(data: BasicDetailsResponse) {
-       val basicDetailsDta = data.data[0]
+        val basicDetailsDta = data.data[0]
         textBusinessName.text = basicDetailsDta.businessName
-        textFollowers.text =  "${basicDetailsDta.followersCount} "+getString(R.string.followers)
-        textShortDescription.text =  basicDetailsDta.shortDescription
-        textEstablishedDate.text =  getString(R.string.established_year)+": ${basicDetailsDta.yearEstablished}"
-        textAddress.text =  basicDetailsDta.address1
-        textWebsite.text =  if (!basicDetailsDta.website.isNullOrEmpty()) basicDetailsDta.website else ""
+        textFollowers.text = "${basicDetailsDta.followersCount} " + getString(R.string.followers)
+        textShortDescription.text = basicDetailsDta.shortDescription
+        textEstablishedDate.text = getString(R.string.established_year) + ": ${basicDetailsDta.yearEstablished}"
+        textAddress.text = basicDetailsDta.address1
+        textWebsite.text = if (!basicDetailsDta.website.isNullOrEmpty()) basicDetailsDta.website else ""
         updateAboutSection(basicDetailsDta)
         updateMap(basicDetailsDta)
 
         rlytCall.setOnClickListener {
-            Utils.callPhone(mContext,basicDetailsDta.mobile1)
+            Utils.callPhone(mContext, basicDetailsDta.mobile1)
         }
 
         rlytWhatsApp.setOnClickListener {
-            Utils.openWhatsApp(mContext,basicDetailsDta.mobile1)
+            Utils.openWhatsApp(mContext, basicDetailsDta.mobile1)
         }
         rlytMail.setOnClickListener {
-            basicDetailsDta.email?.let {  Utils.openMail(mContext,it) }
+            basicDetailsDta.email?.let { Utils.openMail(mContext, it) }
         }
         rlytExpandAddress.setOnClickListener {
-            LogUtils.showToast(mContext,"expand address")
+            LogUtils.showToast(mContext, "expand address")
         }
     }
 
     private fun updateMap(basicDetailsDta: BasicDetailsData) {
-        val fullAddress: String =basicDetailsDta.address1 + ", " +basicDetailsDta.cityTown + ", " + basicDetailsDta.state + ", " + basicDetailsDta.pinCode
-       val location = KotUtil.getLocationFromAddress(this, fullAddress)!!
-        val address = AddressData(basicDetailsDta.address1, basicDetailsDta.state, basicDetailsDta.cityTown , basicDetailsDta.pinCode, location.latitude.toString() + "", "" + location.longitude)
+        val fullAddress: String = basicDetailsDta.address1 + ", " + basicDetailsDta.cityTown + ", " + basicDetailsDta.state + ", " + basicDetailsDta.pinCode
+        val location = KotUtil.getLocationFromAddress(this, fullAddress)!!
+        val address = AddressData(basicDetailsDta.address1, basicDetailsDta.state, basicDetailsDta.cityTown, basicDetailsDta.pinCode, location.latitude.toString() + "", "" + location.longitude)
 //        location.latitude,location.longitude
         LogUtils.DEBUG(address.toString())
         val storeLocation = LatLng(location!!.latitude, location!!.longitude)
@@ -305,7 +307,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
     override fun updateBannerImage(data: MutableList<ViewImageData>) {
         val recyclerHeader = findViewById<RecyclerView>(R.id.recycler_header)
         recyclerHeader.layoutManager = LinearLayoutManager(this)
-        recyclerHeader.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false)
+        recyclerHeader.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         val adapter = VBHeaderImageRecylcerAdapter(this, data.toList() as MutableList<ViewImageData>)
         recyclerHeader.adapter = adapter
         updatePhotoSection(data)
@@ -317,7 +319,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
             recycler_photos.visibility = View.VISIBLE
             textPhotoLabel.visibility = View.VISIBLE
             textSeeMorePhotos.bringToFront()
-            val layoutManager = GridLayoutManager(mContext,2)
+            val layoutManager = GridLayoutManager(mContext, 2)
             recycler_photos!!.layoutManager = layoutManager
             recycler_photos!!.itemAnimator = DefaultItemAnimator()
 
@@ -326,7 +328,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
             val adapter = VBHeaderImageRecylcerAdapter(this, list1)
             recycler_photos!!.adapter = adapter
             textSeeMorePhotos.setOnClickListener {
-                LogUtils.showToast(mContext,"see more..")
+                LogUtils.showToast(mContext, "see more..")
                 startActivityForResult(Intent(this, PhotosActivity::class.java), UPDATE_PHOTOS)
             }
         } else {
@@ -338,11 +340,12 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
     fun uploadPhoto(view: View) {
         if (PermissionUtils.checkPermission(mContext)) {
             isBrochure = false
-            LogUtils.showAddPhotoDialog(mContext, object : AddPhotoDialogListener{
+            LogUtils.showAddPhotoDialog(mContext, object : AddPhotoDialogListener {
 
                 override fun selectFromGallery() {
                     chooseFromGallery()
                 }
+
                 override fun takePhoto() {
                     captureFromCamera()
                 }
@@ -376,45 +379,45 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-            if (resultCode == RESULT_OK && data != null) {
-                when (requestCode) {
-                    UPDATE_DETAILS_CODE -> {
-                        myBizViewModel.callBasicDetailsApi(this,false,this)
-                    }
-                    UPDATE_OPERATING_HOUR_CODE -> {
-                        LogUtils.DEBUG("Coming from operating hour")
-                    }
-                    UPDATE_PRODUCT_SERVICES -> {
-                        //call product and service api to update UI
-                        myBizViewModel.bizProductServicesList(mContext as Activity?,this)
-                    }
-                    UPDATE_ABOUT_US -> {
-                        LogUtils.DEBUG("Coming from about services")
-                        myBizViewModel.callBasicDetailsApi(this,false,this)
-                    }
-                    UPDATE_AMENITIES -> {
-                        LogUtils.DEBUG("Coming from amenities")
-                        myBizViewModel.bizAmenityList(mContext,this)
-                    }
-                    UPDATE_PAYMENTS -> {
-                            LogUtils.DEBUG("Coming from PaymentOptions")
-                            myBizViewModel.bizPaymentMethodList(mContext,this)
-                    }
-                    else -> {
-                        selectedImageUri = data.data
-                        moveToEditImage(data, requestCode)
-                    }
+        if (resultCode == RESULT_OK && data != null) {
+            when (requestCode) {
+                UPDATE_DETAILS_CODE -> {
+                    myBizViewModel.callBasicDetailsApi(this, false, this)
                 }
-                /* if (requestCode == GALLERY_IMAGE_CODE) {
-                LogUtils.showToast(mContext, "From Gallery")
-                imgTemp.setImageURI(selectedImageUri)
+                UPDATE_OPERATING_HOUR_CODE -> {
+                    LogUtils.DEBUG("Coming from operating hour")
+                }
+                UPDATE_PRODUCT_SERVICES -> {
+                    //call product and service api to update UI
+                    myBizViewModel.bizProductServicesList(mContext as Activity?, this)
+                }
+                UPDATE_ABOUT_US -> {
+                    LogUtils.DEBUG("Coming from about services")
+                    myBizViewModel.callBasicDetailsApi(this, false, this)
+                }
+                UPDATE_AMENITIES -> {
+                    LogUtils.DEBUG("Coming from amenities")
+                    myBizViewModel.bizAmenityList(mContext, this)
+                }
+                UPDATE_PAYMENTS -> {
+                    LogUtils.DEBUG("Coming from PaymentOptions")
+                    myBizViewModel.bizPaymentMethodList(mContext, this)
+                }
+                else -> {
+                    selectedImageUri = data.data
+                    moveToEditImage(data, requestCode)
+                }
+            }
+            /* if (requestCode == GALLERY_IMAGE_CODE) {
+            LogUtils.showToast(mContext, "From Gallery")
+            imgTemp.setImageURI(selectedImageUri)
 
-            } else if (requestCode == CAMERA_IMAGE_CODE) {
-                //val uri = data.extras.get("data") as Uri // classcast exception bitmap can't be cast to URI
-               imgTemp.setImageBitmap(data.extras.get("data") as Bitmap)
-               //imgTemp.setImageURI(uri)
-                LogUtils.showToast(mContext, "From Camera")
-            }*/
+        } else if (requestCode == CAMERA_IMAGE_CODE) {
+            //val uri = data.extras.get("data") as Uri // classcast exception bitmap can't be cast to URI
+           imgTemp.setImageBitmap(data.extras.get("data") as Bitmap)
+           //imgTemp.setImageURI(uri)
+            LogUtils.showToast(mContext, "From Camera")
+        }*/
         }
 
     }
@@ -425,18 +428,18 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
         LogUtils.DEBUG("isImageUpdate CurrentState ${ImageUpdateModelListener.getInstance().changeState(false)} ")
         if (requestCode == GALLERY_IMAGE_CODE) {
             //val byteArray = BitmapUtils.getFileDataFromDrawable(BitmapUtils.getBitmap(mContext,selectedImageUri))
-            intent.putExtra("imagePath",BitmapUtils.getImagePath(this,selectedImageUri,null,BitmapUtils.URI_IMAGE))
+            intent.putExtra("imagePath", BitmapUtils.getImagePath(this, selectedImageUri, null, BitmapUtils.URI_IMAGE))
         } else if (requestCode == CAMERA_IMAGE_CODE) {
-           val bitmap = data.extras.get("data") as Bitmap
-            intent.putExtra("imagePath",BitmapUtils.getImagePath(this,null,bitmap,BitmapUtils.BITMAP_IMAGE))
+            val bitmap = data.extras.get("data") as Bitmap
+            intent.putExtra("imagePath", BitmapUtils.getImagePath(this, null, bitmap, BitmapUtils.BITMAP_IMAGE))
         }
         startActivity(intent)
     }
 
     override fun isImageAdded() {
-      var isImageUpdate =  ImageUpdateModelListener.getInstance().state
+        var isImageUpdate = ImageUpdateModelListener.getInstance().state
         LogUtils.DEBUG("isImageUpdate $isImageUpdate ")
-        if (isImageUpdate){
+        if (isImageUpdate) {
             presenter!!.callImageApi()
         }
 
@@ -450,6 +453,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
             presenter!!.callImageApi()
         }
     }
+
     override fun onMapReady(googleMap: GoogleMap?) {
         gMap = googleMap!!
         gMap.setMinZoomPreference(12F)
@@ -464,7 +468,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
 
 
     override fun updateOperatingHours(data: OPHoursData) {
-        LogUtils.showToast(this,"update op hours")
+        LogUtils.showToast(this, "update op hours")
     }
 
     override fun updateProductServiceSection(data: List<ProductNServiceData>) {
@@ -491,7 +495,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
 
             val adapter = BizProdNServiceListAdapter(this, data, object : DeleteProductListener {
                 override fun deleteProd(prodData: ProductNServiceData) {
-                    myBizViewModel.removeProductOrService(mContext ,prodData.prod_serv_id,this@MyBusinessActivityLatest)
+                    myBizViewModel.removeProductOrService(mContext, prodData.prod_serv_id, this@MyBusinessActivityLatest)
                 }
             })
             listViewProductServices.adapter = adapter
@@ -519,12 +523,12 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
     }
 
     override fun updateAmenitiesSection(data: List<AmenityData>?) {
-       if (data == null) {
-           textAddAmenities.visibility = View.VISIBLE
-           lytAmenity.visibility = View.GONE
-       } else {
-           updateAmenitiesUI(data)
-       }
+        if (data == null) {
+            textAddAmenities.visibility = View.VISIBLE
+            lytAmenity.visibility = View.GONE
+        } else {
+            updateAmenitiesUI(data)
+        }
     }
 
     private fun updateAmenitiesUI(data: List<AmenityData>) {
@@ -583,7 +587,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
     }
 
     override fun updateCategories(data: List<CategoryData>) {
-            updateCategoryList(data)
+        updateCategoryList(data)
     }
 
     private fun updateCategoryList(data: List<CategoryData>) {
@@ -593,7 +597,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
             val adapter = BizCategoryListAdapter(this, data, object : DeleteCategoryListener {
                 override fun deleteCategory(categorydata: CategoryData) {
                     LogUtils.showToast(mContext, "delete ${categorydata.category_name} and ${categorydata.category_id}now call delete api")
-                    myBizViewModel.deleteCategoriesApi(mContext as Activity?,categorydata.category_id,false,this as IMyBusinessLatest)
+                    myBizViewModel.deleteCategoriesApi(mContext as Activity?, categorydata.category_id, false, this as IMyBusinessLatest)
                 }
             })
             catListView.adapter = adapter

@@ -19,7 +19,10 @@ import com.zaf.econnecto.ui.interfaces.PaymentMethodAddListener
 import com.zaf.econnecto.ui.presenters.operations.IMyBizImage
 import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
 import com.zaf.econnecto.ui.presenters.operations.IProductNService
-import com.zaf.econnecto.utils.*
+import com.zaf.econnecto.utils.AppConstant
+import com.zaf.econnecto.utils.AppDialogLoader
+import com.zaf.econnecto.utils.LogUtils
+import com.zaf.econnecto.utils.Utils
 import com.zaf.econnecto.utils.parser.ParseManager
 import com.zaf.econnecto.utils.storage.PrefUtil
 import okhttp3.MediaType
@@ -32,10 +35,10 @@ import retrofit2.Response
 class MyBusinessViewModel : ViewModel() {
 
     lateinit var mActivity: Activity
-    var basicDetailsData =  MutableLiveData<MutableList<BasicDetailsData>>()
-    lateinit var basicDetailsResponse:  LiveData<BasicDetailsResponse>
+    var basicDetailsData = MutableLiveData<MutableList<BasicDetailsData>>()
+    lateinit var basicDetailsResponse: LiveData<BasicDetailsResponse>
 
-    fun callBasicDetailsApi(activity: Activity?, imageUpdate: Boolean, listener : IMyBusinessLatest) {
+    fun callBasicDetailsApi(activity: Activity?, imageUpdate: Boolean, listener: IMyBusinessLatest) {
         if (activity != null)
             mActivity = activity
         val loader = AppDialogLoader.getLoader(mActivity)
@@ -67,8 +70,8 @@ class MyBusinessViewModel : ViewModel() {
                     PrefUtil.setBasicDetailsData(mActivity, body.toString())
                     listener.updateBasicDetails(basicDetailsResponse, imageUpdate)
 
-                }  else {
-                    LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) { (mActivity ).onBackPressed() }
+                } else {
+                    LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) { (mActivity).onBackPressed() }
                 }
             }
         })
@@ -136,8 +139,8 @@ class MyBusinessViewModel : ViewModel() {
                 loader.dismiss()
                 if (status == AppConstant.SUCCESS) {
                     listener?.updateAmenities()
-                }  else {
-                    LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) { (mActivity ).onBackPressed() }
+                } else {
+                    LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) { (mActivity).onBackPressed() }
                 }
             }
         })
@@ -207,7 +210,7 @@ class MyBusinessViewModel : ViewModel() {
         })
     }
 
-    fun bizOperatingHours(activity: Activity?, listener: IMyBusinessLatest){
+    fun bizOperatingHours(activity: Activity?, listener: IMyBusinessLatest) {
         if (activity != null)
             mActivity = activity
         val loader = AppDialogLoader.getLoader(mActivity)
@@ -215,7 +218,7 @@ class MyBusinessViewModel : ViewModel() {
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
         val requestCall = categoryService.bizOperatingHours("21"/*PrefUtil.getBizId(mActivity)*/)
         LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
-        requestCall.enqueue( object : Callback<OPHours> {
+        requestCall.enqueue(object : Callback<OPHours> {
             override fun onResponse(call: Call<OPHours>, response: Response<OPHours>) {
                 loader.dismiss()
                 LogUtils.DEBUG("bizOperatingHours response: " + response.body().toString())
@@ -231,7 +234,7 @@ class MyBusinessViewModel : ViewModel() {
 
             override fun onFailure(call: Call<OPHours>, t: Throwable) {
                 loader.dismiss()
-                LogUtils.DEBUG("bizOperatingHours error: "+t.localizedMessage)
+                LogUtils.DEBUG("bizOperatingHours error: " + t.localizedMessage)
             }
 
         })
@@ -255,7 +258,7 @@ class MyBusinessViewModel : ViewModel() {
             override fun onResponse(call: Call<Brochure>, response: Response<Brochure>) {
                 val body = JSONObject(Gson().toJson(response.body()))
                 LogUtils.DEBUG("bizBrochureList Response:->> $body")
-                if (response != null && response.isSuccessful ){
+                if (response != null && response.isSuccessful) {
                     val brochure: Brochure = response.body()!!
                     if (brochure.status == AppConstant.SUCCESS) {
                         listener.updateBrochureSection(brochure.data)
@@ -282,9 +285,10 @@ class MyBusinessViewModel : ViewModel() {
                 LogUtils.DEBUG("bizProductServicesList() Failure: ${t.localizedMessage}")
 
             }
+
             override fun onResponse(call: Call<ProductNService>, response: Response<ProductNService>) {
                 LogUtils.DEBUG("bizProductServicesList Response:->> ${response.body()}")
-                if (response != null && response.isSuccessful ){
+                if (response != null && response.isSuccessful) {
                     val PnService: ProductNService = response.body()!!
                     if (PnService.status == AppConstant.SUCCESS) {
                         listener.updateProductServiceSection(PnService.data)
@@ -313,7 +317,7 @@ class MyBusinessViewModel : ViewModel() {
 
             override fun onResponse(call: Call<PaymentMethods>, response: Response<PaymentMethods>) {
                 LogUtils.DEBUG("bizPaymentMethodList Response:->> ${response.body().toString()}")
-                if (response != null && response.isSuccessful ){
+                if (response != null && response.isSuccessful) {
                     val paymentMethod: PaymentMethods = response.body()!!
                     if (paymentMethod.status == AppConstant.SUCCESS) {
                         listener.updatePaymentSection(paymentMethod.data)
@@ -344,7 +348,7 @@ class MyBusinessViewModel : ViewModel() {
 
             override fun onResponse(call: Call<Pricing>, response: Response<Pricing>) {
                 LogUtils.DEBUG("bizPricingList Response:->> ${response.body().toString()}")
-                if (response != null && response.isSuccessful ){
+                if (response != null && response.isSuccessful) {
                     val pricing: Pricing = response.body()!!
                     if (pricing.status == AppConstant.SUCCESS) {
                         listener.updatePricingSection(pricing.data)
@@ -375,7 +379,7 @@ class MyBusinessViewModel : ViewModel() {
             override fun onResponse(call: Call<Categories>, response: Response<Categories>) {
                 LogUtils.DEBUG("bizCategoryList Response:->> ${response.body().toString()}")
                 loader.dismiss()
-                val categories : Categories = response.body()!!
+                val categories: Categories = response.body()!!
                 if (categories.status == AppConstant.SUCCESS) {
                     listener.updateCategories(categories.data)
                 } else {
@@ -421,34 +425,34 @@ class MyBusinessViewModel : ViewModel() {
             mActivity = activity
         val loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
-            val jsonObject = JSONObject()
-            jsonObject.put("jwt_token", Utils.getAccessToken(mActivity))
-            jsonObject.put("owner_id", Utils.getUserID(mActivity))
-            jsonObject.put("p_method_id", paymentData.p_method_id)
+        val jsonObject = JSONObject()
+        jsonObject.put("jwt_token", Utils.getAccessToken(mActivity))
+        jsonObject.put("owner_id", Utils.getUserID(mActivity))
+        jsonObject.put("p_method_id", paymentData.p_method_id)
 
-            val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
-            val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
+        val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
+        val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
 
-            val requestCall = categoryService.addPaymentMethods(requestBody)
-            LogUtils.DEBUG("Url: ${requestCall.request().url()}  \nBody: $jsonObject")
-            requestCall.enqueue(object : Callback<JsonObject> {
-                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                    loader.dismiss()
-                    LogUtils.DEBUG("addPaymentMethodsApi failure:->> ${t.localizedMessage}")
+        val requestCall = categoryService.addPaymentMethods(requestBody)
+        LogUtils.DEBUG("Url: ${requestCall.request().url()}  \nBody: $jsonObject")
+        requestCall.enqueue(object : Callback<JsonObject> {
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                loader.dismiss()
+                LogUtils.DEBUG("addPaymentMethodsApi failure:->> ${t.localizedMessage}")
+            }
+
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                val body = JSONObject(Gson().toJson(response.body()))
+                LogUtils.DEBUG("addPaymentMethodsApi Response:->> $body")
+                loader.dismiss()
+                val status = body.optInt("status")
+                if (status == AppConstant.SUCCESS) {
+                    listener?.updatePaymentMethod()
+                } else {
+                    LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) {}
                 }
-
-                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                    val body = JSONObject(Gson().toJson(response.body()))
-                    LogUtils.DEBUG("addPaymentMethodsApi Response:->> $body")
-                    loader.dismiss()
-                    val status = body.optInt("status")
-                    if (status == AppConstant.SUCCESS) {
-                        listener?.updatePaymentMethod()
-                    } else {
-                        LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) {}
-                    }
-                }
-            })
+            }
+        })
     }
 
 
@@ -480,15 +484,15 @@ class MyBusinessViewModel : ViewModel() {
                 val status = body.optInt("status")
                 loader.dismiss()
                 if (status == AppConstant.SUCCESS) {
-                  listener?.updateProductServices()
-                }  else {
-                    LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) { (mActivity ).onBackPressed() }
+                    listener?.updateProductServices()
+                } else {
+                    LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) { (mActivity).onBackPressed() }
                 }
             }
         })
     }
 
-    fun deleteCategoriesApi(activity: Activity?, prodId: String,imageUpdate: Boolean, listener : IMyBusinessLatest) {
+    fun deleteCategoriesApi(activity: Activity?, prodId: String, imageUpdate: Boolean, listener: IMyBusinessLatest) {
         if (activity != null)
             mActivity = activity
         val loader = AppDialogLoader.getLoader(mActivity)
@@ -516,10 +520,10 @@ class MyBusinessViewModel : ViewModel() {
                 val status = body.optInt("status")
                 loader.dismiss()
                 if (status == AppConstant.SUCCESS) {
-                    bizCategoryList(mActivity,listener)
+                    bizCategoryList(mActivity, listener)
 
-                }  else {
-                    LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) { (mActivity ).onBackPressed() }
+                } else {
+                    LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) { (mActivity).onBackPressed() }
                 }
             }
         })
@@ -554,9 +558,9 @@ class MyBusinessViewModel : ViewModel() {
                 val status = body.optInt("status")
                 loader.dismiss()
                 if (status == AppConstant.SUCCESS) {
-                    bizProductServicesList(mActivity,listener)
-                }  else {
-                    LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) { (mActivity ).onBackPressed() }
+                    bizProductServicesList(mActivity, listener)
+                } else {
+                    LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) { (mActivity).onBackPressed() }
                 }
             }
         })
