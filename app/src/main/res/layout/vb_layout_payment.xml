@@ -20,13 +20,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:visibility="gone"
+        android:visibility="visible"
         android:text="@string/payment_options" />
 
     <LinearLayout
         android:id="@+id/lytPayments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:orientation="vertical">
 
 

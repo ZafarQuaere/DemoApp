@@ -381,4 +381,8 @@
     <string name="details_successfully_added">Details added successfully</string>
     <string name="deals_in">Deals in</string>
     <string name="add">Add</string>
+    <string name="add_payment_option">Add Payments</string>
+    <string name="select_payment_options">Select payment options</string>
+    <string name="amenity_added_successfully">Amenity successfully added</string>
+    <string name="payment_method_added_successfully">Payment method added succesfully</string>
 </resources>

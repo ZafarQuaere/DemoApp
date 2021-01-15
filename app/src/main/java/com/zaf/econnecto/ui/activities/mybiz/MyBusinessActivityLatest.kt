@@ -79,6 +79,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
         private const val UPDATE_ABOUT_US = 114
         private const val UPDATE_AMENITIES = 115
         private const val UPDATE_PHOTOS = 116
+        private const val UPDATE_PAYMENTS = 117
     }
 
     override fun initPresenter(): MyBusinessPresenterLatest {
@@ -135,6 +136,10 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
 
         textAddAmenities.setOnClickListener {
             startActivityForResult(Intent(this, AmenitiesActivity::class.java), UPDATE_AMENITIES)
+        }
+
+        textAddPayments.setOnClickListener {
+            startActivityForResult(Intent(this, PaymentsOptions::class.java), UPDATE_PAYMENTS)
         }
 
     }
@@ -389,6 +394,11 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
                     }
                     UPDATE_AMENITIES -> {
                         LogUtils.DEBUG("Coming from amenities")
+                        myBizViewModel.bizAmenityList(mContext,this)
+                    }
+                    UPDATE_PAYMENTS -> {
+                            LogUtils.DEBUG("Coming from PaymentOptions")
+                            myBizViewModel.bizPaymentMethodList(mContext,this)
                     }
                     else -> {
                         selectedImageUri = data.data
@@ -532,7 +542,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
     }
 
     override fun updatePaymentSection(data: List<PaymentMethodData>) {
-        if (data == null) {
+        if (data == null || data.isEmpty()) {
             textAddPayments.visibility = View.VISIBLE
             lytPayments.visibility = View.GONE
         } else {
@@ -549,7 +559,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
         val adapter = PaymentsMyBizStaggeredAdapter(this, data)
         recyclerPayments.adapter = adapter
         textPaymentEdit.setOnClickListener {
-//            startActivityForResult(Intent(this, AmenitiesActivity::class.java), UPDATE_AMENITIES)
+            startActivityForResult(Intent(this, PaymentsOptions::class.java), UPDATE_PAYMENTS)
         }
     }
 
@@ -589,6 +599,4 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(),IMyB
             catListView.adapter = adapter
         }
     }
-
-
 }

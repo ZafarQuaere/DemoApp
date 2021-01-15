@@ -40,7 +40,13 @@ interface EConnectoServices {
     @POST(AppConstant.URL_BIZ_REMOVE_PROD_SERVICES)
     fun addBrochure(@Body requestBody: RequestBody): Call<JsonObject>
 
-
+    //all amenity list
+    @GET(AppConstant.URL_BIZ_ALL_AMENITY_LIST)
+    fun allAmenityList(): Call<AllAmenityList>
+    //Add amenity List
+    @POST(AppConstant.URL_BIZ_ADD_AMENITIES)
+    fun addAmenity(@Body requestBody: RequestBody): Call<JsonObject>
+    //Users Amenity List
     @GET(AppConstant.URL_BIZ_AMENITY_LIST)
     fun bizAmenityList(@Query("business_id") businessId: String): Call<Amenities>
 
@@ -62,8 +68,16 @@ interface EConnectoServices {
     @GET(AppConstant.URL_BIZ_CATEGORIES)
     fun bizCategoryList(@Query("business_id") businessId: String): Call<Categories>
 
+    //business using payment list
     @GET(AppConstant.URL_BIZ_PAYMENT_LIST)
     fun bizPaymentList(@Query("business_id") businessId: String): Call<PaymentMethods>
+    //all payment method list
+    @GET(AppConstant.URL_ALL_PAYMENT_METHODS)
+    fun allPaymentMethods(): Call<AllPaymentMethods>
+    //Add payment methods
+    @POST(AppConstant.URL_BIZ_ADD_PAYMENT_METHOD)
+    fun addPaymentMethods(@Body requestBody: RequestBody): Call<JsonObject>
+
 
     @POST(AppConstant.URL_CHANGE_PSWD)
     fun changePassword(@Body requestBody: RequestBody): Call<JsonObject>

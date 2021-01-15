@@ -54,13 +54,16 @@ public class AppConstant {
 
     public static final String URL_BIZ_BASIC_DETAILS = "my_biz/my_biz_basic.php";
     public static final String URL_BIZ_OPERATING_HOURS = "my_biz/my_biz_operating_hrs.php";
+    public static final String URL_BIZ_ALL_AMENITY_LIST = "my_biz_add_edit/amenities/amenities_list.php";
     public static final String URL_BIZ_AMENITY_LIST = "my_biz/my_biz_amenities.php";
+    public static final String URL_BIZ_ADD_AMENITIES = "my_biz_add_edit/amenities/add_amenity.php";
     public static final String URL_BIZ_PRODUCT_SERVICES_LIST = "my_biz/my_biz_prod_serv.php";
     public static final String URL_BIZ_ADD_PROD_SERVICES = "my_biz_add_edit/prod_serv/add_prod_serv.php";
     public static final String URL_BIZ_REMOVE_PROD_SERVICES = "my_biz_add_edit/prod_serv/remove_prod_serv.php";
-    public static final String URL_BIZ_ADD_AMENITIES = "my_biz_add_edit/amenities/add_amenity.php";
     public static final String URL_BIZ_REMOVE_AMENITIES = "my_biz_add_edit/amenities/remove_amenity.php";
     public static final String URL_BIZ_PAYMENT_LIST = "my_biz/my_biz_pay_methods.php?";
+    public static final String URL_ALL_PAYMENT_METHODS = "my_biz_add_edit/payment_methods/p_methods_list.php";
+    public static final String URL_BIZ_ADD_PAYMENT_METHOD = "my_biz_add_edit/payment_methods/add_p_method.php";
     public static final String URL_BIZ_CATEGORIES = "my_biz/my_biz_categories.php?";
     public static final String URL_BIZ_BROCHURE_LIST = "my_biz/my_biz_brochure.php?";
     public static final String URL_BIZ_PRICING = "my_biz/my_biz_pricing.php?";

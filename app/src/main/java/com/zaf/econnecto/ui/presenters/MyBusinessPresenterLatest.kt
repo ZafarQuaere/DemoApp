@@ -109,29 +109,6 @@ class MyBusinessPresenterLatest(private val mContext: Context, private val iMyBu
         AppController.getInstance().addToRequestQueue(objectRequest, "callBrochureApi")
     }
 
-    fun callAmenitiesApi() {
-        val url = AppConstant.URL_BIZ_ADD_AMENITIES + "21" //PrefUtil.getBizId(mContext)
-        LogUtils.DEBUG("URL : $url\nRequest Body ::$")
-        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.POST, url, null, { response ->
-            LogUtils.DEBUG("callAmenitiesApi Response ::$response")
-            try {
-                if (response != null) {
-                    val status = response.optInt("status")
-                    if (status == AppConstant.SUCCESS) {
-//                        iMyBusiness.updateBizData(address, mobile, email, website, shortDesc, detailDesc)
-                    } else {
-                        LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optString("message"))
-                    }
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                LogUtils.ERROR(e.message)
-            }
-        }, { error ->
-            LogUtils.DEBUG("callAmenitiesApi Error ::" + error.message)
-        })
-        AppController.getInstance().addToRequestQueue(objectRequest, "callAmenitiesApi")
-    }
 
     fun callPaymentApi() {
         val url = AppConstant.URL_BIZ_PAYMENT + "21" //PrefUtil.getBizId(mContext)

@@ -92,6 +92,7 @@
         <activity android:name=".ui.activities.mybiz.AmenitiesActivity" />
         <activity android:name=".ui.activities.mybiz.AboutActivity" />
         <activity android:name=".ui.activities.mybiz.PhotosActivity" />
+        <activity android:name=".ui.activities.mybiz.PaymentsOptions" />
 
         <uses-library
             android:name="org.apache.http.legacy"
