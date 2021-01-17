@@ -39,7 +39,7 @@ public class AppConstant {
     public static final String URL_FOLLOW = "follow_unfollow/follow_unfollow.php";
 
     public static final String URL_ADD_IMAGE = URL_BASE_MVP+"images_api/add_image.php";
-    public static final String URL_BIZ_IMAGES = "images_api/view_images.php?business_id=";
+    public static final String URL_BIZ_IMAGES = "images_api/view_images.php";
     public static final String URL_DELETE_IMAGE = URL_BASE_MVP+"images_api/delete_image.php";
 
 

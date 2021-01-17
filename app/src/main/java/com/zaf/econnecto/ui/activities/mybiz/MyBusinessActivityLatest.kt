@@ -60,6 +60,7 @@ import kotlinx.android.synthetic.main.vb_layout_product_services.*
 
 class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMyBizImage, IMyBusinessLatest, ImageUpdateModelListener.ImageUpdateListener, OnMapReadyCallback {
 
+    private lateinit var basicDetailsDta: BasicDetailsData
     private var mContext: Activity? = null
 
     private var selectedImageUri: Uri? = null
@@ -90,14 +91,13 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_business_latest)
+        presenter!!.initMap(this, mapFrag)
         myBizViewModel = ViewModelProviders.of(this).get(MyBusinessViewModel::class.java)
         mContext = this
         loader = AppLoaderFragment.getInstance(mContext)
         updateActionbar()
-//        presenter!!.callBasicDetailsApi(true)
-        myBizViewModel.callBasicDetailsApi(this, true, this)
         subscribeViewModels()
-        presenter!!.initMap(this, mapFrag)
+        myBizViewModel.callBasicDetailsApi(this, true, this, Utils.getUserID(mContext))
         updateMyBizUI()
     }
 
@@ -290,17 +290,22 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
     }
 
     private fun updateMap(basicDetailsDta: BasicDetailsData) {
-        val fullAddress: String = basicDetailsDta.address1 + ", " + basicDetailsDta.cityTown + ", " + basicDetailsDta.state + ", " + basicDetailsDta.pinCode
-        val location = KotUtil.getLocationFromAddress(this, fullAddress)!!
-        val address = AddressData(basicDetailsDta.address1, basicDetailsDta.state, basicDetailsDta.cityTown, basicDetailsDta.pinCode, location.latitude.toString() + "", "" + location.longitude)
+        if (basicDetailsDta != null) {
+            val fullAddress: String = basicDetailsDta.address1 + ", " + basicDetailsDta.cityTown + ", " + basicDetailsDta.state + ", " + basicDetailsDta.pinCode
+            val location = KotUtil.getLocationFromAddress(this, fullAddress)!!
+            val address = AddressData(basicDetailsDta.address1, basicDetailsDta.state, basicDetailsDta.cityTown, basicDetailsDta.pinCode, location.latitude.toString() + "", "" + location.longitude)
 //        location.latitude,location.longitude
-        LogUtils.DEBUG(address.toString())
-        val storeLocation = LatLng(location!!.latitude, location!!.longitude)
-        //val ny = LatLng(-34.0, 151.0)
-        val markerOptions = MarkerOptions()
-        markerOptions.position(storeLocation)
-        gMap.addMarker(markerOptions)
-        gMap.moveCamera(CameraUpdateFactory.newLatLng(storeLocation))
+            LogUtils.DEBUG(address.toString())
+            val storeLocation = LatLng(location!!.latitude, location!!.longitude)
+            //val ny = LatLng(-34.0, 151.0)
+            val markerOptions = MarkerOptions()
+            markerOptions.position(storeLocation)
+            if (gMap != null) {
+                gMap.addMarker(markerOptions)
+                gMap.moveCamera(CameraUpdateFactory.newLatLng(storeLocation))
+            }
+        }
+
     }
 
 
@@ -382,7 +387,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         if (resultCode == RESULT_OK && data != null) {
             when (requestCode) {
                 UPDATE_DETAILS_CODE -> {
-                    myBizViewModel.callBasicDetailsApi(this, false, this)
+                    myBizViewModel.callBasicDetailsApi(this, false, this, Utils.getUserID(mContext))
                 }
                 UPDATE_OPERATING_HOUR_CODE -> {
                     LogUtils.DEBUG("Coming from operating hour")
@@ -393,7 +398,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
                 }
                 UPDATE_ABOUT_US -> {
                     LogUtils.DEBUG("Coming from about services")
-                    myBizViewModel.callBasicDetailsApi(this, false, this)
+                    myBizViewModel.callBasicDetailsApi(this, false, this, Utils.getUserID(mContext))
                 }
                 UPDATE_AMENITIES -> {
                     LogUtils.DEBUG("Coming from amenities")
@@ -447,7 +452,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
 
     override fun onResume() {
         super.onResume()
-        var isImageUpdate = ImageUpdateModelListener.getInstance().state
+        val isImageUpdate = ImageUpdateModelListener.getInstance().state
         LogUtils.DEBUG("isImageUpdate $isImageUpdate ")
         if (isImageUpdate) {
             presenter!!.callImageApi()
@@ -457,7 +462,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
     override fun onMapReady(googleMap: GoogleMap?) {
         gMap = googleMap!!
         gMap.setMinZoomPreference(12F)
-        gMap.setIndoorEnabled(true)
+        gMap.isIndoorEnabled = true
         val uiSettings: UiSettings = gMap.getUiSettings()
         uiSettings.isIndoorLevelPickerEnabled = true
         uiSettings.isMyLocationButtonEnabled = true

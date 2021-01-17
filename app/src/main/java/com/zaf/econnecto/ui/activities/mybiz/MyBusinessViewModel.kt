@@ -38,14 +38,14 @@ class MyBusinessViewModel : ViewModel() {
     var basicDetailsData = MutableLiveData<MutableList<BasicDetailsData>>()
     lateinit var basicDetailsResponse: LiveData<BasicDetailsResponse>
 
-    fun callBasicDetailsApi(activity: Activity?, imageUpdate: Boolean, listener: IMyBusinessLatest) {
+    fun callBasicDetailsApi(activity: Activity?, imageUpdate: Boolean, listener: IMyBusinessLatest, ownerId: String) {
         if (activity != null)
             mActivity = activity
         val loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val jsonObject = JSONObject()
         jsonObject.put("jwt_token", Utils.getAccessToken(mActivity))
-        jsonObject.put("owner_id", Utils.getUserID(mActivity))
+        jsonObject.put("owner_id", ownerId)
 
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
@@ -71,7 +71,7 @@ class MyBusinessViewModel : ViewModel() {
                     listener.updateBasicDetails(basicDetailsResponse, imageUpdate)
 
                 } else {
-                    LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) { (mActivity).onBackPressed() }
+                    LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) { /*(mActivity).onBackPressed()*/ }
                 }
             }
         })
@@ -177,7 +177,7 @@ class MyBusinessViewModel : ViewModel() {
         })
     }
 
-    fun bizImageList(activity: Activity?, listener: IMyBizImage?) {
+    fun bizImageList(activity: Activity?, listener: IMyBizImage) {
         if (activity != null)
             mActivity = activity
         var loader = AppDialogLoader.getLoader(mActivity)
@@ -337,6 +337,7 @@ class MyBusinessViewModel : ViewModel() {
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
         val requestCall = categoryService.bizPricingList("21"/*PrefUtil.getBizId(mActivity)*/)
+//        val requestCall = categoryService.bizPricingList(PrefUtil.getBizId(mActivity))
         LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
 
         requestCall.enqueue(object : Callback<Pricing> {

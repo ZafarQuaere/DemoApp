@@ -12,7 +12,7 @@ import retrofit2.http.Query
 
 interface EConnectoServices {
 
-    @GET("business_list/business_list.php?id=")
+    @GET("business_list/business_list.php")
     fun getBusinessList(@Query("email") email: String): Call<JsonObject>
 
     @POST("user_registration/register.php")

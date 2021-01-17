@@ -385,4 +385,5 @@
     <string name="select_payment_options">Select payment options</string>
     <string name="amenity_added_successfully">Amenity successfully added</string>
     <string name="payment_method_added_successfully">Payment method added succesfully</string>
+    <string name="key_owner_id">key_owner_id</string>
 </resources>

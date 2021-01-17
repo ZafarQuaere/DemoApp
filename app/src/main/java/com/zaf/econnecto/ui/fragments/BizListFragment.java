@@ -161,12 +161,15 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
         if (data != null) {
             BizListRecyclerAdapter adapter = new BizListRecyclerAdapter(mContext, data, item -> {
                 if (item != null) {
-                    Intent i = new Intent(getActivity(), ViewBusinessActivity.class);
-                    startActivity(i);
-                  /*  Intent intent = new Intent(getActivity(), BizDetailsActivity.class);
+                    /*Intent i = new Intent(getActivity(), ViewBusinessActivity.class);
+                    startActivity(i);*/
+                    LogUtils.DEBUG("Selected Biz name: "+item.getBusinessName()+" Business id: "+item.getBusinessId()+" Owner id: "+item.getOwnerId());
+
+                    Intent intent = new Intent(getActivity(), ViewBusinessActivity.class);
                     intent.putExtra(getString(R.string.key_biz_id), item.getBusinessId());
-                    intent.putExtra(getString(R.string.is_following), item.getIsFollowing() == 1);
-                    startActivity(intent);*/
+                    intent.putExtra(getString(R.string.key_owner_id), item.getOwnerId());
+//                    intent.putExtra(getString(R.string.is_following), item.getIsFollowing() == 1);
+                    startActivity(intent);
                 }
             });
             adapter.notifyDataSetChanged();

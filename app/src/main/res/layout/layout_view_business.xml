@@ -82,36 +82,15 @@
                         android:gravity="center_horizontal"
                         android:text="Deals In" />
 
-                   <!-- <RelativeLayout
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:visibility="visible"
+                        android:id="@+id/listViewProductServices"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingHorizontal="@dimen/_10dp">-->
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_5dp"
-                            android:paddingHorizontal="@dimen/_10dp"
-                            android:background="@drawable/button_transparent_bg"
-                            android:text="my text " />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingHorizontal="@dimen/_10dp"
-                            android:layout_marginTop="@dimen/_5dp"
-                            android:background="@drawable/button_transparent_bg"
-                            android:text="my text " />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingHorizontal="@dimen/_10dp"
-                            android:layout_marginTop="@dimen/_5dp"
-                            android:background="@drawable/button_transparent_bg"
-                            android:text="my text " />
-
-                    <!--</RelativeLayout>-->
+                        android:background="@color/colorWhite"
+                        android:overScrollMode="never"
+                        android:scrollbars="none"
+                        tools:listitem="@layout/my_biz_category_item" />
                 </LinearLayout>
 
             <androidx.appcompat.widget.Toolbar
@@ -165,51 +144,59 @@
                 app:tabSelectedTextColor="@color/colorBlack"
                 app:tabTextColor="@color/colorGrey" />-->
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewpagerTabs"
-                android:layout_width="wrap_content"
-                android:layout_height="300dp"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-            <ScrollView
+            <include
+                layout="@layout/vb_layout_brochure"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="visible" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+            <include
+                layout="@layout/vb_layout_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3dp"
+                android:visibility="visible" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10dp"
-                        android:text="my text " />
+            <include
+                layout="@layout/vb_layout_photos"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_marginTop="@dimen/_3dp"
+                android:visibility="visible" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_100dp"
-                        android:text="my text " />
+            <include
+                layout="@layout/vb_layout_amenities"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3dp"
+                android:visibility="visible" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_100dp"
-                        android:text="my text " />
+            <include
+                layout="@layout/vb_layout_payment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3dp"
+                android:visibility="visible" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_100dp"
-                        android:text="my text 6666" />
 
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_50dp" />
-                </LinearLayout>
+            <include
+                layout="@layout/vb_layout_pricing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3dp"
+                android:visibility="visible" />
 
-            </ScrollView>
+            <include
+                layout="@layout/vb_layout_categories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3dp"
+                android:visibility="visible" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_60dp" />
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
