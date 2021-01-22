@@ -146,13 +146,13 @@ class MyBusinessViewModel : ViewModel() {
         })
     }
 
-    fun bizAmenityList(activity: Activity?, listener: IMyBusinessLatest) {
+    fun bizAmenityList(activity: Activity?, listener: IMyBusinessLatest, bizId: String) {
         if (activity != null)
             mActivity = activity
         var loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = categoryService.bizAmenityList(PrefUtil.getBizId(mActivity))
+        val requestCall = categoryService.bizAmenityList(bizId)
         LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
 
         requestCall.enqueue(object : Callback<Amenities> {
@@ -177,13 +177,13 @@ class MyBusinessViewModel : ViewModel() {
         })
     }
 
-    fun bizImageList(activity: Activity?, listener: IMyBizImage) {
+    fun bizImageList(activity: Activity?, listener: IMyBizImage, bizId: String) {
         if (activity != null)
             mActivity = activity
         var loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = categoryService.bizImageList(PrefUtil.getBizId(mActivity))
+        val requestCall = categoryService.bizImageList(bizId)
         LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
         requestCall.enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
@@ -210,13 +210,13 @@ class MyBusinessViewModel : ViewModel() {
         })
     }
 
-    fun bizOperatingHours(activity: Activity?, listener: IMyBusinessLatest) {
+    fun bizOperatingHours(activity: Activity?, listener: IMyBusinessLatest, bizId: String) {
         if (activity != null)
             mActivity = activity
         val loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = categoryService.bizOperatingHours("21"/*PrefUtil.getBizId(mActivity)*/)
+        val requestCall = categoryService.bizOperatingHours("21"/*bizId*/)
         LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
         requestCall.enqueue(object : Callback<OPHours> {
             override fun onResponse(call: Call<OPHours>, response: Response<OPHours>) {
@@ -240,13 +240,13 @@ class MyBusinessViewModel : ViewModel() {
         })
     }
 
-    fun bizBrochureList(activity: Activity?, listener: IMyBusinessLatest) {
+    fun bizBrochureList(activity: Activity?, listener: IMyBusinessLatest, bizId: String) {
         if (activity != null)
             mActivity = activity
         var loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = categoryService.bizBrochureList("21"/*PrefUtil.getBizId(mActivity)*/)
+        val requestCall = categoryService.bizBrochureList("21"/*bizId*/)
         LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
 
         requestCall.enqueue(object : Callback<Brochure> {
@@ -271,13 +271,13 @@ class MyBusinessViewModel : ViewModel() {
         })
     }
 
-    fun bizProductServicesList(activity: Activity?, listener: IMyBusinessLatest) {
+    fun bizProductServicesList(activity: Activity?, listener: IMyBusinessLatest, bizId: String) {
         if (activity != null)
             mActivity = activity
         var loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = categoryService.bizProductServicesList(PrefUtil.getBizId(mActivity))
+        val requestCall = categoryService.bizProductServicesList(bizId)
         LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
         requestCall.enqueue(object : Callback<ProductNService> {
             override fun onFailure(call: Call<ProductNService>, t: Throwable) {
@@ -301,13 +301,13 @@ class MyBusinessViewModel : ViewModel() {
         })
     }
 
-    fun bizPaymentMethodList(activity: Activity?, listener: IMyBusinessLatest) {
+    fun bizPaymentMethodList(activity: Activity?, listener: IMyBusinessLatest, bizId: String) {
         if (activity != null)
             mActivity = activity
         var loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = categoryService.bizPaymentList(PrefUtil.getBizId(mActivity))
+        val requestCall = categoryService.bizPaymentList(bizId)
         LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
         requestCall.enqueue(object : Callback<PaymentMethods> {
             override fun onFailure(call: Call<PaymentMethods>, t: Throwable) {
@@ -330,13 +330,13 @@ class MyBusinessViewModel : ViewModel() {
         })
     }
 
-    fun bizPricingList(activity: Activity?, listener: IMyBusinessLatest) {
+    fun bizPricingList(activity: Activity?, listener: IMyBusinessLatest, bizId: String) {
         if (activity != null)
             mActivity = activity
         var loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = categoryService.bizPricingList("21"/*PrefUtil.getBizId(mActivity)*/)
+        val requestCall = categoryService.bizPricingList("21"/*bizId*/)
 //        val requestCall = categoryService.bizPricingList(PrefUtil.getBizId(mActivity))
         LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
 
@@ -362,13 +362,13 @@ class MyBusinessViewModel : ViewModel() {
         })
     }
 
-    fun bizCategoryList(activity: Activity?, listener: IMyBusinessLatest) {
+    fun bizCategoryList(activity: Activity?, listener: IMyBusinessLatest, bizId: String) {
         if (activity != null)
             mActivity = activity
         var loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = categoryService.bizCategoryList("21"/*PrefUtil.getBizId(mActivity)*/)
+        val requestCall = categoryService.bizCategoryList("21"/*bizId*/)
         LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
         requestCall.enqueue(object : Callback<Categories> {
             override fun onFailure(call: Call<Categories>, t: Throwable) {
@@ -493,7 +493,7 @@ class MyBusinessViewModel : ViewModel() {
         })
     }
 
-    fun deleteCategoriesApi(activity: Activity?, prodId: String, imageUpdate: Boolean, listener: IMyBusinessLatest) {
+    fun deleteCategoriesApi(activity: Activity?, prodId: String, listener: IMyBusinessLatest, bizId: String) {
         if (activity != null)
             mActivity = activity
         val loader = AppDialogLoader.getLoader(mActivity)
@@ -521,7 +521,7 @@ class MyBusinessViewModel : ViewModel() {
                 val status = body.optInt("status")
                 loader.dismiss()
                 if (status == AppConstant.SUCCESS) {
-                    bizCategoryList(mActivity, listener)
+                    bizCategoryList(mActivity, listener,bizId)
 
                 } else {
                     LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) { (mActivity).onBackPressed() }
@@ -531,7 +531,7 @@ class MyBusinessViewModel : ViewModel() {
     }
 
 
-    fun removeProductOrService(activity: Activity?, prodId: String, listener: IMyBusinessLatest) {
+    fun removeProductOrService(activity: Activity?, prodId: String, listener: IMyBusinessLatest, bizId: String) {
         if (activity != null)
             mActivity = activity
         val loader = AppDialogLoader.getLoader(mActivity)
@@ -559,7 +559,7 @@ class MyBusinessViewModel : ViewModel() {
                 val status = body.optInt("status")
                 loader.dismiss()
                 if (status == AppConstant.SUCCESS) {
-                    bizProductServicesList(mActivity, listener)
+                    bizProductServicesList(mActivity, listener,bizId)
                 } else {
                     LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) { (mActivity).onBackPressed() }
                 }

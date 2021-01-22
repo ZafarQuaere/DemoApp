@@ -45,7 +45,7 @@ class PhotosActivity : AppCompatActivity(), IMyBizImage {
         setContentView(R.layout.layout_photos)
         initUI()
         myBizViewModel = ViewModelProviders.of(this).get(MyBusinessViewModel::class.java)
-        myBizViewModel.bizImageList(mContext as Activity?,this)
+        myBizViewModel.bizImageList(mContext as Activity?,this, PrefUtil.getBizId(mContext as Activity))
     }
 
     private fun initUI() {

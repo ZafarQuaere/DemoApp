@@ -46,6 +46,7 @@ import com.zaf.econnecto.ui.presenters.MyBusinessPresenterLatest
 import com.zaf.econnecto.ui.presenters.operations.IMyBizImage
 import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
 import com.zaf.econnecto.utils.*
+import com.zaf.econnecto.utils.storage.PrefUtil
 import kotlinx.android.synthetic.main.activity_my_business_latest.*
 import kotlinx.android.synthetic.main.vb_address_detail.*
 import kotlinx.android.synthetic.main.vb_communication_menu.*
@@ -250,15 +251,14 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         //get the business owner id and call image api
         updateBasicDetails(basicDetailsResponse)
         if (imageUpdate) {
-            myBizViewModel.bizImageList(mContext as Activity?, this)
-            myBizViewModel.bizOperatingHours(mContext as Activity?, this)
-            myBizViewModel.bizAmenityList(mContext as Activity?, this)
-            myBizViewModel.bizProductServicesList(mContext as Activity?, this)
-            myBizViewModel.bizBrochureList(mContext as Activity?, this)
-            myBizViewModel.bizPaymentMethodList(mContext as Activity?, this)
-            myBizViewModel.bizPricingList(mContext as Activity?, this)
-            myBizViewModel.bizCategoryList(mContext as Activity?, this)
-
+            myBizViewModel.bizImageList(mContext as Activity?, this, PrefUtil.getBizId(mContext as Activity))
+            myBizViewModel.bizOperatingHours(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
+            myBizViewModel.bizAmenityList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
+            myBizViewModel.bizProductServicesList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
+            myBizViewModel.bizBrochureList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
+            myBizViewModel.bizPaymentMethodList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
+            myBizViewModel.bizPricingList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
+            myBizViewModel.bizCategoryList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
         }
     }
 
@@ -394,7 +394,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
                 }
                 UPDATE_PRODUCT_SERVICES -> {
                     //call product and service api to update UI
-                    myBizViewModel.bizProductServicesList(mContext as Activity?, this)
+                    myBizViewModel.bizProductServicesList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
                 }
                 UPDATE_ABOUT_US -> {
                     LogUtils.DEBUG("Coming from about services")
@@ -402,11 +402,11 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
                 }
                 UPDATE_AMENITIES -> {
                     LogUtils.DEBUG("Coming from amenities")
-                    myBizViewModel.bizAmenityList(mContext, this)
+                    myBizViewModel.bizAmenityList(mContext, this,PrefUtil.getBizId(mContext as Activity))
                 }
                 UPDATE_PAYMENTS -> {
                     LogUtils.DEBUG("Coming from PaymentOptions")
-                    myBizViewModel.bizPaymentMethodList(mContext, this)
+                    myBizViewModel.bizPaymentMethodList(mContext, this, PrefUtil.getBizId(mContext as Activity))
                 }
                 else -> {
                     selectedImageUri = data.data
@@ -500,7 +500,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
 
             val adapter = BizProdNServiceListAdapter(this, data, object : DeleteProductListener {
                 override fun deleteProd(prodData: ProductNServiceData) {
-                    myBizViewModel.removeProductOrService(mContext, prodData.prod_serv_id, this@MyBusinessActivityLatest)
+                    myBizViewModel.removeProductOrService(mContext, prodData.prod_serv_id, this@MyBusinessActivityLatest, PrefUtil.getBizId(mContext as Activity))
                 }
             })
             listViewProductServices.adapter = adapter
@@ -602,7 +602,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
             val adapter = BizCategoryListAdapter(this, data, object : DeleteCategoryListener {
                 override fun deleteCategory(categorydata: CategoryData) {
                     LogUtils.showToast(mContext, "delete ${categorydata.category_name} and ${categorydata.category_id}now call delete api")
-                    myBizViewModel.deleteCategoriesApi(mContext as Activity?, categorydata.category_id, false, this as IMyBusinessLatest)
+                    myBizViewModel.deleteCategoriesApi(mContext as Activity?, categorydata.category_id,  this as IMyBusinessLatest, PrefUtil.getBizId(mContext as Activity))
                 }
             })
             catListView.adapter = adapter

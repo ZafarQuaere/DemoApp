@@ -79,15 +79,15 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,I
     }
 
     private fun callApis(ownerId: String, businessId: String) {
-        myBizViewModel.callBasicDetailsApi(this, true, this,ownerId)
-        myBizViewModel.bizImageList(mContext as Activity?, this)
-        myBizViewModel.bizOperatingHours(mContext as Activity?, this)
-        myBizViewModel.bizAmenityList(mContext as Activity?, this)
-        myBizViewModel.bizProductServicesList(mContext as Activity?, this)
-        myBizViewModel.bizBrochureList(mContext as Activity?, this)
-        myBizViewModel.bizPaymentMethodList(mContext as Activity?, this)
-        myBizViewModel.bizPricingList(mContext as Activity?, this)
-        myBizViewModel.bizCategoryList(mContext as Activity?, this)
+        myBizViewModel.callBasicDetailsApi(this, true, this, ownerId)
+        myBizViewModel.bizImageList(mContext as Activity?, this, businessId)
+        myBizViewModel.bizOperatingHours(mContext as Activity?, this, businessId)
+        myBizViewModel.bizAmenityList(mContext as Activity?, this, businessId)
+        myBizViewModel.bizProductServicesList(mContext as Activity?, this, businessId)
+        myBizViewModel.bizBrochureList(mContext as Activity?, this, businessId)
+        myBizViewModel.bizPaymentMethodList(mContext as Activity?, this, businessId)
+        myBizViewModel.bizPricingList(mContext as Activity?, this, businessId)
+        myBizViewModel.bizCategoryList(mContext as Activity?, this, businessId)
 
     }
 
