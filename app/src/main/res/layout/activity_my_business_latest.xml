@@ -64,17 +64,13 @@
                     android:layout_height="wrap_content"
                     android:visibility="visible" />
 
-                <TextView
-                    android:id="@+id/textOperatingHours"
+
+                <include
+                    layout="@layout/vb_operating_hours"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_30dp"
-                    android:background="@drawable/btn_follow"
-                    android:drawableEnd="@drawable/ic_edit_black"
-                    android:gravity="center_horizontal"
-                    android:paddingVertical="@dimen/_5dp"
-                    android:paddingEnd="@dimen/_20dp"
-                    android:text="@string/operatingHours" />
+                    android:layout_marginHorizontal="@dimen/_20dp"
+                    android:visibility="visible" />
 
                 <include
                     layout="@layout/vb_communication_menu"

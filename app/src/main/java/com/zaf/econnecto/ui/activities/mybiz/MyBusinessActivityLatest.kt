@@ -58,6 +58,7 @@ import kotlinx.android.synthetic.main.vb_layout_payment.*
 import kotlinx.android.synthetic.main.vb_layout_photos.*
 import kotlinx.android.synthetic.main.vb_layout_pricing.*
 import kotlinx.android.synthetic.main.vb_layout_product_services.*
+import kotlinx.android.synthetic.main.vb_operating_hours.*
 
 class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMyBizImage, IMyBusinessLatest, ImageUpdateModelListener.ImageUpdateListener, OnMapReadyCallback {
 
@@ -118,7 +119,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         textFollow.setOnClickListener {
             startActivityForResult(Intent(this, EditDetails::class.java), UPDATE_DETAILS_CODE)
         }
-        textOperatingHours.setOnClickListener {
+        iconEditOPHour.setOnClickListener {
             startActivityForResult(Intent(this, OperatingHour::class.java), UPDATE_OPERATING_HOUR_CODE)
         }
         rlytLocation.setOnClickListener {
@@ -472,8 +473,18 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
     }
 
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun updateOperatingHours(data: OPHoursData) {
-        LogUtils.showToast(this, "update op hours")
+       if (data != null) {
+           iconOpenClose.background = if (data.CurrentStatus == "Closed") getDrawable(R.drawable.ic_circle_red) else getDrawable(R.drawable.ic_circle_green)
+           textOperatingHours.text = getOPTiming(data)
+       }
+    }
+
+    private fun getOPTiming(data: OPHoursData): String {
+       //Todo
+
+        return "Operating Hours"
     }
 
     override fun updateProductServiceSection(data: List<ProductNServiceData>) {

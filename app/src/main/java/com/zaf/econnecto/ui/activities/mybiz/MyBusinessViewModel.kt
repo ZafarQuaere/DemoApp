@@ -95,7 +95,7 @@ class MyBusinessViewModel : ViewModel() {
             }
 
             override fun onResponse(call: Call<AllAmenityList>, response: Response<AllAmenityList>) {
-                LogUtils.DEBUG("AllPaymentMethods response: " + response.body().toString())
+                LogUtils.DEBUG("AllPaymentMethods response: " + ParseManager.getInstance().toJSON(response.body()))
                 loader.dismiss()
                 if (response.isSuccessful) {
                     val paymentMethods = response.body()
@@ -162,7 +162,7 @@ class MyBusinessViewModel : ViewModel() {
             }
 
             override fun onResponse(call: Call<Amenities>, response: Response<Amenities>) {
-                LogUtils.DEBUG("bizAmenityList response: " + response.body().toString())
+                LogUtils.DEBUG("bizAmenityList response: " + ParseManager.getInstance().toJSON(response.body()))
                 loader.dismiss()
                 if (response.isSuccessful) {
                     val amenities = response.body()
@@ -194,7 +194,7 @@ class MyBusinessViewModel : ViewModel() {
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 val body = JSONObject(Gson().toJson(response.body()))
-                LogUtils.DEBUG("bizImageList Response:->> ${body.toString()}")
+                LogUtils.DEBUG("bizImageList Response:->> $body")
                 var status = body.optInt("status")
                 if (status == AppConstant.SUCCESS) {
                     val data = ParseManager.getInstance().fromJSON(body.toString(), ViewImages::class.java)
@@ -221,7 +221,7 @@ class MyBusinessViewModel : ViewModel() {
         requestCall.enqueue(object : Callback<OPHours> {
             override fun onResponse(call: Call<OPHours>, response: Response<OPHours>) {
                 loader.dismiss()
-                LogUtils.DEBUG("bizOperatingHours response: " + response.body().toString())
+                LogUtils.DEBUG("bizOperatingHours response: " + ParseManager.getInstance().toJSON(response.body()))
                 if (response.isSuccessful) {
                     val opHours = response.body()
                     if (opHours!!.status == AppConstant.SUCCESS) {
@@ -257,7 +257,7 @@ class MyBusinessViewModel : ViewModel() {
 
             override fun onResponse(call: Call<Brochure>, response: Response<Brochure>) {
                 val body = JSONObject(Gson().toJson(response.body()))
-                LogUtils.DEBUG("bizBrochureList Response:->> $body")
+                LogUtils.DEBUG("bizBrochureList Response:->> ${ParseManager.getInstance().toJSON(response.body())}")
                 if (response != null && response.isSuccessful) {
                     val brochure: Brochure = response.body()!!
                     if (brochure.status == AppConstant.SUCCESS) {
@@ -287,7 +287,7 @@ class MyBusinessViewModel : ViewModel() {
             }
 
             override fun onResponse(call: Call<ProductNService>, response: Response<ProductNService>) {
-                LogUtils.DEBUG("bizProductServicesList Response:->> ${response.body()}")
+                LogUtils.DEBUG("bizProductServicesList Response:->> ${ParseManager.getInstance().toJSON(response.body())}")
                 if (response != null && response.isSuccessful) {
                     val PnService: ProductNService = response.body()!!
                     if (PnService.status == AppConstant.SUCCESS) {
@@ -316,7 +316,7 @@ class MyBusinessViewModel : ViewModel() {
             }
 
             override fun onResponse(call: Call<PaymentMethods>, response: Response<PaymentMethods>) {
-                LogUtils.DEBUG("bizPaymentMethodList Response:->> ${response.body().toString()}")
+                LogUtils.DEBUG("bizPaymentMethodList Response:->> ${ParseManager.getInstance().toJSON(response.body())}")
                 if (response != null && response.isSuccessful) {
                     val paymentMethod: PaymentMethods = response.body()!!
                     if (paymentMethod.status == AppConstant.SUCCESS) {
@@ -348,7 +348,7 @@ class MyBusinessViewModel : ViewModel() {
             }
 
             override fun onResponse(call: Call<Pricing>, response: Response<Pricing>) {
-                LogUtils.DEBUG("bizPricingList Response:->> ${response.body().toString()}")
+                LogUtils.DEBUG("bizPricingList Response:->> ${ParseManager.getInstance().toJSON(response.body())}")
                 if (response != null && response.isSuccessful) {
                     val pricing: Pricing = response.body()!!
                     if (pricing.status == AppConstant.SUCCESS) {
@@ -378,7 +378,7 @@ class MyBusinessViewModel : ViewModel() {
             }
 
             override fun onResponse(call: Call<Categories>, response: Response<Categories>) {
-                LogUtils.DEBUG("bizCategoryList Response:->> ${response.body().toString()}")
+                LogUtils.DEBUG("bizCategoryList Response:->> ${ParseManager.getInstance().toJSON(response.body())}")
                 loader.dismiss()
                 val categories: Categories = response.body()!!
                 if (categories.status == AppConstant.SUCCESS) {
@@ -406,7 +406,7 @@ class MyBusinessViewModel : ViewModel() {
             }
 
             override fun onResponse(call: Call<AllPaymentMethods>, response: Response<AllPaymentMethods>) {
-                LogUtils.DEBUG("AllPaymentMethods response: " + response.body().toString())
+                LogUtils.DEBUG("AllPaymentMethods response: " + ParseManager.getInstance().toJSON(response.body()))
                 loader.dismiss()
                 if (response.isSuccessful) {
                     val paymentMethods = response.body()

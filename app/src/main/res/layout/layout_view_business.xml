@@ -45,16 +45,12 @@
                         android:layout_height="wrap_content"
                         android:visibility="visible" />
 
-                    <TextView
-                        android:background="@drawable/btn_follow"
-                        android:layout_marginHorizontal="@dimen/_30dp"
-                        android:paddingVertical="@dimen/_5dp"
-                        android:drawableEnd="@drawable/ic_edit_black"
-                        android:paddingEnd="@dimen/_20dp"
+                    <include
+                        layout="@layout/vb_operating_hours"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:text="Open Close timing" />
+                        android:layout_marginHorizontal="@dimen/_20dp"
+                        android:visibility="visible" />
 
                     <include
                         layout="@layout/vb_communication_menu"

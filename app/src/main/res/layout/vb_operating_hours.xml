@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_10dp"
+    android:background="@drawable/btn_follow"
+    android:orientation="horizontal"
+    android:paddingVertical="@dimen/_5dp"
+    android:paddingHorizontal="@dimen/_10dp">
+
+    <ImageButton
+        android:id="@+id/iconOpenClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="@dimen/_10dp"
+        android:background="@drawable/ic_circle_green"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/textOperatingHours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/operatingHours" />
+
+    <ImageButton
+        android:id="@+id/iconEditOPHour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/ic_edit_black"
+        android:gravity="center_horizontal" />
+</RelativeLayout>
+
+
