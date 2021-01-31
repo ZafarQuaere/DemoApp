@@ -9,11 +9,11 @@ import android.widget.BaseAdapter
 import android.widget.ImageButton
 import android.widget.TextView
 import com.zaf.econnecto.R
-import com.zaf.econnecto.ui.activities.mybiz.CategoryData
+import com.zaf.econnecto.ui.activities.mybiz.UserCategoryData
 import com.zaf.econnecto.ui.interfaces.DeleteCategoryListener
 
-class BizCategoryListAdapter(activity: Activity, data: List<CategoryData>, listener : DeleteCategoryListener) : BaseAdapter() {
-    var catList : List<CategoryData> = data
+class UserCategoryListAdapter(activity: Activity, data: List<UserCategoryData>, listener : DeleteCategoryListener) : BaseAdapter() {
+    var catList : List<UserCategoryData> = data
     private val inflater: LayoutInflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     private lateinit var rowView : View
     private val mListener: DeleteCategoryListener = listener

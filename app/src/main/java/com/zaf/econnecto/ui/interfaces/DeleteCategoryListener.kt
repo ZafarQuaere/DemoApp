@@ -1,7 +1,7 @@
 package com.zaf.econnecto.ui.interfaces
 
-import com.zaf.econnecto.ui.activities.mybiz.CategoryData
+import com.zaf.econnecto.ui.activities.mybiz.UserCategoryData
 
 interface DeleteCategoryListener {
-    fun deleteCategory(categorydata: CategoryData)
+    fun deleteCategory(categorydata: UserCategoryData)
 }

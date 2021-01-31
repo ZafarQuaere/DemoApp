@@ -12,5 +12,5 @@ interface IMyBusinessLatest {
     fun updateAmenitiesSection(data: List<AmenityData>?)
     fun updatePaymentSection(data: List<PaymentMethodData>)
     fun updatePricingSection(data: List<PricingData>)
-    fun updateCategories(data: List<CategoryData>)
+    fun updateCategories(data: List<UserCategoryData>)
 }

@@ -69,6 +69,7 @@ public class AppConstant {
     public static final String URL_BIZ_PRICING = "my_biz/my_biz_pricing.php?";
     public static final String URL_BIZ_PAYMENT = "my_biz_add_edit/payment_methods/p_methods_list.php";
     public static final String URL_BIZ_ADD_BROCHURE = "my_biz_add_edit/brochure/add_brochure.php";
+    public static final String URL_BIZ_ALL_CATEGORIES = "categories/categories_list.php";
 
     //Edit My Business Endpoints
     public static final String URL_EDIT_ABOUT_WHY = URL_BASE_MVP+"my_biz_add_edit/about_section/add_edit_about.php";

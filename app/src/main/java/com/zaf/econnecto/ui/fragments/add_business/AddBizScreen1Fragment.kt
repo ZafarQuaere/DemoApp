@@ -44,7 +44,7 @@ class AddBizScreen1Fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        KotUtil.updateActionBar(activity, AddBizScreen1Fragment.javaClass.simpleName, activity!!.getString(R.string.add_business), null, null)
+        KotUtil.updateActionBar(activity, AddBizScreen1Fragment.javaClass.simpleName, requireActivity().getString(R.string.add_business), null, null)
         navController = Navigation.findNavController(view)
 
         btnNext.setOnClickListener {
@@ -161,7 +161,7 @@ class AddBizScreen1Fragment : Fragment() {
                 editCategory1.setText(item.categoryName)
                 categoryid1 = item.categoryId
                 if (editCategory1.text.toString().trim() == editCategory2.text.toString().trim() || editCategory1.text.toString().trim() == editCategory3.text.toString().trim()) {
-                    LogUtils.showToast(activity, activity!!.getString(R.string.already_selected_plz_select_different_category))
+                    LogUtils.showToast(activity, requireActivity().getString(R.string.already_selected_plz_select_different_category))
                     editCategory1.setText("")
                 }
                 //textAddCategory.text = activity!!.getString(R.string.add_more_category)
@@ -171,7 +171,7 @@ class AddBizScreen1Fragment : Fragment() {
                 editCategory2.setText(item.categoryName)
                 categoryid2 = item.categoryId
                 if (editCategory2.text.toString().trim() == editCategory1.text.toString().trim() || editCategory2.text.toString().trim() == editCategory3.text.toString().trim()) {
-                    LogUtils.showToast(activity, activity!!.getString(R.string.already_selected_plz_select_different_category))
+                    LogUtils.showToast(activity, requireActivity().getString(R.string.already_selected_plz_select_different_category))
                     editCategory2.setText("")
                     tilCategory2.visibility = View.GONE
                 }
@@ -181,7 +181,7 @@ class AddBizScreen1Fragment : Fragment() {
                 editCategory3.setText(item.categoryName)
                 categoryid3 = item.categoryId
                 if (editCategory3.text.toString().trim() == editCategory2.text.toString().trim() || editCategory3.text.toString().trim() == editCategory1.text.toString().trim()) {
-                    LogUtils.showToast(activity, activity!!.getString(R.string.already_selected_plz_select_different_category))
+                    LogUtils.showToast(activity, requireActivity().getString(R.string.already_selected_plz_select_different_category))
                     editCategory3.setText("")
                     tilCategory3.visibility = View.GONE
                 } else {
@@ -189,7 +189,7 @@ class AddBizScreen1Fragment : Fragment() {
                 }
             }
             else -> {
-                LogUtils.showErrorDialog(activity, activity!!.getString(R.string.ok), activity!!.getString(R.string.you_have_already_selected_max_no_of_category))
+                LogUtils.showErrorDialog(activity, requireActivity().getString(R.string.ok), requireActivity().getString(R.string.you_have_already_selected_max_no_of_category))
                 textAddCategory.visibility = View.GONE
             }
         }
@@ -198,7 +198,7 @@ class AddBizScreen1Fragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AddBizScreen1ViewModel::class.java)
-        //TODO for now it is reading data from file, we can implement it using api call (implemented in belwo method)
+        //TODO for now it is reading data from file, we can implement it using api call (implemented in below method)
         categoryList = Utils.readDataFromFile(activity)
 
         updateUIOnBackPressed()

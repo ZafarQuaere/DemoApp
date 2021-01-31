@@ -12,10 +12,7 @@ import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsDat
 import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsResponse
 import com.zaf.econnecto.service.EConnectoServices
 import com.zaf.econnecto.service.ServiceBuilder
-import com.zaf.econnecto.ui.interfaces.AmenityAddedListener
-import com.zaf.econnecto.ui.interfaces.IGeneralAmenityList
-import com.zaf.econnecto.ui.interfaces.IPaymentOptionList
-import com.zaf.econnecto.ui.interfaces.PaymentMethodAddListener
+import com.zaf.econnecto.ui.interfaces.*
 import com.zaf.econnecto.ui.presenters.operations.IMyBizImage
 import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
 import com.zaf.econnecto.ui.presenters.operations.IProductNService
@@ -370,21 +367,21 @@ class MyBusinessViewModel : ViewModel() {
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
         val requestCall = categoryService.bizCategoryList("21"/*bizId*/)
         LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
-        requestCall.enqueue(object : Callback<Categories> {
-            override fun onFailure(call: Call<Categories>, t: Throwable) {
+        requestCall.enqueue(object : Callback<UserCategories> {
+            override fun onFailure(call: Call<UserCategories>, t: Throwable) {
                 loader.dismiss()
                 LogUtils.DEBUG("bizCategoryList() Failure: ${t.localizedMessage}")
 
             }
 
-            override fun onResponse(call: Call<Categories>, response: Response<Categories>) {
+            override fun onResponse(call: Call<UserCategories>, response: Response<UserCategories>) {
                 LogUtils.DEBUG("bizCategoryList Response:->> ${ParseManager.getInstance().toJSON(response.body())}")
                 loader.dismiss()
-                val categories: Categories = response.body()!!
-                if (categories.status == AppConstant.SUCCESS) {
-                    listener.updateCategories(categories.data)
+                val userCategories: UserCategories = response.body()!!
+                if (userCategories.status == AppConstant.SUCCESS) {
+                    listener.updateCategories(userCategories.data)
                 } else {
-                    LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), categories.message[0])
+                    LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), userCategories.message[0])
                 }
             }
         })
@@ -563,6 +560,39 @@ class MyBusinessViewModel : ViewModel() {
                 } else {
                     LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) { (mActivity).onBackPressed() }
                 }
+            }
+        })
+    }
+
+
+    fun bizAllCategories(activity: Activity?, listener: AllCategoriesListener) {
+        if (activity != null)
+            mActivity = activity
+        var loader = AppDialogLoader.getLoader(mActivity)
+        loader.show()
+        val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
+        val requestCall = categoryService.bizAllCategories()
+        LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
+
+        requestCall.enqueue(object : Callback<BizCategories> {
+            override fun onFailure(call: Call<BizCategories>, t: Throwable) {
+                loader.dismiss()
+                listener.updateCategoriesUI(null)
+                LogUtils.DEBUG("bizAllCategories() Failure: ${t.localizedMessage}")
+            }
+
+            override fun onResponse(call: Call<BizCategories>, response: Response<BizCategories>) {
+                LogUtils.DEBUG("bizAllCategories Response:->> ${ParseManager.getInstance().toJSON(response.body())}")
+                if (response != null && response.isSuccessful) {
+                    val categories: BizCategories = response.body()!!
+                    if (categories.status == AppConstant.SUCCESS) {
+                        listener.updateCategoriesUI(categories.data)
+                    } else {
+                        listener.updateCategoriesUI(null)
+                        LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), categories.message)
+                    }
+                }
+                loader.dismiss()
             }
         })
     }

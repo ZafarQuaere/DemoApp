@@ -68,7 +68,7 @@ interface EConnectoServices {
     fun bizPricingList(@Query("business_id") businessId: String): Call<Pricing>
 
     @GET(AppConstant.URL_BIZ_CATEGORIES)
-    fun bizCategoryList(@Query("business_id") businessId: String): Call<Categories>
+    fun bizCategoryList(@Query("business_id") businessId: String): Call<UserCategories>
 
     //business using payment list
     @GET(AppConstant.URL_BIZ_PAYMENT_LIST)
@@ -88,4 +88,7 @@ interface EConnectoServices {
 
     @POST(AppConstant.URL_FORGOT_PSWD)
     fun resetPassword(@Body requestBody: RequestBody): Call<JsonObject>
+
+    @GET(AppConstant.URL_BIZ_ALL_CATEGORIES)
+    fun bizAllCategories(): Call<BizCategories>
 }

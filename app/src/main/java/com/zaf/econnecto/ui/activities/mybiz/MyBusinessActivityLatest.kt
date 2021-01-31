@@ -83,6 +83,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         private const val UPDATE_AMENITIES = 115
         private const val UPDATE_PHOTOS = 116
         private const val UPDATE_PAYMENTS = 117
+        private const val UPDATE_CATEGORY = 118
     }
 
     override fun initPresenter(): MyBusinessPresenterLatest {
@@ -144,6 +145,9 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
 
         textAddPayments.setOnClickListener {
             startActivityForResult(Intent(this, PaymentsOptions::class.java), UPDATE_PAYMENTS)
+        }
+        textAddCategory.setOnClickListener {
+            startActivityForResult(Intent(this, CategoriesActivity::class.java), UPDATE_CATEGORY)
         }
 
     }
@@ -446,7 +450,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         var isImageUpdate = ImageUpdateModelListener.getInstance().state
         LogUtils.DEBUG("isImageUpdate $isImageUpdate ")
         if (isImageUpdate) {
-            presenter!!.callImageApi()
+            myBizViewModel.bizImageList(mContext as Activity?, this, PrefUtil.getBizId(mContext as Activity))
         }
 
     }
@@ -456,7 +460,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         val isImageUpdate = ImageUpdateModelListener.getInstance().state
         LogUtils.DEBUG("isImageUpdate $isImageUpdate ")
         if (isImageUpdate) {
-            presenter!!.callImageApi()
+            myBizViewModel.bizImageList(mContext as Activity?, this, PrefUtil.getBizId(mContext as Activity))
         }
     }
 
@@ -602,16 +606,16 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         recyclerPricing.adapter = adapter
     }
 
-    override fun updateCategories(data: List<CategoryData>) {
+    override fun updateCategories(data: List<UserCategoryData>) {
         updateCategoryList(data)
     }
 
-    private fun updateCategoryList(data: List<CategoryData>) {
+    private fun updateCategoryList(data: List<UserCategoryData>) {
         if (data.isNotEmpty()) {
             val catListView = findViewById<ListView>(R.id.myBizCategoryList)
             catListView.visibility = View.VISIBLE
-            val adapter = BizCategoryListAdapter(this, data, object : DeleteCategoryListener {
-                override fun deleteCategory(categorydata: CategoryData) {
+            val adapter = UserCategoryListAdapter(this, data, object : DeleteCategoryListener {
+                override fun deleteCategory(categorydata: UserCategoryData) {
                     LogUtils.showToast(mContext, "delete ${categorydata.category_name} and ${categorydata.category_id}now call delete api")
                     myBizViewModel.deleteCategoriesApi(mContext as Activity?, categorydata.category_id,  this as IMyBusinessLatest, PrefUtil.getBizId(mContext as Activity))
                 }

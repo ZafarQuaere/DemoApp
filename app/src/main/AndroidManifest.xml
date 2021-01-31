@@ -21,7 +21,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.activities.mybiz.EditDetails"></activity>
+        <activity android:name=".ui.activities.mybiz.CategoriesActivity"></activity>
+        <activity android:name=".ui.activities.mybiz.EditDetails" />
         <activity android:name=".ui.activities.EditImageActivity" />
 
         <meta-data
@@ -51,7 +52,6 @@
         <activity
             android:name=".ui.activities.LoginActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.activities.MainActivity"
             android:screenOrientation="portrait" />

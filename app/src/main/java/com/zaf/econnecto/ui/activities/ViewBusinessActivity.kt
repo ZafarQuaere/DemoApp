@@ -247,7 +247,7 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,I
         LogUtils.DEBUG("updatePricingSection")
     }
 
-    override fun updateCategories(data: List<com.zaf.econnecto.ui.activities.mybiz.CategoryData>) {
+    override fun updateCategories(data: List<com.zaf.econnecto.ui.activities.mybiz.UserCategoryData>) {
         LogUtils.DEBUG("updateCategories")
     }
 
