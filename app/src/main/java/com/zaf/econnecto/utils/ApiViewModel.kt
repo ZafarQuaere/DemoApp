@@ -30,7 +30,7 @@ class ApiViewModel : ViewModel() {
         var loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = categoryService.getBusinessList(Utils.getUserEmail(mActivity))
+        val requestCall = categoryService.getBusinessList(Utils.getUserID(mActivity))
         LogUtils.DEBUG("Url: ${requestCall.request().url()}  ")
 
         requestCall.enqueue(object : Callback<JsonObject> {

@@ -59,6 +59,7 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,I
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_view_business)
         myBizViewModel = ViewModelProviders.of(this).get(MyBusinessViewModel::class.java)
+        presenter.initMap(this,mapFrag)
         initUI()
 
     }
@@ -70,7 +71,6 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,I
     private fun initUI() {
         ownerId = intent.getStringExtra(getString(R.string.key_owner_id))
         businessId = intent.getStringExtra(getString(R.string.key_biz_id))
-
         tabLayout = findViewById<TabLayout>(R.id.tabs)
         addTabs()
         mapFrag.requireView().visibility = View.VISIBLE
@@ -79,7 +79,7 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,I
     }
 
     private fun callApis(ownerId: String, businessId: String) {
-        myBizViewModel.callBasicDetailsApi(this, true, this, ownerId)
+        myBizViewModel.callMyBizBasicDetails(this, true, this, ownerId)
         myBizViewModel.bizImageList(mContext as Activity?, this, businessId)
         myBizViewModel.bizOperatingHours(mContext as Activity?, this, businessId)
         myBizViewModel.bizAmenityList(mContext as Activity?, this, businessId)

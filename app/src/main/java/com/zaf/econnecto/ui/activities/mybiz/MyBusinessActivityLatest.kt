@@ -100,7 +100,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         loader = AppLoaderFragment.getInstance(mContext)
         updateActionbar()
         subscribeViewModels()
-        myBizViewModel.callBasicDetailsApi(this, true, this, Utils.getUserID(mContext))
+        myBizViewModel.callMyBizBasicDetails(this, true, this, Utils.getUserID(mContext))
         updateMyBizUI()
     }
 
@@ -333,6 +333,13 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
             recycler_photos!!.layoutManager = layoutManager
             recycler_photos!!.itemAnimator = DefaultItemAnimator()
 
+//            recycler_photos.suppressLayout(true)
+//            recycler_photos.addOnItemTouchListener(object : RecyclerView.SimpleOnItemTouchListener(){
+//                override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+//                    return rv.scrollState == RecyclerView.SCROLL_STATE_DRAGGING;
+//                }
+//            })
+
             val list1 = mutableListOf<ViewImageData>(data[0], data[1], data[2], data[3])
 //            val adapter = StaggeredImageAdapter(this, list1, false, null)
             val adapter = VBHeaderImageRecylcerAdapter(this, list1)
@@ -392,7 +399,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         if (resultCode == RESULT_OK && data != null) {
             when (requestCode) {
                 UPDATE_DETAILS_CODE -> {
-                    myBizViewModel.callBasicDetailsApi(this, false, this, Utils.getUserID(mContext))
+                    myBizViewModel.callMyBizBasicDetails(this, false, this, Utils.getUserID(mContext))
                 }
                 UPDATE_OPERATING_HOUR_CODE -> {
                     LogUtils.DEBUG("Coming from operating hour")
@@ -403,7 +410,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
                 }
                 UPDATE_ABOUT_US -> {
                     LogUtils.DEBUG("Coming from about services")
-                    myBizViewModel.callBasicDetailsApi(this, false, this, Utils.getUserID(mContext))
+                    myBizViewModel.callMyBizBasicDetails(this, false, this, Utils.getUserID(mContext))
                 }
                 UPDATE_AMENITIES -> {
                     LogUtils.DEBUG("Coming from amenities")
@@ -412,6 +419,11 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
                 UPDATE_PAYMENTS -> {
                     LogUtils.DEBUG("Coming from PaymentOptions")
                     myBizViewModel.bizPaymentMethodList(mContext, this, PrefUtil.getBizId(mContext as Activity))
+                }
+                UPDATE_CATEGORY -> {
+                    LogUtils.DEBUG("Coming from Category Activity")
+                    LogUtils.showToast(mContext, "Coming from Category Activity")
+                    //   myBizViewModel.bizCategoryList(mContext, this, PrefUtil.getBizId(mContext as Activity))
                 }
                 else -> {
                     selectedImageUri = data.data

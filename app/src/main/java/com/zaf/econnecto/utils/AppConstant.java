@@ -53,6 +53,7 @@ public class AppConstant {
 
 
     public static final String URL_BIZ_BASIC_DETAILS = "my_biz/my_biz_basic.php";
+    public static final String URL_OTHER_BIZ_BASIC_DETAILS = "other_biz/other_biz_basic.php";
     public static final String URL_BIZ_OPERATING_HOURS = "my_biz/my_biz_operating_hrs.php";
     public static final String URL_BIZ_ALL_AMENITY_LIST = "my_biz_add_edit/amenities/amenities_list.php";
     public static final String URL_BIZ_AMENITY_LIST = "my_biz/my_biz_amenities.php";

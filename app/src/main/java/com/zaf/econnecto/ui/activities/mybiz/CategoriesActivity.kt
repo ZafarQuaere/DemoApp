@@ -1,5 +1,7 @@
 package com.zaf.econnecto.ui.activities.mybiz
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
@@ -11,12 +13,13 @@ import com.zaf.econnecto.R
 import com.zaf.econnecto.model.CategoryListData
 import com.zaf.econnecto.ui.adapters.BizCategoryRecyclerAdapter
 import com.zaf.econnecto.ui.interfaces.AllCategoriesListener
+import com.zaf.econnecto.ui.interfaces.CategoryAddedListener
 import com.zaf.econnecto.ui.interfaces.OnBizCategoryItemClickListener
 import com.zaf.econnecto.utils.LogUtils
 import com.zaf.econnecto.utils.Utils
 import kotlinx.android.synthetic.main.activity_categories.*
 
-class CategoriesActivity : AppCompatActivity(), AllCategoriesListener, OnBizCategoryItemClickListener {
+class CategoriesActivity : AppCompatActivity(), AllCategoriesListener, OnBizCategoryItemClickListener, CategoryAddedListener {
 
     lateinit var myBizViewModel: MyBusinessViewModel
     lateinit var categoryAdapter: BizCategoryRecyclerAdapter
@@ -72,5 +75,18 @@ class CategoriesActivity : AppCompatActivity(), AllCategoriesListener, OnBizCate
 
     override fun onBizCategoryItemClick(mItem: CategoryListData) {
         LogUtils.showToast(this, "${mItem.categoryId} , ${mItem.categoryName} ${mItem.parentCategoryId}")
+        //myBizViewModel.addCategoryApi(this, this, mItem)
+        val returnIntent = Intent()
+        returnIntent.putExtra("AddCategory", getString(R.string.categories))
+        setResult(Activity.RESULT_OK, returnIntent)
+        finish()
+    }
+
+
+    override fun updateCategory() {
+        val returnIntent = Intent()
+        returnIntent.putExtra("AddCategory", getString(R.string.categories))
+        setResult(Activity.RESULT_OK, returnIntent)
+        finish()
     }
 }

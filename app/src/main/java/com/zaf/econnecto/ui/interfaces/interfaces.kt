@@ -32,3 +32,7 @@ interface AllCategoriesListener {
 interface OnBizCategoryItemClickListener {
     fun onBizCategoryItemClick(mItem: CategoryListData)
 }
+
+interface CategoryAddedListener {
+    fun updateCategory()
+}

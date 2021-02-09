@@ -13,7 +13,11 @@ import retrofit2.http.Query
 interface EConnectoServices {
 
     @GET("business_list/business_list.php")
-    fun getBusinessList(@Query("email") email: String): Call<JsonObject>
+    fun getBusinessList(@Query("id") id: String): Call<JsonObject>
+
+    @GET(AppConstant.URL_OTHER_BIZ_BASIC_DETAILS)
+    fun getOtherBizBasicDetails(@Query("" +
+            "") email: String): Call<JsonObject>
 
     @POST("user_registration/register.php")
     fun registerUser(@Body requestBody: RequestBody): Call<JsonObject>
