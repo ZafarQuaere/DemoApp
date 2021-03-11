@@ -79,7 +79,7 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,I
     }
 
     private fun callApis(ownerId: String, businessId: String) {
-        myBizViewModel.callMyBizBasicDetails(this, true, this, ownerId)
+        myBizViewModel.otherBizBasicDetails(this, true, this, ownerId)
         myBizViewModel.bizImageList(mContext as Activity?, this, businessId)
         myBizViewModel.bizOperatingHours(mContext as Activity?, this, businessId)
         myBizViewModel.bizAmenityList(mContext as Activity?, this, businessId)

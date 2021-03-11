@@ -16,8 +16,7 @@ interface EConnectoServices {
     fun getBusinessList(@Query("id") id: String): Call<JsonObject>
 
     @GET(AppConstant.URL_OTHER_BIZ_BASIC_DETAILS)
-    fun getOtherBizBasicDetails(@Query("" +
-            "") email: String): Call<JsonObject>
+    fun getOtherBizBasicDetails(@Query("") email: String): Call<JsonObject>
 
     @POST("user_registration/register.php")
     fun registerUser(@Body requestBody: RequestBody): Call<JsonObject>
