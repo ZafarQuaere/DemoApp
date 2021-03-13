@@ -18,7 +18,6 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.UiSettings
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.tabs.TabLayout
 import com.zaf.econnecto.R
 import com.zaf.econnecto.network_call.request_model.AddressData
 import com.zaf.econnecto.network_call.response_model.home.CategoryData
@@ -35,27 +34,22 @@ import com.zaf.econnecto.ui.presenters.operations.IViewBizns
 import com.zaf.econnecto.utils.KotUtil
 import com.zaf.econnecto.utils.LogUtils
 import com.zaf.econnecto.utils.Utils
-import kotlinx.android.synthetic.main.activity_my_business_latest.*
 import kotlinx.android.synthetic.main.vb_address_detail.*
 import kotlinx.android.synthetic.main.vb_communication_menu.*
 import kotlinx.android.synthetic.main.vb_layout_about.*
 import kotlinx.android.synthetic.main.vb_layout_amenities.*
-import kotlinx.android.synthetic.main.vb_layout_brochure.*
-import kotlinx.android.synthetic.main.vb_layout_categories.*
 import kotlinx.android.synthetic.main.vb_layout_payment.*
-import kotlinx.android.synthetic.main.vb_layout_photos.*
 import kotlinx.android.synthetic.main.vb_layout_pricing.*
 import kotlinx.android.synthetic.main.vb_layout_product_services.*
 
 
-class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,IMyBusinessLatest, IMyBizImage, OnMapReadyCallback {
+class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, IMyBusinessLatest, IMyBizImage, OnMapReadyCallback {
 
-//    private lateinit var tabLayout : TabLayout
-    private lateinit var gMap : GoogleMap
-    private var mContext : Context = this
+    private lateinit var gMap: GoogleMap
+    private var mContext: Context = this
     private lateinit var otherBizViewModel: OthersBusinessViewModel
-    private lateinit var ownerId : String
-    private lateinit var businessId : String
+    private lateinit var ownerId: String
+    private lateinit var businessId: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,23 +57,22 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,I
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_view_business)
         otherBizViewModel = ViewModelProviders.of(this).get(OthersBusinessViewModel::class.java)
-        presenter.initMap(this,mapFrag)
+        presenter.initMap(this, mapFrag)
         initUI()
 
     }
 
     override fun initPresenter(): ViewBusinessPresenter {
-        return ViewBusinessPresenter(this,this)
+        return ViewBusinessPresenter(this, this)
     }
 
     private fun initUI() {
         ownerId = intent.getStringExtra(getString(R.string.key_owner_id))
         businessId = intent.getStringExtra(getString(R.string.key_biz_id))
-//        tabLayout = findViewById<TabLayout>(R.id.tabs)
-//        addTabs()
+
         mapFrag.requireView().visibility = View.VISIBLE
         onClickEvents()
-        callApis(ownerId,businessId)
+        callApis(ownerId, businessId)
     }
 
     private fun callApis(ownerId: String, businessId: String) {
@@ -95,64 +88,6 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,I
 
     }
 
-   /* private fun addTabs() {
-        tabLayout.addTab(tabLayout.newTab().setText("Brochure"))
-        tabLayout.addTab(tabLayout.newTab().setText("About"))
-        tabLayout.addTab(tabLayout.newTab().setText("Photos"))
-        tabLayout.addTab(tabLayout.newTab().setText("Amenities"))
-        tabLayout.addTab(tabLayout.newTab().setText("Payment"))
-        tabLayout.addTab(tabLayout.newTab().setText("Pricing"))
-        tabLayout.addTab(tabLayout.newTab().setText("Categories"))
-
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {}
-
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                scrollUpto(tab!!.text as String?)
-            }
-
-        })
-    }*/
-
-    private fun scrollUpto(text: String?) {
-        when (text) {
-            "About" -> {
-                scroll.scrollTo(0, textAboutWhyUsLabel.top + 100)
-                textAboutWhyUsLabel.requestFocus()
-            }
-            "Brochure" -> {
-                scroll.scrollTo(0, textUploadBrochure.top - 50)
-                textUploadBrochure.requestFocus()
-            }
-            "Photos" -> {
-//                scrollToRow(scroll,layoutPhotos,textAddPhotos)
-                scroll.scrollTo(0, textAddPhotos.top + 1000)
-                textAddPhotos.requestFocus()
-            }
-            "Amenities" -> {
-                scroll.scrollTo(0, textAddAmenities.top + 2000)
-                textAddAmenities.requestFocus()
-            }
-            "Payment" -> {
-                scroll.scrollTo(0, textAddPayments.top + 2500)
-                textAddPayments.requestFocus()
-            }
-
-            "Pricing" -> {
-                scroll.scrollTo(0, textAddPricing.top + 2900)
-                textAddPricing.requestFocus()
-            }
-            "Categories" -> {
-                scroll.scrollTo(0, textAddCategory.bottom + 3100)
-                textAddCategory.requestFocus()
-            }
-//            "Payment" ->  scroll.scrollTo(0,textAddPayments.top +2600) //scrollToRow(scroll,layoutPayment,textAddPayments)
-            else -> scroll.scrollTo(0, textAboutWhyUsLabel.top + 2600)
-        }
-
-    }
 
     private fun onClickEvents() {
         rlytLocation.setOnClickListener {
@@ -163,14 +98,14 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,I
         }
 
         rlytCall.setOnClickListener {
-            Utils.callPhone(mContext,"7834908329")
+            Utils.callPhone(mContext, "7834908329")
         }
         rlytWhatsApp.setOnClickListener {
-            Utils.openWhatsApp(mContext,"+91 7677616600")
+            Utils.openWhatsApp(mContext, "+91 7677616600")
         }
 
         rlytMail.setOnClickListener {
-            Utils.openMsgInbox(mContext,"7834908329")
+            Utils.openMsgInbox(mContext, "7834908329")
         }
     }
 
@@ -186,7 +121,7 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,I
     override fun updateBannerImage(data: MutableList<ViewImageData>) {
         val recyclerHeader = findViewById<RecyclerView>(R.id.recycler_header)
         recyclerHeader.layoutManager = LinearLayoutManager(this)
-        recyclerHeader.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false)
+        recyclerHeader.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         val adapter = VBHeaderImageRecylcerAdapter(this, data)
         recyclerHeader.adapter = adapter
     }
@@ -205,7 +140,7 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,I
 
     override fun updateBasicDetails(basicDetailsResponse: BasicDetailsResponse, imageUpdate: Boolean) {
         if (basicDetailsResponse.data[0] != null) {
-            presenter.initMap(this,mapFrag)
+            presenter.initMap(this, mapFrag)
             updateMap(basicDetailsResponse.data[0])
             val basicDetailsDta = basicDetailsResponse.data[0]
             textBusinessName.text = basicDetailsDta.businessName
@@ -247,20 +182,21 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,I
 
     private fun updateProductServiceUI(data: List<ProductNServiceData>) {
         if (data.isNotEmpty()) {
-          /*  val listViewProductServices = findViewById<RecyclerView>(R.id.listViewProductServices)
-//            textPnDHeader.text = getString(R.string.deals_in)
-            textAddProductNServices.visibility = View.GONE
-            textAdd.visibility = View.VISIBLE
-            listViewProductServices.visibility = View.VISIBLE
-            val layoutManager = LinearLayoutManager(mContext)
-            listViewProductServices.layoutManager = layoutManager
-            listViewProductServices.itemAnimator = DefaultItemAnimator()
+            /*  val listViewProductServices = findViewById<RecyclerView>(R.id.listViewProductServices)
+  //            textPnDHeader.text = getString(R.string.deals_in)
+              textAddProductNServices.visibility = View.GONE
+              textAdd.visibility = View.VISIBLE
+              listViewProductServices.visibility = View.VISIBLE
+              val layoutManager = LinearLayoutManager(mContext)
+              listViewProductServices.layoutManager = layoutManager
+              listViewProductServices.itemAnimator = DefaultItemAnimator()
 
-            val adapter = BizProdNServiceListAdapter(this, data, null)
-            listViewProductServices.adapter = adapter*/
+              val adapter = BizProdNServiceListAdapter(this, data, null)
+              listViewProductServices.adapter = adapter*/
         }
 
     }
+
     override fun updateBrochureSection(data: List<BrochureData>) {
         LogUtils.DEBUG("updateBrochureSection")
     }
@@ -273,6 +209,7 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,I
             updateAmenitiesUI(data)
         }
     }
+
     private fun updateAmenitiesUI(data: List<AmenityData>) {
         textAddAmenities.visibility = View.GONE
         lytAmenity.visibility = View.VISIBLE

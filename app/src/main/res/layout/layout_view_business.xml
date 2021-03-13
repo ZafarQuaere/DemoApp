@@ -101,18 +101,6 @@
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-        <!-- if we put tablayout here it stucks at actionbar-->
-        <!--<com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_40dp"
-            app:tabGravity="center"
-            app:tabIndicatorColor="@color/colorBlack"
-            app:tabMode="scrollable"
-            android:background="@color/colorTransparent"
-            android:hapticFeedbackEnabled="true"
-            app:tabSelectedTextColor="@color/colorBlack"
-            app:tabTextColor="@color/colorGrey" />-->
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -127,19 +115,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <!-- if we put tablayout here it doesn't stuck at actionbar-->
-            <!--<com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40dp"
-                app:tabGravity="center"
-                app:tabIndicatorColor="@color/colorBlack"
-                app:tabMode="scrollable"
-                android:background="@android:color/transparent"
-                android:hapticFeedbackEnabled="false"
-                app:tabSelectedTextColor="@color/colorBlack"
-                app:tabTextColor="@color/colorGrey" />-->
-
 
             <include
                 layout="@layout/vb_layout_brochure"
