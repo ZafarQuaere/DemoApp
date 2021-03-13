@@ -52,8 +52,8 @@ public class AppConstant {
     public static final String URL_MY_BUSINESS = "mybusiness/mybusiness.php?id=";
 
 
+    //My Business APIS
     public static final String URL_BIZ_BASIC_DETAILS = "my_biz/my_biz_basic.php";
-    public static final String URL_OTHER_BIZ_BASIC_DETAILS = "other_biz/other_biz_basic.php";
     public static final String URL_BIZ_OPERATING_HOURS = "my_biz/my_biz_operating_hrs.php";
     public static final String URL_BIZ_ALL_AMENITY_LIST = "my_biz_add_edit/amenities/amenities_list.php";
     public static final String URL_BIZ_AMENITY_LIST = "my_biz/my_biz_amenities.php";
@@ -70,6 +70,17 @@ public class AppConstant {
     public static final String URL_BIZ_PRICING = "my_biz/my_biz_pricing.php?";
     public static final String URL_BIZ_PAYMENT = "my_biz_add_edit/payment_methods/p_methods_list.php";
     public static final String URL_BIZ_ADD_BROCHURE = "my_biz_add_edit/brochure/add_brochure.php";
+
+    // Other Business APIS
+    public static final String URL_OTHER_BIZ_BASIC_DETAILS = "other_biz/other_biz_basic.php";
+    public static final String URL_OTHER_BIZ_AMENITY_LIST = "other_biz/other_biz_amenities.php";
+    public static final String URL_OTHER_BIZ_PAYMENT_METHODS = "other_biz/other_biz_pay_methods.php";
+    public static final String URL_OTHER_BIZ_PRODUCT_SERVICES = "other_biz/other_biz_prod_serv.php";
+    public static final String URL_OTHER_BIZ_PRICING = "other_biz/other_biz_pricing.php";
+    public static final String URL_OTHER_BIZ_BROCHURE = "other_biz/other_biz_brochure.php";
+    public static final String URL_OTHER_BIZ_OP_HOURS = "other_biz/other_biz_operating_hrs.php";
+    public static final String URL_OTHER_BIZ_CATEGORIES = "other_biz/other_biz_categories.php";
+
     public static final String URL_BIZ_ALL_CATEGORIES = "categories/categories_list.php";
 
     //Edit My Business Endpoints

@@ -5,10 +5,13 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.widget.LinearLayout
+import android.widget.ListView
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.ViewPager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -23,9 +26,8 @@ import com.zaf.econnecto.network_call.response_model.img_data.ViewImageData
 import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsData
 import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsResponse
 import com.zaf.econnecto.ui.activities.mybiz.*
-import com.zaf.econnecto.ui.adapters.TabViewPagerAdapter
-import com.zaf.econnecto.ui.adapters.VBHeaderImageRecylcerAdapter
-import com.zaf.econnecto.ui.fragments.details_frag.*
+import com.zaf.econnecto.ui.adapters.*
+import com.zaf.econnecto.ui.interfaces.DeleteCategoryListener
 import com.zaf.econnecto.ui.presenters.ViewBusinessPresenter
 import com.zaf.econnecto.ui.presenters.operations.IMyBizImage
 import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
@@ -43,22 +45,24 @@ import kotlinx.android.synthetic.main.vb_layout_categories.*
 import kotlinx.android.synthetic.main.vb_layout_payment.*
 import kotlinx.android.synthetic.main.vb_layout_photos.*
 import kotlinx.android.synthetic.main.vb_layout_pricing.*
+import kotlinx.android.synthetic.main.vb_layout_product_services.*
 
 
 class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,IMyBusinessLatest, IMyBizImage, OnMapReadyCallback {
 
-    private lateinit var tabLayout : TabLayout
+//    private lateinit var tabLayout : TabLayout
     private lateinit var gMap : GoogleMap
     private var mContext : Context = this
-    private lateinit var myBizViewModel: MyBusinessViewModel
+    private lateinit var otherBizViewModel: OthersBusinessViewModel
     private lateinit var ownerId : String
     private lateinit var businessId : String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_view_business)
-        myBizViewModel = ViewModelProviders.of(this).get(MyBusinessViewModel::class.java)
+        otherBizViewModel = ViewModelProviders.of(this).get(OthersBusinessViewModel::class.java)
         presenter.initMap(this,mapFrag)
         initUI()
 
@@ -71,27 +75,27 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,I
     private fun initUI() {
         ownerId = intent.getStringExtra(getString(R.string.key_owner_id))
         businessId = intent.getStringExtra(getString(R.string.key_biz_id))
-        tabLayout = findViewById<TabLayout>(R.id.tabs)
-        addTabs()
+//        tabLayout = findViewById<TabLayout>(R.id.tabs)
+//        addTabs()
         mapFrag.requireView().visibility = View.VISIBLE
         onClickEvents()
         callApis(ownerId,businessId)
     }
 
     private fun callApis(ownerId: String, businessId: String) {
-        myBizViewModel.otherBizBasicDetails(this, true, this, ownerId)
-        myBizViewModel.bizImageList(mContext as Activity?, this, businessId)
-        myBizViewModel.bizOperatingHours(mContext as Activity?, this, businessId)
-        myBizViewModel.bizAmenityList(mContext as Activity?, this, businessId)
-        myBizViewModel.bizProductServicesList(mContext as Activity?, this, businessId)
-        myBizViewModel.bizBrochureList(mContext as Activity?, this, businessId)
-        myBizViewModel.bizPaymentMethodList(mContext as Activity?, this, businessId)
-        myBizViewModel.bizPricingList(mContext as Activity?, this, businessId)
-        myBizViewModel.bizCategoryList(mContext as Activity?, this, businessId)
+        otherBizViewModel.otherBizBasicDetails(this, this, businessId)
+        otherBizViewModel.bizImageList(mContext as Activity?, this, businessId)
+        otherBizViewModel.bizOperatingHours(mContext as Activity?, this, businessId)
+        otherBizViewModel.bizAmenityList(mContext as Activity?, this, businessId)
+        otherBizViewModel.bizProductServicesList(mContext as Activity?, this, businessId)
+        otherBizViewModel.bizBrochureList(mContext as Activity?, this, businessId)
+        otherBizViewModel.bizPaymentMethodList(mContext as Activity?, this, businessId)
+        otherBizViewModel.bizPricingList(mContext as Activity?, this, businessId)
+        otherBizViewModel.bizCategoryList(mContext as Activity?, this, businessId)
 
     }
 
-    private fun addTabs() {
+   /* private fun addTabs() {
         tabLayout.addTab(tabLayout.newTab().setText("Brochure"))
         tabLayout.addTab(tabLayout.newTab().setText("About"))
         tabLayout.addTab(tabLayout.newTab().setText("Photos"))
@@ -110,7 +114,7 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,I
             }
 
         })
-    }
+    }*/
 
     private fun scrollUpto(text: String?) {
         when (text) {
@@ -170,15 +174,6 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,I
         }
     }
 
-    private fun setupViewPager(viewPagerTabs: ViewPager) {
-        val adapter = TabViewPagerAdapter(this.supportFragmentManager, arrayListOf<String>("First Fragment","Second Fragment","Third Fragment","Fourth Fragment","Fifth Fragment"))
-        adapter.addFragment(FirstFragment(), "Menu")
-        adapter.addFragment(SecondFragment(), "About")
-        adapter.addFragment(ThirdFragment(), "Amenities")
-        adapter.addFragment(FourthFragment(), "Photos")
-        adapter.addFragment(FifthFragment(), "Payment")
-        viewPagerTabs.adapter = adapter
-    }
 
     override fun updateCategory(data: List<CategoryData>) {
 //        val recycler_hotdeals = findViewById<RecyclerView>(R.id.recycler_hotdeals)
@@ -212,15 +207,27 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,I
         if (basicDetailsResponse.data[0] != null) {
             presenter.initMap(this,mapFrag)
             updateMap(basicDetailsResponse.data[0])
-            val basicData = basicDetailsResponse.data[0]
-            textBusinessName.text = basicData.businessName
-
-        } else {
-
+            val basicDetailsDta = basicDetailsResponse.data[0]
+            textBusinessName.text = basicDetailsDta.businessName
+            textFollowers.text = "${basicDetailsDta.followersCount} " + getString(R.string.followers)
+            textShortDescription.text = basicDetailsDta.shortDescription
+            textEstablishedDate.text = getString(R.string.established_year) + ": ${basicDetailsDta.yearEstablished}"
+            textAddress.text = basicDetailsDta.address1
+            textWebsite.text = if (!basicDetailsDta.website.isNullOrEmpty()) basicDetailsDta.website else ""
+            updateAboutSection(basicDetailsDta)
         }
+    }
 
-
-
+    private fun updateAboutSection(basicDetailsDta: BasicDetailsData?) {
+        if (basicDetailsDta?.aboutWhyUs != null && !basicDetailsDta.aboutWhyUs.equals("")) {
+            lytAboutEmpty.visibility = View.GONE
+            lytAboutData.visibility = View.VISIBLE
+            textAboutDesc.text = basicDetailsDta.aboutDescription
+            textAboutWhyUs.text = basicDetailsDta.aboutWhyUs
+        } else {
+            lytAboutData.visibility = View.GONE
+            lytAboutEmpty.visibility = View.VISIBLE
+        }
     }
 
     override fun updateOperatingHours(data: OPHoursData) {
@@ -228,37 +235,118 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns,I
     }
 
     override fun updateProductServiceSection(data: List<ProductNServiceData>) {
-        LogUtils.DEBUG("updateProductServiceSection")
+        if (data == null || data.isEmpty()) {
+            textPnDHeader.text = getString(R.string.product_n_services)
+            textAddProductNServices.visibility = View.VISIBLE
+            listViewProductServices.visibility = View.GONE
+            textAdd.visibility = View.GONE
+        } else {
+            updateProductServiceUI(data)
+        }
     }
 
+    private fun updateProductServiceUI(data: List<ProductNServiceData>) {
+        if (data.isNotEmpty()) {
+          /*  val listViewProductServices = findViewById<RecyclerView>(R.id.listViewProductServices)
+//            textPnDHeader.text = getString(R.string.deals_in)
+            textAddProductNServices.visibility = View.GONE
+            textAdd.visibility = View.VISIBLE
+            listViewProductServices.visibility = View.VISIBLE
+            val layoutManager = LinearLayoutManager(mContext)
+            listViewProductServices.layoutManager = layoutManager
+            listViewProductServices.itemAnimator = DefaultItemAnimator()
+
+            val adapter = BizProdNServiceListAdapter(this, data, null)
+            listViewProductServices.adapter = adapter*/
+        }
+
+    }
     override fun updateBrochureSection(data: List<BrochureData>) {
         LogUtils.DEBUG("updateBrochureSection")
     }
 
     override fun updateAmenitiesSection(data: List<AmenityData>?) {
-        LogUtils.DEBUG("updateAmenitiesSection")
+        if (data == null) {
+            textAddAmenities.visibility = View.VISIBLE
+            lytAmenity.visibility = View.GONE
+        } else {
+            updateAmenitiesUI(data)
+        }
+    }
+    private fun updateAmenitiesUI(data: List<AmenityData>) {
+        textAddAmenities.visibility = View.GONE
+        lytAmenity.visibility = View.VISIBLE
+        val layoutManager = StaggeredGridLayoutManager(2, LinearLayout.VERTICAL)
+        recyclerAmenities.layoutManager = layoutManager
+        recyclerAmenities.itemAnimator = DefaultItemAnimator()
+        val amenityAdapter = AmenitiesMyBizStaggeredAdapter(this, data)
+        recyclerAmenities.adapter = amenityAdapter
+
+
     }
 
-    override fun updatePaymentSection(data: List<PaymentMethodData>) {
-        LogUtils.DEBUG("updatePaymentSection")
+    override fun updatePaymentSection(data: List<PaymentMethodData>?) {
+        if (data == null || data.isEmpty()) {
+            textAddPayments.visibility = View.VISIBLE
+            lytPayments.visibility = View.GONE
+        } else {
+            updatePaymentsUI(data)
+        }
+    }
+
+    private fun updatePaymentsUI(data: List<PaymentMethodData>) {
+        textAddPayments.visibility = View.GONE
+        lytPayments.visibility = View.VISIBLE
+        val layoutManager = StaggeredGridLayoutManager(2, LinearLayout.VERTICAL)
+        recyclerPayments.layoutManager = layoutManager
+        recyclerPayments.itemAnimator = DefaultItemAnimator()
+        val adapter = PaymentsMyBizStaggeredAdapter(this, data)
+        recyclerPayments.adapter = adapter
+
     }
 
     override fun updatePricingSection(data: List<PricingData>) {
-        LogUtils.DEBUG("updatePricingSection")
+        if (data == null || data.isEmpty()) {
+            textAddPricing.visibility = View.VISIBLE
+            lytPricing.visibility = View.GONE
+        } else {
+            updatePricingUI(data)
+        }
+    }
+
+    private fun updatePricingUI(data: List<PricingData>) {
+        textAddPricing.visibility = View.GONE
+        lytPricing.visibility = View.VISIBLE
+        val layoutManager = LinearLayoutManager(mContext)
+        recyclerPricing.layoutManager = layoutManager
+        recyclerPricing.itemAnimator = DefaultItemAnimator()
+        val adapter = PricingMyBizStaggeredAdapter(this, data)
+        recyclerPricing.adapter = adapter
     }
 
     override fun updateCategories(data: List<com.zaf.econnecto.ui.activities.mybiz.UserCategoryData>) {
-        LogUtils.DEBUG("updateCategories")
+        updateCategoryList(data)
+    }
+
+    private fun updateCategoryList(data: List<UserCategoryData>) {
+        if (data.isNotEmpty()) {
+            val catListView = findViewById<ListView>(R.id.myBizCategoryList)
+            catListView.visibility = View.VISIBLE
+            val adapter = UserCategoryListAdapter(this, data, object : DeleteCategoryListener {
+                override fun deleteCategory(categorydata: UserCategoryData) {
+
+                }
+            })
+            catListView.adapter = adapter
+        }
     }
 
     private fun updateMap(basicDetailsDta: BasicDetailsData) {
         val fullAddress: String = basicDetailsDta.address1 + ", " + basicDetailsDta.cityTown + ", " + basicDetailsDta.state + ", " + basicDetailsDta.pinCode
         val location = KotUtil.getLocationFromAddress(this, fullAddress)!!
         val address = AddressData(basicDetailsDta.address1, basicDetailsDta.state, basicDetailsDta.cityTown, basicDetailsDta.pinCode, location.latitude.toString() + "", "" + location.longitude)
-//        location.latitude,location.longitude
         LogUtils.DEBUG(address.toString())
         val storeLocation = LatLng(location.latitude, location.longitude)
-        //val ny = LatLng(-34.0, 151.0)
         val markerOptions = MarkerOptions()
         markerOptions.position(storeLocation)
         gMap.addMarker(markerOptions)

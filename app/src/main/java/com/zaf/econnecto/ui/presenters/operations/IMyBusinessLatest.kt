@@ -10,7 +10,7 @@ interface IMyBusinessLatest {
     fun updateProductServiceSection(data: List<ProductNServiceData>)
     fun updateBrochureSection(data: List<BrochureData>)
     fun updateAmenitiesSection(data: List<AmenityData>?)
-    fun updatePaymentSection(data: List<PaymentMethodData>)
+    fun updatePaymentSection(data: List<PaymentMethodData>?)
     fun updatePricingSection(data: List<PricingData>)
     fun updateCategories(data: List<UserCategoryData>)
 }

@@ -577,7 +577,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
 
     }
 
-    override fun updatePaymentSection(data: List<PaymentMethodData>) {
+    override fun updatePaymentSection(data: List<PaymentMethodData>?) {
         if (data == null || data.isEmpty()) {
             textAddPayments.visibility = View.VISIBLE
             lytPayments.visibility = View.GONE

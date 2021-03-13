@@ -102,7 +102,7 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
         <!-- if we put tablayout here it stucks at actionbar-->
-        <com.google.android.material.tabs.TabLayout
+        <!--<com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40dp"
@@ -112,7 +112,7 @@
             android:background="@color/colorTransparent"
             android:hapticFeedbackEnabled="true"
             app:tabSelectedTextColor="@color/colorBlack"
-            app:tabTextColor="@color/colorGrey" />
+            app:tabTextColor="@color/colorGrey" />-->
 
     </com.google.android.material.appbar.AppBarLayout>
 

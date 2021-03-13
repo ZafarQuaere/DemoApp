@@ -36,38 +36,7 @@ class MyBusinessViewModel : ViewModel() {
     var basicDetailsData = MutableLiveData<MutableList<BasicDetailsData>>()
     lateinit var basicDetailsResponse: LiveData<BasicDetailsResponse>
 
-    fun otherBizBasicDetails(activity: Activity?, imageUpdate: Boolean, listener: IMyBusinessLatest, ownerId: String) {
-        if (activity != null)
-            mActivity = activity
-        val loader = AppDialogLoader.getLoader(mActivity)
-        loader.show()
-        val jsonObject = JSONObject()
-        jsonObject.put("owner_id", ownerId)
-        val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = categoryService.getOtherBizBasicDetails(ownerId)
-        LogUtils.DEBUG("Url: ${requestCall.request().url()}")
-        requestCall.enqueue(object : Callback<JsonObject> {
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                loader.dismiss()
-                LogUtils.DEBUG("callBasicDetailsApi Failure: ${t.localizedMessage}")
-            }
 
-            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                val body = JSONObject(Gson().toJson(response.body()))
-                LogUtils.DEBUG("callBasicDetailsApi Response:->> $body")
-                val status = body.optInt("status")
-                loader.dismiss()
-                if (status == AppConstant.SUCCESS) {
-                    val basicDetailsResponse = ParseManager.getInstance().fromJSON(body.toString(), BasicDetailsResponse::class.java)
-//                   basicDetailsData = basicDetailsResponse.data.toMutableList()
-                    PrefUtil.setBasicDetailsData(mActivity, body.toString())
-                    listener.updateBasicDetails(basicDetailsResponse, imageUpdate)
-                } else {
-                    LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) { /*(mActivity).onBackPressed()*/ }
-                }
-            }
-        })
-    }
 
     fun callMyBizBasicDetails(activity: Activity?, imageUpdate: Boolean, listener: IMyBusinessLatest, ownerId: String) {
         if (activity != null)

@@ -15,8 +15,8 @@ interface EConnectoServices {
     @GET("business_list/business_list.php")
     fun getBusinessList(@Query("id") id: String): Call<JsonObject>
 
-    @GET(AppConstant.URL_OTHER_BIZ_BASIC_DETAILS)
-    fun getOtherBizBasicDetails(@Query("") email: String): Call<JsonObject>
+    @POST(AppConstant.URL_OTHER_BIZ_BASIC_DETAILS)
+    fun getOtherBizBasicDetails(@Body requestBody: RequestBody): Call<JsonObject>
 
     @POST("user_registration/register.php")
     fun registerUser(@Body requestBody: RequestBody): Call<JsonObject>
@@ -94,4 +94,26 @@ interface EConnectoServices {
 
     @GET(AppConstant.URL_BIZ_ALL_CATEGORIES)
     fun bizAllCategories(): Call<BizCategories>
+
+    //VIEW OTHER BUSINESS API CALLS
+    @GET(AppConstant.URL_OTHER_BIZ_AMENITY_LIST)
+    fun otherBizAmenityList(@Query("business_id") businessId: String): Call<Amenities>
+
+    @GET(AppConstant.URL_OTHER_BIZ_PAYMENT_METHODS)
+    fun otherBizPaymentList(@Query("business_id") businessId: String): Call<PaymentMethods>
+
+    @GET(AppConstant.URL_OTHER_BIZ_OP_HOURS)
+    fun otherBizOperatingHours(@Query("business_id") businessId: String): Call<OPHours>
+
+    @GET(AppConstant.URL_OTHER_BIZ_PRODUCT_SERVICES)
+    fun otherBizProductServicesList(@Query("business_id") businessId: String): Call<ProductNService>
+
+    @GET(AppConstant.URL_OTHER_BIZ_BROCHURE)
+    fun otherBizBrochureList(@Query("business_id") businessId: String): Call<Brochure>
+
+    @GET(AppConstant.URL_OTHER_BIZ_PRICING)
+    fun otherBizPricingList(@Query("business_id") businessId: String): Call<Pricing>
+
+    @GET(AppConstant.URL_OTHER_BIZ_CATEGORIES)
+    fun otherBizCategoryList(@Query("business_id") businessId: String): Call<UserCategories>
 }
