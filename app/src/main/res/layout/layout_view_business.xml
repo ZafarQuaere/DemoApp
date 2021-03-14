@@ -69,24 +69,11 @@
                         android:visibility="gone"
                         tools:listitem="@layout/header_image_list_item" />
 
-                    <TextView
-                        android:background="@drawable/btn_follow"
-                        android:layout_marginHorizontal="@dimen/_30dp"
-                        android:paddingVertical="@dimen/_5dp"
+                    <include
+                        layout="@layout/vb_layout_product_services"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:text="Deals In" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:visibility="visible"
-                        android:id="@+id/listViewProductServices"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/colorWhite"
-                        android:overScrollMode="never"
-                        android:scrollbars="none"
-                        tools:listitem="@layout/my_biz_category_item" />
+                        android:visibility="visible" />
                 </LinearLayout>
 
             <androidx.appcompat.widget.Toolbar
@@ -134,7 +121,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:layout_marginTop="@dimen/_3dp"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
             <include
                 layout="@layout/vb_layout_amenities"

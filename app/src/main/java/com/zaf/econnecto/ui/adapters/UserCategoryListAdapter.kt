@@ -12,11 +12,11 @@ import com.zaf.econnecto.R
 import com.zaf.econnecto.ui.activities.mybiz.UserCategoryData
 import com.zaf.econnecto.ui.interfaces.DeleteCategoryListener
 
-class UserCategoryListAdapter(activity: Activity, data: List<UserCategoryData>, listener : DeleteCategoryListener) : BaseAdapter() {
+class UserCategoryListAdapter(activity: Activity, data: List<UserCategoryData>, listener: DeleteCategoryListener?) : BaseAdapter() {
     var catList : List<UserCategoryData> = data
     private val inflater: LayoutInflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     private lateinit var rowView : View
-    private val mListener: DeleteCategoryListener = listener
+    private val mListener: DeleteCategoryListener? = listener
     override fun getCount(): Int {
        return catList.size
     }
@@ -39,7 +39,7 @@ class UserCategoryListAdapter(activity: Activity, data: List<UserCategoryData>, 
         val textCategoryName = rowView.findViewById(R.id.textCategoryName) as TextView
         val iconDelete = rowView.findViewById(R.id.iconDelete) as ImageButton
         iconDelete.setOnClickListener {
-            mListener.deleteCategory(catList[position])
+            mListener?.deleteCategory(catList[position])
         }
 
         //sets the text for item name and item description from the current item object

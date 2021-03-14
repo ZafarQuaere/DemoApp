@@ -26,7 +26,6 @@ import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsDat
 import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsResponse
 import com.zaf.econnecto.ui.activities.mybiz.*
 import com.zaf.econnecto.ui.adapters.*
-import com.zaf.econnecto.ui.interfaces.DeleteCategoryListener
 import com.zaf.econnecto.ui.presenters.ViewBusinessPresenter
 import com.zaf.econnecto.ui.presenters.operations.IMyBizImage
 import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
@@ -38,9 +37,11 @@ import kotlinx.android.synthetic.main.vb_address_detail.*
 import kotlinx.android.synthetic.main.vb_communication_menu.*
 import kotlinx.android.synthetic.main.vb_layout_about.*
 import kotlinx.android.synthetic.main.vb_layout_amenities.*
+import kotlinx.android.synthetic.main.vb_layout_categories.*
 import kotlinx.android.synthetic.main.vb_layout_payment.*
 import kotlinx.android.synthetic.main.vb_layout_pricing.*
 import kotlinx.android.synthetic.main.vb_layout_product_services.*
+import kotlinx.android.synthetic.main.vb_operating_hours.*
 
 
 class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, IMyBusinessLatest, IMyBizImage, OnMapReadyCallback {
@@ -154,7 +155,9 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
     }
 
     private fun updateAboutSection(basicDetailsDta: BasicDetailsData?) {
+        textAboutEdit.setCompoundDrawablesWithIntrinsicBounds(0,0,0,0) // to remove the edit drawable from end
         if (basicDetailsDta?.aboutWhyUs != null && !basicDetailsDta.aboutWhyUs.equals("")) {
+
             lytAboutEmpty.visibility = View.GONE
             lytAboutData.visibility = View.VISIBLE
             textAboutDesc.text = basicDetailsDta.aboutDescription
@@ -166,7 +169,7 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
     }
 
     override fun updateOperatingHours(data: OPHoursData) {
-        LogUtils.DEBUG("updateOperatingHours")
+        iconEditOPHour.visibility = View.GONE
     }
 
     override fun updateProductServiceSection(data: List<ProductNServiceData>) {
@@ -182,17 +185,17 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
 
     private fun updateProductServiceUI(data: List<ProductNServiceData>) {
         if (data.isNotEmpty()) {
-            /*  val listViewProductServices = findViewById<RecyclerView>(R.id.listViewProductServices)
-  //            textPnDHeader.text = getString(R.string.deals_in)
+        val listViewProductServices = findViewById<RecyclerView>(R.id.listViewProductServices)
+              textPnDHeader.text = getString(R.string.deals_in)
               textAddProductNServices.visibility = View.GONE
-              textAdd.visibility = View.VISIBLE
+                textAdd.visibility = View.GONE
               listViewProductServices.visibility = View.VISIBLE
               val layoutManager = LinearLayoutManager(mContext)
               listViewProductServices.layoutManager = layoutManager
               listViewProductServices.itemAnimator = DefaultItemAnimator()
 
               val adapter = BizProdNServiceListAdapter(this, data, null)
-              listViewProductServices.adapter = adapter*/
+              listViewProductServices.adapter = adapter
         }
 
     }
@@ -202,6 +205,7 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
     }
 
     override fun updateAmenitiesSection(data: List<AmenityData>?) {
+        textAmenityEdit.setCompoundDrawablesWithIntrinsicBounds(0,0,0,0) // to remove the edit drawable from end
         if (data == null) {
             textAddAmenities.visibility = View.VISIBLE
             lytAmenity.visibility = View.GONE
@@ -223,6 +227,7 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
     }
 
     override fun updatePaymentSection(data: List<PaymentMethodData>?) {
+        textPaymentEdit.setCompoundDrawablesWithIntrinsicBounds(0,0,0,0) // to remove the edit drawable from end
         if (data == null || data.isEmpty()) {
             textAddPayments.visibility = View.VISIBLE
             lytPayments.visibility = View.GONE
@@ -243,6 +248,7 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
     }
 
     override fun updatePricingSection(data: List<PricingData>) {
+        textPricingEdit.setCompoundDrawablesWithIntrinsicBounds(0,0,0,0)
         if (data == null || data.isEmpty()) {
             textAddPricing.visibility = View.VISIBLE
             lytPricing.visibility = View.GONE
@@ -269,11 +275,8 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
         if (data.isNotEmpty()) {
             val catListView = findViewById<ListView>(R.id.myBizCategoryList)
             catListView.visibility = View.VISIBLE
-            val adapter = UserCategoryListAdapter(this, data, object : DeleteCategoryListener {
-                override fun deleteCategory(categorydata: UserCategoryData) {
-
-                }
-            })
+            textAddCategory.visibility = View.GONE
+            val adapter = UserCategoryListAdapter(this, data, null)
             catListView.adapter = adapter
         }
     }

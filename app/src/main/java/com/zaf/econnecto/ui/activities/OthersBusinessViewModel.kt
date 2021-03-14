@@ -203,23 +203,29 @@ class OthersBusinessViewModel : ViewModel() {
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
         val requestCall = categoryService.otherBizProductServicesList(bizId)
         LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
-        requestCall.enqueue(object : Callback<ProductNService> {
-            override fun onFailure(call: Call<ProductNService>, t: Throwable) {
+        requestCall.enqueue(object : Callback<JsonObject> {
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 loader.dismiss()
                 LogUtils.DEBUG("bizProductServicesList() Failure: ${t.localizedMessage}")
 
             }
 
-            override fun onResponse(call: Call<ProductNService>, response: Response<ProductNService>) {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 LogUtils.DEBUG("bizProductServicesList Response:->> ${ParseManager.getInstance().toJSON(response.body())}")
-                if (response != null && response.isSuccessful) {
-                    val PnService: ProductNService = response.body()!!
-                    if (PnService.status == AppConstant.SUCCESS) {
-                        listener.updateProductServiceSection(PnService.data)
-                    } else {
-                        LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), PnService.message[0])
-                    }
+
+
+                val body = JSONObject(Gson().toJson(response.body()))
+                LogUtils.DEBUG("bizImageList Response:->> $body")
+                var status = body.optInt("status")
+                if (status == AppConstant.SUCCESS) {
+                    val PnService = ParseManager.getInstance().fromJSON(body.toString(), ProductNService::class.java)
+                    listener.updateProductServiceSection(PnService.data)
+                } else {
+                    val jsonArray = body.optJSONArray("message")
+                    val message = jsonArray!!.get(0) as String
+                    LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), message)
                 }
+
                 loader.dismiss()
             }
         })

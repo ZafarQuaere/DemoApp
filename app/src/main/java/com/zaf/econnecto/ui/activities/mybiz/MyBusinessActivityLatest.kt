@@ -289,7 +289,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         rlytMail.setOnClickListener {
             basicDetailsDta.email?.let { Utils.openMail(mContext, it) }
         }
-        rlytExpandAddress.setOnClickListener {
+        rlytShareBiz.setOnClickListener {
             LogUtils.showToast(mContext, "expand address")
         }
     }

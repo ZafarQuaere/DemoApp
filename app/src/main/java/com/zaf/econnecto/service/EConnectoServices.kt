@@ -106,7 +106,7 @@ interface EConnectoServices {
     fun otherBizOperatingHours(@Query("business_id") businessId: String): Call<OPHours>
 
     @GET(AppConstant.URL_OTHER_BIZ_PRODUCT_SERVICES)
-    fun otherBizProductServicesList(@Query("business_id") businessId: String): Call<ProductNService>
+    fun otherBizProductServicesList(@Query("business_id") businessId: String): Call<JsonObject>
 
     @GET(AppConstant.URL_OTHER_BIZ_BROCHURE)
     fun otherBizBrochureList(@Query("business_id") businessId: String): Call<Brochure>
