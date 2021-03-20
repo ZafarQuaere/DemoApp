@@ -46,7 +46,6 @@
             android:orientation="horizontal"
             android:overScrollMode="never"
             android:scrollbars="none"
-            android:visibility="visible"
             tools:listitem="@layout/amenity_items" />
     </LinearLayout>
 

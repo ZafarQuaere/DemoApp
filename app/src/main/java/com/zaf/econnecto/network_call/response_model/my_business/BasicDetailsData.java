@@ -75,6 +75,19 @@ public class BasicDetailsData {
     @Expose
     private String followersCount;
 
+    @SerializedName("is_following")
+    @Expose
+    private int isFollowing;
+
+    public int getIsFollowing() {
+        return isFollowing;
+    }
+
+    public void setIsFollowing(int isFollowing) {
+        this.isFollowing = isFollowing;
+    }
+
+
     public String getBusinessId() {
         return businessId;
     }

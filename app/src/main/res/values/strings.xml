@@ -72,7 +72,7 @@
     <string name="key_login_data">key_login_data</string>
     <string name="key_new_order_data">key_new_order_data</string>
     <string name="key_business_status">key_business_status</string>
-    <string name="no_data_available">Oops! No data available.</string>
+    <string name="no_data_available">No data available!</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="no_new_order_available">No Order available right now.</string>
@@ -386,4 +386,7 @@
     <string name="amenity_added_successfully">Amenity successfully added</string>
     <string name="payment_method_added_successfully">Payment method added succesfully</string>
     <string name="key_owner_id">key_owner_id</string>
+    <string name="add_more">Add more</string>
+    <string name="price">Price</string>
+    <string name="unit">Unit</string>
 </resources>

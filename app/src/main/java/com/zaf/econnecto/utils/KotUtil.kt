@@ -1,10 +1,13 @@
 package com.zaf.econnecto.utils
 
+import android.app.Activity
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -178,7 +181,7 @@ class KotUtil {
         }
 
         private suspend fun compressFurther(mContext: Context, file: File): File {
-           return Compressor.compress(mContext,file) {
+           return Compressor.compress(mContext, file) {
                 resolution(1000, 420)
                 quality(70)
                 format(Bitmap.CompressFormat.WEBP)
@@ -205,12 +208,30 @@ class KotUtil {
             return DecimalFormat("#,##0.#").format(size / 1024.0.pow(digitGroups.toDouble())) + " " + units[digitGroups]
         }
 
+        fun setNoDataUI(activity: Activity, tv: TextView?) {
+            tv?.text = activity.getString(R.string.no_data_available)
+            tv?.textSize = pixelsToSp(activity,50.0f)
+        }
+
+
+        fun dpToPx(dp: Int): Int {
+            return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), Resources.getSystem().displayMetrics).toInt()
+        }
+
+        fun pxToDp(px: Float): Int {
+            return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, px, Resources.getSystem().displayMetrics).toInt()
+        }
+
+        fun pixelsToSp(context: Context, px: Float): Float {
+            val scaledDensity = context.resources.displayMetrics.scaledDensity
+            return px / scaledDensity
+        }
+
 
     }
 
 
-
-    public fun loadDataFromAssets(activity: AppCompatActivity,mfileName: String) {
+    public fun loadDataFromAssets(activity: AppCompatActivity, mfileName: String) {
        // var fileName : String = "user_register_failure"
         var fileName : String = mfileName
         val loadJSONFromAsset = FileUtil.loadJSONFromAsset(activity, fileName)

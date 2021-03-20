@@ -84,6 +84,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         private const val UPDATE_PHOTOS = 116
         private const val UPDATE_PAYMENTS = 117
         private const val UPDATE_CATEGORY = 118
+        private const val UPDATE_PRICING = 119
     }
 
     override fun initPresenter(): MyBusinessPresenterLatest {
@@ -150,6 +151,9 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
             startActivityForResult(Intent(this, CategoriesActivity::class.java), UPDATE_CATEGORY)
         }
 
+        textAddPricing.setOnClickListener {
+            startActivityForResult(Intent(this, PricingActivity::class.java), UPDATE_PRICING)
+        }
     }
 
     private fun addTabsWithoutVP() {
@@ -425,6 +429,10 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
                     LogUtils.showToast(mContext, "Coming from Category Activity")
                     //   myBizViewModel.bizCategoryList(mContext, this, PrefUtil.getBizId(mContext as Activity))
                 }
+                UPDATE_PRICING -> {
+                    LogUtils.DEBUG("Coming from Category Activity")
+                    LogUtils.showToast(mContext, "Coming from Pricing Activity")
+                }
                 else -> {
                     selectedImageUri = data.data
                     moveToEditImage(data, requestCode)
@@ -490,7 +498,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
 
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    override fun updateOperatingHours(data: OPHoursData) {
+    override fun updateOperatingHours(data: OPHoursData?) {
        if (data != null) {
            iconOpenClose.background = if (data.CurrentStatus == "Closed") getDrawable(R.drawable.ic_circle_red) else getDrawable(R.drawable.ic_circle_green)
            textOperatingHours.text = getOPTiming(data)
@@ -503,7 +511,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         return "Operating Hours"
     }
 
-    override fun updateProductServiceSection(data: List<ProductNServiceData>) {
+    override fun updateProductServiceSection(data: List<ProductNServiceData>?) {
         if (data == null || data.isEmpty()) {
             textPnDHeader.text = getString(R.string.product_n_services)
             textAddProductNServices.visibility = View.VISIBLE
@@ -538,8 +546,17 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
 
     }
 
-    override fun updateBrochureSection(data: List<BrochureData>) {
+    override fun updateBrochureSection(data: List<BrochureData>?) {
+        if (data == null || data.isEmpty()) {
+            textUploadBrochure.visibility = View.VISIBLE
+        } else {
+            textUploadBrochure.visibility = View.GONE
+            updateBrochureUI()
+        }
+    }
 
+
+    private fun updateBrochureUI() {
     }
 
     private fun updateAboutSection(basicDetailsDta: BasicDetailsData) {
@@ -599,7 +616,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         }
     }
 
-    override fun updatePricingSection(data: List<PricingData>) {
+    override fun updatePricingSection(data: List<PricingData>?) {
         if (data == null || data.isEmpty()) {
             textAddPricing.visibility = View.VISIBLE
             lytPricing.visibility = View.GONE
@@ -616,10 +633,16 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         recyclerPricing.itemAnimator = DefaultItemAnimator()
         val adapter = PricingMyBizStaggeredAdapter(this, data)
         recyclerPricing.adapter = adapter
+        textPricingEdit.setOnClickListener {
+            startActivityForResult(Intent(this, PricingActivity::class.java), UPDATE_PRICING)
+        }
     }
 
-    override fun updateCategories(data: List<UserCategoryData>) {
-        updateCategoryList(data)
+    override fun updateCategories(data: List<UserCategoryData>?) {
+        if (data == null || data.isEmpty()) {
+
+        } else
+            updateCategoryList(data)
     }
 
     private fun updateCategoryList(data: List<UserCategoryData>) {

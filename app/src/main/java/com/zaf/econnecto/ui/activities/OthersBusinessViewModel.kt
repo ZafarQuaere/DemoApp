@@ -70,7 +70,6 @@ class OthersBusinessViewModel : ViewModel() {
         })
     }
 
-
     fun bizAmenityList(activity: Activity?, listener: IMyBusinessLatest, bizId: String) {
         if (activity != null)
             mActivity = activity
@@ -80,27 +79,27 @@ class OthersBusinessViewModel : ViewModel() {
         val requestCall = categoryService.otherBizAmenityList(bizId)
         LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
 
-        requestCall.enqueue(object : Callback<Amenities> {
-            override fun onFailure(call: Call<Amenities>, t: Throwable) {
+        requestCall.enqueue(object : Callback<JsonObject> {
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 loader.dismiss()
                 LogUtils.DEBUG("bizAmenityList() Failure: ${t.localizedMessage}")
             }
 
-            override fun onResponse(call: Call<Amenities>, response: Response<Amenities>) {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 LogUtils.DEBUG("bizAmenityList response: " + ParseManager.getInstance().toJSON(response.body()))
                 loader.dismiss()
-                if (response.isSuccessful) {
-                    val amenities = response.body()
-                    if (amenities?.status == AppConstant.SUCCESS) {
-                        listener.updateAmenitiesSection(amenities!!.data)
-                    } else {
-                        listener.updateAmenitiesSection(null)
-                    }
+                val body = JSONObject(Gson().toJson(response.body()))
+                val status = body.optInt("status")
+                if (status == AppConstant.SUCCESS) {
+                    val amenities = ParseManager.getInstance().fromJSON(body.toString(), Amenities::class.java)
+                    listener.updateAmenitiesSection(amenities!!.data)
+                } else {
+                    listener.updateAmenitiesSection(null)
                 }
+
             }
         })
     }
-
 
     fun bizImageList(activity: Activity?, listener: IMyBizImage, bizId: String) {
         if (activity != null)
@@ -114,13 +113,12 @@ class OthersBusinessViewModel : ViewModel() {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 loader.dismiss()
                 LogUtils.DEBUG("bizImageList() Failure: ${t.localizedMessage}")
-
             }
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 val body = JSONObject(Gson().toJson(response.body()))
                 LogUtils.DEBUG("bizImageList Response:->> $body")
-                var status = body.optInt("status")
+                val status = body.optInt("status")
                 if (status == AppConstant.SUCCESS) {
                     val data = ParseManager.getInstance().fromJSON(body.toString(), ViewImages::class.java)
                     listener!!.updateBannerImage(data.data)
@@ -142,21 +140,21 @@ class OthersBusinessViewModel : ViewModel() {
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
         val requestCall = categoryService.otherBizOperatingHours("21"/*bizId*/)
         LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
-        requestCall.enqueue(object : Callback<OPHours> {
-            override fun onResponse(call: Call<OPHours>, response: Response<OPHours>) {
+        requestCall.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 loader.dismiss()
-                LogUtils.DEBUG("bizOperatingHours response: " + ParseManager.getInstance().toJSON(response.body()))
-                if (response.isSuccessful) {
-                    val opHours = response.body()
-                    if (opHours!!.status == AppConstant.SUCCESS) {
-                        listener.updateOperatingHours(opHours.data)
-                    } else {
-                        LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), opHours.message[0])
-                    }
+                val body = JSONObject(Gson().toJson(response.body()))
+                LogUtils.DEBUG("bizPricingList Response:->> $body")
+                val status = body.optInt("status")
+                if (status == AppConstant.SUCCESS) {
+                    val opHours = ParseManager.getInstance().fromJSON(body.toString(), OPHours::class.java)
+                    listener.updateOperatingHours(opHours.data)
+                } else {
+                    listener.updateOperatingHours(null)
                 }
             }
 
-            override fun onFailure(call: Call<OPHours>, t: Throwable) {
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 loader.dismiss()
                 LogUtils.DEBUG("bizOperatingHours error: " + t.localizedMessage)
             }
@@ -170,25 +168,24 @@ class OthersBusinessViewModel : ViewModel() {
         var loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = categoryService.otherBizBrochureList("21"/*bizId*/)
+        val requestCall = categoryService.otherBizBrochureList(bizId)
         LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
 
-        requestCall.enqueue(object : Callback<Brochure> {
-            override fun onFailure(call: Call<Brochure>, t: Throwable) {
+        requestCall.enqueue(object : Callback<JsonObject> {
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 loader.dismiss()
                 LogUtils.DEBUG("bizBrochureList() Failure: ${t.localizedMessage}")
             }
 
-            override fun onResponse(call: Call<Brochure>, response: Response<Brochure>) {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 val body = JSONObject(Gson().toJson(response.body()))
-                LogUtils.DEBUG("bizBrochureList Response:->> ${ParseManager.getInstance().toJSON(response.body())}")
-                if (response != null && response.isSuccessful) {
-                    val brochure: Brochure = response.body()!!
-                    if (brochure.status == AppConstant.SUCCESS) {
-                        listener.updateBrochureSection(brochure.data)
-                    } else {
-                        LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), brochure.message[0])
-                    }
+                LogUtils.DEBUG("bizBrochureList Response:->> $body")
+                val status = body.optInt("status")
+                if (status == AppConstant.SUCCESS) {
+                    val brochure = ParseManager.getInstance().fromJSON(body.toString(), Brochure::class.java)
+                    listener.updateBrochureSection(brochure.data)
+                } else {
+                    listener.updateBrochureSection(null)
                 }
                 loader.dismiss()
             }
@@ -198,7 +195,7 @@ class OthersBusinessViewModel : ViewModel() {
     fun bizProductServicesList(activity: Activity?, listener: IMyBusinessLatest, bizId: String) {
         if (activity != null)
             mActivity = activity
-        var loader = AppDialogLoader.getLoader(mActivity)
+        val loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
         val requestCall = categoryService.otherBizProductServicesList(bizId)
@@ -207,25 +204,20 @@ class OthersBusinessViewModel : ViewModel() {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 loader.dismiss()
                 LogUtils.DEBUG("bizProductServicesList() Failure: ${t.localizedMessage}")
-
             }
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                LogUtils.DEBUG("bizProductServicesList Response:->> ${ParseManager.getInstance().toJSON(response.body())}")
-
-
                 val body = JSONObject(Gson().toJson(response.body()))
-                LogUtils.DEBUG("bizImageList Response:->> $body")
-                var status = body.optInt("status")
+                LogUtils.DEBUG("bizProductServicesList Response:->> $body")
+                val status = body.optInt("status")
                 if (status == AppConstant.SUCCESS) {
                     val PnService = ParseManager.getInstance().fromJSON(body.toString(), ProductNService::class.java)
                     listener.updateProductServiceSection(PnService.data)
                 } else {
                     val jsonArray = body.optJSONArray("message")
                     val message = jsonArray!!.get(0) as String
-                    LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), message)
+                    listener.updateProductServiceSection(null)
                 }
-
                 loader.dismiss()
             }
         })
@@ -239,21 +231,21 @@ class OthersBusinessViewModel : ViewModel() {
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
         val requestCall = categoryService.otherBizPaymentList(bizId)
         LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
-        requestCall.enqueue(object : Callback<PaymentMethods> {
-            override fun onFailure(call: Call<PaymentMethods>, t: Throwable) {
+        requestCall.enqueue(object : Callback<JsonObject> {
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 loader.dismiss()
                 LogUtils.DEBUG("bizPaymentMethodList Failure: ${t.localizedMessage}")
             }
 
-            override fun onResponse(call: Call<PaymentMethods>, response: Response<PaymentMethods>) {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 LogUtils.DEBUG("bizPaymentMethodList Response:->> ${ParseManager.getInstance().toJSON(response.body())}")
-                if (response != null && response.isSuccessful) {
-                    val paymentMethod: PaymentMethods = response.body()!!
-                    if (paymentMethod.status == AppConstant.SUCCESS) {
-                        listener.updatePaymentSection(paymentMethod.data)
-                    } else {
-                        listener.updatePaymentSection(null)
-                    }
+                val body = JSONObject(Gson().toJson(response.body()))
+                val status = body.optInt("status")
+                if (status == AppConstant.SUCCESS) {
+                    val paymentMethod = ParseManager.getInstance().fromJSON(body.toString(), PaymentMethods::class.java)
+                    listener.updatePaymentSection(paymentMethod.data)
+                } else {
+                    listener.updatePaymentSection(null)
                 }
                 loader.dismiss()
             }
@@ -266,56 +258,54 @@ class OthersBusinessViewModel : ViewModel() {
         var loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = categoryService.otherBizPricingList("21"/*bizId*/)
-//        val requestCall = categoryService.bizPricingList(PrefUtil.getBizId(mActivity))
+        val requestCall = categoryService.otherBizPricingList(bizId)
         LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
 
-        requestCall.enqueue(object : Callback<Pricing> {
-            override fun onFailure(call: Call<Pricing>, t: Throwable) {
+        requestCall.enqueue(object : Callback<JsonObject> {
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 loader.dismiss()
                 LogUtils.DEBUG("bizPricingList Failure: ${t.localizedMessage}")
-
             }
 
-            override fun onResponse(call: Call<Pricing>, response: Response<Pricing>) {
-                LogUtils.DEBUG("bizPricingList Response:->> ${ParseManager.getInstance().toJSON(response.body())}")
-                if (response != null && response.isSuccessful) {
-                    val pricing: Pricing = response.body()!!
-                    if (pricing.status == AppConstant.SUCCESS) {
-                        listener.updatePricingSection(pricing.data)
-                    } else {
-                        LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), pricing.message[0])
-                    }
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                val body = JSONObject(Gson().toJson(response.body()))
+                LogUtils.DEBUG("bizPricingList Response:->> $body")
+                val status = body.optInt("status")
+                if (status == AppConstant.SUCCESS) {
+                    val pricing = ParseManager.getInstance().fromJSON(body.toString(), Pricing::class.java)
+                    listener.updatePricingSection(pricing.data)
+                } else {
+                    listener.updatePricingSection(null)
                 }
                 loader.dismiss()
             }
         })
     }
 
-
     fun bizCategoryList(activity: Activity?, listener: IMyBusinessLatest, bizId: String) {
         if (activity != null)
             mActivity = activity
-        var loader = AppDialogLoader.getLoader(mActivity)
+        val loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = categoryService.otherBizCategoryList("21"/*bizId*/)
+        val requestCall = categoryService.otherBizCategoryList(bizId)
         LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
-        requestCall.enqueue(object : Callback<UserCategories> {
-            override fun onFailure(call: Call<UserCategories>, t: Throwable) {
+        requestCall.enqueue(object : Callback<JsonObject> {
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 loader.dismiss()
                 LogUtils.DEBUG("bizCategoryList() Failure: ${t.localizedMessage}")
-
             }
 
-            override fun onResponse(call: Call<UserCategories>, response: Response<UserCategories>) {
-                LogUtils.DEBUG("bizCategoryList Response:->> ${ParseManager.getInstance().toJSON(response.body())}")
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 loader.dismiss()
-                val userCategories: UserCategories = response.body()!!
-                if (userCategories.status == AppConstant.SUCCESS) {
+                val body = JSONObject(Gson().toJson(response.body()))
+                LogUtils.DEBUG("bizCategoryList Response:->> $body")
+                val status = body.optInt("status")
+                if (status == AppConstant.SUCCESS) {
+                    val userCategories = ParseManager.getInstance().fromJSON(body.toString(), UserCategories::class.java)
                     listener.updateCategories(userCategories.data)
                 } else {
-                    LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), userCategories.message[0])
+                    listener.updateCategories(null)
                 }
             }
         })

@@ -97,23 +97,23 @@ interface EConnectoServices {
 
     //VIEW OTHER BUSINESS API CALLS
     @GET(AppConstant.URL_OTHER_BIZ_AMENITY_LIST)
-    fun otherBizAmenityList(@Query("business_id") businessId: String): Call<Amenities>
+    fun otherBizAmenityList(@Query("business_id") businessId: String): Call<JsonObject>
 
     @GET(AppConstant.URL_OTHER_BIZ_PAYMENT_METHODS)
-    fun otherBizPaymentList(@Query("business_id") businessId: String): Call<PaymentMethods>
+    fun otherBizPaymentList(@Query("business_id") businessId: String): Call<JsonObject>
 
     @GET(AppConstant.URL_OTHER_BIZ_OP_HOURS)
-    fun otherBizOperatingHours(@Query("business_id") businessId: String): Call<OPHours>
+    fun otherBizOperatingHours(@Query("business_id") businessId: String): Call<JsonObject>
 
     @GET(AppConstant.URL_OTHER_BIZ_PRODUCT_SERVICES)
     fun otherBizProductServicesList(@Query("business_id") businessId: String): Call<JsonObject>
 
     @GET(AppConstant.URL_OTHER_BIZ_BROCHURE)
-    fun otherBizBrochureList(@Query("business_id") businessId: String): Call<Brochure>
+    fun otherBizBrochureList(@Query("business_id") businessId: String): Call<JsonObject>
 
     @GET(AppConstant.URL_OTHER_BIZ_PRICING)
-    fun otherBizPricingList(@Query("business_id") businessId: String): Call<Pricing>
+    fun otherBizPricingList(@Query("business_id") businessId: String): Call<JsonObject>
 
     @GET(AppConstant.URL_OTHER_BIZ_CATEGORIES)
-    fun otherBizCategoryList(@Query("business_id") businessId: String): Call<UserCategories>
+    fun otherBizCategoryList(@Query("business_id") businessId: String): Call<JsonObject>
 }
