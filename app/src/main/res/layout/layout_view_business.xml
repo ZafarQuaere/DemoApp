@@ -40,20 +40,20 @@
                         tools:listitem="@layout/header_image_list_item" />
 
                     <include
-                        layout="@layout/vb_address_detail"
+                        layout="@layout/mb_address_detail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:visibility="visible" />
 
                     <include
-                        layout="@layout/vb_operating_hours"
+                        layout="@layout/mb_operating_hours"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/_20dp"
                         android:visibility="visible" />
 
                     <include
-                        layout="@layout/vb_communication_menu"
+                        layout="@layout/mb_communication_menu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:visibility="visible" />
@@ -70,7 +70,7 @@
                         tools:listitem="@layout/header_image_list_item" />
 
                     <include
-                        layout="@layout/vb_layout_product_services"
+                        layout="@layout/mb_layout_product_services"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:visibility="visible" />
@@ -104,34 +104,34 @@
             android:orientation="vertical">
 
             <include
-                layout="@layout/vb_layout_brochure"
+                layout="@layout/mb_layout_brochure"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="visible" />
 
             <include
-                layout="@layout/vb_layout_about"
+                layout="@layout/mb_layout_about"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_3dp"
                 android:visibility="visible" />
 
             <include
-                layout="@layout/vb_layout_photos"
+                layout="@layout/mb_layout_photos"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:layout_marginTop="@dimen/_3dp"
                 android:visibility="gone" />
 
             <include
-                layout="@layout/vb_layout_amenities"
+                layout="@layout/mb_layout_amenities"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_3dp"
                 android:visibility="visible" />
 
             <include
-                layout="@layout/vb_layout_payment"
+                layout="@layout/mb_layout_payment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_3dp"
@@ -139,14 +139,14 @@
 
 
             <include
-                layout="@layout/vb_layout_pricing"
+                layout="@layout/mb_layout_pricing"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_3dp"
                 android:visibility="visible" />
 
             <include
-                layout="@layout/vb_layout_categories"
+                layout="@layout/mb_layout_categories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_3dp"

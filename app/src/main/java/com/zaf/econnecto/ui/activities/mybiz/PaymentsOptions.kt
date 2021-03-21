@@ -53,13 +53,6 @@ class PaymentsOptions : AppCompatActivity(), IPaymentOptionList, PaymentMethodAd
             if (selectedItem != null) {
                 myBizViewModel.addPaymentMethodsApi(mContext, this, selectedItem)
             }
-            /* val selectedItem : ArrayList<PaymentSelectedData> = adapterAddEdit.getSelectedItems() as ArrayList<PaymentSelectedData>
-             val paymentMethodList :MutableList<PaymentMethodData> = ArrayList<PaymentMethodData>();
-             for (i in selectedItem.indices){
-                 val pmd = PaymentMethodData(selectedItem[i].p_method_id,selectedItem[i].p_method_name)
-                 paymentMethodList.add(pmd)
-             }*/
-
         }
     }
 

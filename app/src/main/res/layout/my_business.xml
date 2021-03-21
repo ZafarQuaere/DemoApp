@@ -57,7 +57,7 @@
                </FrameLayout>
 
                 <include
-                    layout="@layout/vb_address_detail"
+                    layout="@layout/mb_address_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="visible" />
