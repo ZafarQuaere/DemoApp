@@ -36,16 +36,16 @@ import com.zaf.econnecto.ui.presenters.operations.IViewBizns
 import com.zaf.econnecto.utils.KotUtil
 import com.zaf.econnecto.utils.LogUtils
 import com.zaf.econnecto.utils.Utils
-import kotlinx.android.synthetic.main.vb_address_detail.*
-import kotlinx.android.synthetic.main.vb_communication_menu.*
-import kotlinx.android.synthetic.main.vb_layout_about.*
-import kotlinx.android.synthetic.main.vb_layout_amenities.*
-import kotlinx.android.synthetic.main.vb_layout_brochure.*
-import kotlinx.android.synthetic.main.vb_layout_categories.*
-import kotlinx.android.synthetic.main.vb_layout_payment.*
-import kotlinx.android.synthetic.main.vb_layout_pricing.*
-import kotlinx.android.synthetic.main.vb_layout_product_services.*
-import kotlinx.android.synthetic.main.vb_operating_hours.*
+import kotlinx.android.synthetic.main.mb_address_detail.*
+import kotlinx.android.synthetic.main.mb_communication_menu.*
+import kotlinx.android.synthetic.main.mb_layout_about.*
+import kotlinx.android.synthetic.main.mb_layout_amenities.*
+import kotlinx.android.synthetic.main.mb_layout_brochure.*
+import kotlinx.android.synthetic.main.mb_layout_categories.*
+import kotlinx.android.synthetic.main.mb_layout_payment.*
+import kotlinx.android.synthetic.main.mb_layout_pricing.*
+import kotlinx.android.synthetic.main.mb_layout_product_services.*
+import kotlinx.android.synthetic.main.mb_operating_hours.*
 
 
 class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, IMyBusinessLatest, IMyBizImage, OnMapReadyCallback {

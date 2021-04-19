@@ -35,8 +35,39 @@ class MyBusinessViewModel : ViewModel() {
     lateinit var mActivity: Activity
     var basicDetailsData = MutableLiveData<MutableList<BasicDetailsData>>()
     lateinit var basicDetailsResponse: LiveData<BasicDetailsResponse>
+    var allAmenityList =  MutableLiveData<Amenities>()
 
+    fun bizAmenityList(activity: Activity?, listener: IMyBusinessLatest?, bizId: String) {
+        if (activity != null)
+            mActivity = activity
+        var loader = AppDialogLoader.getLoader(mActivity)
+        loader.show()
+        val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
+        val requestCall = categoryService.bizAmenityList("39")
+        LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
 
+        requestCall.enqueue(object : Callback<Amenities> {
+            override fun onFailure(call: Call<Amenities>, t: Throwable) {
+                loader.dismiss()
+                LogUtils.DEBUG("bizAmenityList() Failure: ${t.localizedMessage}")
+            }
+
+            override fun onResponse(call: Call<Amenities>, response: Response<Amenities>) {
+                LogUtils.DEBUG("bizAmenityList response: " + ParseManager.getInstance().toJSON(response.body()))
+                loader.dismiss()
+                allAmenityList.value = response.body()
+                /* if (response.isSuccessful) {
+                     val amenities = response.body()
+                     if (amenities?.status == AppConstant.SUCCESS) {
+                         listener.updateAmenitiesSection(amenities!!.data)
+                     } else {
+                         listener.updateAmenitiesSection(null)
+                         LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), amenities!!.message[0])
+                     }
+                 }*/
+            }
+        })
+    }
 
     fun callMyBizBasicDetails(activity: Activity?, imageUpdate: Boolean, listener: IMyBusinessLatest, ownerId: String) {
         if (activity != null)
@@ -72,106 +103,6 @@ class MyBusinessViewModel : ViewModel() {
 
                 } else {
                     LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) { /*(mActivity).onBackPressed()*/ }
-                }
-            }
-        })
-    }
-
-
-    fun bizAllAmenityList(activity: Activity?, listener: IGeneralAmenityList) {
-        if (activity != null)
-            mActivity = activity
-        var loader = AppDialogLoader.getLoader(mActivity)
-        loader.show()
-        val eConnectoServices = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = eConnectoServices.allAmenityList()
-        LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
-
-        requestCall.enqueue(object : Callback<AllAmenityList> {
-            override fun onFailure(call: Call<AllAmenityList>, t: Throwable) {
-                loader.dismiss()
-                LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok),
-                        mActivity.getString(R.string.something_wrong_from_server_plz_try_again) + "\n" + t.message)
-            }
-
-            override fun onResponse(call: Call<AllAmenityList>, response: Response<AllAmenityList>) {
-                LogUtils.DEBUG("AllPaymentMethods response: " + ParseManager.getInstance().toJSON(response.body()))
-                loader.dismiss()
-                if (response.isSuccessful) {
-                    val paymentMethods = response.body()
-                    if (paymentMethods?.status == AppConstant.SUCCESS) {
-                        listener.updateAmenityList(paymentMethods!!.data)
-                    } else {
-                        listener.updateAmenityList(null)
-                        LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), paymentMethods!!.message)
-                    }
-                }
-            }
-        })
-    }
-
-    fun addAmenityApi(activity: Activity?, listener: AmenityAddedListener?, amenityItem: GeneralAmenities?) {
-        if (activity != null)
-            mActivity = activity
-        val loader = AppDialogLoader.getLoader(mActivity)
-        loader.show()
-        val jsonObject = JSONObject()
-        jsonObject.put("jwt_token", Utils.getAccessToken(mActivity))
-        jsonObject.put("owner_id", Utils.getUserID(mActivity))
-        jsonObject.put("amenity_id", amenityItem?.amenity_id)
-
-        val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
-        val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-
-        val requestCall = categoryService.addAmenity(requestBody)
-        LogUtils.DEBUG("Url: ${requestCall.request().url()}  \nBody: $jsonObject")
-
-        requestCall.enqueue(object : Callback<JsonObject> {
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                loader.dismiss()
-                LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), mActivity.getString(R.string.something_wrong_from_server_plz_try_again) + "\n" + t.localizedMessage)
-            }
-
-            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                val body = JSONObject(Gson().toJson(response.body()))
-                LogUtils.DEBUG("addAmenityApi Response:->> $body")
-                val status = body.optInt("status")
-                loader.dismiss()
-                if (status == AppConstant.SUCCESS) {
-                    listener?.updateAmenities()
-                } else {
-                    LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) { (mActivity).onBackPressed() }
-                }
-            }
-        })
-    }
-
-    fun bizAmenityList(activity: Activity?, listener: IMyBusinessLatest, bizId: String) {
-        if (activity != null)
-            mActivity = activity
-        var loader = AppDialogLoader.getLoader(mActivity)
-        loader.show()
-        val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = categoryService.bizAmenityList(bizId)
-        LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
-
-        requestCall.enqueue(object : Callback<Amenities> {
-            override fun onFailure(call: Call<Amenities>, t: Throwable) {
-                loader.dismiss()
-                LogUtils.DEBUG("bizAmenityList() Failure: ${t.localizedMessage}")
-            }
-
-            override fun onResponse(call: Call<Amenities>, response: Response<Amenities>) {
-                LogUtils.DEBUG("bizAmenityList response: " + ParseManager.getInstance().toJSON(response.body()))
-                loader.dismiss()
-                if (response.isSuccessful) {
-                    val amenities = response.body()
-                    if (amenities?.status == AppConstant.SUCCESS) {
-                        listener.updateAmenitiesSection(amenities!!.data)
-                    } else {
-                        listener.updateAmenitiesSection(null)
-                        LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), amenities!!.message[0])
-                    }
                 }
             }
         })

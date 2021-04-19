@@ -389,4 +389,5 @@
     <string name="add_more">Add more</string>
     <string name="price">Price</string>
     <string name="unit">Unit</string>
+    <string name="edit">Edit</string>
 </resources>

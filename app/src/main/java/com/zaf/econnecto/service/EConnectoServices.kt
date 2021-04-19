@@ -51,6 +51,10 @@ interface EConnectoServices {
     @POST(AppConstant.URL_BIZ_ADD_AMENITIES)
     fun addAmenity(@Body requestBody: RequestBody): Call<JsonObject>
 
+    //Add amenity List
+    @POST(AppConstant.URL_BIZ_REMOVE_AMENITIES)
+    fun removeAmenity(@Body requestBody: RequestBody): Call<JsonObject>
+
     //Users Amenity List
     @GET(AppConstant.URL_BIZ_AMENITY_LIST)
     fun bizAmenityList(@Query("business_id") businessId: String): Call<Amenities>

@@ -20,6 +20,8 @@ public class AppConstant {
     public static  boolean MOVE_TO_ADD_BIZ = false;
     public static  boolean NEW_FOLLOW = false;
     public static  boolean BIZNESS_ADDED = false;
+
+    public static final Integer API_ERROR = 420;
     // Splash screen timer
     public static int SPLASH_TIME_OUT = 2100;
     public static int RESEND_OTP_TIME = 40000;
@@ -58,10 +60,10 @@ public class AppConstant {
     public static final String URL_BIZ_ALL_AMENITY_LIST = "my_biz_add_edit/amenities/amenities_list.php";
     public static final String URL_BIZ_AMENITY_LIST = "my_biz/my_biz_amenities.php";
     public static final String URL_BIZ_ADD_AMENITIES = "my_biz_add_edit/amenities/add_amenity.php";
+    public static final String URL_BIZ_REMOVE_AMENITIES = "my_biz_add_edit/amenities/remove_amenity.php";
     public static final String URL_BIZ_PRODUCT_SERVICES_LIST = "my_biz/my_biz_prod_serv.php";
     public static final String URL_BIZ_ADD_PROD_SERVICES = "my_biz_add_edit/prod_serv/add_prod_serv.php";
     public static final String URL_BIZ_REMOVE_PROD_SERVICES = "my_biz_add_edit/prod_serv/remove_prod_serv.php";
-    public static final String URL_BIZ_REMOVE_AMENITIES = "my_biz_add_edit/amenities/remove_amenity.php";
     public static final String URL_BIZ_PAYMENT_LIST = "my_biz/my_biz_pay_methods.php?";
     public static final String URL_ALL_PAYMENT_METHODS = "my_biz_add_edit/payment_methods/p_methods_list.php";
     public static final String URL_BIZ_ADD_PAYMENT_METHOD = "my_biz_add_edit/payment_methods/add_p_method.php";

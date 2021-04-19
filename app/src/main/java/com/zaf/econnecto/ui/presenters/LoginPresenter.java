@@ -58,7 +58,7 @@ public class LoginPresenter extends BasePresenter {
         }
     }
 
-    public void callApi(final String phoneNo, String password) {
+   /* public void callApi(final String phoneNo, String password) {
         loader.show();
         JSONObject requestObject = new JSONObject();
         try {
@@ -100,7 +100,7 @@ public class LoginPresenter extends BasePresenter {
             LogUtils.ERROR("Login Error ::" + error.getMessage());
         });
         AppController.getInstance().addToRequestQueue(objectRequest, "Login");
-    }
+    }*/
 
     private void storeOtherValue(LoginData loginData) {
         Utils.storeProfileImage((Activity) mContext,loginData);

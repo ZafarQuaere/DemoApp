@@ -8,6 +8,8 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.location.Address
+import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -38,7 +40,9 @@ import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsDat
 import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsResponse
 import com.zaf.econnecto.ui.activities.BaseActivity
 import com.zaf.econnecto.ui.activities.EditImageActivity
+import com.zaf.econnecto.ui.activities.mybiz.fragments.*
 import com.zaf.econnecto.ui.adapters.*
+import com.zaf.econnecto.ui.fragments.details_frag.*
 import com.zaf.econnecto.ui.interfaces.AddPhotoDialogListener
 import com.zaf.econnecto.ui.interfaces.DeleteCategoryListener
 import com.zaf.econnecto.ui.interfaces.DeleteProductListener
@@ -48,17 +52,17 @@ import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
 import com.zaf.econnecto.utils.*
 import com.zaf.econnecto.utils.storage.PrefUtil
 import kotlinx.android.synthetic.main.activity_my_business_latest.*
-import kotlinx.android.synthetic.main.vb_address_detail.*
-import kotlinx.android.synthetic.main.vb_communication_menu.*
-import kotlinx.android.synthetic.main.vb_layout_about.*
-import kotlinx.android.synthetic.main.vb_layout_amenities.*
-import kotlinx.android.synthetic.main.vb_layout_brochure.*
-import kotlinx.android.synthetic.main.vb_layout_categories.*
-import kotlinx.android.synthetic.main.vb_layout_payment.*
-import kotlinx.android.synthetic.main.vb_layout_photos.*
-import kotlinx.android.synthetic.main.vb_layout_pricing.*
-import kotlinx.android.synthetic.main.vb_layout_product_services.*
-import kotlinx.android.synthetic.main.vb_operating_hours.*
+import kotlinx.android.synthetic.main.mb_address_detail.*
+import kotlinx.android.synthetic.main.mb_communication_menu.*
+import kotlinx.android.synthetic.main.mb_layout_about.*
+import kotlinx.android.synthetic.main.mb_layout_amenities.*
+import kotlinx.android.synthetic.main.mb_layout_brochure.*
+import kotlinx.android.synthetic.main.mb_layout_categories.*
+import kotlinx.android.synthetic.main.mb_layout_payment.*
+import kotlinx.android.synthetic.main.mb_layout_photos.*
+import kotlinx.android.synthetic.main.mb_layout_pricing.*
+import kotlinx.android.synthetic.main.mb_layout_product_services.*
+import kotlinx.android.synthetic.main.mb_operating_hours.*
 
 class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMyBizImage, IMyBusinessLatest, ImageUpdateModelListener.ImageUpdateListener, OnMapReadyCallback {
 
@@ -80,7 +84,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         private const val UPDATE_OPERATING_HOUR_CODE = 112
         private const val UPDATE_PRODUCT_SERVICES = 113
         private const val UPDATE_ABOUT_US = 114
-        private const val UPDATE_AMENITIES = 115
+        const val UPDATE_AMENITIES = 115
         private const val UPDATE_PHOTOS = 116
         private const val UPDATE_PAYMENTS = 117
         private const val UPDATE_CATEGORY = 118
@@ -95,13 +99,13 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_business_latest)
+        mContext = this
         presenter!!.initMap(this, mapFrag)
         myBizViewModel = ViewModelProviders.of(this).get(MyBusinessViewModel::class.java)
-        mContext = this
+        myBizViewModel.callMyBizBasicDetails(this, true, this, Utils.getUserID(mContext))
         loader = AppLoaderFragment.getInstance(mContext)
         updateActionbar()
         subscribeViewModels()
-        myBizViewModel.callMyBizBasicDetails(this, true, this, Utils.getUserID(mContext))
         updateMyBizUI()
     }
 
@@ -111,11 +115,24 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
                 //TODO from here you can update the basic details data
             }
         })
+
+//        myBizViewModel.allAmenityList.observe(this, Observer { amenitiesData: Amenities ->
+//            run {
+//                if (amenitiesData.status == AppConstant.SUCCESS) {
+//                    updateAmenitiesSection(amenitiesData.data)
+//                } else {
+//                    updateAmenitiesSection(null)
+//                }
+//            }
+//        })
     }
 
     private fun updateMyBizUI() {
         tabLayout = findViewById<TabLayout>(R.id.tabs)
-        addTabsWithoutVP()
+        viewPagerTabs = findViewById<ViewPager>(R.id.viewpagerTabs)
+        tabLayout = findViewById<TabLayout>(R.id.tabs)
+        tabLayout.setupWithViewPager(viewPagerTabs)
+//        addTabsWithoutVP()
 
         textFollow.text = getString(R.string.edit_details)
         textFollow.setOnClickListener {
@@ -140,9 +157,9 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
             startActivityForResult(Intent(this, AboutActivity::class.java), UPDATE_ABOUT_US)
         }
 
-        textAddAmenities.setOnClickListener {
+        /*textAddAmenities.setOnClickListener {
             startActivityForResult(Intent(this, AmenitiesActivity::class.java), UPDATE_AMENITIES)
-        }
+        }*/
 
         textAddPayments.setOnClickListener {
             startActivityForResult(Intent(this, PaymentsOptions::class.java), UPDATE_PAYMENTS)
@@ -154,6 +171,18 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         textAddPricing.setOnClickListener {
             startActivityForResult(Intent(this, PricingActivity::class.java), UPDATE_PRICING)
         }
+    }
+
+    private fun setupViewPager(viewPagerTabs: ViewPager?) {
+        val adapter = TabViewPagerAdapter(this.supportFragmentManager, arrayListOf<String>("About Fragment","Amenities Fragment","Brochure Fragment","Categories Fragment","Photos Fragment","Payment Fragment","Pricing Fragment"))
+        adapter.addFragment(AboutFragment(), "About")
+        adapter.addFragment(AmenitiesFragment(), "Amenities")
+        adapter.addFragment(BrochureFragment(), "Brochure")
+        adapter.addFragment(CategoriesFragment(), "Categories")
+        adapter.addFragment(PhotosFragment(), "Photos")
+        adapter.addFragment(PaymentFragment(), "Payment")
+        adapter.addFragment(PricingFragment(), "Pricing")
+        viewPagerTabs!!.adapter = adapter
     }
 
     private fun addTabsWithoutVP() {
@@ -260,6 +289,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         //get the business owner id and call image api
         updateBasicDetails(basicDetailsResponse)
         if (imageUpdate) {
+            setupViewPager(viewPagerTabs)
             myBizViewModel.bizImageList(mContext as Activity?, this, PrefUtil.getBizId(mContext as Activity))
             myBizViewModel.bizOperatingHours(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
             myBizViewModel.bizAmenityList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
@@ -301,14 +331,14 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
     private fun updateMap(basicDetailsDta: BasicDetailsData) {
         if (basicDetailsDta != null) {
             val fullAddress: String = basicDetailsDta.address1 + ", " + basicDetailsDta.cityTown + ", " + basicDetailsDta.state + ", " + basicDetailsDta.pinCode
-            val location = KotUtil.getLocationFromAddress(this, fullAddress)!!
-            val address = AddressData(basicDetailsDta.address1, basicDetailsDta.state, basicDetailsDta.cityTown, basicDetailsDta.pinCode, location.latitude.toString() + "", "" + location.longitude)
+            val location : Address? = KotUtil.getLocationFromAddress(this, fullAddress)
+            val address = AddressData(basicDetailsDta.address1, basicDetailsDta.state, basicDetailsDta.cityTown, basicDetailsDta.pinCode, location?.latitude.toString() + "", "" + location?.longitude)
 //        location.latitude,location.longitude
             LogUtils.DEBUG(address.toString())
-            val storeLocation = LatLng(location!!.latitude, location!!.longitude)
+            val storeLocation = location?.longitude?.let { LatLng(location?.latitude, it) }
             //val ny = LatLng(-34.0, 151.0)
             val markerOptions = MarkerOptions()
-            markerOptions.position(storeLocation)
+            storeLocation?.let { markerOptions.position(it) }
             if (gMap != null) {
                 gMap.addMarker(markerOptions)
                 gMap.moveCamera(CameraUpdateFactory.newLatLng(storeLocation))
@@ -322,6 +352,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         val recyclerHeader = findViewById<RecyclerView>(R.id.recycler_header)
         recyclerHeader.layoutManager = LinearLayoutManager(this)
         recyclerHeader.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
         val adapter = VBHeaderImageRecylcerAdapter(this, data.toList() as MutableList<ViewImageData>)
         recyclerHeader.adapter = adapter
         updatePhotoSection(data)
@@ -336,7 +367,6 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
             val layoutManager = GridLayoutManager(mContext, 2)
             recycler_photos!!.layoutManager = layoutManager
             recycler_photos!!.itemAnimator = DefaultItemAnimator()
-
 //            recycler_photos.suppressLayout(true)
 //            recycler_photos.addOnItemTouchListener(object : RecyclerView.SimpleOnItemTouchListener(){
 //                override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
@@ -417,8 +447,8 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
                     myBizViewModel.callMyBizBasicDetails(this, false, this, Utils.getUserID(mContext))
                 }
                 UPDATE_AMENITIES -> {
-                    LogUtils.DEBUG("Coming from amenities")
-                    myBizViewModel.bizAmenityList(mContext, this,PrefUtil.getBizId(mContext as Activity))
+//                    LogUtils.DEBUG("Coming from amenities")
+//                    myBizViewModel.bizAmenityList(mContext, this,PrefUtil.getBizId(mContext as Activity))
                 }
                 UPDATE_PAYMENTS -> {
                     LogUtils.DEBUG("Coming from PaymentOptions")
@@ -588,9 +618,9 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         recyclerAmenities.itemAnimator = DefaultItemAnimator()
         val amenityAdapter = AmenitiesMyBizStaggeredAdapter(this, data)
         recyclerAmenities.adapter = amenityAdapter
-        textAmenityEdit.setOnClickListener {
+       /* textAmenityEdit.setOnClickListener {
             startActivityForResult(Intent(this, AmenitiesActivity::class.java), UPDATE_AMENITIES)
-        }
+        }*/
 
     }
 
