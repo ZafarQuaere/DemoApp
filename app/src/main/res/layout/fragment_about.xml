@@ -1,10 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context=".ui.activities.mybiz.fragments.AboutFragment">
 
+    <LinearLayout
+        android:id="@+id/lytAddAboutSection"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_add" />
+
+        <TextView
+            android:id="@+id/textAddAboutSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/add_about_section"
+            android:textSize="@dimen/font_20sp" />
+    </LinearLayout>
 
 
-</FrameLayout>
+    <LinearLayout
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lytAboutData"
+        android:paddingBottom="@dimen/_50dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/editAbout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/edit"
+            android:padding="@dimen/_10dp"
+            app:drawableRightCompat="@drawable/ic_edit_black"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:gravity="center_horizontal"
+            android:text="@string/description" />
+        <TextView
+            android:id="@+id/textAboutDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:gravity="center_horizontal"
+            android:text="@string/description" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20dp"
+            android:gravity="center_horizontal"
+            android:text="@string/why_us" />
+        <TextView
+            android:id="@+id/textAboutWhyUs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:gravity="center_horizontal"
+            android:text="@string/why_us" />
+    </LinearLayout>
+
+
+</LinearLayout>

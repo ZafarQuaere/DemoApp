@@ -100,7 +100,6 @@ class MyBusinessViewModel : ViewModel() {
 //                   basicDetailsData = basicDetailsResponse.data.toMutableList()
                     PrefUtil.setBasicDetailsData(mActivity, body.toString())
                     listener.updateBasicDetails(basicDetailsResponse, imageUpdate)
-
                 } else {
                     LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) { /*(mActivity).onBackPressed()*/ }
                 }

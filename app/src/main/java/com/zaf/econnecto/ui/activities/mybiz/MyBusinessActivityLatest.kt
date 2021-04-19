@@ -83,7 +83,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         private const val UPDATE_DETAILS_CODE = 111
         private const val UPDATE_OPERATING_HOUR_CODE = 112
         private const val UPDATE_PRODUCT_SERVICES = 113
-        private const val UPDATE_ABOUT_US = 114
+        const val UPDATE_ABOUT_US = 114
         const val UPDATE_AMENITIES = 115
         private const val UPDATE_PHOTOS = 116
         private const val UPDATE_PAYMENTS = 117
@@ -288,8 +288,8 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         //update address related data
         //get the business owner id and call image api
         updateBasicDetails(basicDetailsResponse)
+        setupViewPager(viewPagerTabs)
         if (imageUpdate) {
-            setupViewPager(viewPagerTabs)
             myBizViewModel.bizImageList(mContext as Activity?, this, PrefUtil.getBizId(mContext as Activity))
             myBizViewModel.bizOperatingHours(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
             myBizViewModel.bizAmenityList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
@@ -333,7 +333,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
             val fullAddress: String = basicDetailsDta.address1 + ", " + basicDetailsDta.cityTown + ", " + basicDetailsDta.state + ", " + basicDetailsDta.pinCode
             val location : Address? = KotUtil.getLocationFromAddress(this, fullAddress)
             val address = AddressData(basicDetailsDta.address1, basicDetailsDta.state, basicDetailsDta.cityTown, basicDetailsDta.pinCode, location?.latitude.toString() + "", "" + location?.longitude)
-//        location.latitude,location.longitude
+//          location.latitude,location.longitude
             LogUtils.DEBUG(address.toString())
             val storeLocation = location?.longitude?.let { LatLng(location?.latitude, it) }
             //val ny = LatLng(-34.0, 151.0)
@@ -445,10 +445,6 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
                 UPDATE_ABOUT_US -> {
                     LogUtils.DEBUG("Coming from about services")
                     myBizViewModel.callMyBizBasicDetails(this, false, this, Utils.getUserID(mContext))
-                }
-                UPDATE_AMENITIES -> {
-//                    LogUtils.DEBUG("Coming from amenities")
-//                    myBizViewModel.bizAmenityList(mContext, this,PrefUtil.getBizId(mContext as Activity))
                 }
                 UPDATE_PAYMENTS -> {
                     LogUtils.DEBUG("Coming from PaymentOptions")
@@ -585,6 +581,10 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         }
     }
 
+    override fun updateAmenitiesSection(data: List<AmenityData>?) {
+        //This will be removed later
+    }
+
 
     private fun updateBrochureUI() {
     }
@@ -599,29 +599,6 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
             lytAboutData.visibility = View.GONE
             lytAboutEmpty.visibility = View.VISIBLE
         }
-    }
-
-    override fun updateAmenitiesSection(data: List<AmenityData>?) {
-        if (data == null) {
-            textAddAmenities.visibility = View.VISIBLE
-            lytAmenity.visibility = View.GONE
-        } else {
-            updateAmenitiesUI(data)
-        }
-    }
-
-    private fun updateAmenitiesUI(data: List<AmenityData>) {
-        textAddAmenities.visibility = View.GONE
-        lytAmenity.visibility = View.VISIBLE
-        val layoutManager = StaggeredGridLayoutManager(2, LinearLayout.VERTICAL)
-        recyclerAmenities.layoutManager = layoutManager
-        recyclerAmenities.itemAnimator = DefaultItemAnimator()
-        val amenityAdapter = AmenitiesMyBizStaggeredAdapter(this, data)
-        recyclerAmenities.adapter = amenityAdapter
-       /* textAmenityEdit.setOnClickListener {
-            startActivityForResult(Intent(this, AmenitiesActivity::class.java), UPDATE_AMENITIES)
-        }*/
-
     }
 
     override fun updatePaymentSection(data: List<PaymentMethodData>?) {

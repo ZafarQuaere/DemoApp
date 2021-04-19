@@ -13,7 +13,7 @@ object PrefUtil {
 
     fun getBizId(context: Context): String {
         val basicDetailsData = getBasicDetailsData(context)
-        return  basicDetailsData!!.businessId
+        return basicDetailsData!!.businessId
     }
 
     fun setBasicDetailsData(mContext: Context, data: String) {
