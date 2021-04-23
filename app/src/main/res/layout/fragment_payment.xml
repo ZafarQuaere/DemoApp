@@ -1,14 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.mybiz.fragments.PaymentFragment">
+    android:padding="@dimen/_10dp"
+    android:orientation="vertical"
+    tools:context=".ui.activities.mybiz.fragments.AmenitiesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/editPaymentOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/edit"
+        android:padding="@dimen/_10dp"
+        app:drawableRightCompat="@drawable/ic_edit_black"
+        tools:ignore="RtlSymmetry" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:visibility="visible"
+        android:id="@+id/recyclerPayments"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="@color/colorWhite"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        tools:listitem="@layout/my_biz_category_item" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/textNoPaymentOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_data_available"
+        android:gravity="center"
+        android:visibility="gone"
+        android:minHeight="@dimen/_150dp"/>
+
+</LinearLayout>

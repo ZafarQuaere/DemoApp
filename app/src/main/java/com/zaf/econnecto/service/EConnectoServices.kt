@@ -51,7 +51,7 @@ interface EConnectoServices {
     @POST(AppConstant.URL_BIZ_ADD_AMENITIES)
     fun addAmenity(@Body requestBody: RequestBody): Call<JsonObject>
 
-    //Add amenity List
+    //Remove amenity List
     @POST(AppConstant.URL_BIZ_REMOVE_AMENITIES)
     fun removeAmenity(@Body requestBody: RequestBody): Call<JsonObject>
 
@@ -88,6 +88,9 @@ interface EConnectoServices {
     //Add payment methods
     @POST(AppConstant.URL_BIZ_ADD_PAYMENT_METHOD)
     fun addPaymentMethods(@Body requestBody: RequestBody): Call<JsonObject>
+
+    @POST(AppConstant.URL_BIZ_REMOVE_PAYMENT_METHOD)
+    fun removePayType(@Body requestBody: RequestBody): Call<JsonObject>
 
 
     @POST(AppConstant.URL_CHANGE_PSWD)

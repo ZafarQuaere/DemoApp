@@ -24,13 +24,13 @@ class PaymentsOptions : AppCompatActivity(), IPaymentOptionList, PaymentMethodAd
     lateinit var layoutManager: GridLayoutManager
     lateinit var emptyTextView: TextView
     var mContext: Activity = this
-    private lateinit var myBizViewModel: MyBusinessViewModel
+    private lateinit var myBizViewModel: PaymentsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_payment_methods)
-        myBizViewModel = ViewModelProviders.of(this).get(MyBusinessViewModel::class.java)
-        myBizViewModel.bizPaymentsOptionList(this, this)
+        myBizViewModel = ViewModelProviders.of(this).get(PaymentsViewModel::class.java)
+        myBizViewModel.bizAllPaymentTypes(this, this)
         initUI()
     }
 
@@ -69,11 +69,12 @@ class PaymentsOptions : AppCompatActivity(), IPaymentOptionList, PaymentMethodAd
     }
 
     override fun updatePaymentMethod() {
-        LogUtils.showDialogSingleActionButton(mContext, getString(R.string.ok), getString(R.string.payment_method_added_successfully)) {
+        finish()
+       /* LogUtils.showDialogSingleActionButton(mContext, getString(R.string.ok), getString(R.string.payment_method_added_successfully)) {
             val returnIntent = Intent()
             returnIntent.putExtra("AddPaymentMethod", getString(R.string.payment_method_added_successfully))
             setResult(Activity.RESULT_OK, returnIntent)
             finish()
-        }
+        }*/
     }
 }

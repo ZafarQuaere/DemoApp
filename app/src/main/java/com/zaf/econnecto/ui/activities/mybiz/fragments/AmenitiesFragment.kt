@@ -29,6 +29,9 @@ import retrofit2.Response
 class AmenitiesFragment : Fragment() {
     private lateinit var amenitiesVm: AmenitiesViewModel
     private lateinit var amenityAdapter: AmenitiesRecyclerAdapter
+    var amenitiesData: Amenities? = null
+    var amenityRemoveData: Response<JsonObject>? = null
+    var amenityAddData: Response<JsonObject>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,16 +41,24 @@ class AmenitiesFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         registerListener()
-        activity?.let { PrefUtil.getBizId(it) }?.let { amenitiesVm.bizAmenityList(activity as Activity?, null, it) }
+        if (amenitiesData == null)
+            activity?.let { PrefUtil.getBizId(it) }?.let { amenitiesVm.bizAmenityList(activity as Activity?, null, it) }
         return inflater.inflate(R.layout.fragment_amenities, container, false)
     }
 
     private fun registerListener() {
-        amenitiesVm.allAmenityList.observe(viewLifecycleOwner, Observer { amenitiesData: Amenities ->
-            updateAmenityList(amenitiesData)
+        amenitiesVm.allAmenityList.observe(viewLifecycleOwner, Observer { data: Amenities ->
+            updateAmenityList(data)
+            amenitiesData = data
         })
-        amenitiesVm.removeAmenity.observe(viewLifecycleOwner, Observer { jsonObj: Response<JsonObject> -> updateRemoveAmenity(jsonObj) })
-        amenitiesVm.addAmenity.observe(viewLifecycleOwner, Observer { jsonObj: Response<JsonObject> -> updateAddAmenity(jsonObj) })
+        amenitiesVm.removeAmenity.observe(viewLifecycleOwner, Observer { jsonObj: Response<JsonObject> ->
+            updateRemoveAmenity(jsonObj)
+            amenityRemoveData = jsonObj
+        })
+        amenitiesVm.addAmenity.observe(viewLifecycleOwner, Observer { jsonObj: Response<JsonObject> ->
+            updateAddAmenity(jsonObj)
+            amenityAddData = jsonObj
+        })
     }
 
 
@@ -62,7 +73,6 @@ class AmenitiesFragment : Fragment() {
             val amenitiesData = data.data
             amenityAdapter = activity?.let { AmenitiesRecyclerAdapter(it, amenitiesData, amenitiesVm) }!!
             recyclerAmenities.adapter = amenityAdapter
-
             editAmenity.setOnClickListener {
                 startActivityForResult(Intent(activity, AmenitiesActivity::class.java), MyBusinessActivityLatest.UPDATE_AMENITIES)
             }
@@ -74,24 +84,28 @@ class AmenitiesFragment : Fragment() {
     }
 
     private fun updateRemoveAmenity(jsonObj: Response<JsonObject>) {
-        val body = JSONObject(Gson().toJson(jsonObj.body()))
-        LogUtils.DEBUG("RemoveAmenity Response:->> $body")
-        val status = body.optInt("status")
-        if (status == AppConstant.SUCCESS) {
-            activity?.let { PrefUtil.getBizId(it) }?.let { amenitiesVm.bizAmenityList(activity as Activity?, null, it) }
-        } else {
-            LogUtils.showDialogSingleActionButton(activity, activity?.getString(R.string.ok), body.optJSONArray("message").optString(0)) { }
+        if (amenityRemoveData == null) {
+            val body = JSONObject(Gson().toJson(jsonObj.body()))
+            LogUtils.DEBUG("RemoveAmenity Response:->> $body")
+            val status = body.optInt("status")
+            if (status == AppConstant.SUCCESS) {
+                activity?.let { PrefUtil.getBizId(it) }?.let { amenitiesVm.bizAmenityList(activity as Activity?, null, it) }
+            } else {
+                LogUtils.showDialogSingleActionButton(activity, activity?.getString(R.string.ok), body.optJSONArray("message").optString(0)) { }
+            }
         }
     }
 
     private fun updateAddAmenity(jsonObj: Response<JsonObject>) {
-        val body = JSONObject(Gson().toJson(jsonObj.body()))
-        LogUtils.DEBUG("addAmenityApi Response:->> $body")
-        val status = body.optInt("status")
-        if (status == AppConstant.SUCCESS) {
-            activity?.let { PrefUtil.getBizId(it) }?.let { amenitiesVm.bizAmenityList(activity as Activity?, null, it) }
-        } else {
-            LogUtils.showDialogSingleActionButton(activity, activity?.getString(R.string.ok), body.optJSONArray("message").optString(0)) { }
+        if (amenityAddData == null) {
+            val body = JSONObject(Gson().toJson(jsonObj.body()))
+            LogUtils.DEBUG("addAmenityApi Response:->> $body")
+            val status = body.optInt("status")
+            if (status == AppConstant.SUCCESS) {
+                activity?.let { PrefUtil.getBizId(it) }?.let { amenitiesVm.bizAmenityList(activity as Activity?, null, it) }
+            } else {
+                LogUtils.showDialogSingleActionButton(activity, activity?.getString(R.string.ok), body.optJSONArray("message").optString(0)) { }
+            }
         }
     }
 

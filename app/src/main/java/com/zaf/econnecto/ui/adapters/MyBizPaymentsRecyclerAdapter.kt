@@ -6,15 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.zaf.econnecto.R
-import com.zaf.econnecto.ui.activities.mybiz.AmenitiesViewModel
-import com.zaf.econnecto.ui.activities.mybiz.AmenityData
-import com.zaf.econnecto.utils.LogUtils
+import com.zaf.econnecto.ui.activities.mybiz.PaymentMethodData
+import com.zaf.econnecto.ui.activities.mybiz.PaymentsViewModel
 import com.zaf.econnecto.utils.storage.PrefUtil
 
-class AmenitiesRecyclerAdapter(private val context: Activity, private val mValues: List<AmenityData>, amenitiesViewModel: AmenitiesViewModel) : RecyclerView.Adapter<AmenitiesRecyclerAdapter.ViewHolder>() {
+class MyBizPaymentsRecyclerAdapter(private val context: Activity, private val mValues: List<PaymentMethodData>, amenitiesViewModel: PaymentsViewModel) : RecyclerView.Adapter<MyBizPaymentsRecyclerAdapter.ViewHolder>() {
 
     private val mAmenitiesViewModel = amenitiesViewModel
     val mActivity = context
@@ -26,14 +24,14 @@ class AmenitiesRecyclerAdapter(private val context: Activity, private val mValue
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.textAmenityName.text = mValues[position].amenity_name
+        holder.textPayTypeName.text = mValues[position].p_method_name
         holder.iconDelete.setOnClickListener {
-            callDeleteApi(mValues[position].amenity_id)
+            callDeleteApi(mValues[position].p_method_id)
         }
     }
 
-    private fun callDeleteApi(amenityId: String) {
-        mAmenitiesViewModel.removeAmenity(mActivity, amenityId, null, PrefUtil.getBizId(mActivity))
+    private fun callDeleteApi(payMethodId: String) {
+        mAmenitiesViewModel.removePayType(mActivity, payMethodId, null, PrefUtil.getBizId(mActivity))
     }
 
     override fun getItemCount(): Int {
@@ -42,7 +40,7 @@ class AmenitiesRecyclerAdapter(private val context: Activity, private val mValue
 
 
     inner class ViewHolder internal constructor(val mView: View) : RecyclerView.ViewHolder(mView) {
-        val textAmenityName: TextView = mView.findViewById<View>(R.id.textCategoryName) as TextView
+        val textPayTypeName: TextView = mView.findViewById<View>(R.id.textCategoryName) as TextView
         val iconDelete: ImageButton = mView.findViewById<View>(R.id.iconDelete) as ImageButton
     }
 

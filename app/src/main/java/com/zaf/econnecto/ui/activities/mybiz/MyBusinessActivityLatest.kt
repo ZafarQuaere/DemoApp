@@ -9,7 +9,6 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.location.Address
-import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -78,17 +77,17 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
     private var isBrochure: Boolean = false
 
     companion object {
-        private const val GALLERY_IMAGE_CODE = 100
-        private const val CAMERA_IMAGE_CODE = 200
-        private const val UPDATE_DETAILS_CODE = 111
-        private const val UPDATE_OPERATING_HOUR_CODE = 112
-        private const val UPDATE_PRODUCT_SERVICES = 113
+        const val GALLERY_IMAGE_CODE = 100
+        const val CAMERA_IMAGE_CODE = 200
+        const val UPDATE_DETAILS_CODE = 111
+        const val UPDATE_OPERATING_HOUR_CODE = 112
+        const val UPDATE_PRODUCT_SERVICES = 113
         const val UPDATE_ABOUT_US = 114
         const val UPDATE_AMENITIES = 115
-        private const val UPDATE_PHOTOS = 116
-        private const val UPDATE_PAYMENTS = 117
-        private const val UPDATE_CATEGORY = 118
-        private const val UPDATE_PRICING = 119
+        const val UPDATE_PHOTOS = 116
+        const val UPDATE_PAYMENTS = 117
+        const val UPDATE_CATEGORY = 118
+        const val UPDATE_PRICING = 119
     }
 
     override fun initPresenter(): MyBusinessPresenterLatest {
@@ -147,23 +146,23 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         textAddProductNServices.setOnClickListener {
             startActivityForResult(Intent(this, ProductAndServices::class.java), UPDATE_PRODUCT_SERVICES)
         }
-        textAboutDescLabel.setOnClickListener {
+       /* textAboutDescLabel.setOnClickListener {
             startActivityForResult(Intent(this, AboutActivity::class.java), UPDATE_ABOUT_US)
-        }
-        textAboutWhyUsLabel.setOnClickListener {
+        }*/
+       /* textAboutWhyUsLabel.setOnClickListener {
             startActivityForResult(Intent(this, AboutActivity::class.java), UPDATE_ABOUT_US)
         }
         textAboutEdit.setOnClickListener {
             startActivityForResult(Intent(this, AboutActivity::class.java), UPDATE_ABOUT_US)
-        }
+        }*/
 
         /*textAddAmenities.setOnClickListener {
             startActivityForResult(Intent(this, AmenitiesActivity::class.java), UPDATE_AMENITIES)
         }*/
 
-        textAddPayments.setOnClickListener {
+     /*   textAddPayments.setOnClickListener {
             startActivityForResult(Intent(this, PaymentsOptions::class.java), UPDATE_PAYMENTS)
-        }
+        }*/
         textAddCategory.setOnClickListener {
             startActivityForResult(Intent(this, CategoriesActivity::class.java), UPDATE_CATEGORY)
         }
@@ -295,7 +294,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
             myBizViewModel.bizAmenityList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
             myBizViewModel.bizProductServicesList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
             myBizViewModel.bizBrochureList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
-            myBizViewModel.bizPaymentMethodList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
+//            myBizViewModel.bizPaymentMethodList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
             myBizViewModel.bizPricingList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
             myBizViewModel.bizCategoryList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
         }
@@ -442,14 +441,14 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
                     //call product and service api to update UI
                     myBizViewModel.bizProductServicesList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
                 }
-                UPDATE_ABOUT_US -> {
+               /* UPDATE_ABOUT_US -> {
                     LogUtils.DEBUG("Coming from about services")
                     myBizViewModel.callMyBizBasicDetails(this, false, this, Utils.getUserID(mContext))
-                }
-                UPDATE_PAYMENTS -> {
+                }*/
+               /* UPDATE_PAYMENTS -> {
                     LogUtils.DEBUG("Coming from PaymentOptions")
                     myBizViewModel.bizPaymentMethodList(mContext, this, PrefUtil.getBizId(mContext as Activity))
-                }
+                }*/
                 UPDATE_CATEGORY -> {
                     LogUtils.DEBUG("Coming from Category Activity")
                     LogUtils.showToast(mContext, "Coming from Category Activity")
@@ -618,9 +617,9 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         recyclerPayments.itemAnimator = DefaultItemAnimator()
         val adapter = PaymentsMyBizStaggeredAdapter(this, data)
         recyclerPayments.adapter = adapter
-        textPaymentEdit.setOnClickListener {
+      /*  textPaymentEdit.setOnClickListener {
             startActivityForResult(Intent(this, PaymentsOptions::class.java), UPDATE_PAYMENTS)
-        }
+        }*/
     }
 
     override fun updatePricingSection(data: List<PricingData>?) {

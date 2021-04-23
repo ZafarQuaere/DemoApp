@@ -9,12 +9,15 @@ import androidx.fragment.app.Fragment
 import com.zaf.econnecto.R
 import com.zaf.econnecto.ui.activities.mybiz.AboutActivity
 import com.zaf.econnecto.ui.activities.mybiz.MyBusinessActivityLatest
+import com.zaf.econnecto.ui.activities.mybiz.MyBusinessViewModel
 import com.zaf.econnecto.utils.LogUtils
+import com.zaf.econnecto.utils.Utils
 import com.zaf.econnecto.utils.storage.PrefUtil
 import kotlinx.android.synthetic.main.fragment_about.*
 
 
 class AboutFragment : Fragment() {
+    private lateinit var myBizViewModel: MyBusinessViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +57,7 @@ class AboutFragment : Fragment() {
         if (requestCode == MyBusinessActivityLatest.UPDATE_ABOUT_US) {
             LogUtils.DEBUG("Coming from About Activity")
 //            activity?.let { PrefUtil.getBizId(it) }?.let { amenitiesVm.bizAmenityList(activity as Activity?, null, it) }
+//            myBizViewModel.callMyBizBasicDetails(activity, false, null, Utils.getUserID(activity))
         }
     }
 
