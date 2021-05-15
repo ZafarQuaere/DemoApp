@@ -126,6 +126,8 @@
             app:tabSelectedTextColor="@color/colorBlack"
             app:tabTextColor="@color/colorGrey" />
 
+
+
     </com.google.android.material.appbar.AppBarLayout>
 
 
@@ -145,42 +147,42 @@
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewpagerTabs"
                 android:layout_width="wrap_content"
-                android:layout_height="300dp"
+                android:layout_height="600dp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
             <include
                 layout="@layout/mb_layout_brochure"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
             <include
                 layout="@layout/mb_layout_about"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_3dp"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
             <include
                 layout="@layout/mb_layout_photos"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:layout_marginTop="@dimen/_3dp"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
             <include
                 layout="@layout/mb_layout_amenities"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_3dp"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
             <include
                 layout="@layout/mb_layout_payment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_3dp"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
 
             <include
@@ -188,14 +190,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_3dp"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
             <include
                 layout="@layout/mb_layout_categories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_3dp"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
             <Space
                 android:layout_width="match_parent"

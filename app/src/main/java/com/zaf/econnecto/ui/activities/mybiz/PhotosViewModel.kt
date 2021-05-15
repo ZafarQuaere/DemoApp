@@ -7,10 +7,12 @@ import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.zaf.econnecto.R
+import com.zaf.econnecto.network_call.response_model.img_data.ViewImages
 import com.zaf.econnecto.service.EConnectoServices
 import com.zaf.econnecto.service.ServiceBuilder
 import com.zaf.econnecto.ui.interfaces.IPaymentOptionList
 import com.zaf.econnecto.ui.interfaces.PaymentMethodAddListener
+import com.zaf.econnecto.ui.presenters.operations.IMyBizImage
 import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
 import com.zaf.econnecto.utils.AppConstant
 import com.zaf.econnecto.utils.AppDialogLoader
@@ -24,42 +26,47 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PaymentsViewModel : ViewModel() {
+class PhotosViewModel : ViewModel() {
 
     @SuppressLint("StaticFieldLeak")
     lateinit var mActivity: Activity
-    var mbPayOptionList =  MutableLiveData<PaymentMethods>()
+    var mbImageList =  MutableLiveData<Response<JsonObject>>()
     var removePayOption =  MutableLiveData<Response<JsonObject>>()
     var addPayOption =  MutableLiveData<Response<JsonObject>>()
 
 
-    fun bizPaymentMethodList(activity: Activity?, bizId: String) {
+    fun bizImageList(activity: Activity?, bizId: String) {
         if (activity != null)
             mActivity = activity
         var loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = categoryService.bizPaymentList(bizId)
+        val requestCall = categoryService.bizImageList(bizId)
         LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
-        requestCall.enqueue(object : Callback<PaymentMethods> {
-            override fun onFailure(call: Call<PaymentMethods>, t: Throwable) {
+        requestCall.enqueue(object : Callback<JsonObject> {
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 loader.dismiss()
-                LogUtils.DEBUG("bizPaymentMethodList Failure: ${t.localizedMessage}")
+                LogUtils.DEBUG("bizImageList() Failure: ${t.localizedMessage}")
+
             }
 
-            override fun onResponse(call: Call<PaymentMethods>, response: Response<PaymentMethods>) {
-                LogUtils.DEBUG("bizPaymentMethodList Response:->> ${ParseManager.getInstance().toJSON(response.body())}")
-                if (response != null && response.isSuccessful) {
-                    mbPayOptionList.value =  response.body()
-                   /*
-                   val paymentMethod: PaymentMethods = response.body()!!
-                   if (paymentMethod.status == AppConstant.SUCCESS) {
-                        listener.updatePaymentSection(paymentMethod.data)
-                    } else {
-                        LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), paymentMethod.message[0])
-                    }*/
-                }
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                val body = JSONObject(Gson().toJson(response.body()))
+                LogUtils.DEBUG("bizImageList Response:->> $body")
 
+                mbImageList.value = response
+
+
+                var status = body.optInt("status")
+                if (status == AppConstant.SUCCESS) {
+                    val data = ParseManager.getInstance().fromJSON(body.toString(), ViewImages::class.java)
+//                    listener!!.updateBannerImage(data.data)
+//                    PrefUtil.saveImageData(mActivity, response.toString())
+                } else {
+                    val jsonArray = body.optJSONArray("message")
+                    val message = jsonArray!!.get(0) as String
+//                    LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), message)
+                }
                 loader.dismiss()
             }
         })

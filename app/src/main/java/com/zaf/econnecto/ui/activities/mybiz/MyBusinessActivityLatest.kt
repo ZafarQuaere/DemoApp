@@ -97,7 +97,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
     override fun onCreate(savedInstanceState: Bundle?) {
         window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_my_business_latest)
+        setContentView(R.layout.activity_my_business_latest1)
         mContext = this
         presenter!!.initMap(this, mapFrag)
         myBizViewModel = ViewModelProviders.of(this).get(MyBusinessViewModel::class.java)
@@ -163,22 +163,22 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
      /*   textAddPayments.setOnClickListener {
             startActivityForResult(Intent(this, PaymentsOptions::class.java), UPDATE_PAYMENTS)
         }*/
-        textAddCategory.setOnClickListener {
+      /*  textAddCategory.setOnClickListener {
             startActivityForResult(Intent(this, CategoriesActivity::class.java), UPDATE_CATEGORY)
-        }
+        }*/
 
-        textAddPricing.setOnClickListener {
+       /* textAddPricing.setOnClickListener {
             startActivityForResult(Intent(this, PricingActivity::class.java), UPDATE_PRICING)
-        }
+        }*/
     }
 
     private fun setupViewPager(viewPagerTabs: ViewPager?) {
-        val adapter = TabViewPagerAdapter(this.supportFragmentManager, arrayListOf<String>("About Fragment","Amenities Fragment","Brochure Fragment","Categories Fragment","Photos Fragment","Payment Fragment","Pricing Fragment"))
+        val adapter = TabViewPagerAdapter(this.supportFragmentManager, arrayListOf<String>("Photos Fragment","About Fragment","Amenities Fragment","Brochure Fragment","Categories Fragment","Payment Fragment","Pricing Fragment"))
+        adapter.addFragment(PhotosFragment(), "Photos")
         adapter.addFragment(AboutFragment(), "About")
         adapter.addFragment(AmenitiesFragment(), "Amenities")
         adapter.addFragment(BrochureFragment(), "Brochure")
         adapter.addFragment(CategoriesFragment(), "Categories")
-        adapter.addFragment(PhotosFragment(), "Photos")
         adapter.addFragment(PaymentFragment(), "Payment")
         adapter.addFragment(PricingFragment(), "Pricing")
         viewPagerTabs!!.adapter = adapter
@@ -199,13 +199,13 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                scrollUpto(tab!!.text as String?)
+//                scrollUpto(tab!!.text as String?)
             }
 
         })
     }
 
-    private fun scrollUpto(text: String?) {
+   /* private fun scrollUpto(text: String?) {
         when (text) {
             "About" -> {
                 scroll.scrollTo(0, textAboutWhyUsLabel.top + 100)
@@ -241,7 +241,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
             else -> scroll.scrollTo(0, textAboutWhyUsLabel.top + 2600)
         }
 
-    }
+    }*/
 
     fun scrollToRow(nsv: NestedScrollView, layout: LinearLayout, tv: TextView) {
 //        val delay : Long = 100
@@ -290,13 +290,13 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         setupViewPager(viewPagerTabs)
         if (imageUpdate) {
             myBizViewModel.bizImageList(mContext as Activity?, this, PrefUtil.getBizId(mContext as Activity))
-            myBizViewModel.bizOperatingHours(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
-            myBizViewModel.bizAmenityList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
+//            myBizViewModel.bizOperatingHours(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
+//            myBizViewModel.bizAmenityList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
             myBizViewModel.bizProductServicesList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
-            myBizViewModel.bizBrochureList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
+//            myBizViewModel.bizBrochureList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
 //            myBizViewModel.bizPaymentMethodList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
-            myBizViewModel.bizPricingList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
-            myBizViewModel.bizCategoryList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
+//            myBizViewModel.bizPricingList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
+//            myBizViewModel.bizCategoryList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
         }
     }
 
@@ -309,7 +309,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         textEstablishedDate.text = getString(R.string.established_year) + ": ${basicDetailsDta.yearEstablished}"
         textAddress.text = basicDetailsDta.address1
         textWebsite.text = if (!basicDetailsDta.website.isNullOrEmpty()) basicDetailsDta.website else ""
-        updateAboutSection(basicDetailsDta)
+//        updateAboutSection(basicDetailsDta)
         updateMap(basicDetailsDta)
 
         rlytCall.setOnClickListener {
@@ -354,7 +354,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
 
         val adapter = VBHeaderImageRecylcerAdapter(this, data.toList() as MutableList<ViewImageData>)
         recyclerHeader.adapter = adapter
-        updatePhotoSection(data)
+//        updatePhotoSection(data)
     }
 
     private fun updatePhotoSection(data: MutableList<ViewImageData>) {
@@ -449,15 +449,15 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
                     LogUtils.DEBUG("Coming from PaymentOptions")
                     myBizViewModel.bizPaymentMethodList(mContext, this, PrefUtil.getBizId(mContext as Activity))
                 }*/
-                UPDATE_CATEGORY -> {
+               /* UPDATE_CATEGORY -> {
                     LogUtils.DEBUG("Coming from Category Activity")
                     LogUtils.showToast(mContext, "Coming from Category Activity")
                     //   myBizViewModel.bizCategoryList(mContext, this, PrefUtil.getBizId(mContext as Activity))
-                }
-                UPDATE_PRICING -> {
+                }*/
+               /* UPDATE_PRICING -> {
                     LogUtils.DEBUG("Coming from Category Activity")
                     LogUtils.showToast(mContext, "Coming from Pricing Activity")
-                }
+                }*/
                 else -> {
                     selectedImageUri = data.data
                     moveToEditImage(data, requestCode)

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="@dimen/_10dp"
     android:orientation="vertical"
-    tools:context=".ui.activities.mybiz.fragments.AmenitiesFragment">
+    tools:context=".ui.activities.mybiz.fragments.PaymentFragment">
 
     <TextView
         android:id="@+id/editPaymentOptions"

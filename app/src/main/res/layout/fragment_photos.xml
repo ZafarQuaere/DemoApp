@@ -5,10 +5,40 @@
     android:layout_height="match_parent"
     tools:context=".ui.activities.mybiz.fragments.PhotosFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:id="@+id/layoutPhotos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="@color/white"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/textAddPhotos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:background="@drawable/btn_follow"
+            android:drawableTop="@drawable/ic_add"
+            android:gravity="center_horizontal"
+            android:paddingVertical="@dimen/_20dp"
+            android:text="@string/add_photos"
+            android:visibility="gone" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_photos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_10dp"
+            android:background="@color/colorWhite"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            android:visibility="visible"
+            tools:listitem="@layout/header_image_list_item" />
+
+    </LinearLayout>
 
 </FrameLayout>

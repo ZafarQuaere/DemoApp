@@ -6,11 +6,18 @@
     android:layout_margin="@dimen/_5dp"
     android:padding="@dimen/_5dp">
 
+    <ImageButton
+        android:id="@+id/iconCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_circle_check" />
 
     <TextView
         android:id="@+id/textPricingLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingRight="@dimen/_2dp"
+        android:layout_toRightOf="@+id/iconCategory"
         android:gravity="center_vertical"
         android:paddingEnd="@dimen/_15dp"
         android:textSize="@dimen/font_large_text"
@@ -22,11 +29,22 @@
         android:id="@+id/textPricingValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:layout_toLeftOf="@+id/iconDelete"
+        android:layout_marginRight="@dimen/_10dp"
         android:gravity="center_vertical"
         android:textSize="@dimen/font_large_text"
         tools:ignore="RtlSymmetry"
         tools:text="@string/Select_Category" />
+
+
+    <ImageButton
+        android:id="@+id/iconDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/ic_delete"
+        android:paddingEnd="@dimen/_5dp"
+        tools:ignore="RtlSymmetry" />
 </RelativeLayout>
 
 

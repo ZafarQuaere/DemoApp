@@ -24,42 +24,43 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PaymentsViewModel : ViewModel() {
+class PricingViewModel : ViewModel() {
 
     @SuppressLint("StaticFieldLeak")
     lateinit var mActivity: Activity
-    var mbPayOptionList =  MutableLiveData<PaymentMethods>()
+    var mbPricingList =  MutableLiveData<Pricing>()
     var removePayOption =  MutableLiveData<Response<JsonObject>>()
     var addPayOption =  MutableLiveData<Response<JsonObject>>()
 
-
-    fun bizPaymentMethodList(activity: Activity?, bizId: String) {
+    fun bizPricingList(activity: Activity?, bizId: String) {
         if (activity != null)
             mActivity = activity
         var loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = categoryService.bizPaymentList(bizId)
+        val requestCall = categoryService.bizPricingList("21"/*bizId*/)
+//        val requestCall = categoryService.bizPricingList(PrefUtil.getBizId(mActivity))
         LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
-        requestCall.enqueue(object : Callback<PaymentMethods> {
-            override fun onFailure(call: Call<PaymentMethods>, t: Throwable) {
+
+        requestCall.enqueue(object : Callback<Pricing> {
+            override fun onFailure(call: Call<Pricing>, t: Throwable) {
                 loader.dismiss()
-                LogUtils.DEBUG("bizPaymentMethodList Failure: ${t.localizedMessage}")
+                LogUtils.DEBUG("bizPricingList Failure: ${t.localizedMessage}")
+
             }
 
-            override fun onResponse(call: Call<PaymentMethods>, response: Response<PaymentMethods>) {
-                LogUtils.DEBUG("bizPaymentMethodList Response:->> ${ParseManager.getInstance().toJSON(response.body())}")
+            override fun onResponse(call: Call<Pricing>, response: Response<Pricing>) {
+                LogUtils.DEBUG("bizPricingList Response:->> ${ParseManager.getInstance().toJSON(response.body())}")
                 if (response != null && response.isSuccessful) {
-                    mbPayOptionList.value =  response.body()
-                   /*
-                   val paymentMethod: PaymentMethods = response.body()!!
-                   if (paymentMethod.status == AppConstant.SUCCESS) {
-                        listener.updatePaymentSection(paymentMethod.data)
+                    mbPricingList.value = response.body()
+                    /*val pricing: Pricing = response.body()!!
+                    if (pricing.status == AppConstant.SUCCESS) {
+                        listener.updatePricingSection(pricing.data)
                     } else {
-                        LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), paymentMethod.message[0])
+                        listener.updatePricingSection(null)
+//                        LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), pricing.message[0])
                     }*/
                 }
-
                 loader.dismiss()
             }
         })

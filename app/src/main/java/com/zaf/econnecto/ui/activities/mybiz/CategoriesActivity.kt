@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_categories.*
 
 class CategoriesActivity : AppCompatActivity(), AllCategoriesListener, OnBizCategoryItemClickListener, CategoryAddedListener {
 
-    lateinit var myBizViewModel: MyBusinessViewModel
+    lateinit var myBizViewModel: MbCategoryViewModel
     lateinit var categoryAdapter: BizCategoryRecyclerAdapter
     lateinit var categoryList: MutableList<CategoryListData>
 
@@ -29,7 +29,7 @@ class CategoriesActivity : AppCompatActivity(), AllCategoriesListener, OnBizCate
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_categories)
 
-        myBizViewModel = ViewModelProviders.of(this).get(MyBusinessViewModel::class.java)
+        myBizViewModel = ViewModelProviders.of(this).get(MbCategoryViewModel::class.java)
         myBizViewModel.bizAllCategories(this, this)
         initUI()
 
@@ -75,10 +75,11 @@ class CategoriesActivity : AppCompatActivity(), AllCategoriesListener, OnBizCate
 
     override fun onBizCategoryItemClick(mItem: CategoryListData) {
         LogUtils.showToast(this, "${mItem.categoryId} , ${mItem.categoryName} ${mItem.parentCategoryId}")
-        //myBizViewModel.addCategoryApi(this, this, mItem)
-        val returnIntent = Intent()
+        myBizViewModel.addCategoryApi(this, this, mItem)
+       /* val returnIntent = Intent()
         returnIntent.putExtra("AddCategory", getString(R.string.categories))
         setResult(Activity.RESULT_OK, returnIntent)
+        finish()*/
         finish()
     }
 

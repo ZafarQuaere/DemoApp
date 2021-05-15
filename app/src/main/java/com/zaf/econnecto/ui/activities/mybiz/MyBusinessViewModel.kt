@@ -299,7 +299,6 @@ class MyBusinessViewModel : ViewModel() {
         })
     }
 
-
     fun bizCategoryList(activity: Activity?, listener: IMyBusinessLatest, bizId: String) {
         if (activity != null)
             mActivity = activity
@@ -328,6 +327,37 @@ class MyBusinessViewModel : ViewModel() {
         })
     }
 
+    fun bizAllCategories(activity: Activity?, listener: AllCategoriesListener) {
+        if (activity != null)
+            mActivity = activity
+        var loader = AppDialogLoader.getLoader(mActivity)
+        loader.show()
+        val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
+        val requestCall = categoryService.bizAllCategories()
+        LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
+
+        requestCall.enqueue(object : Callback<BizCategories> {
+            override fun onFailure(call: Call<BizCategories>, t: Throwable) {
+                loader.dismiss()
+                listener.updateCategoriesUI(null)
+                LogUtils.DEBUG("bizAllCategories() Failure: ${t.localizedMessage}")
+            }
+
+            override fun onResponse(call: Call<BizCategories>, response: Response<BizCategories>) {
+                LogUtils.DEBUG("bizAllCategories Response:->> ${ParseManager.getInstance().toJSON(response.body())}")
+                if (response != null && response.isSuccessful) {
+                    val categories: BizCategories = response.body()!!
+                    if (categories.status == AppConstant.SUCCESS) {
+                        listener.updateCategoriesUI(categories.data)
+                    } else {
+                        listener.updateCategoriesUI(null)
+                        LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), categories.message)
+                    }
+                }
+                loader.dismiss()
+            }
+        })
+    }
 
     fun addProductServicesApi(activity: Activity?, imageUpdate: Boolean, listener: IProductNService?, prodNService: String) {
         if (activity != null)
@@ -438,37 +468,7 @@ class MyBusinessViewModel : ViewModel() {
         })
     }
 
-    fun bizAllCategories(activity: Activity?, listener: AllCategoriesListener) {
-        if (activity != null)
-            mActivity = activity
-        var loader = AppDialogLoader.getLoader(mActivity)
-        loader.show()
-        val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = categoryService.bizAllCategories()
-        LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
 
-        requestCall.enqueue(object : Callback<BizCategories> {
-            override fun onFailure(call: Call<BizCategories>, t: Throwable) {
-                loader.dismiss()
-                listener.updateCategoriesUI(null)
-                LogUtils.DEBUG("bizAllCategories() Failure: ${t.localizedMessage}")
-            }
-
-            override fun onResponse(call: Call<BizCategories>, response: Response<BizCategories>) {
-                LogUtils.DEBUG("bizAllCategories Response:->> ${ParseManager.getInstance().toJSON(response.body())}")
-                if (response != null && response.isSuccessful) {
-                    val categories: BizCategories = response.body()!!
-                    if (categories.status == AppConstant.SUCCESS) {
-                        listener.updateCategoriesUI(categories.data)
-                    } else {
-                        listener.updateCategoriesUI(null)
-                        LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), categories.message)
-                    }
-                }
-                loader.dismiss()
-            }
-        })
-    }
 
     fun callAddPricingApi(activity: Activity?) {
         if (activity != null)
@@ -505,5 +505,6 @@ class MyBusinessViewModel : ViewModel() {
             }
         })
     }
+
 }
 
