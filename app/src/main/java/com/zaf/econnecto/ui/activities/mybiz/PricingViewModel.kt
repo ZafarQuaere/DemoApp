@@ -9,6 +9,7 @@ import com.google.gson.JsonObject
 import com.zaf.econnecto.R
 import com.zaf.econnecto.service.EConnectoServices
 import com.zaf.econnecto.service.ServiceBuilder
+import com.zaf.econnecto.ui.activities.mybiz.fragments.PricingFragment
 import com.zaf.econnecto.ui.interfaces.IPaymentOptionList
 import com.zaf.econnecto.ui.interfaces.PaymentMethodAddListener
 import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
@@ -29,8 +30,7 @@ class PricingViewModel : ViewModel() {
     @SuppressLint("StaticFieldLeak")
     lateinit var mActivity: Activity
     var mbPricingList =  MutableLiveData<Pricing>()
-    var removePayOption =  MutableLiveData<Response<JsonObject>>()
-    var addPayOption =  MutableLiveData<Response<JsonObject>>()
+    var removePricing =  MutableLiveData<Response<JsonObject>>()
 
     fun bizPricingList(activity: Activity?, bizId: String) {
         if (activity != null)
@@ -66,7 +66,7 @@ class PricingViewModel : ViewModel() {
         })
     }
 
-    fun removePayType(activity: Activity?, payMethodId: String, listener: IMyBusinessLatest?, bizId: String) {
+    fun removePricing(activity: Activity?, payMethodId: String, listener: IMyBusinessLatest?, bizId: String) {
         if (activity != null)
             mActivity = activity
         val loader = AppDialogLoader.getLoader(mActivity)
@@ -90,13 +90,14 @@ class PricingViewModel : ViewModel() {
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 loader.dismiss()
-                removePayOption.value = response
+                PricingFragment.removePricing = true
+                removePricing.value = response
             }
         })
     }
 
 
-    fun addPaymentMethodsApi(activity: Activity?, listener: PaymentMethodAddListener?, paymentData: GeneralPaymentMethods) {
+    fun addPricingApi(activity: Activity?, listener: PaymentMethodAddListener?, paymentData: GeneralPaymentMethods) {
         if (activity != null)
             mActivity = activity
         val loader = AppDialogLoader.getLoader(mActivity)
@@ -121,7 +122,7 @@ class PricingViewModel : ViewModel() {
                 val body = JSONObject(Gson().toJson(response.body()))
                 LogUtils.DEBUG("addPaymentMethodsApi Response:->> $body")
                 loader.dismiss()
-                addPayOption.value = response
+//                addPayOption.value = response
                 val status = body.optInt("status")
                 if (status == AppConstant.SUCCESS) {
                     listener?.updatePaymentMethod()
@@ -132,34 +133,4 @@ class PricingViewModel : ViewModel() {
         })
     }
 
-    fun bizAllPaymentTypes(activity: Activity?, listener: IPaymentOptionList) {
-        if (activity != null)
-            mActivity = activity
-        var loader = AppDialogLoader.getLoader(mActivity)
-        loader.show()
-        val eConnectoServices = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = eConnectoServices.allPaymentMethods()
-        LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
-
-        requestCall.enqueue(object : Callback<AllPaymentMethods> {
-            override fun onFailure(call: Call<AllPaymentMethods>, t: Throwable) {
-                loader.dismiss()
-                LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), mActivity.getString(R.string.something_wrong_from_server_plz_try_again) + "\n" + t.localizedMessage)
-            }
-
-            override fun onResponse(call: Call<AllPaymentMethods>, response: Response<AllPaymentMethods>) {
-                LogUtils.DEBUG("AllPaymentMethods response: " + ParseManager.getInstance().toJSON(response.body()))
-                loader.dismiss()
-                if (response.isSuccessful) {
-                    val paymentMethods = response.body()
-                    if (paymentMethods?.status == AppConstant.SUCCESS) {
-                        listener.updatePaymentListUI(paymentMethods!!.data)
-                    } else {
-                        listener.updatePaymentListUI(null)
-                        LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), paymentMethods!!.message)
-                    }
-                }
-            }
-        })
-    }
 }

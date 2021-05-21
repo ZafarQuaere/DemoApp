@@ -121,7 +121,7 @@ class OthersBusinessViewModel : ViewModel() {
                 val status = body.optInt("status")
                 if (status == AppConstant.SUCCESS) {
                     val data = ParseManager.getInstance().fromJSON(body.toString(), ViewImages::class.java)
-                    listener!!.updateBannerImage(data.data)
+                    listener.updateBannerImage(data.data)
                 } else {
                     val jsonArray = body.optJSONArray("message")
                     val message = jsonArray!!.get(0) as String

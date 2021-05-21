@@ -8,11 +8,13 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zaf.econnecto.R
+import com.zaf.econnecto.ui.activities.mybiz.MbCategoryViewModel
 import com.zaf.econnecto.ui.activities.mybiz.PaymentMethodData
 import com.zaf.econnecto.ui.activities.mybiz.PaymentsViewModel
+import com.zaf.econnecto.ui.activities.mybiz.UserCategoryData
 import com.zaf.econnecto.utils.storage.PrefUtil
 
-class MyBizPaymentsRecyclerAdapter(private val context: Activity, private val mValues: List<PaymentMethodData>, payVm: PaymentsViewModel) : RecyclerView.Adapter<MyBizPaymentsRecyclerAdapter.ViewHolder>() {
+class MyBizCategoriesAdapter(private val context: Activity, private val mValues: List<UserCategoryData>, payVm: MbCategoryViewModel) : RecyclerView.Adapter<MyBizCategoriesAdapter.ViewHolder>() {
 
     private val mPayViewModel = payVm
     val mActivity = context
@@ -24,14 +26,14 @@ class MyBizPaymentsRecyclerAdapter(private val context: Activity, private val mV
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.textPayTypeName.text = mValues[position].p_method_name
+        holder.textPayTypeName.text = mValues[position].category_name
         holder.iconDelete.setOnClickListener {
-            callDeleteApi(mValues[position].p_method_id)
+            callDeleteApi(mValues[position].category_id)
         }
     }
 
     private fun callDeleteApi(payMethodId: String) {
-        mPayViewModel.removePayType(mActivity, payMethodId, null, PrefUtil.getBizId(mActivity))
+        mPayViewModel.removeCategory(mActivity, payMethodId, null, PrefUtil.getBizId(mActivity))
     }
 
     override fun getItemCount(): Int {

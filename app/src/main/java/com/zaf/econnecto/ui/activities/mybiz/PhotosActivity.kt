@@ -129,5 +129,4 @@ class PhotosActivity : AppCompatActivity(), IMyBizImage {
         }!!
         recyclerPhotos!!.adapter = adapter
     }
-
 }

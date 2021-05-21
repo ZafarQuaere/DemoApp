@@ -1,6 +1,7 @@
 package com.zaf.econnecto.ui.activities.mybiz.fragments
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,47 +24,54 @@ import com.zaf.econnecto.utils.AppConstant
 import com.zaf.econnecto.utils.LogUtils
 import com.zaf.econnecto.utils.storage.PrefUtil
 import kotlinx.android.synthetic.main.fragment_amenities.*
+import kotlinx.android.synthetic.main.fragment_amenities.view.*
 import org.json.JSONObject
 import retrofit2.Response
 
 class AmenitiesFragment : Fragment() {
+
     private lateinit var amenitiesVm: AmenitiesViewModel
     private lateinit var amenityAdapter: AmenitiesRecyclerAdapter
-    var amenitiesData: Amenities? = null
-    var amenityRemoveData: Response<JsonObject>? = null
-    var amenityAddData: Response<JsonObject>? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        amenitiesVm = ViewModelProviders.of(this).get(AmenitiesViewModel::class.java)
+    private lateinit var mContext: Context
 
+    companion object {
+        var editAmenities = false
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
+        amenitiesVm = ViewModelProviders.of(this).get(AmenitiesViewModel::class.java)
+        activity?.let { PrefUtil.getBizId(it) }?.let { amenitiesVm.bizAmenityList(activity as Activity?, null, it) }
+    }
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_amenities, container, false)
+        view.textNoAmenity.setOnClickListener {
+            startActivityForResult(Intent(activity, AmenitiesActivity::class.java), MyBusinessActivityLatest.UPDATE_AMENITIES)
+        }
         registerListener()
-        if (amenitiesData == null)
-            activity?.let { PrefUtil.getBizId(it) }?.let { amenitiesVm.bizAmenityList(activity as Activity?, null, it) }
-        return inflater.inflate(R.layout.fragment_amenities, container, false)
+        return view
     }
 
     private fun registerListener() {
         amenitiesVm.allAmenityList.observe(viewLifecycleOwner, Observer { data: Amenities ->
             updateAmenityList(data)
-            amenitiesData = data
         })
         amenitiesVm.removeAmenity.observe(viewLifecycleOwner, Observer { jsonObj: Response<JsonObject> ->
-            updateRemoveAmenity(jsonObj)
-            amenityRemoveData = jsonObj
+            if (editAmenities) {
+                editAmenities = false
+                updateRemoveAmenity(jsonObj)
+            }
         })
-        amenitiesVm.addAmenity.observe(viewLifecycleOwner, Observer { jsonObj: Response<JsonObject> ->
-            updateAddAmenity(jsonObj)
-            amenityAddData = jsonObj
-        })
+
     }
 
 
     private fun updateAmenityList(data: Amenities) {
-        if (/*data != AppConstant.FAILURE && */data.status == AppConstant.SUCCESS) {
+        if (data.status == AppConstant.SUCCESS) {
             textNoAmenity.visibility = View.GONE
             recyclerAmenities.visibility = View.VISIBLE
             editAmenity.visibility = View.VISIBLE
@@ -71,10 +79,16 @@ class AmenitiesFragment : Fragment() {
             recyclerAmenities.layoutManager = layoutManager
             recyclerAmenities.itemAnimator = DefaultItemAnimator()
             val amenitiesData = data.data
-            amenityAdapter = activity?.let { AmenitiesRecyclerAdapter(it, amenitiesData, amenitiesVm) }!!
-            recyclerAmenities.adapter = amenityAdapter
-            editAmenity.setOnClickListener {
-                startActivityForResult(Intent(activity, AmenitiesActivity::class.java), MyBusinessActivityLatest.UPDATE_AMENITIES)
+            if (data.data.isNotEmpty()) {
+                amenityAdapter = activity?.let { AmenitiesRecyclerAdapter(it, amenitiesData, amenitiesVm) }!!
+                recyclerAmenities.adapter = amenityAdapter
+                editAmenity.setOnClickListener {
+                    startActivityForResult(Intent(activity, AmenitiesActivity::class.java), MyBusinessActivityLatest.UPDATE_AMENITIES)
+                }
+            } else {
+                textNoAmenity.visibility = View.VISIBLE
+                recyclerAmenities.visibility = View.GONE
+                editAmenity.visibility = View.GONE
             }
         } else {
             textNoAmenity.visibility = View.VISIBLE
@@ -84,36 +98,25 @@ class AmenitiesFragment : Fragment() {
     }
 
     private fun updateRemoveAmenity(jsonObj: Response<JsonObject>) {
-        if (amenityRemoveData == null) {
             val body = JSONObject(Gson().toJson(jsonObj.body()))
             LogUtils.DEBUG("RemoveAmenity Response:->> $body")
             val status = body.optInt("status")
             if (status == AppConstant.SUCCESS) {
-                activity?.let { PrefUtil.getBizId(it) }?.let { amenitiesVm.bizAmenityList(activity as Activity?, null, it) }
+                callAmenityListApi()
             } else {
                 LogUtils.showDialogSingleActionButton(activity, activity?.getString(R.string.ok), body.optJSONArray("message").optString(0)) { }
             }
-        }
     }
 
-    private fun updateAddAmenity(jsonObj: Response<JsonObject>) {
-        if (amenityAddData == null) {
-            val body = JSONObject(Gson().toJson(jsonObj.body()))
-            LogUtils.DEBUG("addAmenityApi Response:->> $body")
-            val status = body.optInt("status")
-            if (status == AppConstant.SUCCESS) {
-                activity?.let { PrefUtil.getBizId(it) }?.let { amenitiesVm.bizAmenityList(activity as Activity?, null, it) }
-            } else {
-                LogUtils.showDialogSingleActionButton(activity, activity?.getString(R.string.ok), body.optJSONArray("message").optString(0)) { }
-            }
-        }
+    private fun callAmenityListApi() {
+        activity?.let { PrefUtil.getBizId(it) }?.let { amenitiesVm.bizAmenityList(activity as Activity?, null, it) }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == MyBusinessActivityLatest.UPDATE_AMENITIES) {
             LogUtils.DEBUG("Coming from amenities Fragment")
-            activity?.let { PrefUtil.getBizId(it) }?.let { amenitiesVm.bizAmenityList(activity as Activity?, null, it) }
+            callAmenityListApi()
         }
     }
 

@@ -9,17 +9,32 @@
     tools:context=".ui.activities.mybiz.fragments.PricingFragment">
 
     <TextView
+        android:id="@+id/textNoPricing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:letterSpacing="0.03"
+        android:lineSpacingExtra="@dimen/_10dp"
+        android:minHeight="@dimen/_150dp"
+        android:text="@string/no_data_available_click_to_add"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/font_20sp"
+        android:textStyle="bold"
+        android:visibility="visible" />
+
+    <TextView
         android:id="@+id/editPricing"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
+        android:visibility="gone"
         android:text="@string/edit"
         android:padding="@dimen/_10dp"
         app:drawableRightCompat="@drawable/ic_edit_black"
         tools:ignore="RtlSymmetry" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:visibility="visible"
+        android:visibility="gone"
         android:id="@+id/recyclerPricing"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -27,14 +42,5 @@
         android:overScrollMode="never"
         android:scrollbars="none"
         tools:listitem="@layout/my_biz_category_item" />
-
-    <TextView
-        android:id="@+id/textNoPricing"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/no_data_available"
-        android:gravity="center"
-        android:visibility="gone"
-        android:minHeight="@dimen/_150dp"/>
 
 </LinearLayout>

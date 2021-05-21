@@ -12,7 +12,6 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-
         <TextView
             android:id="@+id/textAddPhotos"
             android:layout_width="match_parent"
@@ -37,6 +36,7 @@
             android:overScrollMode="never"
             android:scrollbars="none"
             android:visibility="visible"
+            android:paddingBottom="@dimen/recycler_padding_bottom"
             tools:listitem="@layout/header_image_list_item" />
 
     </LinearLayout>

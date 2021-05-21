@@ -65,7 +65,6 @@ import kotlinx.android.synthetic.main.mb_operating_hours.*
 
 class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMyBizImage, IMyBusinessLatest, ImageUpdateModelListener.ImageUpdateListener, OnMapReadyCallback {
 
-    private lateinit var basicDetailsDta: BasicDetailsData
     private var mContext: Activity? = null
 
     private var selectedImageUri: Uri? = null
@@ -115,15 +114,6 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
             }
         })
 
-//        myBizViewModel.allAmenityList.observe(this, Observer { amenitiesData: Amenities ->
-//            run {
-//                if (amenitiesData.status == AppConstant.SUCCESS) {
-//                    updateAmenitiesSection(amenitiesData.data)
-//                } else {
-//                    updateAmenitiesSection(null)
-//                }
-//            }
-//        })
     }
 
     private fun updateMyBizUI() {
@@ -131,7 +121,6 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         viewPagerTabs = findViewById<ViewPager>(R.id.viewpagerTabs)
         tabLayout = findViewById<TabLayout>(R.id.tabs)
         tabLayout.setupWithViewPager(viewPagerTabs)
-//        addTabsWithoutVP()
 
         textFollow.text = getString(R.string.edit_details)
         textFollow.setOnClickListener {
@@ -146,30 +135,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         textAddProductNServices.setOnClickListener {
             startActivityForResult(Intent(this, ProductAndServices::class.java), UPDATE_PRODUCT_SERVICES)
         }
-       /* textAboutDescLabel.setOnClickListener {
-            startActivityForResult(Intent(this, AboutActivity::class.java), UPDATE_ABOUT_US)
-        }*/
-       /* textAboutWhyUsLabel.setOnClickListener {
-            startActivityForResult(Intent(this, AboutActivity::class.java), UPDATE_ABOUT_US)
-        }
-        textAboutEdit.setOnClickListener {
-            startActivityForResult(Intent(this, AboutActivity::class.java), UPDATE_ABOUT_US)
-        }*/
 
-        /*textAddAmenities.setOnClickListener {
-            startActivityForResult(Intent(this, AmenitiesActivity::class.java), UPDATE_AMENITIES)
-        }*/
-
-     /*   textAddPayments.setOnClickListener {
-            startActivityForResult(Intent(this, PaymentsOptions::class.java), UPDATE_PAYMENTS)
-        }*/
-      /*  textAddCategory.setOnClickListener {
-            startActivityForResult(Intent(this, CategoriesActivity::class.java), UPDATE_CATEGORY)
-        }*/
-
-       /* textAddPricing.setOnClickListener {
-            startActivityForResult(Intent(this, PricingActivity::class.java), UPDATE_PRICING)
-        }*/
     }
 
     private fun setupViewPager(viewPagerTabs: ViewPager?) {
@@ -184,94 +150,6 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         viewPagerTabs!!.adapter = adapter
     }
 
-    private fun addTabsWithoutVP() {
-        tabLayout.addTab(tabLayout.newTab().setText("Brochure"))
-        tabLayout.addTab(tabLayout.newTab().setText("About"))
-        tabLayout.addTab(tabLayout.newTab().setText("Photos"))
-        tabLayout.addTab(tabLayout.newTab().setText("Amenities"))
-        tabLayout.addTab(tabLayout.newTab().setText("Payment"))
-        tabLayout.addTab(tabLayout.newTab().setText("Pricing"))
-        tabLayout.addTab(tabLayout.newTab().setText("Categories"))
-
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {}
-
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-//                scrollUpto(tab!!.text as String?)
-            }
-
-        })
-    }
-
-   /* private fun scrollUpto(text: String?) {
-        when (text) {
-            "About" -> {
-                scroll.scrollTo(0, textAboutWhyUsLabel.top + 100)
-                textAboutWhyUsLabel.requestFocus()
-            }
-            "Brochure" -> {
-                scroll.scrollTo(0, textUploadBrochure.top - 50)
-                textUploadBrochure.requestFocus()
-            }
-            "Photos" -> {
-//                scrollToRow(scroll,layoutPhotos,textAddPhotos)
-                scroll.scrollTo(0, textAddPhotos.top + 1000)
-                textAddPhotos.requestFocus()
-            }
-            "Amenities" -> {
-                scroll.scrollTo(0, textAddAmenities.top + 2000)
-                textAddAmenities.requestFocus()
-            }
-            "Payment" -> {
-                scroll.scrollTo(0, textAddPayments.top + 2500)
-                textAddPayments.requestFocus()
-            }
-
-            "Pricing" -> {
-                scroll.scrollTo(0, textAddPricing.top + 2900)
-                textAddPricing.requestFocus()
-            }
-            "Categories" -> {
-                scroll.scrollTo(0, textAddCategory.bottom + 3100)
-                textAddCategory.requestFocus()
-            }
-//            "Payment" ->  scroll.scrollTo(0,textAddPayments.top +2600) //scrollToRow(scroll,layoutPayment,textAddPayments)
-            else -> scroll.scrollTo(0, textAboutWhyUsLabel.top + 2600)
-        }
-
-    }*/
-
-    fun scrollToRow(nsv: NestedScrollView, layout: LinearLayout, tv: TextView) {
-//        val delay : Long = 100
-//        nsv.postDelayed(object: Runnable{
-//            override fun run() {
-//                val rect = Rect()
-//                tv.getHitRect(rect)
-//                nsv.requestChildRectangleOnScreen(layout,rect,false)
-//            }
-//
-//        },delay)
-
-//        val targetScroll: Int = nsv.getScrollY() + 1000
-        val targetScroll: Int = tv.getScrollY()
-        nsv.scrollTo(0, targetScroll)
-        nsv.setSmoothScrollingEnabled(true)
-        ViewCompat.setNestedScrollingEnabled(nsv, false)
-        val currentScrollY: Int = nsv.getScrollY()
-        ViewCompat.postOnAnimationDelayed(nsv, object : Runnable {
-            var currentY = currentScrollY
-            override fun run() {
-                if (currentScrollY == nsv.getScrollY()) {
-                    ViewCompat.setNestedScrollingEnabled(nsv, true)
-                    return
-                }
-                currentY = nsv.getScrollY()
-                ViewCompat.postOnAnimation(nsv, this)
-            }
-        }, 10)
-    }
 
     private fun updateActionbar() {
         val toolbar = findViewById<Toolbar>(R.id.toolbarBd)
@@ -351,41 +229,11 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         val recyclerHeader = findViewById<RecyclerView>(R.id.recycler_header)
         recyclerHeader.layoutManager = LinearLayoutManager(this)
         recyclerHeader.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-
         val adapter = VBHeaderImageRecylcerAdapter(this, data.toList() as MutableList<ViewImageData>)
         recyclerHeader.adapter = adapter
-//        updatePhotoSection(data)
     }
 
-    private fun updatePhotoSection(data: MutableList<ViewImageData>) {
-        if (data != null) {
-            textAddPhotos.visibility = View.GONE
-            recycler_photos.visibility = View.VISIBLE
-            textPhotoLabel.visibility = View.VISIBLE
-            textSeeMorePhotos.bringToFront()
-            val layoutManager = GridLayoutManager(mContext, 2)
-            recycler_photos!!.layoutManager = layoutManager
-            recycler_photos!!.itemAnimator = DefaultItemAnimator()
-//            recycler_photos.suppressLayout(true)
-//            recycler_photos.addOnItemTouchListener(object : RecyclerView.SimpleOnItemTouchListener(){
-//                override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-//                    return rv.scrollState == RecyclerView.SCROLL_STATE_DRAGGING;
-//                }
-//            })
 
-            val list1 = mutableListOf<ViewImageData>(data[0], data[1], data[2], data[3])
-//            val adapter = StaggeredImageAdapter(this, list1, false, null)
-            val adapter = VBHeaderImageRecylcerAdapter(this, list1)
-            recycler_photos!!.adapter = adapter
-            textSeeMorePhotos.setOnClickListener {
-                LogUtils.showToast(mContext, "see more..")
-                startActivityForResult(Intent(this, PhotosActivity::class.java), UPDATE_PHOTOS)
-            }
-        } else {
-            textAddPhotos.visibility = View.VISIBLE
-            recycler_photos.visibility = View.GONE
-        }
-    }
 
     fun uploadPhoto(view: View) {
         if (PermissionUtils.checkPermission(mContext)) {
@@ -441,23 +289,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
                     //call product and service api to update UI
                     myBizViewModel.bizProductServicesList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
                 }
-               /* UPDATE_ABOUT_US -> {
-                    LogUtils.DEBUG("Coming from about services")
-                    myBizViewModel.callMyBizBasicDetails(this, false, this, Utils.getUserID(mContext))
-                }*/
-               /* UPDATE_PAYMENTS -> {
-                    LogUtils.DEBUG("Coming from PaymentOptions")
-                    myBizViewModel.bizPaymentMethodList(mContext, this, PrefUtil.getBizId(mContext as Activity))
-                }*/
-               /* UPDATE_CATEGORY -> {
-                    LogUtils.DEBUG("Coming from Category Activity")
-                    LogUtils.showToast(mContext, "Coming from Category Activity")
-                    //   myBizViewModel.bizCategoryList(mContext, this, PrefUtil.getBizId(mContext as Activity))
-                }*/
-               /* UPDATE_PRICING -> {
-                    LogUtils.DEBUG("Coming from Category Activity")
-                    LogUtils.showToast(mContext, "Coming from Pricing Activity")
-                }*/
+
                 else -> {
                     selectedImageUri = data.data
                     moveToEditImage(data, requestCode)
@@ -572,96 +404,18 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
     }
 
     override fun updateBrochureSection(data: List<BrochureData>?) {
-        if (data == null || data.isEmpty()) {
-            textUploadBrochure.visibility = View.VISIBLE
-        } else {
-            textUploadBrochure.visibility = View.GONE
-            updateBrochureUI()
-        }
     }
 
     override fun updateAmenitiesSection(data: List<AmenityData>?) {
         //This will be removed later
     }
 
+    private fun updateBrochureUI() {}
 
-    private fun updateBrochureUI() {
-    }
+    override fun updatePaymentSection(data: List<PaymentMethodData>?) {}
 
-    private fun updateAboutSection(basicDetailsDta: BasicDetailsData) {
-        if (basicDetailsDta.aboutWhyUs != null && !basicDetailsDta.aboutWhyUs.equals("")) {
-            lytAboutEmpty.visibility = View.GONE
-            lytAboutData.visibility = View.VISIBLE
-            textAboutDesc.text = basicDetailsDta.aboutDescription
-            textAboutWhyUs.text = basicDetailsDta.aboutWhyUs
-        } else {
-            lytAboutData.visibility = View.GONE
-            lytAboutEmpty.visibility = View.VISIBLE
-        }
-    }
+    override fun updatePricingSection(data: List<PricingData>?) {}
 
-    override fun updatePaymentSection(data: List<PaymentMethodData>?) {
-        if (data == null || data.isEmpty()) {
-            textAddPayments.visibility = View.VISIBLE
-            lytPayments.visibility = View.GONE
-        } else {
-            updatePaymentsUI(data)
-        }
-    }
+    override fun updateCategories(data: List<UserCategoryData>?) {}
 
-    private fun updatePaymentsUI(data: List<PaymentMethodData>) {
-        textAddPayments.visibility = View.GONE
-        lytPayments.visibility = View.VISIBLE
-        val layoutManager = StaggeredGridLayoutManager(2, LinearLayout.VERTICAL)
-        recyclerPayments.layoutManager = layoutManager
-        recyclerPayments.itemAnimator = DefaultItemAnimator()
-        val adapter = PaymentsMyBizStaggeredAdapter(this, data)
-        recyclerPayments.adapter = adapter
-      /*  textPaymentEdit.setOnClickListener {
-            startActivityForResult(Intent(this, PaymentsOptions::class.java), UPDATE_PAYMENTS)
-        }*/
-    }
-
-    override fun updatePricingSection(data: List<PricingData>?) {
-        if (data == null || data.isEmpty()) {
-            textAddPricing.visibility = View.VISIBLE
-            lytPricing.visibility = View.GONE
-        } else {
-            updatePricingUI(data)
-        }
-    }
-
-    private fun updatePricingUI(data: List<PricingData>) {
-        textAddPricing.visibility = View.GONE
-        lytPricing.visibility = View.VISIBLE
-        val layoutManager = LinearLayoutManager(mContext)
-        recyclerPricing.layoutManager = layoutManager
-        recyclerPricing.itemAnimator = DefaultItemAnimator()
-        val adapter = PricingMyBizStaggeredAdapter(this, data)
-        recyclerPricing.adapter = adapter
-        textPricingEdit.setOnClickListener {
-            startActivityForResult(Intent(this, PricingActivity::class.java), UPDATE_PRICING)
-        }
-    }
-
-    override fun updateCategories(data: List<UserCategoryData>?) {
-        if (data == null || data.isEmpty()) {
-
-        } else
-            updateCategoryList(data)
-    }
-
-    private fun updateCategoryList(data: List<UserCategoryData>) {
-        if (data.isNotEmpty()) {
-            val catListView = findViewById<ListView>(R.id.myBizCategoryList)
-            catListView.visibility = View.VISIBLE
-            val adapter = UserCategoryListAdapter(this, data, object : DeleteCategoryListener {
-                override fun deleteCategory(categorydata: UserCategoryData) {
-                    LogUtils.showToast(mContext, "delete ${categorydata.category_name} and ${categorydata.category_id}now call delete api")
-                    myBizViewModel.deleteCategoriesApi(mContext as Activity?, categorydata.category_id,  this as IMyBusinessLatest, PrefUtil.getBizId(mContext as Activity))
-                }
-            })
-            catListView.adapter = adapter
-        }
-    }
 }

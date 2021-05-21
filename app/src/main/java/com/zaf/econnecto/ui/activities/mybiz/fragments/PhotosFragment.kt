@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.gson.Gson
@@ -18,11 +19,13 @@ import com.zaf.econnecto.network_call.response_model.img_data.ViewImageData
 import com.zaf.econnecto.network_call.response_model.img_data.ViewImages
 import com.zaf.econnecto.ui.activities.mybiz.PhotosViewModel
 import com.zaf.econnecto.ui.adapters.StaggeredImageAdapter
+import com.zaf.econnecto.ui.interfaces.DeleteImageListener
 import com.zaf.econnecto.utils.AppConstant
 import com.zaf.econnecto.utils.LogUtils
 import com.zaf.econnecto.utils.parser.ParseManager
 import com.zaf.econnecto.utils.storage.PrefUtil
 import kotlinx.android.synthetic.main.fragment_photos.*
+import kotlinx.coroutines.launch
 import org.json.JSONObject
 import retrofit2.Response
 
@@ -30,22 +33,17 @@ import retrofit2.Response
 class PhotosFragment : Fragment() {
 
     lateinit var  mContext: Context
-    private lateinit var pricingVm: PhotosViewModel
-    var photosResponseData: Response<JsonObject>? = null
-    private var removePayTypeData: Boolean = false
-    private var addPayTypeData: Boolean = false
+    private lateinit var photosVm: PhotosViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
-        pricingVm = ViewModelProviders.of(this).get(PhotosViewModel::class.java)
-        if (photosResponseData == null) {
+        photosVm = ViewModelProviders.of(this).get(PhotosViewModel::class.java)
             callPhotosApi()
-        }
     }
 
     private fun callPhotosApi() {
-        activity?.let { PrefUtil.getBizId(it) }?.let { pricingVm.bizImageList(activity as Activity?, it) }
+        activity?.let { PrefUtil.getBizId(it) }?.let { photosVm.bizImageList(activity as Activity?, it) }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,7 +58,7 @@ class PhotosFragment : Fragment() {
     }
 
     private fun registerListener() {
-        pricingVm.mbImageList.observe(viewLifecycleOwner, Observer { photosResponseData -> updateUI(photosResponseData) })
+        photosVm.mbImageList.observe(viewLifecycleOwner, Observer { photosResponseData -> updateUI(photosResponseData) })
     }
 
     private fun updateUI(photosResponseData: Response<JsonObject>?) {
@@ -85,13 +83,18 @@ class PhotosFragment : Fragment() {
             val layoutManager = GridLayoutManager(mContext, 2)
             recycler_photos!!.layoutManager = layoutManager
             recycler_photos!!.itemAnimator = DefaultItemAnimator()
-            val adapter = StaggeredImageAdapter(mContext, data, false, null)
+            val adapter = StaggeredImageAdapter(mContext, data, true, object: DeleteImageListener{
+                override fun onDeleteClick(s: ViewImageData?, position: Int) {
+                    lifecycleScope.launch {
+//                        photosVm.callDeleteImageApi(mContext,data, position)
+                    }
+                }
+
+            })
             recycler_photos!!.adapter = adapter
         } else {
             textAddPhotos.visibility = View.VISIBLE
             recycler_photos.visibility = View.GONE
         }
     }
-
-
 }

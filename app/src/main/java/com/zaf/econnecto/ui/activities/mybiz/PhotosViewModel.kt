@@ -2,25 +2,28 @@ package com.zaf.econnecto.ui.activities.mybiz
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.android.volley.Request
+import com.android.volley.VolleyError
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.zaf.econnecto.R
+import com.zaf.econnecto.model.ImageUpdateModelListener
+import com.zaf.econnecto.network_call.MyJsonObjectRequest
+import com.zaf.econnecto.network_call.response_model.img_data.ViewImageData
 import com.zaf.econnecto.network_call.response_model.img_data.ViewImages
 import com.zaf.econnecto.service.EConnectoServices
 import com.zaf.econnecto.service.ServiceBuilder
 import com.zaf.econnecto.ui.interfaces.IPaymentOptionList
 import com.zaf.econnecto.ui.interfaces.PaymentMethodAddListener
-import com.zaf.econnecto.ui.presenters.operations.IMyBizImage
 import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
-import com.zaf.econnecto.utils.AppConstant
-import com.zaf.econnecto.utils.AppDialogLoader
-import com.zaf.econnecto.utils.LogUtils
-import com.zaf.econnecto.utils.Utils
+import com.zaf.econnecto.utils.*
 import com.zaf.econnecto.utils.parser.ParseManager
 import okhttp3.MediaType
 import okhttp3.RequestBody
+import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -167,5 +170,49 @@ class PhotosViewModel : ViewModel() {
                 }
             }
         })
+    }
+
+
+    suspend fun callDeleteImageApi(mContext: Context, imageData: MutableList<ViewImageData>, position: Int) {
+        val loader = AppDialogLoader.getLoader(mContext)
+        loader.show()
+        val url = AppConstant.URL_DELETE_IMAGE
+        val jObj = JSONObject();
+        try {
+            jObj.put("jwt_token", Utils.getAccessToken(mContext))
+            jObj.put("owner_id", Utils.getUserID(mContext))
+            jObj.put("img_id", imageData[position].imgId)
+        } catch (e: JSONException) {
+            e.printStackTrace();
+        }
+        LogUtils.DEBUG("URL : $url\nRequest Body ::${jObj.toString()}")
+        val objectRequest = MyJsonObjectRequest(mContext, Request.Method.POST, url, jObj, { response: JSONObject? ->
+            LogUtils.DEBUG("DeletePhoto Response ::" + response.toString())
+            try {
+                if (response != null) {
+                    val status = response.optInt("status")
+                    if (status == AppConstant.SUCCESS) {
+                        LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optJSONArray("message").optString(0))
+//                        imageList.remove(imageData)
+//                        adapter.notifyDataSetChanged()
+//                        recyclerPhotos.removeViewAt(position)
+//                        adapter.notifyItemRemoved(position)
+                        ImageUpdateModelListener.getInstance().changeState(true)
+                    } else {
+                        LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok),
+                                response.optJSONArray("message").optString(0))
+                    }
+                    loader.dismiss()
+                }
+            } catch (e: Exception) {
+                loader.dismiss()
+                e.printStackTrace()
+                LogUtils.ERROR(e.message)
+            }
+        }, { error: VolleyError ->
+            LogUtils.DEBUG("DeletePhoto Error ::" + error.message)
+            loader.dismiss()
+        })
+        AppController.getInstance().addToRequestQueue(objectRequest, "DeletePhoto")
     }
 }

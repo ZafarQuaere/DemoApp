@@ -10,6 +10,8 @@ import com.zaf.econnecto.R
 import com.zaf.econnecto.model.CategoryListData
 import com.zaf.econnecto.service.EConnectoServices
 import com.zaf.econnecto.service.ServiceBuilder
+import com.zaf.econnecto.ui.activities.mybiz.fragments.CategoriesFragment
+import com.zaf.econnecto.ui.activities.mybiz.fragments.PaymentFragment
 import com.zaf.econnecto.ui.interfaces.AllCategoriesListener
 import com.zaf.econnecto.ui.interfaces.CategoryAddedListener
 
@@ -32,7 +34,6 @@ class MbCategoryViewModel : ViewModel() {
     lateinit var mActivity: Activity
     var mbCategoryList =  MutableLiveData<UserCategories>()
     var removeCategory =  MutableLiveData<Response<JsonObject>>()
-    var addCategory =  MutableLiveData<Response<JsonObject>>()
 
     fun bizAllCategories(activity: Activity?, listener: AllCategoriesListener) {
         if (activity != null)
@@ -124,6 +125,36 @@ class MbCategoryViewModel : ViewModel() {
                 } else {
                     LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), userCategories.message[0])
                 }*/
+            }
+        })
+    }
+
+    fun removeCategory(activity: Activity?, payMethodId: String, listener: IMyBusinessLatest?, bizId: String) {
+        if (activity != null)
+            mActivity = activity
+        val loader = AppDialogLoader.getLoader(mActivity)
+        loader.show()
+        val jsonObject = JSONObject()
+        jsonObject.put("jwt_token", Utils.getAccessToken(mActivity))
+        jsonObject.put("owner_id", Utils.getUserID(mActivity))
+        jsonObject.put("p_method_id", payMethodId)
+
+        val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
+        val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
+
+        val requestCall = categoryService.removePayType(requestBody)
+        LogUtils.DEBUG("Url: ${requestCall.request().url()}  \nBody: $jsonObject")
+
+        requestCall.enqueue(object : Callback<JsonObject> {
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                loader.dismiss()
+                LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), mActivity.getString(R.string.something_wrong_from_server_plz_try_again) + "\n" + t.localizedMessage)
+            }
+
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                loader.dismiss()
+                CategoriesFragment.removeCategory = true
+                removeCategory.value = response
             }
         })
     }

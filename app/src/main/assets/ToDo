@@ -1,8 +1,7 @@
 //TODO
 
+1) Add setMyLocation in Add Business Address Details Screen.
 1) About section is under development in fragment.. have to work on it.
-
-
 1) Ask for the profile detail in login response.
 2) Create Help and About us.
 3) Upload User Profile image.
@@ -12,8 +11,8 @@
 7) Look for the network connectivity at each level of application.
 8) apply activity.recreate() to recreate the application for any network issue or any exception.
 9) Have to optimize image upload process.
-10) 
 
+10)
 
 1) login -- token issue (invalidate jwt token) in 60 days.
 2) verify email,
@@ -25,32 +24,24 @@
 8) My business api and implementation
 9) upload business profile photo
 
-
 //Zafar
+
 1) Login design changes
 2) Forget Password
 3) OTP resend count/ attempt(5 attempt).
 4) Verify OTP attempt (3 times)
 
+My Business
+1) Remove address dropdown arrow functionality.
+2) add more in Deals in UI in
+3) Delete functionality in amenities and other lists.
+4) Add pricing UI -> add info icon for unit hint
+5) remove toggle button from basic detail in my business.
+6) Add share menu in My Business.
+7) My Business Tab section in using fragment pager.
 
+View Business
+1) Add not available message when User is not added
+2) Remove Photos section from Tab and see more arrow in Topbar image list.
 
-"address":"Address cannot be more then 55 characters"
-
-
-https://stackoverflow.com/questions/44721554/collapsing-toolbar-only-for-one-fragment-in-navigation-view
-https://github.com/UdiOshi85/SearchToolbarExample
-
-upload Image :
-http://sachinverma.co.in/upload-image-to-server-using-volley-android/
-
-for progress loader.
-https://github.com/agrawalsuneet/SquareLoadersPack-Android
-
-Questions on new Registration and Login process.
-1) need a new status for registered user, who did not verified their number on phone verification.
-2) What will happen to old process users in login if they use to login with email, in new approach we are using phone number.
-3) Password length criteria of min 8 character will not be applicable for older user.. as previous length criteria was 6. new is 8.
-
-
-1) Api
-2)
+** Preview and Share your business in My Business bottom

@@ -12,67 +12,87 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.JsonObject
 import com.zaf.econnecto.R
 import com.zaf.econnecto.ui.activities.mybiz.*
-import com.zaf.econnecto.ui.adapters.MyBizPricingAdapter
-import com.zaf.econnecto.ui.adapters.UserCategoryListAdapter
-import com.zaf.econnecto.ui.interfaces.DeleteCategoryListener
+import com.zaf.econnecto.ui.adapters.MyBizCategoriesAdapter
 import com.zaf.econnecto.utils.AppConstant
 import com.zaf.econnecto.utils.LogUtils
 import com.zaf.econnecto.utils.storage.PrefUtil
 import kotlinx.android.synthetic.main.fragment_categories.*
+import kotlinx.android.synthetic.main.fragment_categories.view.*
+import retrofit2.Response
 
 
 class CategoriesFragment : Fragment() {
 
-    private lateinit var pricingVm: MbCategoryViewModel
-    private lateinit var pricingAdapter: UserCategoryListAdapter
-    private var pricingData: UserCategories? = null
-    private var removePayTypeData: Boolean = false
-    private var addPayTypeData: Boolean = false
+    private lateinit var categoriesVm: MbCategoryViewModel
+    private lateinit var mbCategoriesAdapter: MyBizCategoriesAdapter
     lateinit var  mContext: Context
+    companion object {
+        var removeCategory = false
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
-        pricingVm = ViewModelProviders.of(this).get(MbCategoryViewModel::class.java)
-        if (pricingData == null) {
-            callCategoryApi()
-        }
+        categoriesVm = ViewModelProviders.of(this).get(MbCategoryViewModel::class.java)
+        callCategoryApi()
     }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view =  inflater.inflate(R.layout.fragment_categories, container, false)
+        view.textNoCategories.setOnClickListener {
+            startActivityForResult(Intent(activity, CategoriesActivity::class.java), MyBusinessActivityLatest.UPDATE_CATEGORY)
+        }
         registerListener()
-        return inflater.inflate(R.layout.fragment_categories, container, false)
+        return view
     }
 
     private fun callCategoryApi() {
-        activity?.let { PrefUtil.getBizId(it) }?.let { pricingVm.bizCategoryList(activity as Activity?, it) }
+        activity?.let { PrefUtil.getBizId(it) }?.let { categoriesVm.bizCategoryList(activity as Activity?, it) }
     }
 
     private fun registerListener() {
-        pricingVm.mbCategoryList.observe(viewLifecycleOwner, Observer { pricing : UserCategories ->
+        categoriesVm.mbCategoryList.observe(viewLifecycleOwner, Observer { pricing : UserCategories ->
             updateCategoryUI(pricing)
-            pricingData = pricing
         })
+        categoriesVm.removeCategory.observe(viewLifecycleOwner, Observer { jsonObj: Response<JsonObject> ->
+            if (removeCategory){
+                removeCategory = false
+                updateRemoveCategoryUI()
+            }
+        })
+    }
+
+    private fun updateRemoveCategoryUI() {
+
     }
 
     private fun updateCategoryUI(pricing: UserCategories) {
         if (pricing.status == AppConstant.SUCCESS) {
+            textNoCategories.visibility = View.GONE
             myBizCategoryList.visibility = View.VISIBLE
             textAddCategory.visibility = View.VISIBLE
-            val payListData = pricing?.data
-            pricingAdapter = UserCategoryListAdapter(mContext as Activity, payListData, object : DeleteCategoryListener{
-                override fun deleteCategory(categorydata: UserCategoryData) {
-                  LogUtils.showToast(mContext,"Delete clicked")
+            val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+            myBizCategoryList.layoutManager = layoutManager
+            myBizCategoryList.itemAnimator = DefaultItemAnimator()
+            val payListData = pricing.data
+            if (payListData.isNotEmpty()) {
+                mbCategoriesAdapter = MyBizCategoriesAdapter(mContext as Activity, payListData, categoriesVm)
+                myBizCategoryList.adapter = mbCategoriesAdapter
+                textAddCategory.setOnClickListener {
+                    startActivityForResult(Intent(activity, CategoriesActivity::class.java), MyBusinessActivityLatest.UPDATE_CATEGORY)
                 }
-            })
-            myBizCategoryList.adapter = pricingAdapter
-            textAddCategory.setOnClickListener {
-                startActivityForResult(Intent(activity, CategoriesActivity::class.java), MyBusinessActivityLatest.UPDATE_CATEGORY)
+            } else {
+                textNoCategories.visibility = View.VISIBLE
+                myBizCategoryList.visibility = View.GONE
+                textAddCategory.visibility = View.GONE
             }
         } else {
+            textNoCategories.visibility = View.VISIBLE
             myBizCategoryList.visibility = View.GONE
+            textAddCategory.visibility = View.GONE
         }
     }
 
@@ -80,8 +100,7 @@ class CategoriesFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == MyBusinessActivityLatest.UPDATE_CATEGORY) {
             LogUtils.DEBUG("Coming from Payment Fragment")
-            LogUtils.showToast(mContext, "Coming from Category Activity")
-//            callPayListApi()
+//            LogUtils.showToast(mContext, "Coming from Category Activity")
             callCategoryApi()
         }
     }

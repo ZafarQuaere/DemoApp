@@ -391,4 +391,6 @@
     <string name="unit">Unit</string>
     <string name="edit">Edit</string>
     <string name="add_about_section">Add About Section</string>
+
+    <string name="no_data_available_click_to_add">No data available! \n click here to add</string>
 </resources>

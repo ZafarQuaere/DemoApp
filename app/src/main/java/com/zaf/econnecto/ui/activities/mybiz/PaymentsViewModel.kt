@@ -9,6 +9,7 @@ import com.google.gson.JsonObject
 import com.zaf.econnecto.R
 import com.zaf.econnecto.service.EConnectoServices
 import com.zaf.econnecto.service.ServiceBuilder
+import com.zaf.econnecto.ui.activities.mybiz.fragments.PaymentFragment
 import com.zaf.econnecto.ui.interfaces.IPaymentOptionList
 import com.zaf.econnecto.ui.interfaces.PaymentMethodAddListener
 import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
@@ -51,13 +52,6 @@ class PaymentsViewModel : ViewModel() {
                 LogUtils.DEBUG("bizPaymentMethodList Response:->> ${ParseManager.getInstance().toJSON(response.body())}")
                 if (response != null && response.isSuccessful) {
                     mbPayOptionList.value =  response.body()
-                   /*
-                   val paymentMethod: PaymentMethods = response.body()!!
-                   if (paymentMethod.status == AppConstant.SUCCESS) {
-                        listener.updatePaymentSection(paymentMethod.data)
-                    } else {
-                        LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), paymentMethod.message[0])
-                    }*/
                 }
 
                 loader.dismiss()
@@ -89,6 +83,7 @@ class PaymentsViewModel : ViewModel() {
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 loader.dismiss()
+                PaymentFragment.editValues = true
                 removePayOption.value = response
             }
         })

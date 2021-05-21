@@ -9,6 +9,21 @@
     tools:context=".ui.activities.mybiz.fragments.CategoriesFragment">
 
     <TextView
+        android:id="@+id/textNoCategories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:letterSpacing="0.03"
+        android:lineSpacingExtra="@dimen/_10dp"
+        android:minHeight="@dimen/_150dp"
+        android:text="@string/no_data_available_click_to_add"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/font_20sp"
+        android:textStyle="bold"
+        android:visibility="visible" />
+
+    <TextView
+        android:visibility="gone"
         android:id="@+id/textAddCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,21 +34,14 @@
         android:text="@string/add_category" />
 
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/myBizCategoryList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
         android:overScrollMode="never"
+        android:scrollbars="none"
+        android:visibility="gone"
         tools:listitem="@layout/my_biz_category_item" />
-
-
-    <!-- <TextView
-         android:id="@+id/textNoPricing"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:text="@string/no_data_available"
-         android:gravity="center"
-         android:visibility="gone"
-         android:minHeight="@dimen/_150dp"/>-->
 
 </LinearLayout>

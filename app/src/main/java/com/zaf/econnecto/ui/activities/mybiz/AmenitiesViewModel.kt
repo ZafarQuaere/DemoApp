@@ -9,6 +9,7 @@ import com.google.gson.JsonObject
 import com.zaf.econnecto.R
 import com.zaf.econnecto.service.EConnectoServices
 import com.zaf.econnecto.service.ServiceBuilder
+import com.zaf.econnecto.ui.activities.mybiz.fragments.AmenitiesFragment
 import com.zaf.econnecto.ui.interfaces.AmenityAddedListener
 import com.zaf.econnecto.ui.interfaces.IGeneralAmenityList
 import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
@@ -151,6 +152,7 @@ class AmenitiesViewModel : ViewModel() {
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 loader.dismiss()
+                AmenitiesFragment.editAmenities = true
                 removeAmenity.value = response
             }
         })

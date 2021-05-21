@@ -1,6 +1,7 @@
 package com.zaf.econnecto.ui.activities.mybiz.fragments
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,73 +24,57 @@ import com.zaf.econnecto.utils.AppConstant
 import com.zaf.econnecto.utils.LogUtils
 import com.zaf.econnecto.utils.storage.PrefUtil
 import kotlinx.android.synthetic.main.fragment_payment.*
+import kotlinx.android.synthetic.main.fragment_payment.view.*
 import org.json.JSONObject
 import retrofit2.Response
 
 
 class PaymentFragment : Fragment() {
 
+    companion object {
+        var editValues = false
+    }
     private lateinit var payVm: PaymentsViewModel
     private lateinit var amenityAdapter: MyBizPaymentsRecyclerAdapter
-    private var paymentsData: PaymentMethods? = null
-    private var removePayTypeData: Boolean = false
-    private var addPayTypeData: Boolean = false
+    private lateinit var mContext: Context
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
         payVm = ViewModelProviders.of(this).get(PaymentsViewModel::class.java)
+        activity?.let { PrefUtil.getBizId(it) }?.let { payVm.bizPaymentMethodList(activity as Activity?, it) }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        registerListeners()
-        if (paymentsData == null) {
-            callPayListApi()
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_payment, container, false)
+        view.textNoPaymentOptions.setOnClickListener {
+            startActivityForResult(Intent(activity, PaymentsOptions::class.java), MyBusinessActivityLatest.UPDATE_PAYMENTS)
         }
-        return inflater.inflate(R.layout.fragment_payment, container, false)
+        registerListeners()
+        return view
     }
 
     private fun registerListeners() {
         payVm.mbPayOptionList.observe(viewLifecycleOwner, Observer { data: PaymentMethods ->
             updatePaymentList(data)
-            paymentsData = data
         })
-        payVm.removePayOption.observe(viewLifecycleOwner, Observer { jsonObj: Response<JsonObject> ->
-            removePayTypeData = true
-            updateRemovePayTypeUI(jsonObj)
-        })
-        payVm.addPayOption.observe(viewLifecycleOwner, Observer { jsonObj: Response<JsonObject> ->
-            addPayTypeData = true
-            updateAddPayType(jsonObj)
-        })
-    }
 
-    private fun updateAddPayType(jsonObj: Response<JsonObject>) {
-        if (addPayTypeData) {
-            addPayTypeData = false
-            val body = JSONObject(Gson().toJson(jsonObj.body()))
-            LogUtils.DEBUG("addPaymentTypeApi Response:->> $body")
-            val status = body.optInt("status")
-            if (status == AppConstant.SUCCESS) {
-                activity?.let { PrefUtil.getBizId(it) }?.let { payVm.bizPaymentMethodList(activity as Activity?, it) }
-            } else {
-                LogUtils.showDialogSingleActionButton(activity, activity?.getString(R.string.ok), body.optJSONArray("message").optString(0)) { }
+        payVm.removePayOption.observe(viewLifecycleOwner, Observer { jsonObj: Response<JsonObject> ->
+            if (editValues) {
+                editValues = false
+                updateRemovePayTypeUI(jsonObj)
             }
-        }
+        })
     }
 
     private fun updateRemovePayTypeUI(jsonObj: Response<JsonObject>) {
-        if (removePayTypeData) {
-            removePayTypeData = false
-            val body = JSONObject(Gson().toJson(jsonObj.body()))
-            LogUtils.DEBUG("removePaymentTypeApi Response:->> $body")
-            val status = body.optInt("status")
-            if (status == AppConstant.SUCCESS) {
-                callPayListApi()
-
-            } else {
-                LogUtils.showDialogSingleActionButton(activity, activity?.getString(R.string.ok), body.optJSONArray("message").optString(0)) { }
-            }
+        val body = JSONObject(Gson().toJson(jsonObj.body()))
+        LogUtils.DEBUG("removePaymentTypeApi Response:->> $body")
+        val status = body.optInt("status")
+        if (status == AppConstant.SUCCESS) {
+            callPayListApi()
+        } else {
+            LogUtils.showDialogSingleActionButton(activity, activity?.getString(R.string.ok), body.optJSONArray("message").optString(0)) { }
         }
     }
 
@@ -106,10 +91,16 @@ class PaymentFragment : Fragment() {
             recyclerPayments.layoutManager = layoutManager
             recyclerPayments.itemAnimator = DefaultItemAnimator()
             val payListData = data.data
-            amenityAdapter = activity?.let { MyBizPaymentsRecyclerAdapter(it, payListData, payVm) }!!
-            recyclerPayments.adapter = amenityAdapter
-            editPaymentOptions.setOnClickListener {
-                startActivityForResult(Intent(activity, PaymentsOptions::class.java), MyBusinessActivityLatest.UPDATE_PAYMENTS)
+            if (payListData.isNotEmpty()) {
+                amenityAdapter = activity?.let { MyBizPaymentsRecyclerAdapter(it, payListData, payVm) }!!
+                recyclerPayments.adapter = amenityAdapter
+                editPaymentOptions.setOnClickListener {
+                    startActivityForResult(Intent(activity, PaymentsOptions::class.java), MyBusinessActivityLatest.UPDATE_PAYMENTS)
+                }
+            } else {
+                textNoPaymentOptions.visibility = View.VISIBLE
+                recyclerPayments.visibility = View.GONE
+                editPaymentOptions.visibility = View.GONE
             }
         } else {
             textNoPaymentOptions.visibility = View.VISIBLE
