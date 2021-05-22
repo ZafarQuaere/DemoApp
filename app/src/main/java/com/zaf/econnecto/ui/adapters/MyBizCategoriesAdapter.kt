@@ -9,10 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zaf.econnecto.R
 import com.zaf.econnecto.ui.activities.mybiz.MbCategoryViewModel
-import com.zaf.econnecto.ui.activities.mybiz.PaymentMethodData
-import com.zaf.econnecto.ui.activities.mybiz.PaymentsViewModel
 import com.zaf.econnecto.ui.activities.mybiz.UserCategoryData
-import com.zaf.econnecto.utils.storage.PrefUtil
 
 class MyBizCategoriesAdapter(private val context: Activity, private val mValues: List<UserCategoryData>, payVm: MbCategoryViewModel) : RecyclerView.Adapter<MyBizCategoriesAdapter.ViewHolder>() {
 
@@ -28,12 +25,12 @@ class MyBizCategoriesAdapter(private val context: Activity, private val mValues:
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.textPayTypeName.text = mValues[position].category_name
         holder.iconDelete.setOnClickListener {
-            callDeleteApi(mValues[position].category_id)
+            callDeleteApi(mValues[position])
         }
     }
 
-    private fun callDeleteApi(payMethodId: String) {
-        mPayViewModel.removeCategory(mActivity, payMethodId, null, PrefUtil.getBizId(mActivity))
+    private fun callDeleteApi(userData: UserCategoryData) {
+        mPayViewModel.removeCategory(mActivity, userData.category_id)
     }
 
     override fun getItemCount(): Int {

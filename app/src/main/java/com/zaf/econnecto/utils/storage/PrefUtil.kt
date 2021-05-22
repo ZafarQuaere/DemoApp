@@ -37,24 +37,65 @@ object PrefUtil {
     }
 
 
-   /* fun saveImageData(mContext: Context, data: String) {
+
+    fun setAboutText(mContext: Context, data: String) {
         if (mContext == null) return
         val prefs = AppSharedPrefs.getInstance(mContext)
-        prefs.put("Key_image_data", data)
+        prefs.put(mContext.getString(R.string.key_about_us), data)
     }
 
-    fun getImageData(mContext: Context): MutableList<ViewImageData>? {
+    fun getAboutText(mContext: Context): String? {
         val prefs = AppSharedPrefs.getInstance(mContext)
         var data = ""
         data = try {
-            prefs["Key_image_data"] as String
+            prefs[mContext.getString(R.string.key_about_us)] as String
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
             LogUtils.ERROR(e.message)
             return null
         }
-        val viewImage = ParseManager.getInstance().fromJSON<ViewImages>(data, ViewImages::class.java)
-        return viewImage.data
-    }*/
+        return data
+    }
+
+
+    fun setWhyUsText(mContext: Context, data: String) {
+        if (mContext == null) return
+        val prefs = AppSharedPrefs.getInstance(mContext)
+        prefs.put(mContext.getString(R.string.key_why_us), data)
+    }
+
+    fun getWhyUsText(mContext: Context): String? {
+        val prefs = AppSharedPrefs.getInstance(mContext)
+        var data = ""
+        data = try {
+            prefs[mContext.getString(R.string.key_why_us)] as String
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+            LogUtils.ERROR(e.message)
+            return null
+        }
+        return data
+    }
+
+
+    /* fun saveImageData(mContext: Context, data: String) {
+         if (mContext == null) return
+         val prefs = AppSharedPrefs.getInstance(mContext)
+         prefs.put("Key_image_data", data)
+     }
+
+     fun getImageData(mContext: Context): MutableList<ViewImageData>? {
+         val prefs = AppSharedPrefs.getInstance(mContext)
+         var data = ""
+         data = try {
+             prefs["Key_image_data"] as String
+         } catch (e: java.lang.Exception) {
+             e.printStackTrace()
+             LogUtils.ERROR(e.message)
+             return null
+         }
+         val viewImage = ParseManager.getInstance().fromJSON<ViewImages>(data, ViewImages::class.java)
+         return viewImage.data
+     }*/
 
 }

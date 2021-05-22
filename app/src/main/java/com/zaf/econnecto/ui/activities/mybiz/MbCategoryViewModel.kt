@@ -11,7 +11,6 @@ import com.zaf.econnecto.model.CategoryListData
 import com.zaf.econnecto.service.EConnectoServices
 import com.zaf.econnecto.service.ServiceBuilder
 import com.zaf.econnecto.ui.activities.mybiz.fragments.CategoriesFragment
-import com.zaf.econnecto.ui.activities.mybiz.fragments.PaymentFragment
 import com.zaf.econnecto.ui.interfaces.AllCategoriesListener
 import com.zaf.econnecto.ui.interfaces.CategoryAddedListener
 
@@ -75,11 +74,10 @@ class MbCategoryViewModel : ViewModel() {
         val jsonObject = JSONObject()
         jsonObject.put("jwt_token", Utils.getAccessToken(mActivity))
         jsonObject.put("owner_id", Utils.getUserID(mActivity))
-        jsonObject.put("amenity_id", amenityItem?.categoryId)
-        jsonObject.put("amenity_id", amenityItem?.parentCategoryId)
+        jsonObject.put("category_id", amenityItem?.categoryId)
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = categoryService.addAmenity(requestBody)
+        val requestCall = categoryService.addCategory(requestBody)
         LogUtils.DEBUG("Url: ${requestCall.request().url()}  \nBody: $jsonObject")
         requestCall.enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
@@ -88,7 +86,7 @@ class MbCategoryViewModel : ViewModel() {
             }
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 val body = JSONObject(Gson().toJson(response.body()))
-                LogUtils.DEBUG("addAmenityApi Response:->> $body")
+                LogUtils.DEBUG("addCategory Api Response:->> $body")
                 val status = body.optInt("status")
                 loader.dismiss()
                 if (status == AppConstant.SUCCESS) {
@@ -106,7 +104,7 @@ class MbCategoryViewModel : ViewModel() {
         var loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = categoryService.bizCategoryList("21"/*bizId*/)
+        val requestCall = categoryService.bizCategoryList(bizId)
         LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
         requestCall.enqueue(object : Callback<UserCategories> {
             override fun onFailure(call: Call<UserCategories>, t: Throwable) {
@@ -129,7 +127,7 @@ class MbCategoryViewModel : ViewModel() {
         })
     }
 
-    fun removeCategory(activity: Activity?, payMethodId: String, listener: IMyBusinessLatest?, bizId: String) {
+    fun removeCategory(activity: Activity?, category_id: String) {
         if (activity != null)
             mActivity = activity
         val loader = AppDialogLoader.getLoader(mActivity)
@@ -137,12 +135,12 @@ class MbCategoryViewModel : ViewModel() {
         val jsonObject = JSONObject()
         jsonObject.put("jwt_token", Utils.getAccessToken(mActivity))
         jsonObject.put("owner_id", Utils.getUserID(mActivity))
-        jsonObject.put("p_method_id", payMethodId)
+        jsonObject.put("category_id", category_id)
 
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
 
-        val requestCall = categoryService.removePayType(requestBody)
+        val requestCall = categoryService.removeCategory(requestBody)
         LogUtils.DEBUG("Url: ${requestCall.request().url()}  \nBody: $jsonObject")
 
         requestCall.enqueue(object : Callback<JsonObject> {

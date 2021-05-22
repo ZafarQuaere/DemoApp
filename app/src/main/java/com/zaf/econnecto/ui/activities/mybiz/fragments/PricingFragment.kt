@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.zaf.econnecto.R
 import com.zaf.econnecto.ui.activities.mybiz.MyBusinessActivityLatest
@@ -19,12 +20,12 @@ import com.zaf.econnecto.ui.activities.mybiz.Pricing
 import com.zaf.econnecto.ui.activities.mybiz.PricingActivity
 import com.zaf.econnecto.ui.activities.mybiz.PricingViewModel
 import com.zaf.econnecto.ui.adapters.MyBizPricingAdapter
-import com.zaf.econnecto.ui.adapters.PricingMyBizStaggeredAdapter
 import com.zaf.econnecto.utils.AppConstant
 import com.zaf.econnecto.utils.LogUtils
 import com.zaf.econnecto.utils.storage.PrefUtil
 import kotlinx.android.synthetic.main.fragment_pricing.*
 import kotlinx.android.synthetic.main.fragment_pricing.view.*
+import org.json.JSONObject
 import retrofit2.Response
 
 
@@ -42,12 +43,12 @@ class PricingFragment : Fragment() {
         super.onAttach(context)
         mContext = context
         pricingVm = ViewModelProviders.of(this).get(PricingViewModel::class.java)
+        callPricingApi()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        pricingVm = ViewModelProviders.of(this).get(PricingViewModel::class.java)
-        callPricingApi()
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -71,13 +72,20 @@ class PricingFragment : Fragment() {
         pricingVm.removePricing.observe(viewLifecycleOwner, Observer { jsonObj: Response<JsonObject> ->
             if (removePricing) {
                 removePricing = false
-                updateRemovePricingUI()
+                updateRemovePricingUI(jsonObj)
             }
         })
     }
 
-    private fun updateRemovePricingUI() {
-        //
+    private fun updateRemovePricingUI(jsonObj: Response<JsonObject>) {
+        val body = JSONObject(Gson().toJson(jsonObj.body()))
+        LogUtils.DEBUG("removePricingApi Response:->> $body")
+        val status = body.optInt("status")
+        if (status == AppConstant.SUCCESS) {
+            callPricingApi()
+        } else {
+            LogUtils.showDialogSingleActionButton(activity, activity?.getString(R.string.ok), body.optJSONArray("message").optString(0)) { }
+        }
     }
 
     private fun updatePricing(pricing: Pricing) {

@@ -77,6 +77,13 @@ interface EConnectoServices {
     @GET(AppConstant.URL_BIZ_CATEGORIES)
     fun bizCategoryList(@Query("business_id") businessId: String): Call<UserCategories>
 
+    //Add Category
+    @POST(AppConstant.URL_BIZ_ADD_CATEGORY)
+    fun addCategory(@Body requestBody: RequestBody): Call<JsonObject>
+    //Remove category
+    @POST(AppConstant.URL_BIZ_REMOVE_CATEGORY)
+    fun removeCategory(@Body requestBody: RequestBody): Call<JsonObject>
+
     //business using payment list
     @GET(AppConstant.URL_BIZ_PAYMENT_LIST)
     fun bizPaymentList(@Query("business_id") businessId: String): Call<PaymentMethods>
@@ -118,8 +125,15 @@ interface EConnectoServices {
     @GET(AppConstant.URL_OTHER_BIZ_BROCHURE)
     fun otherBizBrochureList(@Query("business_id") businessId: String): Call<JsonObject>
 
+    // pricing Api
     @GET(AppConstant.URL_OTHER_BIZ_PRICING)
     fun otherBizPricingList(@Query("business_id") businessId: String): Call<JsonObject>
+    //Add pricings
+    @POST(AppConstant.URL_BIZ_ADD_PRICING)
+    fun addPricing(@Body requestBody: RequestBody): Call<JsonObject>
+    //Remove pricing
+    @POST(AppConstant.URL_BIZ_REMOVE_PRICING)
+    fun removePricing(@Body requestBody: RequestBody): Call<JsonObject>
 
     @GET(AppConstant.URL_OTHER_BIZ_CATEGORIES)
     fun otherBizCategoryList(@Query("business_id") businessId: String): Call<JsonObject>

@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.zaf.econnecto.R
 import com.zaf.econnecto.ui.activities.mybiz.*
@@ -21,6 +22,7 @@ import com.zaf.econnecto.utils.LogUtils
 import com.zaf.econnecto.utils.storage.PrefUtil
 import kotlinx.android.synthetic.main.fragment_categories.*
 import kotlinx.android.synthetic.main.fragment_categories.view.*
+import org.json.JSONObject
 import retrofit2.Response
 
 
@@ -60,13 +62,20 @@ class CategoriesFragment : Fragment() {
         categoriesVm.removeCategory.observe(viewLifecycleOwner, Observer { jsonObj: Response<JsonObject> ->
             if (removeCategory){
                 removeCategory = false
-                updateRemoveCategoryUI()
+                updateRemoveCategoryUI(jsonObj)
             }
         })
     }
 
-    private fun updateRemoveCategoryUI() {
-
+    private fun updateRemoveCategoryUI(jsonObj: Response<JsonObject>) {
+        val body = JSONObject(Gson().toJson(jsonObj.body()))
+        LogUtils.DEBUG("removeCategory Response:->> $body")
+        val status = body.optInt("status")
+        if (status == AppConstant.SUCCESS) {
+            callCategoryApi()
+        } else {
+            LogUtils.showDialogSingleActionButton(activity, activity?.getString(R.string.ok), body.optJSONArray("message").optString(0)) { }
+        }
     }
 
     private fun updateCategoryUI(pricing: UserCategories) {
@@ -99,7 +108,7 @@ class CategoriesFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == MyBusinessActivityLatest.UPDATE_CATEGORY) {
-            LogUtils.DEBUG("Coming from Payment Fragment")
+            LogUtils.DEBUG("Coming from Categories Fragment")
 //            LogUtils.showToast(mContext, "Coming from Category Activity")
             callCategoryApi()
         }

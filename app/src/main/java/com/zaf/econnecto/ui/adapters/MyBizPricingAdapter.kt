@@ -9,12 +9,10 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zaf.econnecto.R
-import com.zaf.econnecto.ui.activities.mybiz.AmenityData
-import com.zaf.econnecto.ui.activities.mybiz.PaymentMethodData
 import com.zaf.econnecto.ui.activities.mybiz.PricingData
 import com.zaf.econnecto.ui.activities.mybiz.PricingViewModel
 
-class MyBizPricingAdapter(private val context: Context, private val mValues: List<PricingData>, private val pricingViewModel: PricingViewModel) : RecyclerView.Adapter<MyBizPricingAdapter.ViewHolder>() {
+class MyBizPricingAdapter(private val context: Context, private val mValues: List<PricingData>, private val pricingVm: PricingViewModel) : RecyclerView.Adapter<MyBizPricingAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.pricing_items, parent, false)
@@ -27,7 +25,7 @@ class MyBizPricingAdapter(private val context: Context, private val mValues: Lis
         holder.textPricingLabel.text = amenityData.prod_serv_name
         holder.textPricingValue.text = amenityData.price
         holder.iconDelete.setOnClickListener {
-//            callDeleteApi(mValues[position].p_method_id)
+            pricingVm.removePricing(context,mValues[position].prod_serv_id)
         }
     }
 

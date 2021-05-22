@@ -31,7 +31,7 @@ class MyBizPaymentsRecyclerAdapter(private val context: Activity, private val mV
     }
 
     private fun callDeleteApi(payMethodId: String) {
-        mPayViewModel.removePayType(mActivity, payMethodId, null, PrefUtil.getBizId(mActivity))
+        mPayViewModel.removePayType(mActivity, payMethodId)
     }
 
     override fun getItemCount(): Int {

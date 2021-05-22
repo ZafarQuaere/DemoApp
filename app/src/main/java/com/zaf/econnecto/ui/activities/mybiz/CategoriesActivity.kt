@@ -74,20 +74,12 @@ class CategoriesActivity : AppCompatActivity(), AllCategoriesListener, OnBizCate
     }
 
     override fun onBizCategoryItemClick(mItem: CategoryListData) {
-        LogUtils.showToast(this, "${mItem.categoryId} , ${mItem.categoryName} ${mItem.parentCategoryId}")
+//        LogUtils.showToast(this, "${mItem.categoryId} , ${mItem.categoryName} ${mItem.parentCategoryId}")
         myBizViewModel.addCategoryApi(this, this, mItem)
-       /* val returnIntent = Intent()
-        returnIntent.putExtra("AddCategory", getString(R.string.categories))
-        setResult(Activity.RESULT_OK, returnIntent)
-        finish()*/
-        finish()
     }
 
 
     override fun updateCategory() {
-        val returnIntent = Intent()
-        returnIntent.putExtra("AddCategory", getString(R.string.categories))
-        setResult(Activity.RESULT_OK, returnIntent)
         finish()
     }
 }

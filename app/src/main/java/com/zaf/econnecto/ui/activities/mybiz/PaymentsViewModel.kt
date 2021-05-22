@@ -31,7 +31,6 @@ class PaymentsViewModel : ViewModel() {
     lateinit var mActivity: Activity
     var mbPayOptionList =  MutableLiveData<PaymentMethods>()
     var removePayOption =  MutableLiveData<Response<JsonObject>>()
-    var addPayOption =  MutableLiveData<Response<JsonObject>>()
 
 
     fun bizPaymentMethodList(activity: Activity?, bizId: String) {
@@ -59,7 +58,7 @@ class PaymentsViewModel : ViewModel() {
         })
     }
 
-    fun removePayType(activity: Activity?, payMethodId: String, listener: IMyBusinessLatest?, bizId: String) {
+    fun removePayType(activity: Activity?, payMethodId: String) {
         if (activity != null)
             mActivity = activity
         val loader = AppDialogLoader.getLoader(mActivity)
@@ -115,7 +114,6 @@ class PaymentsViewModel : ViewModel() {
                 val body = JSONObject(Gson().toJson(response.body()))
                 LogUtils.DEBUG("addPaymentMethodsApi Response:->> $body")
                 loader.dismiss()
-                addPayOption.value = response
                 val status = body.optInt("status")
                 if (status == AppConstant.SUCCESS) {
                     listener?.updatePaymentMethod()

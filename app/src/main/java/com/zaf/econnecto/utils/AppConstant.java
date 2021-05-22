@@ -70,8 +70,12 @@ public class AppConstant {
     public static final String URL_BIZ_ADD_PAYMENT_METHOD = "my_biz_add_edit/payment_methods/add_p_method.php";
     public static final String URL_BIZ_REMOVE_PAYMENT_METHOD = "my_biz_add_edit/payment_methods/remove_p_method.php";
     public static final String URL_BIZ_CATEGORIES = "my_biz/my_biz_categories.php?";
+    public static final String URL_BIZ_ADD_CATEGORY = "my_biz_add_edit/categories/add_category.php";
+    public static final String URL_BIZ_REMOVE_CATEGORY = "my_biz_add_edit/categories/remove_category.php";
     public static final String URL_BIZ_BROCHURE_LIST = "my_biz/my_biz_brochure.php?";
     public static final String URL_BIZ_PRICING = "my_biz/my_biz_pricing.php?";
+    public static final String URL_BIZ_ADD_PRICING = "my_biz_add_edit/pricing/add_price.php";
+    public static final String URL_BIZ_REMOVE_PRICING = "my_biz_add_edit/pricing/remove_price.php";
     public static final String URL_BIZ_ADD_BROCHURE = "my_biz_add_edit/brochure/add_brochure.php";
 
     // Other Business APIS

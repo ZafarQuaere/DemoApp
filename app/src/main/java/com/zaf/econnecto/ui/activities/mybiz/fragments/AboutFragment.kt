@@ -1,11 +1,14 @@
 package com.zaf.econnecto.ui.activities.mybiz.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.zaf.econnecto.R
 import com.zaf.econnecto.ui.activities.mybiz.AboutActivity
 import com.zaf.econnecto.ui.activities.mybiz.MyBusinessActivityLatest
@@ -17,10 +20,11 @@ import kotlinx.android.synthetic.main.fragment_about.*
 
 
 class AboutFragment : Fragment() {
-    private lateinit var myBizViewModel: MyBusinessViewModel
+    lateinit var mContext: Context
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
 
     }
 
@@ -36,16 +40,23 @@ class AboutFragment : Fragment() {
     }
 
     private fun updateUI() {
-        val data = activity?.let { PrefUtil.getBasicDetailsData(it) }
-        if (data != null) {
+
+        lytAboutData.setOnClickListener {
+            startActivityForResult(Intent(activity, AboutActivity::class.java), MyBusinessActivityLatest.UPDATE_ABOUT_US)
+        }
+        val about = PrefUtil.getAboutText(mContext)
+        val why = PrefUtil.getWhyUsText(mContext)
+        if ( about?.isNotEmpty() == true && why?.isNotEmpty() == true) {
+            lytAboutData.visibility = View.VISIBLE
             lytAddAboutSection.visibility = View.GONE
-            textAboutDesc.text = data.aboutDescription
-            textAboutWhyUs.text = data.aboutDescription
+            textAboutDesc.text = about
+            textAboutWhyUs.text = why
             editAbout.setOnClickListener {
                 startActivityForResult(Intent(activity, AboutActivity::class.java), MyBusinessActivityLatest.UPDATE_ABOUT_US)
             }
         } else {
             lytAddAboutSection.visibility = View.VISIBLE
+            lytAboutData.visibility = View.GONE
             lytAddAboutSection.setOnClickListener {
                 startActivityForResult(Intent(activity, AboutActivity::class.java), MyBusinessActivityLatest.UPDATE_ABOUT_US)
             }
@@ -56,8 +67,10 @@ class AboutFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == MyBusinessActivityLatest.UPDATE_ABOUT_US) {
             LogUtils.DEBUG("Coming from About Activity")
-//            activity?.let { PrefUtil.getBizId(it) }?.let { amenitiesVm.bizAmenityList(activity as Activity?, null, it) }
-//            myBizViewModel.callMyBizBasicDetails(activity, false, null, Utils.getUserID(activity))
+            lytAboutData.visibility = View.VISIBLE
+            lytAddAboutSection.visibility = View.GONE
+            AboutActivity.about.observe(viewLifecycleOwner, Observer { text -> textAboutDesc.text = text })
+            AboutActivity.whyUs.observe(viewLifecycleOwner, Observer { text -> textAboutWhyUs.text = text })
         }
     }
 

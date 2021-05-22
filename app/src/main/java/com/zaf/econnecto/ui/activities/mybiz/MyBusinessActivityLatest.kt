@@ -143,10 +143,10 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         adapter.addFragment(PhotosFragment(), "Photos")
         adapter.addFragment(AboutFragment(), "About")
         adapter.addFragment(AmenitiesFragment(), "Amenities")
-        adapter.addFragment(BrochureFragment(), "Brochure")
         adapter.addFragment(CategoriesFragment(), "Categories")
         adapter.addFragment(PaymentFragment(), "Payment")
         adapter.addFragment(PricingFragment(), "Pricing")
+        adapter.addFragment(BrochureFragment(), "Brochure")
         viewPagerTabs!!.adapter = adapter
     }
 
@@ -181,6 +181,8 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
     @SuppressLint("SetTextI18n")
     private fun updateBasicDetails(data: BasicDetailsResponse) {
         val basicDetailsDta = data.data[0]
+        mContext?.let { PrefUtil.setAboutText(it,basicDetailsDta.aboutDescription) }
+        mContext?.let { PrefUtil.setWhyUsText(it,basicDetailsDta.aboutWhyUs) }
         textBusinessName.text = basicDetailsDta.businessName
         textFollowers.text = "${basicDetailsDta.followersCount} " + getString(R.string.followers)
         textShortDescription.text = basicDetailsDta.shortDescription
@@ -289,7 +291,6 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
                     //call product and service api to update UI
                     myBizViewModel.bizProductServicesList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
                 }
-
                 else -> {
                     selectedImageUri = data.data
                     moveToEditImage(data, requestCode)
@@ -364,7 +365,6 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
 
     private fun getOPTiming(data: OPHoursData): String {
        //Todo
-
         return "Operating Hours"
     }
 

@@ -2,6 +2,7 @@ package com.zaf.econnecto.ui.activities.mybiz
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
@@ -10,8 +11,7 @@ import com.zaf.econnecto.R
 import com.zaf.econnecto.service.EConnectoServices
 import com.zaf.econnecto.service.ServiceBuilder
 import com.zaf.econnecto.ui.activities.mybiz.fragments.PricingFragment
-import com.zaf.econnecto.ui.interfaces.IPaymentOptionList
-import com.zaf.econnecto.ui.interfaces.PaymentMethodAddListener
+import com.zaf.econnecto.ui.interfaces.PricingAddedListener
 import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
 import com.zaf.econnecto.utils.AppConstant
 import com.zaf.econnecto.utils.AppDialogLoader
@@ -38,7 +38,7 @@ class PricingViewModel : ViewModel() {
         var loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = categoryService.bizPricingList("21"/*bizId*/)
+        val requestCall = categoryService.bizPricingList(bizId)
 //        val requestCall = categoryService.bizPricingList(PrefUtil.getBizId(mActivity))
         LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
 
@@ -66,20 +66,18 @@ class PricingViewModel : ViewModel() {
         })
     }
 
-    fun removePricing(activity: Activity?, payMethodId: String, listener: IMyBusinessLatest?, bizId: String) {
-        if (activity != null)
-            mActivity = activity
-        val loader = AppDialogLoader.getLoader(mActivity)
+    fun removePricing(activity: Context, payMethodId: String) {
+        val loader = AppDialogLoader.getLoader(activity)
         loader.show()
         val jsonObject = JSONObject()
-        jsonObject.put("jwt_token", Utils.getAccessToken(mActivity))
-        jsonObject.put("owner_id", Utils.getUserID(mActivity))
-        jsonObject.put("p_method_id", payMethodId)
+        jsonObject.put("jwt_token", Utils.getAccessToken(activity))
+        jsonObject.put("owner_id", Utils.getUserID(activity))
+        jsonObject.put("prod_serv_id", payMethodId)
 
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
 
-        val requestCall = categoryService.removePayType(requestBody)
+        val requestCall = categoryService.removePricing(requestBody)
         LogUtils.DEBUG("Url: ${requestCall.request().url()}  \nBody: $jsonObject")
 
         requestCall.enqueue(object : Callback<JsonObject> {
@@ -97,7 +95,7 @@ class PricingViewModel : ViewModel() {
     }
 
 
-    fun addPricingApi(activity: Activity?, listener: PaymentMethodAddListener?, paymentData: GeneralPaymentMethods) {
+    fun callAddPricingApi(activity: Activity, listener: PricingAddedListener, desc: String, price: String, unit: String) {
         if (activity != null)
             mActivity = activity
         val loader = AppDialogLoader.getLoader(mActivity)
@@ -105,32 +103,33 @@ class PricingViewModel : ViewModel() {
         val jsonObject = JSONObject()
         jsonObject.put("jwt_token", Utils.getAccessToken(mActivity))
         jsonObject.put("owner_id", Utils.getUserID(mActivity))
-        jsonObject.put("p_method_id", paymentData.p_method_id)
+        jsonObject.put("prod_serv_name", desc)
+        jsonObject.put("prod_serv_price", price)
+        jsonObject.put("unit", unit)
 
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
 
-        val requestCall = categoryService.addPaymentMethods(requestBody)
+        val requestCall = categoryService.addPricing(requestBody)
         LogUtils.DEBUG("Url: ${requestCall.request().url()}  \nBody: $jsonObject")
+
         requestCall.enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 loader.dismiss()
-                LogUtils.DEBUG("addPaymentMethodsApi failure:->> ${t.localizedMessage}")
+                LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), mActivity.getString(R.string.something_wrong_from_server_plz_try_again) + "\n" + t.localizedMessage)
             }
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 val body = JSONObject(Gson().toJson(response.body()))
-                LogUtils.DEBUG("addPaymentMethodsApi Response:->> $body")
-                loader.dismiss()
-//                addPayOption.value = response
+                LogUtils.DEBUG("AddPricingApi Response:->> ${body.toString()}")
                 val status = body.optInt("status")
+                loader.dismiss()
                 if (status == AppConstant.SUCCESS) {
-                    listener?.updatePaymentMethod()
+                    listener.updatePricing()
                 } else {
-                    LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) {}
+                    LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) { (mActivity).onBackPressed() }
                 }
             }
         })
     }
-
 }

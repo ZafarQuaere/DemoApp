@@ -8,9 +8,11 @@
     tools:context=".ui.activities.mybiz.fragments.AboutFragment">
 
     <LinearLayout
+        android:visibility="visible"
         android:id="@+id/lytAddAboutSection"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/_150dp"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -31,7 +33,7 @@
 
 
     <LinearLayout
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/lytAboutData"

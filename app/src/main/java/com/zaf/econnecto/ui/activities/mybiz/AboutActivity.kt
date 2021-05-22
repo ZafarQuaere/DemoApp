@@ -1,11 +1,9 @@
 package com.zaf.econnecto.ui.activities.mybiz
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import com.android.volley.Request
-import com.android.volley.Response
 import com.android.volley.VolleyError
 import com.zaf.econnecto.R
 import com.zaf.econnecto.network_call.MyJsonObjectRequest
@@ -16,6 +14,11 @@ import org.json.JSONObject
 
 
 class AboutActivity : AppCompatActivity() {
+
+    companion object {
+        var about = MutableLiveData<String>()
+        var whyUs = MutableLiveData<String>()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +62,7 @@ class AboutActivity : AppCompatActivity() {
         }
     }
 
-    private fun callAboutApi(desc: String, about: String) {
+    private fun callAboutApi(desc: String, why: String) {
         val loader = AppDialogLoader.getLoader(this)
         loader.show()
         val url = AppConstant.URL_EDIT_ABOUT_WHY
@@ -67,16 +70,16 @@ class AboutActivity : AppCompatActivity() {
         jsonObject.put("jwt_token", Utils.getAccessToken(this))
         jsonObject.put("owner_id",Utils.getUserID(this))
         jsonObject.put("about_description",desc)
-        jsonObject.put("about_why_us",about)
+        jsonObject.put("about_why_us",why)
 
         LogUtils.DEBUG("URL : $url\nRequest Body :: ${jsonObject.toString()}")
-        val objectRequest = MyJsonObjectRequest(this, Request.Method.POST, url, jsonObject, Response.Listener { response: JSONObject? ->
+        val objectRequest = MyJsonObjectRequest(this, Request.Method.POST, url, jsonObject, { response: JSONObject? ->
             LogUtils.DEBUG("About Section Response ::" + response.toString())
             try {
                 if (response != null) {
                     val status = response.optInt("status")
                     if (status == AppConstant.SUCCESS) {
-                        updateAboutSection()
+                        updateAboutSection(desc,why)
                     } else {
                         LogUtils.showErrorDialog(this, getString(R.string.ok), response.optJSONArray("message").optString(0))
                     }
@@ -87,17 +90,18 @@ class AboutActivity : AppCompatActivity() {
                 e.printStackTrace()
                 LogUtils.ERROR(e.message)
             }
-        }, Response.ErrorListener {
+        }, {
             error: VolleyError -> LogUtils.DEBUG("About Section Error ::" + error.message)
             loader.dismiss()
         })
         AppController.getInstance().addToRequestQueue(objectRequest, "About Section")
     }
 
-    private fun updateAboutSection() {
-        val returnIntent = Intent()
-        returnIntent.putExtra("result", "About Section Updated")
-        setResult(Activity.RESULT_OK, returnIntent)
+    private fun updateAboutSection(desc: String, why: String) {
+        PrefUtil.setAboutText(this,desc)
+        PrefUtil.setWhyUsText(this,why)
+        about.value = desc
+        whyUs.value = why
         finish()
     }
 }

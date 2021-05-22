@@ -36,3 +36,7 @@ interface OnBizCategoryItemClickListener {
 interface CategoryAddedListener {
     fun updateCategory()
 }
+
+interface PricingAddedListener {
+    fun updatePricing()
+}
