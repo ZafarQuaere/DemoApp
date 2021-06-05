@@ -95,7 +95,7 @@ class PricingViewModel : ViewModel() {
     }
 
 
-    fun callAddPricingApi(activity: Activity, listener: PricingAddedListener, desc: String, price: String, unit: String) {
+    fun callAddPricingApi(activity: Activity?, listener: PricingAddedListener, desc: String, price: String, unit: String) {
         if (activity != null)
             mActivity = activity
         val loader = AppDialogLoader.getLoader(mActivity)
@@ -127,7 +127,7 @@ class PricingViewModel : ViewModel() {
                 if (status == AppConstant.SUCCESS) {
                     listener.updatePricing()
                 } else {
-                    LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) { (mActivity).onBackPressed() }
+                    LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) {  }
                 }
             }
         })

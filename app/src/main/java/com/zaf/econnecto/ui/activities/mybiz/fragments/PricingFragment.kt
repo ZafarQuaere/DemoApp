@@ -43,7 +43,7 @@ class PricingFragment : Fragment() {
         super.onAttach(context)
         mContext = context
         pricingVm = ViewModelProviders.of(this).get(PricingViewModel::class.java)
-        callPricingApi()
+        activity?.let { PrefUtil.getBizId(it) }?.let { pricingVm.bizPricingList(activity as Activity?, it) }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

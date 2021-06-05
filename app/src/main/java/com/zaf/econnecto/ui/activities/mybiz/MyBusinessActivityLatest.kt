@@ -139,14 +139,14 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
     }
 
     private fun setupViewPager(viewPagerTabs: ViewPager?) {
-        val adapter = TabViewPagerAdapter(this.supportFragmentManager, arrayListOf<String>("Photos Fragment","About Fragment","Amenities Fragment","Brochure Fragment","Categories Fragment","Payment Fragment","Pricing Fragment"))
+        val adapter = TabViewPagerAdapter(this.supportFragmentManager, arrayListOf<String>("Photos Fragment","About Fragment","Amenities Fragment",/*"Brochure Fragment",*/"Categories Fragment","Payment Fragment","Pricing Fragment"))
         adapter.addFragment(PhotosFragment(), "Photos")
         adapter.addFragment(AboutFragment(), "About")
         adapter.addFragment(AmenitiesFragment(), "Amenities")
         adapter.addFragment(CategoriesFragment(), "Categories")
         adapter.addFragment(PaymentFragment(), "Payment")
         adapter.addFragment(PricingFragment(), "Pricing")
-        adapter.addFragment(BrochureFragment(), "Brochure")
+//        adapter.addFragment(BrochureFragment(), "Brochure")
         viewPagerTabs!!.adapter = adapter
     }
 
@@ -156,7 +156,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        toolbar.setNavigationOnClickListener { //finish();
+        toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
     }
@@ -169,7 +169,6 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         if (imageUpdate) {
             myBizViewModel.bizImageList(mContext as Activity?, this, PrefUtil.getBizId(mContext as Activity))
 //            myBizViewModel.bizOperatingHours(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
-//            myBizViewModel.bizAmenityList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
             myBizViewModel.bizProductServicesList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
 //            myBizViewModel.bizBrochureList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
 //            myBizViewModel.bizPaymentMethodList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))

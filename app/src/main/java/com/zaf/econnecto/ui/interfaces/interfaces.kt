@@ -3,6 +3,7 @@ package com.zaf.econnecto.ui.interfaces
 import com.zaf.econnecto.model.CategoryListData
 import com.zaf.econnecto.ui.activities.mybiz.GeneralAmenities
 import com.zaf.econnecto.ui.activities.mybiz.GeneralPaymentMethods
+import com.zaf.econnecto.ui.activities.mybiz.PricingData
 import com.zaf.econnecto.ui.activities.mybiz.ProductNServiceData
 
 interface DeleteProductListener {
@@ -40,3 +41,8 @@ interface CategoryAddedListener {
 interface PricingAddedListener {
     fun updatePricing()
 }
+
+/*
+interface DeletePricingListener {
+    fun deletePricingClick(pricingData: PricingData);
+}*/

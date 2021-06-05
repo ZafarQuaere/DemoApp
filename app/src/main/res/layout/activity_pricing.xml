@@ -34,11 +34,11 @@
             android:textSize="@dimen/font_actionbar_title_text" />
     </RelativeLayout>
 
-    <ScrollView
+  <!--  <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_20dp"
-        android:padding="@dimen/_10dp">
+        android:padding="@dimen/_10dp">-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,11 +46,15 @@
             android:orientation="vertical">
 
            <ListView
+               android:visibility="gone"
+               android:scrollbars="none"
                android:id="@+id/listViewPricing"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"/>
 
             <LinearLayout
+                android:paddingHorizontal="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -67,6 +71,7 @@
                     android:id="@+id/editPrice"
                     android:hint="@string/price"
                     android:visibility="visible"
+                    android:inputType="number|numberDecimal"
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -89,11 +94,14 @@
                 android:layout_marginTop="@dimen/_20dp"
                 android:paddingStart="@dimen/_10dp"
                 android:text="@string/add_more"
+                android:visibility="gone"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/font_x_large_text" />
 
 
             <TextView
+                android:layout_marginHorizontal="@dimen/_20dp"
+                android:id="@+id/textUpdatePricing"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/add_biz_button"
@@ -104,5 +112,5 @@
                 android:text="@string/update"/>
 
         </LinearLayout>
-    </ScrollView>
+   <!-- </ScrollView>-->
 </LinearLayout>
