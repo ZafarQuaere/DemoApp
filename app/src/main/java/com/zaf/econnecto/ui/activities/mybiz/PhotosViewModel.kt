@@ -29,7 +29,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PhotosViewModel : ViewModel() {
+class PhotosViewModel : BaseViewModel() {
 
     @SuppressLint("StaticFieldLeak")
     lateinit var mActivity: Activity
@@ -56,10 +56,7 @@ class PhotosViewModel : ViewModel() {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 val body = JSONObject(Gson().toJson(response.body()))
                 LogUtils.DEBUG("bizImageList Response:->> $body")
-
                 mbImageList.value = response
-
-
                 var status = body.optInt("status")
                 if (status == AppConstant.SUCCESS) {
                     val data = ParseManager.getInstance().fromJSON(body.toString(), ViewImages::class.java)

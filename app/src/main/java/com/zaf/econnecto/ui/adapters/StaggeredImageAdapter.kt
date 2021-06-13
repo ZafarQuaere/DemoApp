@@ -31,7 +31,7 @@ val mValues: MutableList<ViewImageData>, deleteVisible: Boolean, iEditImage: Del
         holder.imgDelete.visibility = if (showDeleteIcon) View.VISIBLE else View.GONE
         Picasso.get().load(mValues[position].imageLink).placeholder(R.drawable.default_biz_profile_pic).into(holder.imgItem)
         holder.imgDelete.setOnClickListener {
-            editImageListener!!.onDeleteClick(holder.mItem, position)
+            editImageListener?.onDeleteClick(holder.mItem, position)
         }
     }
 

@@ -14,12 +14,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import android.view.WindowManager
-import android.widget.LinearLayout
-import android.widget.ListView
-import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.ViewCompat
-import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.*
@@ -43,7 +38,6 @@ import com.zaf.econnecto.ui.activities.mybiz.fragments.*
 import com.zaf.econnecto.ui.adapters.*
 import com.zaf.econnecto.ui.fragments.details_frag.*
 import com.zaf.econnecto.ui.interfaces.AddPhotoDialogListener
-import com.zaf.econnecto.ui.interfaces.DeleteCategoryListener
 import com.zaf.econnecto.ui.interfaces.DeleteProductListener
 import com.zaf.econnecto.ui.presenters.MyBusinessPresenterLatest
 import com.zaf.econnecto.ui.presenters.operations.IMyBizImage
@@ -51,6 +45,7 @@ import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
 import com.zaf.econnecto.utils.*
 import com.zaf.econnecto.utils.storage.PrefUtil
 import kotlinx.android.synthetic.main.activity_my_business_latest.*
+import kotlinx.android.synthetic.main.fragment_photos.*
 import kotlinx.android.synthetic.main.mb_address_detail.*
 import kotlinx.android.synthetic.main.mb_communication_menu.*
 import kotlinx.android.synthetic.main.mb_layout_about.*
@@ -59,6 +54,7 @@ import kotlinx.android.synthetic.main.mb_layout_brochure.*
 import kotlinx.android.synthetic.main.mb_layout_categories.*
 import kotlinx.android.synthetic.main.mb_layout_payment.*
 import kotlinx.android.synthetic.main.mb_layout_photos.*
+import kotlinx.android.synthetic.main.mb_layout_photos.recycler_photos
 import kotlinx.android.synthetic.main.mb_layout_pricing.*
 import kotlinx.android.synthetic.main.mb_layout_product_services.*
 import kotlinx.android.synthetic.main.mb_operating_hours.*
@@ -74,6 +70,9 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
     private lateinit var tabLayout: TabLayout
     private lateinit var myBizViewModel: MyBusinessViewModel
     private var isBrochure: Boolean = false
+    lateinit var recyclerHeader: RecyclerView
+    lateinit var bannerImageAdapter: VBHeaderImageRecylcerAdapter
+    lateinit var imageList: MutableList<ViewImageData>
 
     companion object {
         const val GALLERY_IMAGE_CODE = 100
@@ -97,15 +96,20 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_business_latest1)
+        initUI()
         mContext = this
         presenter!!.initMap(this, mapFrag)
         myBizViewModel = ViewModelProviders.of(this).get(MyBusinessViewModel::class.java)
         myBizViewModel.callMyBizBasicDetails(this, true, this, Utils.getUserID(mContext))
         loader = AppLoaderFragment.getInstance(mContext)
         updateActionbar()
-        subscribeViewModels()
         updateMyBizUI()
     }
+
+    private fun initUI() {
+        recyclerHeader = findViewById<RecyclerView>(R.id.recycler_header)
+    }
+
 
     private fun subscribeViewModels() {
         myBizViewModel.basicDetailsData.observe(this, Observer { data ->
@@ -113,7 +117,18 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
                 //TODO from here you can update the basic details data
             }
         })
+        myBizViewModel.imageList.observe(this, Observer { it.let { imageData -> updateImageList(imageData)  }})
+        myBizViewModel.imagePosition.observe(this, Observer { it.let { position -> updatePosition(position) } })
+    }
 
+    private fun updateImageList(imageData: ViewImageData) {
+        imageList.remove(imageData)
+        bannerImageAdapter.notifyDataSetChanged()
+    }
+
+    private fun updatePosition(position: Int) {
+        recycler_photos.removeViewAt(position)
+        bannerImageAdapter.notifyItemRemoved(position)
     }
 
     private fun updateMyBizUI() {
@@ -154,8 +169,8 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
     private fun updateActionbar() {
         val toolbar = findViewById<Toolbar>(R.id.toolbarBd)
         setSupportActionBar(toolbar)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
@@ -227,13 +242,12 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
 
 
     override fun updateBannerImage(data: MutableList<ViewImageData>) {
-        val recyclerHeader = findViewById<RecyclerView>(R.id.recycler_header)
         recyclerHeader.layoutManager = LinearLayoutManager(this)
         recyclerHeader.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        val adapter = VBHeaderImageRecylcerAdapter(this, data.toList() as MutableList<ViewImageData>)
-        recyclerHeader.adapter = adapter
+        imageList = data
+        bannerImageAdapter = VBHeaderImageRecylcerAdapter(this, imageList)
+        recyclerHeader.adapter = bannerImageAdapter
     }
-
 
 
     fun uploadPhoto(view: View) {
@@ -334,6 +348,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
 
     override fun onResume() {
         super.onResume()
+        subscribeViewModels()
         val isImageUpdate = ImageUpdateModelListener.getInstance().state
         LogUtils.DEBUG("isImageUpdate $isImageUpdate ")
         if (isImageUpdate) {

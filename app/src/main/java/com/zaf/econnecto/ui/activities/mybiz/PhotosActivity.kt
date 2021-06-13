@@ -118,7 +118,7 @@ class PhotosActivity : AppCompatActivity(), IMyBizImage {
         recyclerPhotos.itemAnimator = DefaultItemAnimator()
         imageList = data
 //        imageList = PrefUtil.getImageData(this)!!
-        adapter = imageList?.let {
+        adapter = imageList.let {
             StaggeredImageAdapter(this, it, true, object : DeleteImageListener {
                 override fun onDeleteClick(data: ViewImageData?, position: Int) {
                     lifecycleScope.launch {
@@ -127,6 +127,6 @@ class PhotosActivity : AppCompatActivity(), IMyBizImage {
                 }
             })
         }!!
-        recyclerPhotos!!.adapter = adapter
+        recyclerPhotos.adapter = adapter
     }
 }

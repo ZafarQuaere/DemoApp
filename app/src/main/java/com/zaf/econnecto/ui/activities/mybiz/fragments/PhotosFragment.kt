@@ -17,6 +17,7 @@ import com.google.gson.JsonObject
 import com.zaf.econnecto.R
 import com.zaf.econnecto.network_call.response_model.img_data.ViewImageData
 import com.zaf.econnecto.network_call.response_model.img_data.ViewImages
+import com.zaf.econnecto.ui.activities.mybiz.MyBusinessViewModel
 import com.zaf.econnecto.ui.activities.mybiz.PhotosViewModel
 import com.zaf.econnecto.ui.adapters.StaggeredImageAdapter
 import com.zaf.econnecto.ui.interfaces.DeleteImageListener
@@ -34,11 +35,15 @@ class PhotosFragment : Fragment() {
 
     lateinit var  mContext: Context
     private lateinit var photosVm: PhotosViewModel
+    private lateinit var mbVm: MyBusinessViewModel
+    lateinit var imageList : MutableList<ViewImageData>
+    lateinit var adapter: StaggeredImageAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
         photosVm = ViewModelProviders.of(this).get(PhotosViewModel::class.java)
+        activity.let {  mbVm = it?.let { it1 -> ViewModelProviders.of(it1).get(MyBusinessViewModel::class.java) }!! }
             callPhotosApi()
     }
 
@@ -57,8 +62,24 @@ class PhotosFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_photos, container, false)
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+    }
     private fun registerListener() {
         photosVm.mbImageList.observe(viewLifecycleOwner, Observer { photosResponseData -> updateUI(photosResponseData) })
+        mbVm.imageList.observe(requireActivity(), Observer { imageData -> updateImageList(imageData) })
+        mbVm.imagePosition.observe(requireActivity(), Observer { position -> updatePosition(position) })
+    }
+
+    private fun updateImageList(imageData: ViewImageData) {
+        imageList.remove(imageData)
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun updatePosition(position: Int) {
+        recycler_photos.removeViewAt(position)
+        adapter.notifyItemRemoved(position)
     }
 
     private fun updateUI(photosResponseData: Response<JsonObject>?) {
@@ -67,7 +88,8 @@ class PhotosFragment : Fragment() {
         var status = body.optInt("status")
         if (status == AppConstant.SUCCESS) {
             val data = ParseManager.getInstance().fromJSON(body.toString(), ViewImages::class.java)
-            updatePhotosUI(data.data)
+            imageList = data.data
+            updatePhotosUI(imageList)
 //                    PrefUtil.saveImageData(mActivity, response.toString())
         } else {
             val jsonArray = body.optJSONArray("message")
@@ -81,17 +103,17 @@ class PhotosFragment : Fragment() {
             textAddPhotos.visibility = View.GONE
             recycler_photos.visibility = View.VISIBLE
             val layoutManager = GridLayoutManager(mContext, 2)
-            recycler_photos!!.layoutManager = layoutManager
-            recycler_photos!!.itemAnimator = DefaultItemAnimator()
-            val adapter = StaggeredImageAdapter(mContext, data, true, object: DeleteImageListener{
+            recycler_photos.layoutManager = layoutManager
+            recycler_photos.itemAnimator = DefaultItemAnimator()
+            adapter = StaggeredImageAdapter(mContext, data, true, object: DeleteImageListener{
                 override fun onDeleteClick(s: ViewImageData?, position: Int) {
                     lifecycleScope.launch {
-//                        photosVm.callDeleteImageApi(mContext,data, position)
+                        mbVm.callDeleteImageApi(mContext,s, position)
                     }
                 }
 
             })
-            recycler_photos!!.adapter = adapter
+            recycler_photos.adapter = adapter
         } else {
             textAddPhotos.visibility = View.VISIBLE
             recycler_photos.visibility = View.GONE
