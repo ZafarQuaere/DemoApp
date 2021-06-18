@@ -3,7 +3,7 @@ package com.zaf.econnecto.ui.activities.mybiz
 import com.zaf.econnecto.model.CategoryListData
 import java.io.Serializable
 
-data class AllAmenityList(val status: Int, val message: String, val data: List<GeneralAmenities>)
+data class AllAmenityList(val status: Int, val message: String, val data: MutableList<GeneralAmenities>)
 data class GeneralAmenities(val amenity_id: String, val amenity_name: String, val amenity_icon: String)
 
 data class Amenities(val status: Int, val message:List<String>,val data: List<AmenityData>)

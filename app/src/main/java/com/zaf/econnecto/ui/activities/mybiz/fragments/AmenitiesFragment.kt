@@ -1,6 +1,5 @@
 package com.zaf.econnecto.ui.activities.mybiz.fragments
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -12,40 +11,30 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.gson.Gson
-import com.google.gson.JsonObject
 import com.zaf.econnecto.R
-import com.zaf.econnecto.ui.activities.mybiz.Amenities
-import com.zaf.econnecto.ui.activities.mybiz.AmenitiesActivity
-import com.zaf.econnecto.ui.activities.mybiz.AmenitiesViewModel
-import com.zaf.econnecto.ui.activities.mybiz.MyBusinessActivityLatest
+import com.zaf.econnecto.ui.activities.mybiz.*
 import com.zaf.econnecto.ui.adapters.AmenitiesRecyclerAdapter
 import com.zaf.econnecto.utils.AppConstant
 import com.zaf.econnecto.utils.LogUtils
-import com.zaf.econnecto.utils.storage.PrefUtil
 import kotlinx.android.synthetic.main.fragment_amenities.*
 import kotlinx.android.synthetic.main.fragment_amenities.view.*
-import org.json.JSONObject
-import retrofit2.Response
 
 class AmenitiesFragment : Fragment() {
 
-    private lateinit var amenitiesVm: AmenitiesViewModel
+    private lateinit var mbVm: MyBusinessViewModel
     private lateinit var amenityAdapter: AmenitiesRecyclerAdapter
 
     private lateinit var mContext: Context
 
     companion object {
-        var editAmenities = false
+        var addEditAmenity = false
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
-        amenitiesVm = ViewModelProviders.of(this).get(AmenitiesViewModel::class.java)
-        activity?.let { PrefUtil.getBizId(it) }?.let { amenitiesVm.bizAmenityList(activity as Activity?, null, it) }
+        mbVm = ViewModelProviders.of(requireActivity()).get(MyBusinessViewModel::class.java)
     }
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_amenities, container, false)
@@ -57,16 +46,15 @@ class AmenitiesFragment : Fragment() {
     }
 
     private fun registerListener() {
-        amenitiesVm.allAmenityList.observe(viewLifecycleOwner, Observer { data: Amenities ->
+        mbVm.bizAmenityList.observe(viewLifecycleOwner, Observer { data: Amenities ->
             updateAmenityList(data)
         })
-        amenitiesVm.removeAmenity.observe(viewLifecycleOwner, Observer { jsonObj: Response<JsonObject> ->
-            if (editAmenities) {
-                editAmenities = false
-                updateRemoveAmenity(jsonObj)
+        mbVm.isAmenityDeleted.observe(viewLifecycleOwner, Observer { isAmenityDeleted: Boolean ->
+            if (addEditAmenity) {
+                addEditAmenity = false
+                updateRemoveAmenity(isAmenityDeleted)
             }
         })
-
     }
 
 
@@ -80,7 +68,7 @@ class AmenitiesFragment : Fragment() {
             recyclerAmenities.itemAnimator = DefaultItemAnimator()
             val amenitiesData = data.data
             if (data.data.isNotEmpty()) {
-                amenityAdapter = activity?.let { AmenitiesRecyclerAdapter(it, amenitiesData, amenitiesVm) }!!
+                amenityAdapter = activity?.let { AmenitiesRecyclerAdapter(it, amenitiesData, mbVm) }!!
                 recyclerAmenities.adapter = amenityAdapter
                 editAmenity.setOnClickListener {
                     startActivityForResult(Intent(activity, AmenitiesActivity::class.java), MyBusinessActivityLatest.UPDATE_AMENITIES)
@@ -97,27 +85,21 @@ class AmenitiesFragment : Fragment() {
         }
     }
 
-    private fun updateRemoveAmenity(jsonObj: Response<JsonObject>) {
-            val body = JSONObject(Gson().toJson(jsonObj.body()))
-            LogUtils.DEBUG("RemoveAmenity Response:->> $body")
-            val status = body.optInt("status")
-            if (status == AppConstant.SUCCESS) {
-                callAmenityListApi()
-            } else {
-                LogUtils.showDialogSingleActionButton(activity, activity?.getString(R.string.ok), body.optJSONArray("message").optString(0)) { }
-            }
+    private fun updateRemoveAmenity(isAmenityDeleted: Boolean) {
+        if (isAmenityDeleted)
+            callAmenityListApi()
     }
 
     private fun callAmenityListApi() {
-        activity?.let { PrefUtil.getBizId(it) }?.let { amenitiesVm.bizAmenityList(activity as Activity?, null, it) }
+        (activity as MyBusinessActivityLatest).callAmenityListApi()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == MyBusinessActivityLatest.UPDATE_AMENITIES) {
+        if (requestCode == MyBusinessActivityLatest.UPDATE_AMENITIES && addEditAmenity) {
             LogUtils.DEBUG("Coming from amenities Fragment")
+            addEditAmenity = false
             callAmenityListApi()
         }
     }
-
 }

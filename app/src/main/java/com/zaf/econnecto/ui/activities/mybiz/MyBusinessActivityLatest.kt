@@ -176,9 +176,12 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         updateBasicDetails(basicDetailsResponse)
         setupViewPager(viewPagerTabs)
         if (imageUpdate) {
-            myBizViewModel.bizImageList(mContext as Activity?, this, PrefUtil.getBizId(mContext as Activity))
-//            myBizViewModel.bizOperatingHours(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
+            callImageListApi()
+//            myBizViewModel.bizImageList(mContext as Activity?, this, PrefUtil.getBizId(mContext as Activity))
             myBizViewModel.bizProductServicesList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
+            callAmenityListApi()
+
+//            myBizViewModel.bizOperatingHours(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
 //            myBizViewModel.bizBrochureList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
 //            myBizViewModel.bizPaymentMethodList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
 //            myBizViewModel.bizPricingList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
@@ -434,4 +437,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         myBizViewModel.callDeleteImageApi(this,imageData,position)
     }
 
+    fun callAmenityListApi() {
+        myBizViewModel.bizAmenityList(mContext as Activity?, null,PrefUtil.getBizId(mContext as Activity))
+    }
 }

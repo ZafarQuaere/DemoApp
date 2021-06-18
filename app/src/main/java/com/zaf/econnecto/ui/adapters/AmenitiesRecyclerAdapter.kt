@@ -6,15 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.zaf.econnecto.R
-import com.zaf.econnecto.ui.activities.mybiz.AmenitiesViewModel
 import com.zaf.econnecto.ui.activities.mybiz.AmenityData
-import com.zaf.econnecto.utils.LogUtils
+import com.zaf.econnecto.ui.activities.mybiz.MyBusinessViewModel
 import com.zaf.econnecto.utils.storage.PrefUtil
 
-class AmenitiesRecyclerAdapter(private val context: Activity, private val mValues: List<AmenityData>, amenitiesViewModel: AmenitiesViewModel) : RecyclerView.Adapter<AmenitiesRecyclerAdapter.ViewHolder>() {
+class AmenitiesRecyclerAdapter(private val context: Activity, private val mValues: List<AmenityData>, amenitiesViewModel: MyBusinessViewModel) : RecyclerView.Adapter<AmenitiesRecyclerAdapter.ViewHolder>() {
 
     private val mAmenitiesViewModel = amenitiesViewModel
     val mActivity = context

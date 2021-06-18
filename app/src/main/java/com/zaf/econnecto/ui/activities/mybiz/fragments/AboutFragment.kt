@@ -40,7 +40,6 @@ class AboutFragment : Fragment() {
     }
 
     private fun updateUI() {
-
         lytAboutData.setOnClickListener {
             startActivityForResult(Intent(activity, AboutActivity::class.java), MyBusinessActivityLatest.UPDATE_ABOUT_US)
         }

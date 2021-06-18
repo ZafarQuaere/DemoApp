@@ -1,10 +1,10 @@
 package com.zaf.econnecto.ui.activities.mybiz
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
@@ -14,7 +14,7 @@ import com.zaf.econnecto.R
 import com.zaf.econnecto.ui.adapters.AmenitiesAddEditAdapter
 import com.zaf.econnecto.ui.interfaces.AmenityAddedListener
 import com.zaf.econnecto.ui.interfaces.IGeneralAmenityList
-import com.zaf.econnecto.ui.activities.mybiz.AmenitiesViewModel
+import com.zaf.econnecto.ui.activities.mybiz.fragments.AmenitiesFragment
 import com.zaf.econnecto.utils.LogUtils
 import kotlinx.android.synthetic.main.layout_amenities.*
 
@@ -25,14 +25,15 @@ class AmenitiesActivity : AppCompatActivity(), IGeneralAmenityList, AmenityAdded
     lateinit var layoutManager: GridLayoutManager
     lateinit var emptyTextView: TextView
     var mContext: Activity = this
-    private lateinit var myBizViewModel: AmenitiesViewModel
+    private lateinit var myBizViewModel: MyBusinessViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_amenities)
-        myBizViewModel = ViewModelProviders.of(this).get(AmenitiesViewModel::class.java)
+        myBizViewModel = ViewModelProviders.of(this).get(MyBusinessViewModel::class.java)
         myBizViewModel.bizAllAmenityList(this, this)
         initUI()
+        myBizViewModel.allAmenityList.observe(this, Observer { allAmenityList -> updateAmenityList(allAmenityList) })
     }
 
     private fun initUI() {
@@ -50,6 +51,7 @@ class AmenitiesActivity : AppCompatActivity(), IGeneralAmenityList, AmenityAdded
         }
 
         textBack.setOnClickListener {
+            AmenitiesFragment.addEditAmenity = false
             onBackPressed()
         }
     }
@@ -68,6 +70,7 @@ class AmenitiesActivity : AppCompatActivity(), IGeneralAmenityList, AmenityAdded
     }
 
     override fun updateAmenities() {
+        AmenitiesFragment.addEditAmenity = true
         finish()
         /*LogUtils.showDialogSingleActionButton(mContext, getString(R.string.ok), getString(R.string.amenity_added_successfully)) {
             val returnIntent = Intent()
