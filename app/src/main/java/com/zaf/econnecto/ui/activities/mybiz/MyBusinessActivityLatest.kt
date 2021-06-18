@@ -117,18 +117,12 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
                 //TODO from here you can update the basic details data
             }
         })
-        myBizViewModel.imageList.observe(this, Observer { it.let { imageData -> updateImageList(imageData)  }})
-        myBizViewModel.imagePosition.observe(this, Observer { it.let { position -> updatePosition(position) } })
+        myBizViewModel.isImageDeleted.observe(this, Observer { it.let { isImageDeleted -> updateImageList(isImageDeleted) }})
     }
 
-    private fun updateImageList(imageData: ViewImageData) {
-        imageList.remove(imageData)
-        bannerImageAdapter.notifyDataSetChanged()
-    }
-
-    private fun updatePosition(position: Int) {
-        recycler_photos.removeViewAt(position)
-        bannerImageAdapter.notifyItemRemoved(position)
+    private fun updateImageList(isImageDeleted: Boolean) {
+        if (isImageDeleted)
+            callImageListApi()
     }
 
     private fun updateMyBizUI() {
@@ -352,7 +346,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         val isImageUpdate = ImageUpdateModelListener.getInstance().state
         LogUtils.DEBUG("isImageUpdate $isImageUpdate ")
         if (isImageUpdate) {
-            myBizViewModel.bizImageList(mContext as Activity?, this, PrefUtil.getBizId(mContext as Activity))
+           callImageListApi()
         }
     }
 
@@ -431,5 +425,13 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
     override fun updatePricingSection(data: List<PricingData>?) {}
 
     override fun updateCategories(data: List<UserCategoryData>?) {}
+
+    fun callImageListApi() {
+        myBizViewModel.bizImageList(mContext as Activity?, this, PrefUtil.getBizId(mContext as Activity))
+    }
+
+    suspend fun callDeleteImageApi(imageData: ViewImageData, position: Int) {
+        myBizViewModel.callDeleteImageApi(this,imageData,position)
+    }
 
 }

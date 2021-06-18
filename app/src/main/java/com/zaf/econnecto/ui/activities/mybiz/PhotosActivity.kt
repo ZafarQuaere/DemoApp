@@ -12,17 +12,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.android.volley.Request
-import com.android.volley.Response
 import com.android.volley.VolleyError
 import com.zaf.econnecto.R
 import com.zaf.econnecto.model.ImageUpdateModelListener
 import com.zaf.econnecto.network_call.MyJsonObjectRequest
 import com.zaf.econnecto.network_call.response_model.img_data.ViewImageData
-import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsResponse
 import com.zaf.econnecto.ui.adapters.StaggeredImageAdapter
 import com.zaf.econnecto.ui.interfaces.DeleteImageListener
 import com.zaf.econnecto.ui.presenters.operations.IMyBizImage
-import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
 import com.zaf.econnecto.utils.*
 import com.zaf.econnecto.utils.storage.PrefUtil
 import kotlinx.android.synthetic.main.layout_photos.*

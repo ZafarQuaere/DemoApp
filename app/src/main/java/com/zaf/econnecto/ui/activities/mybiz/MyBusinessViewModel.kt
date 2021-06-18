@@ -4,13 +4,11 @@ import android.app.Activity
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.android.volley.Request
 import com.android.volley.VolleyError
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.zaf.econnecto.R
-import com.zaf.econnecto.model.CategoryListData
 import com.zaf.econnecto.model.ImageUpdateModelListener
 import com.zaf.econnecto.network_call.MyJsonObjectRequest
 import com.zaf.econnecto.network_call.response_model.img_data.ViewImageData
@@ -96,10 +94,11 @@ class MyBusinessViewModel : BaseViewModel() {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 val body = JSONObject(Gson().toJson(response.body()))
                 LogUtils.DEBUG("bizImageList Response:->> $body")
-                var status = body.optInt("status")
+                val status = body.optInt("status")
                 if (status == AppConstant.SUCCESS) {
                     val data = ParseManager.getInstance().fromJSON(body.toString(), ViewImages::class.java)
-                    listener!!.updateBannerImage(data.data)
+                    imageList.value = data.data
+                    listener.updateBannerImage(data.data)
 //                    PrefUtil.saveImageData(mActivity, response.toString())
                 } else {
                     val jsonArray = body.optJSONArray("message")
@@ -131,12 +130,7 @@ class MyBusinessViewModel : BaseViewModel() {
                     val status = response.optInt("status")
                     if (status == AppConstant.SUCCESS) {
                         LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optJSONArray("message").optString(0))
-                        imageList.value = imageData
-                        imagePosition.value = position
-//                        imageList.remove(imageData)
-//                        adapter.notifyDataSetChanged()
-//                        recyclerPhotos.removeViewAt(position)
-//                        adapter.notifyItemRemoved(position)
+                        isImageDeleted.value = true
                         ImageUpdateModelListener.getInstance().changeState(true)
                     } else {
                         LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok),
