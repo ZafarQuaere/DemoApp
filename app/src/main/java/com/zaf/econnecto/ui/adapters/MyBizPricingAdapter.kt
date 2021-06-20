@@ -9,10 +9,11 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zaf.econnecto.R
+import com.zaf.econnecto.ui.activities.mybiz.MyBusinessViewModel
 import com.zaf.econnecto.ui.activities.mybiz.PricingData
 import com.zaf.econnecto.ui.activities.mybiz.PricingViewModel
 
-class MyBizPricingAdapter(private val context: Context, private val mValues: List<PricingData>, private val pricingVm: PricingViewModel) : RecyclerView.Adapter<MyBizPricingAdapter.ViewHolder>() {
+class MyBizPricingAdapter(private val context: Context, private val mValues: List<PricingData>, private val pricingVm: MyBusinessViewModel) : RecyclerView.Adapter<MyBizPricingAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.pricing_items, parent, false)

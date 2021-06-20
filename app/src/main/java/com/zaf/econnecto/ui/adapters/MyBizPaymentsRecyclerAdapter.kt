@@ -8,11 +8,12 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zaf.econnecto.R
+import com.zaf.econnecto.ui.activities.mybiz.MyBusinessViewModel
 import com.zaf.econnecto.ui.activities.mybiz.PaymentMethodData
 import com.zaf.econnecto.ui.activities.mybiz.PaymentsViewModel
 import com.zaf.econnecto.utils.storage.PrefUtil
 
-class MyBizPaymentsRecyclerAdapter(private val context: Activity, private val mValues: List<PaymentMethodData>, payVm: PaymentsViewModel) : RecyclerView.Adapter<MyBizPaymentsRecyclerAdapter.ViewHolder>() {
+class MyBizPaymentsRecyclerAdapter(private val context: Activity, private val mValues: List<PaymentMethodData>, payVm: MyBusinessViewModel) : RecyclerView.Adapter<MyBizPaymentsRecyclerAdapter.ViewHolder>() {
 
     private val mPayViewModel = payVm
     val mActivity = context
@@ -38,11 +39,8 @@ class MyBizPaymentsRecyclerAdapter(private val context: Activity, private val mV
         return mValues.size
     }
 
-
     inner class ViewHolder internal constructor(val mView: View) : RecyclerView.ViewHolder(mView) {
         val textPayTypeName: TextView = mView.findViewById<View>(R.id.textCategoryName) as TextView
         val iconDelete: ImageButton = mView.findViewById<View>(R.id.iconDelete) as ImageButton
     }
-
-
 }

@@ -14,6 +14,7 @@ import com.zaf.econnecto.R
 import com.zaf.econnecto.ui.adapters.PaymentsAddEditAdapter
 import com.zaf.econnecto.ui.interfaces.IPaymentOptionList
 import com.zaf.econnecto.ui.interfaces.PaymentMethodAddListener
+import com.zaf.econnecto.utils.AppConstant
 import com.zaf.econnecto.utils.LogUtils
 import kotlinx.android.synthetic.main.layout_payment_methods.*
 
@@ -24,12 +25,12 @@ class PaymentsOptions : AppCompatActivity(), IPaymentOptionList, PaymentMethodAd
     lateinit var layoutManager: GridLayoutManager
     lateinit var emptyTextView: TextView
     var mContext: Activity = this
-    private lateinit var myBizViewModel: PaymentsViewModel
+    private lateinit var myBizViewModel: MyBusinessViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_payment_methods)
-        myBizViewModel = ViewModelProviders.of(this).get(PaymentsViewModel::class.java)
+        myBizViewModel = ViewModelProviders.of(this).get(MyBusinessViewModel::class.java)
         myBizViewModel.bizAllPaymentTypes(this, this)
         initUI()
     }
@@ -69,12 +70,7 @@ class PaymentsOptions : AppCompatActivity(), IPaymentOptionList, PaymentMethodAd
     }
 
     override fun updatePaymentMethod() {
+        AppConstant.ADD_EDIT_PAYMENTS = true
         finish()
-       /* LogUtils.showDialogSingleActionButton(mContext, getString(R.string.ok), getString(R.string.payment_method_added_successfully)) {
-            val returnIntent = Intent()
-            returnIntent.putExtra("AddPaymentMethod", getString(R.string.payment_method_added_successfully))
-            setResult(Activity.RESULT_OK, returnIntent)
-            finish()
-        }*/
     }
 }

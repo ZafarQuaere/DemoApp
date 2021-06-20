@@ -180,13 +180,25 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
 //            myBizViewModel.bizImageList(mContext as Activity?, this, PrefUtil.getBizId(mContext as Activity))
             myBizViewModel.bizProductServicesList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
             callAmenityListApi()
+            callBizCategoryListApi()
+            callPayOptionListApi()
+            callPricingListApi()
 
 //            myBizViewModel.bizOperatingHours(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
 //            myBizViewModel.bizBrochureList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
-//            myBizViewModel.bizPaymentMethodList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
-//            myBizViewModel.bizPricingList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
-//            myBizViewModel.bizCategoryList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
         }
+    }
+
+     fun callPricingListApi() {
+         myBizViewModel.bizPricingList(mContext as Activity?, PrefUtil.getBizId(mContext as Activity))
+    }
+
+    fun callPayOptionListApi() {
+         myBizViewModel.bizPaymentMethodList(mContext as Activity?, PrefUtil.getBizId(mContext as Activity))
+    }
+
+    fun callBizCategoryListApi() {
+        myBizViewModel.bizCategoryList(mContext as Activity?, PrefUtil.getBizId(mContext as Activity))
     }
 
     @SuppressLint("SetTextI18n")

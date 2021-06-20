@@ -17,6 +17,7 @@ import com.zaf.econnecto.ui.activities.mybiz.MyBusinessActivityLatest
 import com.zaf.econnecto.ui.activities.mybiz.MyBusinessViewModel
 import com.zaf.econnecto.ui.adapters.StaggeredImageAdapter
 import com.zaf.econnecto.ui.interfaces.DeleteImageListener
+import com.zaf.econnecto.utils.AppConstant
 import kotlinx.android.synthetic.main.fragment_photos.*
 import kotlinx.coroutines.launch
 
@@ -45,7 +46,12 @@ class PhotosFragment : Fragment() {
 
     private fun registerListener() {
         mbVm.imageList.observe(viewLifecycleOwner, Observer { imageData -> updatePhotosUI(imageData) })
-        mbVm.isImageDeleted.observe(viewLifecycleOwner, Observer { isImageDeleted -> updateImageDeleted(isImageDeleted) })
+        mbVm.isImageDeleted.observe(viewLifecycleOwner, Observer { isImageDeleted ->
+            if (AppConstant.ADD_EDIT_PHOTO) {
+                AppConstant.ADD_EDIT_PHOTO = false
+                updateImageDeleted(isImageDeleted)
+            }
+        })
     }
 
     private fun updateImageDeleted(imageDeleted: Boolean) {

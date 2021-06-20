@@ -15,24 +15,22 @@ import com.zaf.econnecto.ui.adapters.BizCategoryRecyclerAdapter
 import com.zaf.econnecto.ui.interfaces.AllCategoriesListener
 import com.zaf.econnecto.ui.interfaces.CategoryAddedListener
 import com.zaf.econnecto.ui.interfaces.OnBizCategoryItemClickListener
-import com.zaf.econnecto.utils.LogUtils
+import com.zaf.econnecto.utils.AppConstant
 import com.zaf.econnecto.utils.Utils
 import kotlinx.android.synthetic.main.activity_categories.*
 
 class CategoriesActivity : AppCompatActivity(), AllCategoriesListener, OnBizCategoryItemClickListener, CategoryAddedListener {
 
-    lateinit var myBizViewModel: MbCategoryViewModel
+    lateinit var myBizViewModel: MyBusinessViewModel
     lateinit var categoryAdapter: BizCategoryRecyclerAdapter
     lateinit var categoryList: MutableList<CategoryListData>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_categories)
-
-        myBizViewModel = ViewModelProviders.of(this).get(MbCategoryViewModel::class.java)
+        myBizViewModel = ViewModelProviders.of(this).get(MyBusinessViewModel::class.java)
         myBizViewModel.bizAllCategories(this, this)
         initUI()
-
     }
 
     private fun initUI() {
@@ -44,7 +42,6 @@ class CategoriesActivity : AppCompatActivity(), AllCategoriesListener, OnBizCate
         recyclerCategories.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-
                 return false
             }
 
@@ -80,6 +77,7 @@ class CategoriesActivity : AppCompatActivity(), AllCategoriesListener, OnBizCate
 
 
     override fun updateCategory() {
+        AppConstant.ADD_EDIT_CATEGORY = true
         finish()
     }
 }

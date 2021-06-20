@@ -9,9 +9,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zaf.econnecto.R
 import com.zaf.econnecto.ui.activities.mybiz.MbCategoryViewModel
+import com.zaf.econnecto.ui.activities.mybiz.MyBusinessViewModel
 import com.zaf.econnecto.ui.activities.mybiz.UserCategoryData
 
-class MyBizCategoriesAdapter(private val context: Activity, private val mValues: List<UserCategoryData>, payVm: MbCategoryViewModel) : RecyclerView.Adapter<MyBizCategoriesAdapter.ViewHolder>() {
+class MyBizCategoriesAdapter(private val context: Activity, private val mValues: List<UserCategoryData>, payVm: MyBusinessViewModel) : RecyclerView.Adapter<MyBizCategoriesAdapter.ViewHolder>() {
 
     private val mPayViewModel = payVm
     val mActivity = context

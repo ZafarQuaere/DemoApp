@@ -15,4 +15,12 @@ open class BaseViewModel : ViewModel() {
     val isAmenityDeleted: MutableLiveData<Boolean> by lazy { MutableLiveData<Boolean>() }
     val allAmenityList: MutableLiveData<MutableList<GeneralAmenities>> by lazy { MutableLiveData<MutableList<GeneralAmenities>>() }
 
+    val mbCategoryList: MutableLiveData<UserCategories> by lazy { MutableLiveData<UserCategories>() }
+    val isCategoryDeleted: MutableLiveData<Boolean> by lazy { MutableLiveData<Boolean>() }
+
+    val mbPayOptionList :  MutableLiveData<PaymentMethods> by lazy { MutableLiveData<PaymentMethods>() }
+    val isPayOptionDeleted: MutableLiveData<Boolean> by lazy { MutableLiveData<Boolean>() }
+
+    val mbPricingList :  MutableLiveData<Pricing> by lazy { MutableLiveData<Pricing>() }
+    val isPricingDeleted: MutableLiveData<Boolean> by lazy { MutableLiveData<Boolean>() }
 }

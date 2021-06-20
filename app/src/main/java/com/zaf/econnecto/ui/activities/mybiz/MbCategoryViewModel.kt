@@ -31,8 +31,6 @@ class MbCategoryViewModel : ViewModel() {
 
     @SuppressLint("StaticFieldLeak")
     lateinit var mActivity: Activity
-    var mbCategoryList =  MutableLiveData<UserCategories>()
-    var removeCategory =  MutableLiveData<Response<JsonObject>>()
 
     fun bizAllCategories(activity: Activity?, listener: AllCategoriesListener) {
         if (activity != null)
@@ -98,62 +96,4 @@ class MbCategoryViewModel : ViewModel() {
         })
     }
 
-    fun bizCategoryList(activity: Activity?, bizId: String) {
-        if (activity != null)
-            mActivity = activity
-        var loader = AppDialogLoader.getLoader(mActivity)
-        loader.show()
-        val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = categoryService.bizCategoryList(bizId)
-        LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
-        requestCall.enqueue(object : Callback<UserCategories> {
-            override fun onFailure(call: Call<UserCategories>, t: Throwable) {
-                loader.dismiss()
-                LogUtils.DEBUG("bizCategoryList() Failure: ${t.localizedMessage}")
-
-            }
-
-            override fun onResponse(call: Call<UserCategories>, response: Response<UserCategories>) {
-                LogUtils.DEBUG("bizCategoryList Response:->> ${ParseManager.getInstance().toJSON(response.body())}")
-                loader.dismiss()
-                val userCategories: UserCategories = response.body()!!
-                mbCategoryList.value = userCategories
-               /* if (userCategories.status == AppConstant.SUCCESS) {
-                    listener.updateCategories(userCategories.data)
-                } else {
-                    LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), userCategories.message[0])
-                }*/
-            }
-        })
-    }
-
-    fun removeCategory(activity: Activity?, category_id: String) {
-        if (activity != null)
-            mActivity = activity
-        val loader = AppDialogLoader.getLoader(mActivity)
-        loader.show()
-        val jsonObject = JSONObject()
-        jsonObject.put("jwt_token", Utils.getAccessToken(mActivity))
-        jsonObject.put("owner_id", Utils.getUserID(mActivity))
-        jsonObject.put("category_id", category_id)
-
-        val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
-        val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-
-        val requestCall = categoryService.removeCategory(requestBody)
-        LogUtils.DEBUG("Url: ${requestCall.request().url()}  \nBody: $jsonObject")
-
-        requestCall.enqueue(object : Callback<JsonObject> {
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                loader.dismiss()
-                LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), mActivity.getString(R.string.something_wrong_from_server_plz_try_again) + "\n" + t.localizedMessage)
-            }
-
-            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                loader.dismiss()
-                CategoriesFragment.removeCategory = true
-                removeCategory.value = response
-            }
-        })
-    }
 }

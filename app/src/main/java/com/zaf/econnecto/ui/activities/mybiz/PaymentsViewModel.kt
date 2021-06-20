@@ -82,12 +82,10 @@ class PaymentsViewModel : ViewModel() {
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 loader.dismiss()
-                PaymentFragment.editValues = true
                 removePayOption.value = response
             }
         })
     }
-
 
     fun addPaymentMethodsApi(activity: Activity?, listener: PaymentMethodAddListener?, paymentData: GeneralPaymentMethods) {
         if (activity != null)

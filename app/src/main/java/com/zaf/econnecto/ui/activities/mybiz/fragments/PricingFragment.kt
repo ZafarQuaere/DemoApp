@@ -13,12 +13,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
-import com.google.gson.JsonObject
 import com.zaf.econnecto.R
-import com.zaf.econnecto.ui.activities.mybiz.MyBusinessActivityLatest
-import com.zaf.econnecto.ui.activities.mybiz.Pricing
-import com.zaf.econnecto.ui.activities.mybiz.PricingActivity
-import com.zaf.econnecto.ui.activities.mybiz.PricingViewModel
+import com.zaf.econnecto.ui.activities.mybiz.*
 import com.zaf.econnecto.ui.adapters.MyBizPricingAdapter
 import com.zaf.econnecto.utils.AppConstant
 import com.zaf.econnecto.utils.LogUtils
@@ -26,24 +22,19 @@ import com.zaf.econnecto.utils.storage.PrefUtil
 import kotlinx.android.synthetic.main.fragment_pricing.*
 import kotlinx.android.synthetic.main.fragment_pricing.view.*
 import org.json.JSONObject
-import retrofit2.Response
 
 
 class PricingFragment : Fragment() {
 
-    private lateinit var pricingVm: PricingViewModel
+    private lateinit var pricingVm: MyBusinessViewModel
     private lateinit var pricingAdapter: MyBizPricingAdapter
     private lateinit var mContext: Context
 
-    companion object {
-        var removePricing = false
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
-        pricingVm = ViewModelProviders.of(this).get(PricingViewModel::class.java)
-        activity?.let { PrefUtil.getBizId(it) }?.let { pricingVm.bizPricingList(activity as Activity?, it) }
+        pricingVm = ViewModelProviders.of(requireActivity()).get(MyBusinessViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,29 +53,24 @@ class PricingFragment : Fragment() {
     }
 
     private fun callPricingApi() {
-        activity?.let { PrefUtil.getBizId(it) }?.let { pricingVm.bizPricingList(activity as Activity?, it) }
+        (activity as MyBusinessActivityLatest).callPricingListApi()
     }
 
     private fun registerListener() {
         pricingVm.mbPricingList.observe(viewLifecycleOwner, Observer { pricing: Pricing ->
             updatePricing(pricing)
         })
-        pricingVm.removePricing.observe(viewLifecycleOwner, Observer { jsonObj: Response<JsonObject> ->
-            if (removePricing) {
-                removePricing = false
-                updateRemovePricingUI(jsonObj)
+        pricingVm.isPricingDeleted.observe(viewLifecycleOwner, Observer { isPricingDeleted: Boolean ->
+            if (AppConstant.ADD_EDIT_PRICING) {
+                AppConstant.ADD_EDIT_PRICING = false
+                updateRemovePricingUI(isPricingDeleted)
             }
         })
     }
 
-    private fun updateRemovePricingUI(jsonObj: Response<JsonObject>) {
-        val body = JSONObject(Gson().toJson(jsonObj.body()))
-        LogUtils.DEBUG("removePricingApi Response:->> $body")
-        val status = body.optInt("status")
-        if (status == AppConstant.SUCCESS) {
+    private fun updateRemovePricingUI(isPricingDeleted: Boolean) {
+        if (isPricingDeleted) {
             callPricingApi()
-        } else {
-            LogUtils.showDialogSingleActionButton(activity, activity?.getString(R.string.ok), body.optJSONArray("message").optString(0)) { }
         }
     }
 
@@ -96,7 +82,7 @@ class PricingFragment : Fragment() {
             val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             recyclerPricing.layoutManager = layoutManager
             recyclerPricing.itemAnimator = DefaultItemAnimator()
-            val payListData = pricing?.data
+            val payListData = pricing.data
             if (payListData.isNotEmpty()) {
                 pricingAdapter = activity?.let { MyBizPricingAdapter(it, payListData, pricingVm) }!!
                 recyclerPricing.adapter = pricingAdapter
@@ -117,8 +103,9 @@ class PricingFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == MyBusinessActivityLatest.UPDATE_PRICING) {
+        if (requestCode == MyBusinessActivityLatest.UPDATE_PRICING && AppConstant.ADD_EDIT_PRICING) {
             LogUtils.DEBUG("Coming from Pricing Fragment")
+            AppConstant.ADD_EDIT_PRICING = false
             callPricingApi()
         }
     }

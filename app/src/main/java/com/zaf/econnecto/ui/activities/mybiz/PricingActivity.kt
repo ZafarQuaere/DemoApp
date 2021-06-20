@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.zaf.econnecto.R
 import com.zaf.econnecto.ui.adapters.AddPricingListAdapter
 import com.zaf.econnecto.ui.interfaces.PricingAddedListener
+import com.zaf.econnecto.utils.AppConstant
 import com.zaf.econnecto.utils.LogUtils
 import com.zaf.econnecto.utils.storage.PrefUtil
 import kotlinx.android.synthetic.main.activity_pricing.*
@@ -72,6 +73,7 @@ class PricingActivity : AppCompatActivity(), PricingAddedListener/*, DeletePrici
     override fun updatePricing() {
         // we had to update the pricing list here in this activity but as in success response of add api we are not
         // getting prod_id as it was required for delete functionality here, so we can't update list for now.
+        AppConstant.ADD_EDIT_PRICING = true
         finish()
 //        pricingVm.bizPricingList(this, PrefUtil.getBizId(this) )
 

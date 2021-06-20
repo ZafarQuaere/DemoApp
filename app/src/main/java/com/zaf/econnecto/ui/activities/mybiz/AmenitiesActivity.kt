@@ -14,7 +14,7 @@ import com.zaf.econnecto.R
 import com.zaf.econnecto.ui.adapters.AmenitiesAddEditAdapter
 import com.zaf.econnecto.ui.interfaces.AmenityAddedListener
 import com.zaf.econnecto.ui.interfaces.IGeneralAmenityList
-import com.zaf.econnecto.ui.activities.mybiz.fragments.AmenitiesFragment
+import com.zaf.econnecto.utils.AppConstant
 import com.zaf.econnecto.utils.LogUtils
 import kotlinx.android.synthetic.main.layout_amenities.*
 
@@ -51,7 +51,7 @@ class AmenitiesActivity : AppCompatActivity(), IGeneralAmenityList, AmenityAdded
         }
 
         textBack.setOnClickListener {
-            AmenitiesFragment.addEditAmenity = false
+            AppConstant.ADD_EDIT_AMENITY
             onBackPressed()
         }
     }
@@ -70,7 +70,7 @@ class AmenitiesActivity : AppCompatActivity(), IGeneralAmenityList, AmenityAdded
     }
 
     override fun updateAmenities() {
-        AmenitiesFragment.addEditAmenity = true
+        AppConstant.ADD_EDIT_AMENITY = true
         finish()
         /*LogUtils.showDialogSingleActionButton(mContext, getString(R.string.ok), getString(R.string.amenity_added_successfully)) {
             val returnIntent = Intent()

@@ -131,4 +131,10 @@ public class AppConstant {
 
     @NotNull
     public static final String URL_TERMS_CONDITIONS = "http://www.econnecto.com/terms_and_conditions.php";
+
+    public static Boolean ADD_EDIT_PHOTO = false;
+    public static Boolean ADD_EDIT_AMENITY = false;
+    public static Boolean ADD_EDIT_CATEGORY = false;
+    public static Boolean ADD_EDIT_PAYMENTS = false;
+    public static Boolean ADD_EDIT_PRICING = false;
 }

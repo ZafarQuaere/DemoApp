@@ -26,10 +26,6 @@ class AmenitiesFragment : Fragment() {
 
     private lateinit var mContext: Context
 
-    companion object {
-        var addEditAmenity = false
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
@@ -50,8 +46,8 @@ class AmenitiesFragment : Fragment() {
             updateAmenityList(data)
         })
         mbVm.isAmenityDeleted.observe(viewLifecycleOwner, Observer { isAmenityDeleted: Boolean ->
-            if (addEditAmenity) {
-                addEditAmenity = false
+            if (AppConstant.ADD_EDIT_AMENITY) {
+                AppConstant.ADD_EDIT_AMENITY = false
                 updateRemoveAmenity(isAmenityDeleted)
             }
         })
@@ -96,9 +92,9 @@ class AmenitiesFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == MyBusinessActivityLatest.UPDATE_AMENITIES && addEditAmenity) {
+        if (requestCode == MyBusinessActivityLatest.UPDATE_AMENITIES && AppConstant.ADD_EDIT_AMENITY) {
             LogUtils.DEBUG("Coming from amenities Fragment")
-            addEditAmenity = false
+            AppConstant.ADD_EDIT_AMENITY = false
             callAmenityListApi()
         }
     }

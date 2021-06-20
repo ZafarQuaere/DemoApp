@@ -28,18 +28,15 @@ import retrofit2.Response
 
 class CategoriesFragment : Fragment() {
 
-    private lateinit var categoriesVm: MbCategoryViewModel
+    private lateinit var categoriesVm: MyBusinessViewModel
     private lateinit var mbCategoriesAdapter: MyBizCategoriesAdapter
     lateinit var  mContext: Context
-    companion object {
-        var removeCategory = false
-    }
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
-        categoriesVm = ViewModelProviders.of(this).get(MbCategoryViewModel::class.java)
-        callCategoryApi()
+        categoriesVm = ViewModelProviders.of(requireActivity()).get(MyBusinessViewModel::class.java)
     }
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -52,30 +49,33 @@ class CategoriesFragment : Fragment() {
     }
 
     private fun callCategoryApi() {
-        activity?.let { PrefUtil.getBizId(it) }?.let { categoriesVm.bizCategoryList(activity as Activity?, it) }
+        (activity as MyBusinessActivityLatest).callBizCategoryListApi()
+//        activity?.let { PrefUtil.getBizId(it) }?.let { categoriesVm.bizCategoryList(activity as Activity?, it) }
     }
 
     private fun registerListener() {
-        categoriesVm.mbCategoryList.observe(viewLifecycleOwner, Observer { pricing : UserCategories ->
-            updateCategoryUI(pricing)
+        categoriesVm.mbCategoryList.observe(viewLifecycleOwner, Observer { categories : UserCategories ->
+            updateCategoryUI(categories)
         })
-        categoriesVm.removeCategory.observe(viewLifecycleOwner, Observer { jsonObj: Response<JsonObject> ->
-            if (removeCategory){
-                removeCategory = false
-                updateRemoveCategoryUI(jsonObj)
+        categoriesVm.isCategoryDeleted.observe(viewLifecycleOwner, Observer { isCategoryDeleted: Boolean ->
+            if (AppConstant.ADD_EDIT_CATEGORY){
+                AppConstant.ADD_EDIT_CATEGORY = false
+                updateRemoveCategoryUI(isCategoryDeleted)
             }
         })
     }
 
-    private fun updateRemoveCategoryUI(jsonObj: Response<JsonObject>) {
-        val body = JSONObject(Gson().toJson(jsonObj.body()))
+    private fun updateRemoveCategoryUI(isCategoryDeleted: Boolean) {
+        if (isCategoryDeleted)
+            callCategoryApi()
+       /* val body = JSONObject(Gson().toJson(jsonObj.body()))
         LogUtils.DEBUG("removeCategory Response:->> $body")
         val status = body.optInt("status")
         if (status == AppConstant.SUCCESS) {
             callCategoryApi()
         } else {
             LogUtils.showDialogSingleActionButton(activity, activity?.getString(R.string.ok), body.optJSONArray("message").optString(0)) { }
-        }
+        }*/
     }
 
     private fun updateCategoryUI(pricing: UserCategories) {
@@ -107,8 +107,9 @@ class CategoriesFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == MyBusinessActivityLatest.UPDATE_CATEGORY) {
+        if (requestCode == MyBusinessActivityLatest.UPDATE_CATEGORY && AppConstant.ADD_EDIT_CATEGORY) {
             LogUtils.DEBUG("Coming from Categories Fragment")
+            AppConstant.ADD_EDIT_CATEGORY = false
 //            LogUtils.showToast(mContext, "Coming from Category Activity")
             callCategoryApi()
         }

@@ -88,12 +88,11 @@ class PricingViewModel : ViewModel() {
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 loader.dismiss()
-                PricingFragment.removePricing = true
+//                PricingFragment.removePricing = true
                 removePricing.value = response
             }
         })
     }
-
 
     fun callAddPricingApi(activity: Activity?, listener: PricingAddedListener, desc: String, price: String, unit: String) {
         if (activity != null)

@@ -9,6 +9,7 @@ import com.android.volley.VolleyError
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.zaf.econnecto.R
+import com.zaf.econnecto.model.CategoryListData
 import com.zaf.econnecto.model.ImageUpdateModelListener
 import com.zaf.econnecto.network_call.MyJsonObjectRequest
 import com.zaf.econnecto.network_call.response_model.img_data.ViewImageData
@@ -18,6 +19,9 @@ import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsRes
 import com.zaf.econnecto.service.EConnectoServices
 import com.zaf.econnecto.service.ServiceBuilder
 import com.zaf.econnecto.ui.activities.mybiz.fragments.AmenitiesFragment
+import com.zaf.econnecto.ui.activities.mybiz.fragments.CategoriesFragment
+import com.zaf.econnecto.ui.activities.mybiz.fragments.PaymentFragment
+import com.zaf.econnecto.ui.activities.mybiz.fragments.PricingFragment
 import com.zaf.econnecto.ui.interfaces.*
 import com.zaf.econnecto.ui.presenters.operations.IMyBizImage
 import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
@@ -133,6 +137,7 @@ class MyBusinessViewModel : BaseViewModel() {
                         LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok), response.optJSONArray("message").optString(0))
                         isImageDeleted.value = true
                         ImageUpdateModelListener.getInstance().changeState(true)
+                        AppConstant.ADD_EDIT_PHOTO = true
                     } else {
                         LogUtils.showErrorDialog(mContext, mContext.getString(R.string.ok),
                                 response.optJSONArray("message").optString(0))
@@ -152,7 +157,7 @@ class MyBusinessViewModel : BaseViewModel() {
     }
 
     /*
-            Amenities Section
+            Amenities Api calls
      */
     fun bizAmenityList(activity: Activity?, listener: IMyBusinessLatest?, bizId: String) {
         if (activity != null)
@@ -207,7 +212,8 @@ class MyBusinessViewModel : BaseViewModel() {
                 LogUtils.DEBUG("RemoveAmenity Response:->> $body")
                 val status = body.optInt("status")
                 if (status == AppConstant.SUCCESS) {
-                    AmenitiesFragment.addEditAmenity = true
+//                    AmenitiesFragment.addEditAmenity = true
+                    AppConstant.ADD_EDIT_AMENITY = true
                     isAmenityDeleted.value = true
                 } else {
                     isAmenityDeleted.value = false
@@ -444,6 +450,386 @@ class MyBusinessViewModel : BaseViewModel() {
                     bizProductServicesList(mActivity, listener,bizId)
                 } else {
                     LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) { (mActivity).onBackPressed() }
+                }
+            }
+        })
+    }
+
+    /*
+           Category Api calls
+    */
+    fun bizCategoryList(activity: Activity?, bizId: String) {
+        if (activity != null)
+            mActivity = activity
+        var loader = AppDialogLoader.getLoader(mActivity)
+        loader.show()
+        val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
+        val requestCall = categoryService.bizCategoryList(bizId)
+        LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
+        requestCall.enqueue(object : Callback<UserCategories> {
+            override fun onFailure(call: Call<UserCategories>, t: Throwable) {
+                loader.dismiss()
+                LogUtils.DEBUG("bizCategoryList() Failure: ${t.localizedMessage}")
+
+            }
+
+            override fun onResponse(call: Call<UserCategories>, response: Response<UserCategories>) {
+                LogUtils.DEBUG("bizCategoryList Response:->> ${ParseManager.getInstance().toJSON(response.body())}")
+                loader.dismiss()
+                val userCategories: UserCategories = response.body()!!
+                mbCategoryList.value = userCategories
+                /* if (userCategories.status == AppConstant.SUCCESS) {
+                     listener.updateCategories(userCategories.data)
+                 } else {
+                     LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), userCategories.message[0])
+                 }*/
+            }
+        })
+    }
+
+    fun removeCategory(activity: Activity?, category_id: String) {
+        if (activity != null)
+            mActivity = activity
+        val loader = AppDialogLoader.getLoader(mActivity)
+        loader.show()
+        val jsonObject = JSONObject()
+        jsonObject.put("jwt_token", Utils.getAccessToken(mActivity))
+        jsonObject.put("owner_id", Utils.getUserID(mActivity))
+        jsonObject.put("category_id", category_id)
+
+        val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
+        val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
+
+        val requestCall = categoryService.removeCategory(requestBody)
+        LogUtils.DEBUG("Url: ${requestCall.request().url()}  \nBody: $jsonObject")
+
+        requestCall.enqueue(object : Callback<JsonObject> {
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                loader.dismiss()
+                LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), mActivity.getString(R.string.something_wrong_from_server_plz_try_again) + "\n" + t.localizedMessage)
+            }
+
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                loader.dismiss()
+                val body = JSONObject(Gson().toJson(response.body()))
+                LogUtils.DEBUG("RemoveCategory Response:->> $body")
+                val status = body.optInt("status")
+                if (status == AppConstant.SUCCESS) {
+                    AppConstant.ADD_EDIT_CATEGORY = true
+                    isCategoryDeleted.value = true
+                } else {
+                    isCategoryDeleted.value = false
+                    LogUtils.showDialogSingleActionButton(activity, activity?.getString(R.string.ok), body.optJSONArray("message").optString(0)) { }
+                }
+            }
+        })
+    }
+
+    fun bizAllCategories(activity: Activity?, listener: AllCategoriesListener) {
+        if (activity != null)
+            mActivity = activity
+        var loader = AppDialogLoader.getLoader(mActivity)
+        loader.show()
+        val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
+        val requestCall = categoryService.bizAllCategories()
+        LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
+
+        requestCall.enqueue(object : Callback<BizCategories> {
+            override fun onFailure(call: Call<BizCategories>, t: Throwable) {
+                loader.dismiss()
+                listener.updateCategoriesUI(null)
+                LogUtils.DEBUG("bizAllCategories() Failure: ${t.localizedMessage}")
+            }
+
+            override fun onResponse(call: Call<BizCategories>, response: Response<BizCategories>) {
+                LogUtils.DEBUG("bizAllCategories Response:->> ${ParseManager.getInstance().toJSON(response.body())}")
+                if (response != null && response.isSuccessful) {
+                    val categories: BizCategories = response.body()!!
+                    if (categories.status == AppConstant.SUCCESS) {
+                        listener.updateCategoriesUI(categories.data)
+                    } else {
+                        listener.updateCategoriesUI(null)
+                        LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), categories.message)
+                    }
+                }
+                loader.dismiss()
+            }
+        })
+    }
+
+    fun addCategoryApi(activity: Activity?, listener: CategoryAddedListener?, amenityItem: CategoryListData?) {
+        if (activity != null)
+            mActivity = activity
+        val loader = AppDialogLoader.getLoader(mActivity)
+        loader.show()
+        val jsonObject = JSONObject()
+        jsonObject.put("jwt_token", Utils.getAccessToken(mActivity))
+        jsonObject.put("owner_id", Utils.getUserID(mActivity))
+        jsonObject.put("category_id", amenityItem?.categoryId)
+        val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
+        val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
+        val requestCall = categoryService.addCategory(requestBody)
+        LogUtils.DEBUG("Url: ${requestCall.request().url()}  \nBody: $jsonObject")
+        requestCall.enqueue(object : Callback<JsonObject> {
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                loader.dismiss()
+                LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), mActivity.getString(R.string.something_wrong_from_server_plz_try_again) + "\n" + t.localizedMessage)
+            }
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                val body = JSONObject(Gson().toJson(response.body()))
+                LogUtils.DEBUG("addCategory Api Response:->> $body")
+                val status = body.optInt("status")
+                loader.dismiss()
+                if (status == AppConstant.SUCCESS) {
+                    listener?.updateCategory()
+                } else {
+                    LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) { (mActivity).onBackPressed() }
+                }
+            }
+        })
+    }
+
+    /*
+           Payment Api calls
+    */
+
+    fun bizPaymentMethodList(activity: Activity?, bizId: String) {
+        if (activity != null)
+            mActivity = activity
+        var loader = AppDialogLoader.getLoader(mActivity)
+        loader.show()
+        val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
+        val requestCall = categoryService.bizPaymentList(bizId)
+        LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
+        requestCall.enqueue(object : Callback<PaymentMethods> {
+            override fun onFailure(call: Call<PaymentMethods>, t: Throwable) {
+                loader.dismiss()
+                LogUtils.DEBUG("bizPaymentMethodList Failure: ${t.localizedMessage}")
+            }
+
+            override fun onResponse(call: Call<PaymentMethods>, response: Response<PaymentMethods>) {
+                LogUtils.DEBUG("bizPaymentMethodList Response:->> ${ParseManager.getInstance().toJSON(response.body())}")
+                if (response != null && response.isSuccessful) {
+                    mbPayOptionList.value =  response.body()
+                }
+
+                loader.dismiss()
+            }
+        })
+    }
+
+    fun removePayType(activity: Activity?, payMethodId: String) {
+        if (activity != null)
+            mActivity = activity
+        val loader = AppDialogLoader.getLoader(mActivity)
+        loader.show()
+        val jsonObject = JSONObject()
+        jsonObject.put("jwt_token", Utils.getAccessToken(mActivity))
+        jsonObject.put("owner_id", Utils.getUserID(mActivity))
+        jsonObject.put("p_method_id", payMethodId)
+
+        val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
+        val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
+
+        val requestCall = categoryService.removePayType(requestBody)
+        LogUtils.DEBUG("Url: ${requestCall.request().url()}  \nBody: $jsonObject")
+
+        requestCall.enqueue(object : Callback<JsonObject> {
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                loader.dismiss()
+                LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), mActivity.getString(R.string.something_wrong_from_server_plz_try_again) + "\n" + t.localizedMessage)
+            }
+
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                loader.dismiss()
+                val body = JSONObject(Gson().toJson(response.body()))
+                LogUtils.DEBUG("RemoveCategory Response:->> $body")
+                val status = body.optInt("status")
+                if (status == AppConstant.SUCCESS) {
+                    AppConstant.ADD_EDIT_PAYMENTS = true
+                    isPayOptionDeleted.value = true
+                } else {
+                    isPayOptionDeleted.value = false
+                    LogUtils.showDialogSingleActionButton(activity, activity?.getString(R.string.ok), body.optJSONArray("message").optString(0)) { }
+                }
+            }
+        })
+    }
+
+    fun addPaymentMethodsApi(activity: Activity?, listener: PaymentMethodAddListener?, paymentData: GeneralPaymentMethods) {
+        if (activity != null)
+            mActivity = activity
+        val loader = AppDialogLoader.getLoader(mActivity)
+        loader.show()
+        val jsonObject = JSONObject()
+        jsonObject.put("jwt_token", Utils.getAccessToken(mActivity))
+        jsonObject.put("owner_id", Utils.getUserID(mActivity))
+        jsonObject.put("p_method_id", paymentData.p_method_id)
+
+        val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
+        val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
+
+        val requestCall = categoryService.addPaymentMethods(requestBody)
+        LogUtils.DEBUG("Url: ${requestCall.request().url()}  \nBody: $jsonObject")
+        requestCall.enqueue(object : Callback<JsonObject> {
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                loader.dismiss()
+                LogUtils.DEBUG("addPaymentMethodsApi failure:->> ${t.localizedMessage}")
+            }
+
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                val body = JSONObject(Gson().toJson(response.body()))
+                LogUtils.DEBUG("addPaymentMethodsApi Response:->> $body")
+                loader.dismiss()
+                val status = body.optInt("status")
+                if (status == AppConstant.SUCCESS) {
+                    listener?.updatePaymentMethod()
+                } else {
+                    LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) {}
+                }
+            }
+        })
+    }
+
+    fun bizAllPaymentTypes(activity: Activity?, listener: IPaymentOptionList) {
+        if (activity != null)
+            mActivity = activity
+        var loader = AppDialogLoader.getLoader(mActivity)
+        loader.show()
+        val eConnectoServices = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
+        val requestCall = eConnectoServices.allPaymentMethods()
+        LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
+
+        requestCall.enqueue(object : Callback<AllPaymentMethods> {
+            override fun onFailure(call: Call<AllPaymentMethods>, t: Throwable) {
+                loader.dismiss()
+                LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), mActivity.getString(R.string.something_wrong_from_server_plz_try_again) + "\n" + t.localizedMessage)
+            }
+
+            override fun onResponse(call: Call<AllPaymentMethods>, response: Response<AllPaymentMethods>) {
+                LogUtils.DEBUG("AllPaymentMethods response: " + ParseManager.getInstance().toJSON(response.body()))
+                loader.dismiss()
+                if (response.isSuccessful) {
+                    val paymentMethods = response.body()
+                    if (paymentMethods?.status == AppConstant.SUCCESS) {
+                        listener.updatePaymentListUI(paymentMethods!!.data)
+                    } else {
+                        listener.updatePaymentListUI(null)
+                        LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), paymentMethods!!.message)
+                    }
+                }
+            }
+        })
+    }
+
+    /*
+    ======================================================
+             Pricing Api calls
+    ======================================================
+      */
+    fun bizPricingList(activity: Activity?, bizId: String) {
+        if (activity != null)
+            mActivity = activity
+        var loader = AppDialogLoader.getLoader(mActivity)
+        loader.show()
+        val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
+        val requestCall = categoryService.bizPricingList(bizId)
+//        val requestCall = categoryService.bizPricingList(PrefUtil.getBizId(mActivity))
+        LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
+
+        requestCall.enqueue(object : Callback<Pricing> {
+            override fun onFailure(call: Call<Pricing>, t: Throwable) {
+                loader.dismiss()
+                LogUtils.DEBUG("bizPricingList Failure: ${t.localizedMessage}")
+
+            }
+
+            override fun onResponse(call: Call<Pricing>, response: Response<Pricing>) {
+                LogUtils.DEBUG("bizPricingList Response:->> ${ParseManager.getInstance().toJSON(response.body())}")
+                if (response != null && response.isSuccessful) {
+                    mbPricingList.value = response.body()
+                    /*val pricing: Pricing = response.body()!!
+                    if (pricing.status == AppConstant.SUCCESS) {
+                        listener.updatePricingSection(pricing.data)
+                    } else {
+                        listener.updatePricingSection(null)
+//                        LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), pricing.message[0])
+                    }*/
+                }
+                loader.dismiss()
+            }
+        })
+    }
+
+    fun removePricing(activity: Context, payMethodId: String) {
+        val loader = AppDialogLoader.getLoader(activity)
+        loader.show()
+        val jsonObject = JSONObject()
+        jsonObject.put("jwt_token", Utils.getAccessToken(activity))
+        jsonObject.put("owner_id", Utils.getUserID(activity))
+        jsonObject.put("prod_serv_id", payMethodId)
+
+        val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
+        val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
+
+        val requestCall = categoryService.removePricing(requestBody)
+        LogUtils.DEBUG("Url: ${requestCall.request().url()}  \nBody: $jsonObject")
+
+        requestCall.enqueue(object : Callback<JsonObject> {
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                loader.dismiss()
+                LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), mActivity.getString(R.string.something_wrong_from_server_plz_try_again) + "\n" + t.localizedMessage)
+            }
+
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                loader.dismiss()
+                val body = JSONObject(Gson().toJson(response.body()))
+                LogUtils.DEBUG("RemoveCategory Response:->> $body")
+                val status = body.optInt("status")
+                if (status == AppConstant.SUCCESS) {
+                    AppConstant.ADD_EDIT_PRICING = true
+                    isPricingDeleted.value = true
+                } else {
+                    isPricingDeleted.value = false
+                    LogUtils.showDialogSingleActionButton(activity, activity?.getString(R.string.ok), body.optJSONArray("message").optString(0)) { }
+                }
+            }
+        })
+    }
+
+    fun callAddPricingApi(activity: Activity?, listener: PricingAddedListener, desc: String, price: String, unit: String) {
+        if (activity != null)
+            mActivity = activity
+        val loader = AppDialogLoader.getLoader(mActivity)
+        loader.show()
+        val jsonObject = JSONObject()
+        jsonObject.put("jwt_token", Utils.getAccessToken(mActivity))
+        jsonObject.put("owner_id", Utils.getUserID(mActivity))
+        jsonObject.put("prod_serv_name", desc)
+        jsonObject.put("prod_serv_price", price)
+        jsonObject.put("unit", unit)
+
+        val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
+        val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
+
+        val requestCall = categoryService.addPricing(requestBody)
+        LogUtils.DEBUG("Url: ${requestCall.request().url()}  \nBody: $jsonObject")
+
+        requestCall.enqueue(object : Callback<JsonObject> {
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                loader.dismiss()
+                LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), mActivity.getString(R.string.something_wrong_from_server_plz_try_again) + "\n" + t.localizedMessage)
+            }
+
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                val body = JSONObject(Gson().toJson(response.body()))
+                LogUtils.DEBUG("AddPricingApi Response:->> ${body.toString()}")
+                val status = body.optInt("status")
+                loader.dismiss()
+                if (status == AppConstant.SUCCESS) {
+                    listener.updatePricing()
+                } else {
+                    LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) {  }
                 }
             }
         })
