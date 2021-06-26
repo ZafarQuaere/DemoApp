@@ -15,6 +15,8 @@ import android.provider.MediaStore
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.widget.Toolbar
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.*
@@ -58,6 +60,7 @@ import kotlinx.android.synthetic.main.mb_layout_photos.recycler_photos
 import kotlinx.android.synthetic.main.mb_layout_pricing.*
 import kotlinx.android.synthetic.main.mb_layout_product_services.*
 import kotlinx.android.synthetic.main.mb_operating_hours.*
+import java.io.File
 
 class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMyBizImage, IMyBusinessLatest, ImageUpdateModelListener.ImageUpdateListener, OnMapReadyCallback {
 
@@ -71,6 +74,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
     private lateinit var myBizViewModel: MyBusinessViewModel
     private var isBrochure: Boolean = false
     lateinit var recyclerHeader: RecyclerView
+    lateinit var rootContent: CoordinatorLayout
     lateinit var bannerImageAdapter: VBHeaderImageRecylcerAdapter
     lateinit var imageList: MutableList<ViewImageData>
 
@@ -95,7 +99,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
     override fun onCreate(savedInstanceState: Bundle?) {
         window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_my_business_latest1)
+        setContentView(R.layout.activity_my_business_latest)
         initUI()
         mContext = this
         presenter!!.initMap(this, mapFrag)
@@ -108,6 +112,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
 
     private fun initUI() {
         recyclerHeader = findViewById<RecyclerView>(R.id.recycler_header)
+        rootContent = findViewById<CoordinatorLayout>(R.id.rootContent)
     }
 
 
@@ -189,12 +194,12 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         }
     }
 
-     fun callPricingListApi() {
-         myBizViewModel.bizPricingList(mContext as Activity?, PrefUtil.getBizId(mContext as Activity))
+    fun callPricingListApi() {
+        myBizViewModel.bizPricingList(mContext as Activity?, PrefUtil.getBizId(mContext as Activity))
     }
 
     fun callPayOptionListApi() {
-         myBizViewModel.bizPaymentMethodList(mContext as Activity?, PrefUtil.getBizId(mContext as Activity))
+        myBizViewModel.bizPaymentMethodList(mContext as Activity?, PrefUtil.getBizId(mContext as Activity))
     }
 
     fun callBizCategoryListApi() {
@@ -226,8 +231,33 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
             basicDetailsDta.email?.let { Utils.openMail(mContext, it) }
         }
         rlytShareBiz.setOnClickListener {
+            shareScreenContent()
             LogUtils.showToast(mContext, "expand address")
         }
+    }
+
+    private fun shareScreenContent() {
+        val bitmap: Bitmap? = ScreenshotUtils.getScreenShot(rootContent)
+        if (bitmap != null) {
+            val saveFile = ScreenshotUtils.getMainDirectoryName(this) //get the path to save screenshot
+            val file = ScreenshotUtils.store(bitmap, "econnecto_screenshot"  + ".jpg", saveFile!!) //save the screenshot to selected path
+            shareScreenshot(file) //finally share screenshot
+        } else {
+            //If bitmap is null show toast message
+            LogUtils.showToast(mContext,"Failed to capture screen");
+        }
+    }
+
+    private fun shareScreenshot(file: File?) {
+//        val uri = Uri.fromFile(file) //Convert file path into Uri for sharing
+        val uri = file?.let { FileProvider.getUriForFile(baseContext,applicationContext.packageName+".provider", it) } //Convert file path into Uri for sharing
+        val intent = Intent()
+        intent.action = Intent.ACTION_SEND
+        intent.type = "image/*"
+        intent.putExtra(Intent.EXTRA_SUBJECT, "")
+        intent.putExtra(Intent.EXTRA_TEXT, "share econnecto screen getString(R.string.sharing_text)")
+        intent.putExtra(Intent.EXTRA_STREAM, uri) //pass uri here
+        startActivity(Intent.createChooser(intent, "Share content"))
     }
 
     private fun updateMap(basicDetailsDta: BasicDetailsData) {
@@ -361,7 +391,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         val isImageUpdate = ImageUpdateModelListener.getInstance().state
         LogUtils.DEBUG("isImageUpdate $isImageUpdate ")
         if (isImageUpdate) {
-           callImageListApi()
+            callImageListApi()
         }
     }
 
@@ -380,14 +410,14 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
 
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun updateOperatingHours(data: OPHoursData?) {
-       if (data != null) {
-           iconOpenClose.background = if (data.CurrentStatus == "Closed") getDrawable(R.drawable.ic_circle_red) else getDrawable(R.drawable.ic_circle_green)
-           textOperatingHours.text = getOPTiming(data)
-       }
+        if (data != null) {
+            iconOpenClose.background = if (data.CurrentStatus == "Closed") getDrawable(R.drawable.ic_circle_red) else getDrawable(R.drawable.ic_circle_green)
+            textOperatingHours.text = getOPTiming(data)
+        }
     }
 
     private fun getOPTiming(data: OPHoursData): String {
-       //Todo
+        //Todo
         return "Operating Hours"
     }
 

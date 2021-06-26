@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:fitsSystemWindows="true"
+    android:id="@+id/rootContent"
     android:focusable="false">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -98,7 +99,7 @@
             </LinearLayout>
 
 
-                <!--</RelativeLayout>-->
+            <!--</RelativeLayout>-->
 
 
             <androidx.appcompat.widget.Toolbar
@@ -114,6 +115,8 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
         <!-- if we put tablayout here it stucks at aconbar-->
+
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
@@ -126,100 +129,22 @@
             app:tabSelectedTextColor="@color/colorBlack"
             app:tabTextColor="@color/colorGrey" />
 
-
-
     </com.google.android.material.appbar.AppBarLayout>
 
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/businessBackground"
-        android:clipToPadding="false"
+        android:fillViewport="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpagerTabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewpagerTabs"
-                android:layout_width="wrap_content"
-                android:layout_height="600dp"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-            <include
-                layout="@layout/mb_layout_brochure"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
-
-            <include
-                layout="@layout/mb_layout_about"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_3dp"
-                android:visibility="gone" />
-
-            <include
-                layout="@layout/mb_layout_photos"
-                android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:layout_marginTop="@dimen/_3dp"
-                android:visibility="gone" />
-
-            <include
-                layout="@layout/mb_layout_amenities"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_3dp"
-                android:visibility="gone" />
-
-            <include
-                layout="@layout/mb_layout_payment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_3dp"
-                android:visibility="gone" />
-
-
-            <include
-                layout="@layout/mb_layout_pricing"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_3dp"
-                android:visibility="gone" />
-
-            <include
-                layout="@layout/mb_layout_categories"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_3dp"
-                android:visibility="gone" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_60dp" />
-            <!--<ScrollView
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_50dp" />
-                </LinearLayout>
-
-            </ScrollView>-->
-        </LinearLayout>
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     </androidx.core.widget.NestedScrollView>
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
