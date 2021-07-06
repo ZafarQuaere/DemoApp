@@ -53,15 +53,16 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
     private lateinit var gMap: GoogleMap
     private var mContext: Context = this
     private lateinit var otherBizViewModel: OthersBusinessViewModel
+    private lateinit var myBizVm: MyBusinessViewModel
     private lateinit var ownerId: String
     private lateinit var businessId: String
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_view_business)
         otherBizViewModel = ViewModelProviders.of(this).get(OthersBusinessViewModel::class.java)
+        myBizVm = ViewModelProviders.of(this).get(MyBusinessViewModel::class.java)
         presenter.initMap(this, mapFrag)
         initUI()
         updateActionbar()
@@ -85,7 +86,7 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
         otherBizViewModel.bizImageList(mContext as Activity?, this, businessId)
         otherBizViewModel.bizOperatingHours(mContext as Activity?, this, businessId)
         otherBizViewModel.bizAmenityList(mContext as Activity?, this, businessId)
-        otherBizViewModel.bizProductServicesList(mContext as Activity?, this, businessId)
+        myBizVm.bizProductServicesList(mContext as Activity?, this, businessId)
         otherBizViewModel.bizBrochureList(mContext as Activity?, this, businessId)
         otherBizViewModel.bizPaymentMethodList(mContext as Activity?, this, businessId)
         otherBizViewModel.bizPricingList(mContext as Activity?, this, businessId)
@@ -198,7 +199,7 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
         }
     }
 
-    override fun updateOperatingHours(data: OPHoursData?) {
+    override fun updateOperatingHours(data: List<OPHoursData>?) {
         iconEditOPHour.visibility = View.GONE
     }
 
@@ -222,11 +223,11 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
               textAddProductNServices.visibility = View.GONE
                 textAdd.visibility = View.GONE
               listViewProductServices.visibility = View.VISIBLE
-              val layoutManager = LinearLayoutManager(mContext)
+              val layoutManager = StaggeredGridLayoutManager(2, LinearLayout.VERTICAL)
               listViewProductServices.layoutManager = layoutManager
               listViewProductServices.itemAnimator = DefaultItemAnimator()
 
-              val adapter = BizProdNServiceListAdapter(this, data, null)
+              val adapter = DealsInStaggeredAdapter(this, data)
               listViewProductServices.adapter = adapter
         }
 
@@ -305,10 +306,10 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
     private fun updatePricingUI(data: List<PricingData>) {
         textAddPricing.visibility = View.GONE
         lytPricing.visibility = View.VISIBLE
-        val layoutManager = LinearLayoutManager(mContext)
+        val layoutManager = StaggeredGridLayoutManager(2, LinearLayout.VERTICAL)
         recyclerPricing.layoutManager = layoutManager
         recyclerPricing.itemAnimator = DefaultItemAnimator()
-        val adapter = PricingMyBizStaggeredAdapter(this, data)
+        val adapter = BizPricingAdapter(this, data)
         recyclerPricing.adapter = adapter
     }
 
@@ -323,10 +324,13 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
 
     private fun updateCategoryList(data: List<UserCategoryData>) {
         if (data.isNotEmpty()) {
-            val catListView = findViewById<ListView>(R.id.myBizCategoryList)
+            val catListView = findViewById<RecyclerView>(R.id.bizCategoryRecycler)
             catListView.visibility = View.VISIBLE
             textAddCategory.visibility = View.GONE
-            val adapter = UserCategoryListAdapter(this, data, null)
+            val layoutManager = StaggeredGridLayoutManager(2, LinearLayout.VERTICAL)
+            catListView.layoutManager = layoutManager
+            catListView.itemAnimator = DefaultItemAnimator()
+            val adapter = BizCategoryStaggeredAdapter(this, data)
             catListView.adapter = adapter
         }
     }

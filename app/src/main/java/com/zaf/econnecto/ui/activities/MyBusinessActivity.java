@@ -527,9 +527,7 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
                 switchAddDealType.setText(getString(R.string.imageVersion));
                 updateImageDealUI(lytADBg);
             }else{
-
                 getPresenter().callDealBgApi();
-
                 switchAddDealType.setText(getString(R.string.textVersion));
                 updateTextDealUI(lytADBg);
             }

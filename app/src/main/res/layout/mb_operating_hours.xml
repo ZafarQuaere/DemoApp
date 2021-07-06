@@ -5,6 +5,7 @@
     android:layout_margin="@dimen/_10dp"
     android:background="@drawable/btn_follow"
     android:orientation="horizontal"
+    android:id="@+id/rlytOpHours"
     android:paddingVertical="@dimen/_5dp"
     android:paddingHorizontal="@dimen/_10dp">
 

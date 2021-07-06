@@ -1,429 +1,268 @@
 {
-  "message": "List fetched successfully",
-  "status": 1,
+  "message": [
+    "List fetched successfully"
+  ],
+  "status": 501,
   "data": [
     {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1556607199.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1556607383.png",
-      "business_name": "Hotel Grand Palace",
-      "year_founded": "2015",
-      "business_uid": "hotel",
-      "followers_count": "40",
-      "is_following": 1
+      "business_id": "31",
+      "owner_id": "64",
+      "business_name": "EKRAM KIRANA",
+      "short_description": "ALL TYPES OF KIRANA STORE",
+      "year_established": "1950",
+      "mobile_1": "8804267024",
+      "biz_profile_pic": "http:\/\/econnecto.com\/andMVP\/src\/images\/business_pics\/biz_profile_pic\/default\/default_biz_profile_pic.png",
+      "followers_count": "10"
     },
     {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1556119814.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1556119874.png",
-      "business_name": "Sweets house",
-      "year_founded": "1990",
-      "business_uid": "sweets",
-      "followers_count": "34",
-      "is_following": 1
+      "business_id": "25",
+      "owner_id": "56",
+      "business_name": "Nasar coaching centre",
+      "short_description": "one of the best coaching canter in Gaya ,Bihar",
+      "year_established": "2020",
+      "mobile_1": "9852527912",
+      "biz_profile_pic": "http:\/\/econnecto.com\/andMVP\/src\/images\/business_pics\/biz_profile_pic\/default\/default_biz_profile_pic.png",
+      "followers_count": "8"
     },
     {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1556694039.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
-      "business_name": "Variety genral store",
-      "year_founded": "1998",
-      "business_uid": "variety",
-      "followers_count": "24",
-      "is_following": 0
+      "business_id": "27",
+      "owner_id": "60",
+      "business_name": "Z NINE DEVELOPERS",
+      "short_description": "aapke Sapnon ko pura karne ki jimmedari Hamari",
+      "year_established": "2019",
+      "mobile_1": "7979783585",
+      "biz_profile_pic": "http:\/\/econnecto.com\/andMVP\/src\/images\/business_pics\/biz_profile_pic\/default\/default_biz_profile_pic.png",
+      "followers_count": "7"
     },
     {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/default\/default_business_pic.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
-      "business_name": "HOTEL BUDDHA",
-      "year_founded": "2012",
-      "business_uid": "hotel_1",
-      "followers_count": "18",
-      "is_following": 1
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/default\/default_business_pic.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1556174529.png",
-      "business_name": "Medistar Healthcare",
-      "year_founded": "2016",
-      "business_uid": "medistar",
-      "followers_count": "17",
-      "is_following": 1
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1556244253.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
-      "business_name": "Megha shingar dukan",
-      "year_founded": "2015",
-      "business_uid": "megha",
-      "followers_count": "17",
-      "is_following": 1
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1556267213.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1556267459.png",
-      "business_name": "Munna biscuits shops",
-      "year_founded": "1990",
-      "business_uid": "munna",
-      "followers_count": "15",
-      "is_following": 1
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1573621125.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
-      "business_name": "AHLE BAIT TRUST",
-      "year_founded": "2019",
-      "business_uid": "ahle",
-      "followers_count": "14",
-      "is_following": 1
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1574257461.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1574700176.png",
-      "business_name": "Webzee Infotech",
-      "year_founded": "2016",
-      "business_uid": "webzee",
-      "followers_count": "13",
-      "is_following": 0
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1556272763.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1556272824.png",
-      "business_name": "Arshad art printing press",
-      "year_founded": "1998",
-      "business_uid": "arshad",
-      "followers_count": "10",
-      "is_following": 0
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1559576370.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1559576406.png",
-      "business_name": "Janta music house",
-      "year_founded": "1980",
-      "business_uid": "janta",
-      "followers_count": "9",
-      "is_following": 1
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1561283517.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
-      "business_name": "Ganpti Mobile ",
-      "year_founded": "1998",
-      "business_uid": "ganpti",
-      "followers_count": "8",
-      "is_following": 1
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1558794041.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
-      "business_name": "Shubham jewellers and bartan bhandar",
-      "year_founded": "2014",
-      "business_uid": "shubham",
-      "followers_count": "8",
-      "is_following": 0
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1569080145.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1569080210.png",
-      "business_name": "VIMO. in",
-      "year_founded": "2019",
-      "business_uid": "vimo.",
-      "followers_count": "8",
-      "is_following": 0
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/default\/default_business_pic.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
-      "business_name": "BABA CYBERCAFE AND PHOTOCOPY",
-      "year_founded": "2010",
-      "business_uid": "baba",
-      "followers_count": "7",
-      "is_following": 1
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1556707485.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
-      "business_name": "Library ",
-      "year_founded": "2018",
-      "business_uid": "library",
-      "followers_count": "7",
-      "is_following": 0
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1556697127.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1556706457.png",
-      "business_name": "Lohani electric house",
-      "year_founded": "1990",
-      "business_uid": "lohani",
-      "followers_count": "7",
-      "is_following": 0
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1556715530.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1556715771.png",
-      "business_name": "Baba mobile  Dukan ",
-      "year_founded": "2007",
-      "business_uid": "baba_1",
-      "followers_count": "6",
-      "is_following": 1
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/default\/default_business_pic.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
-      "business_name": "Success institute",
-      "year_founded": "2018",
-      "business_uid": "success",
-      "followers_count": "6",
-      "is_following": 0
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/default\/default_business_pic.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
-      "business_name": "The Print Shop",
-      "year_founded": "2017",
-      "business_uid": "the",
-      "followers_count": "6",
-      "is_following": 0
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1560646435.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
-      "business_name": "Z NINE DEVELOPERES",
-      "year_founded": "2019",
-      "business_uid": "z",
-      "followers_count": "6",
-      "is_following": 0
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1556626628.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
-      "business_name": "zeya kitchen store and gift cornor",
-      "year_founded": "2018",
-      "business_uid": "zeya",
-      "followers_count": "6",
-      "is_following": 0
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/default\/default_business_pic.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
-      "business_name": "Balaji medical store",
-      "year_founded": "2019",
-      "business_uid": "balaji",
-      "followers_count": "5",
-      "is_following": 0
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1559473342.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
-      "business_name": "Fast food corner",
-      "year_founded": "2018",
-      "business_uid": "fast",
-      "followers_count": "5",
-      "is_following": 1
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1561187983.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1561188199.png",
-      "business_name": "Galaxy footwear",
-      "year_founded": "2010",
-      "business_uid": "galaxy",
-      "followers_count": "5",
-      "is_following": 0
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1561882528.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1561882371.png",
-      "business_name": "Naushad General store",
-      "year_founded": "2015",
-      "business_uid": "naushad",
-      "followers_count": "5",
-      "is_following": 0
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1559567589.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
-      "business_name": "Shree Ram Mobiles and traders",
-      "year_founded": "2010",
-      "business_uid": "shree",
-      "followers_count": "5",
-      "is_following": 1
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1560781467.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
-      "business_name": "Style menia",
-      "year_founded": "2018",
-      "business_uid": "style",
-      "followers_count": "5",
-      "is_following": 0
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1561881465.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
-      "business_name": "F B Fashion ",
-      "year_founded": "2017",
-      "business_uid": "f",
-      "followers_count": "4",
-      "is_following": 0
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1559572474.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1559572515.png",
-      "business_name": "Karoona footwear ",
-      "year_founded": "2009",
-      "business_uid": "karoona",
-      "followers_count": "4",
-      "is_following": 0
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1561887338.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
-      "business_name": "Ranjit electric",
-      "year_founded": "2014",
-      "business_uid": "ranjit",
-      "followers_count": "4",
-      "is_following": 1
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1561192951.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1561193065.png",
-      "business_name": "Arham traders readymade",
-      "year_founded": "2015",
-      "business_uid": "arham",
-      "followers_count": "3",
-      "is_following": 0
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1559121871.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1559121745.png",
-      "business_name": "Ashirvad vastralay",
-      "year_founded": "2010",
-      "business_uid": "ashirvad",
-      "followers_count": "3",
-      "is_following": 0
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/default\/default_business_pic.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
-      "business_name": "HOTEL PREM",
-      "year_founded": "2015",
-      "business_uid": "hotel_1_2",
-      "followers_count": "3",
-      "is_following": 1
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1557823118.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1557823197.png",
-      "business_name": "Nageshwari rest house",
-      "year_founded": "2017",
-      "business_uid": "nageshwari",
-      "followers_count": "3",
-      "is_following": 0
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1561195575.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1561195960.png",
-      "business_name": "New vishal ready made sale",
-      "year_founded": "2006",
-      "business_uid": "new",
-      "followers_count": "3",
-      "is_following": 0
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/..\/profile-business\/images\/business_pics\/default\/default_business_pic.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/..\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
-      "business_name": "sound box",
-      "year_founded": "2019",
-      "business_uid": "sound",
-      "followers_count": "3",
-      "is_following": 1
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/..\/profile-business\/images\/business_pics\/default\/default_business_pic.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1574358186.png",
-      "business_name": "SQAS Interior Pvt. ltd",
-      "year_founded": "2017",
-      "business_uid": "sqas",
-      "followers_count": "3",
-      "is_following": 0
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1574257458.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1574428895.png",
-      "business_name": "z s fragrance",
-      "year_founded": "1990",
-      "business_uid": "z_1",
-      "followers_count": "3",
-      "is_following": 1
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1579172784.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1579172748.png",
-      "business_name": "Aukat store",
-      "year_founded": "2000",
-      "business_uid": "aukat",
-      "followers_count": "2",
-      "is_following": 1
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/default\/default_business_pic.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
-      "business_name": "Blue Ladder Engineers",
-      "year_founded": "2019",
-      "business_uid": "blue",
-      "followers_count": "2",
-      "is_following": 0
-    },
-    {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1579514378.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1579514474.png",
+      "business_id": "24",
+      "owner_id": "55",
       "business_name": "Flipzio",
-      "year_founded": "2019",
-      "business_uid": "flipzio",
-      "followers_count": "2",
-      "is_following": 0
+      "short_description": "It is an online service providing company.",
+      "year_established": "2019",
+      "mobile_1": "8178169145",
+      "biz_profile_pic": "http:\/\/econnecto.com\/andMVP\/src\/images\/business_pics\/biz_profile_pic\/default\/default_biz_profile_pic.png",
+      "followers_count": "6"
     },
     {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1565867587.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
-      "business_name": "New Digital Gallery",
-      "year_founded": "2017",
-      "business_uid": "new_1",
-      "followers_count": "2",
-      "is_following": 0
+      "business_id": "26",
+      "owner_id": "59",
+      "business_name": "Creative Arch",
+      "short_description": "Creativity to draw Clients dreams.",
+      "year_established": "2010",
+      "mobile_1": "9546929277",
+      "biz_profile_pic": "http:\/\/econnecto.com\/andMVP\/src\/images\/business_pics\/biz_profile_pic\/default\/default_biz_profile_pic.png",
+      "followers_count": "5"
     },
     {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/..\/profile-business\/images\/business_pics\/default\/default_business_pic.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/..\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
-      "business_name": "shopper stop",
-      "year_founded": "2014",
-      "business_uid": "shopper",
-      "followers_count": "2",
-      "is_following": 0
+      "business_id": "33",
+      "owner_id": "66",
+      "business_name": "Megha singar dukan",
+      "short_description": "every cosmetic item of ladies like Bangles , earing etc",
+      "year_established": "2014",
+      "mobile_1": "7903831813",
+      "biz_profile_pic": "http:\/\/econnecto.com\/andMVP\/src\/images\/business_pics\/biz_profile_pic\/default\/default_biz_profile_pic.png",
+      "followers_count": "5"
     },
     {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1575874082.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1578168385.png",
-      "business_name": "Business 1",
-      "year_founded": "1990",
-      "business_uid": "business",
-      "followers_count": "1",
-      "is_following": 0
+      "business_id": "21",
+      "owner_id": "52",
+      "business_name": "Sahara ",
+      "short_description": "All kind of medicines availble",
+      "year_established": "1997",
+      "mobile_1": "9097103850",
+      "biz_profile_pic": "http:\/\/econnecto.com\/andMVP\/src\/images\/business_pics\/biz_profile_pic\/default\/default_biz_profile_pic.png",
+      "followers_count": "5"
     },
     {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/default\/default_business_pic.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/default\/default_banner.jpg",
-      "business_name": "Ekram kirana store",
-      "year_founded": "1950",
-      "business_uid": "ekram",
-      "followers_count": "1",
-      "is_following": 0
+      "business_id": "37",
+      "owner_id": "36",
+      "business_name": "SQAS Interiors",
+      "short_description": "SQAS Interiors is Delhi based company.",
+      "year_established": "2019",
+      "mobile_1": "9555194196",
+      "biz_profile_pic": "http:\/\/econnecto.com\/andMVP\/src\/images\/business_pics\/biz_profile_pic\/default\/default_biz_profile_pic.png",
+      "followers_count": "5"
     },
     {
-      "business_pic": "http:\/\/econnecto.com\/profile-business\/images\/business_pics\/1556169097.png",
-      "banner_pic": "http:\/\/econnecto.com\/profile-business\/images\/banner_pics\/1556169121.png",
-      "business_name": "Sweet shop",
-      "year_founded": "2000",
-      "business_uid": "sweet",
-      "followers_count": "1",
-      "is_following": 1
+      "business_id": "32",
+      "owner_id": "65",
+      "business_name": "Ahle Bait Trust",
+      "short_description": "A social Welfare Trust",
+      "year_established": "2018",
+      "mobile_1": "4060757143",
+      "biz_profile_pic": "http:\/\/econnecto.com\/andMVP\/src\/images\/business_pics\/biz_profile_pic\/default\/default_biz_profile_pic.png",
+      "followers_count": "4"
+    },
+    {
+      "business_id": "36",
+      "owner_id": "69",
+      "business_name": "austrack",
+      "short_description": "business manager",
+      "year_established": "2015",
+      "mobile_1": "8102871739",
+      "biz_profile_pic": "http:\/\/econnecto.com\/andMVP\/src\/images\/business_pics\/biz_profile_pic\/default\/default_biz_profile_pic.png",
+      "followers_count": "4"
+    },
+    {
+      "business_id": "38",
+      "owner_id": "73",
+      "business_name": "Blue Ladder Engineers",
+      "short_description": "Maintenance and Construction",
+      "year_established": "2019",
+      "mobile_1": "8475841677",
+      "biz_profile_pic": "http:\/\/econnecto.com\/andMVP\/src\/images\/business_pics\/biz_profile_pic\/default\/default_biz_profile_pic.png",
+      "followers_count": "4"
+    },
+    {
+      "business_id": "28",
+      "owner_id": "61",
+      "business_name": "ann jal tiffin services",
+      "short_description": "home cooked meals and buffets",
+      "year_established": "2018",
+      "mobile_1": "9006055116",
+      "biz_profile_pic": "http:\/\/econnecto.com\/andMVP\/src\/images\/bu siness_pics\/biz_profile_pic\/default\/default_biz_profile_pic.png",
+      "followers_count": "3"
+    },
+    {
+      "business_id": "29",
+      "owner_id": "62",
+      "business_name": "FIDA KIRANA STORE",
+      "short_description": "har tarah ka har saman milta hai",
+      "year_established": "1998",
+      "mobile_1": "9917208509",
+      "biz_profile_pic": "http:\/\/econnecto.com\/andMVP\/src\/images\/business_pics\/biz_profile_pic\/default\/default_biz_profile_pic.png",
+      "followers_count": "3"
+    },
+    {
+      "business_id": "34",
+      "owner_id": "67",
+      "business_name": "jayanti metal house",
+      "short_description": "jashpur road gumla",
+      "year_established": "1990",
+      "mobile_1": "9955372216",
+      "biz_profile_pic": "http:\/\/econnecto.com\/andMVP\/src\/images\/business_pics\/biz_profile_pic\/default\/default_biz_profile_pic.png",
+      "followers_count": "3"
+    },
+    {
+      "business_id": "46",
+      "owner_id": "85",
+      "business_name": "Prince watch",
+      "short_description": "All types of mobile",
+      "year_established": "2000",
+      "mobile_1": "8789194638",
+      "biz_profile_pic": "http:\/\/econnecto.com\/andMVP\/src\/images\/business_pics\/biz_profile_pic\/default\/default_biz_profile_pic.png",
+      "followers_count": "3"
+    },
+    {
+      "business_id": "43",
+      "owner_id": "80",
+      "business_name": "SANTOSH Sweet home",
+      "short_description": "Sweet's shop",
+      "year_established": "2002",
+      "mobile_1": "9661237730",
+      "biz_profile_pic": "http:\/\/econnecto.com\/andMVP\/src\/images\/business_pics\/biz_profile_pic\/default\/default_biz_profile_pic.png",
+      "followers_count": "3"
+    },
+    {
+      "business_id": "35",
+      "owner_id": "68",
+      "business_name": "Ayesha physiotherapy clinic",
+      "short_description": "physiotherapy",
+      "year_established": "2016",
+      "mobile_1": "8802128649",
+      "biz_profile_pic": "http:\/\/econnecto.com\/andMVP\/src\/images\/business_pics\/biz_profile_pic\/default\/default_biz_profile_pic.png",
+      "followers_count": "2"
+    },
+    {
+      "business_id": "40",
+      "owner_id": "74",
+      "business_name": "Distributor Jai Mata di enterprises",
+      "short_description": "Too yumm",
+      "year_established": "2018",
+      "mobile_1": "7992353719",
+      "biz_profile_pic": "http:\/\/econnecto.com\/andMVP\/src\/images\/business_pics\/biz_profile_pic\/default\/default_biz_profile_pic.png",
+      "followers_count": "2"
+    },
+    {
+      "business_id": "44",
+      "owner_id": "82",
+      "business_name": "home Designer",
+      "short_description": "ghar ko kam se kam me kharch me achcha decoration",
+      "year_established": "2020",
+      "mobile_1": "9664779765",
+      "biz_profile_pic": "http:\/\/econnecto.com\/andMVP\/src\/images\/business_pics\/biz_profile_pic\/default\/default_biz_profile_pic.png",
+      "followers_count": "2"
+    },
+    {
+      "business_id": "47",
+      "owner_id": "87",
+      "business_name": "IFB center",
+      "short_description": "Ac. washing machine freeze dishwasher. oven repair",
+      "year_established": "2013",
+      "mobile_1": "9852765416",
+      "biz_profile_pic": "http:\/\/econnecto.com\/andMVP\/src\/images\/business_pics\/biz_profile_pic\/default\/default_biz_profile_pic.png",
+      "followers_count": "2"
+    },
+    {
+      "business_id": "41",
+      "owner_id": "78",
+      "business_name": "Indian Saree House",
+      "short_description": "Best quality saree available  here",
+      "year_established": "2000",
+      "mobile_1": "8810493898",
+      "biz_profile_pic": "http:\/\/econnecto.com\/andMVP\/src\/images\/business_pics\/biz_profile_pic\/default\/default_biz_profile_pic.png",
+      "followers_count": "2"
+    },
+    {
+      "business_id": "30",
+      "owner_id": "63",
+      "business_name": "Medistar Healthcare",
+      "short_description": "Deals In Medical Equipments",
+      "year_established": "2016",
+      "mobile_1": "8448303352",
+      "biz_profile_pic": "http:\/\/econnecto.com\/andMVP\/src\/images\/business_pics\/biz_profile_pic\/default\/default_biz_profile_pic.png",
+      "followers_count": "2"
+    },
+    {
+      "business_id": "39",
+      "owner_id": "50",
+      "business_name": "Memer",
+      "short_description": "It's an idea that spread via internet.",
+      "year_established": "2011",
+      "mobile_1": "9998887766",
+      "biz_profile_pic": "http:\/\/econnecto.com\/andMVP\/src\/images\/business_pics\/biz_profile_pic\/default\/default_biz_profile_pic.png",
+      "followers_count": "2"
+    },
+    {
+      "business_id": "42",
+      "owner_id": "79",
+      "business_name": "MSK DIGITAL DOOR",
+      "short_description": "I work with establishment to my customer.",
+      "year_established": "2018",
+      "mobile_1": "6202645146",
+      "biz_profile_pic": "http:\/\/econnecto.com\/andMVP\/src\/images\/business_pics\/biz_profile_pic\/default\/default_biz_profile_pic.png",
+      "followers_count": "2"
+    },
+    {
+      "business_id": "45",
+      "owner_id": "83",
+      "business_name": "sweets house",
+      "short_description": "all types of sweets are available",
+      "year_established": "2000",
+      "mobile_1": "7004343449",
+      "biz_profile_pic": "http:\/\/econnecto.com\/andMVP\/src\/images\/business_pics\/biz_profile_pic\/default\/default_biz_profile_pic.png",
+      "followers_count": "2"
+    },
+    {
+      "business_id": "48",
+      "owner_id": "54",
+      "business_name": "Z S Agarbathi",
+      "short_description": "Agarbathi manufacturers",
+      "year_established": "1990",
+      "mobile_1": "7909027789",
+      "biz_profile_pic": "http:\/\/econnecto.com\/andMVP\/src\/images\/business_pics\/biz_profile_pic\/default\/default_biz_profile_pic.png",
+      "followers_count": "2"
     }
   ]
 }

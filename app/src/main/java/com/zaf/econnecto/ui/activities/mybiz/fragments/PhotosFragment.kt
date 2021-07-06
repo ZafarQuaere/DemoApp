@@ -63,14 +63,15 @@ class PhotosFragment : Fragment() {
         if (data.isNotEmpty()) {
             textAddPhotos.visibility = View.GONE
             recycler_photos.visibility = View.VISIBLE
+            recycler_photos.setHasFixedSize(true)
             val layoutManager = GridLayoutManager(mContext, 2)
             recycler_photos.layoutManager = layoutManager
-            recycler_photos.itemAnimator = DefaultItemAnimator()
+//            recycler_photos.itemAnimator = DefaultItemAnimator()
             val adapter = StaggeredImageAdapter(mContext, data, true, object : DeleteImageListener {
-                override fun onDeleteClick(s: ViewImageData?, position: Int) {
+                override fun onDeleteClick(imageData: ViewImageData?, position: Int) {
                     lifecycleScope.launch {
-                        if (s != null) {
-                            (activity as MyBusinessActivityLatest).callDeleteImageApi(s, position)
+                        if (imageData != null) {
+                            (activity as MyBusinessActivityLatest).callDeleteImageApi(imageData, position)
                         }
                     }
                 }

@@ -6,7 +6,7 @@ import com.zaf.econnecto.ui.activities.mybiz.*
 interface IMyBusinessLatest {
 
     fun updateBasicDetails(basicDetailsResponse: BasicDetailsResponse, imageUpdate: Boolean)
-    fun updateOperatingHours(data: OPHoursData?)
+    fun updateOperatingHours(data: List<OPHoursData>?)
     fun updateProductServiceSection(data: List<ProductNServiceData>?)
     fun updateBrochureSection(data: List<BrochureData>?)
     fun updateAmenitiesSection(data: List<AmenityData>?)

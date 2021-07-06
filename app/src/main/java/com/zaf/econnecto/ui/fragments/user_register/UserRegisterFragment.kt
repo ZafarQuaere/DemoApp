@@ -33,7 +33,7 @@ class UserRegisterFragment : Fragment(), FragmentNavigation {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        KotUtil.updateActionBar(activity, UserRegisterFragment.javaClass.simpleName, activity!!.getString(R.string.register), null, null)
+        KotUtil.updateActionBar(activity, UserRegisterFragment.javaClass.simpleName, requireActivity().getString(R.string.register), null, null)
         navController = Navigation.findNavController(view)
         viewModel = ViewModelProviders.of(this).get(UserRegisterViewModel::class.java)
         viewModel.registerNavigation(this)
@@ -43,10 +43,10 @@ class UserRegisterFragment : Fragment(), FragmentNavigation {
             }
         }
         txtTermsCondition.setOnClickListener{
-            navController!!.navigate(R.id.action_register_to_terms_condition)
+            navController.navigate(R.id.action_register_to_terms_condition)
         }
          txtLogin.setOnClickListener {
-             activity!!.finish()
+             requireActivity().finish()
              //callJsonParsing()
          }
     }

@@ -56,7 +56,6 @@ import kotlinx.android.synthetic.main.mb_layout_brochure.*
 import kotlinx.android.synthetic.main.mb_layout_categories.*
 import kotlinx.android.synthetic.main.mb_layout_payment.*
 import kotlinx.android.synthetic.main.mb_layout_photos.*
-import kotlinx.android.synthetic.main.mb_layout_photos.recycler_photos
 import kotlinx.android.synthetic.main.mb_layout_pricing.*
 import kotlinx.android.synthetic.main.mb_layout_product_services.*
 import kotlinx.android.synthetic.main.mb_operating_hours.*
@@ -140,7 +139,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         textFollow.setOnClickListener {
             startActivityForResult(Intent(this, EditDetails::class.java), UPDATE_DETAILS_CODE)
         }
-        iconEditOPHour.setOnClickListener {
+        rlytOpHours.setOnClickListener {
             startActivityForResult(Intent(this, OperatingHour::class.java), UPDATE_OPERATING_HOUR_CODE)
         }
         rlytLocation.setOnClickListener {
@@ -182,15 +181,12 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         setupViewPager(viewPagerTabs)
         if (imageUpdate) {
             callImageListApi()
-//            myBizViewModel.bizImageList(mContext as Activity?, this, PrefUtil.getBizId(mContext as Activity))
             myBizViewModel.bizProductServicesList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
             callAmenityListApi()
             callBizCategoryListApi()
             callPayOptionListApi()
             callPricingListApi()
-
-//            myBizViewModel.bizOperatingHours(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
-//            myBizViewModel.bizBrochureList(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
+            myBizViewModel.bizOperatingHours(mContext as Activity?, this,PrefUtil.getBizId(mContext as Activity))
         }
     }
 
@@ -409,15 +405,16 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
 
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    override fun updateOperatingHours(data: OPHoursData?) {
+    override fun updateOperatingHours(data: List<OPHoursData>?) {
         if (data != null) {
-            iconOpenClose.background = if (data.CurrentStatus == "Closed") getDrawable(R.drawable.ic_circle_red) else getDrawable(R.drawable.ic_circle_green)
-            textOperatingHours.text = getOPTiming(data)
+           val storeStatus =  data[data.size-1].current_status
+            iconOpenClose.background = if (storeStatus == "Closed") getDrawable(R.drawable.ic_circle_red) else getDrawable(R.drawable.ic_circle_green)
+            textOperatingHours.text = if (storeStatus == "Closed") "Closed" else getOPTiming(data)
         }
     }
 
-    private fun getOPTiming(data: OPHoursData): String {
-        //Todo
+    private fun getOPTiming(data: List<OPHoursData>?): String {
+
         return "Operating Hours"
     }
 

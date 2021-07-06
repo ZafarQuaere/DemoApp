@@ -44,6 +44,7 @@
         app:drawableStartCompat="@drawable/ic_add" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="@dimen/_20dp"
         android:visibility="visible"
         android:id="@+id/listViewProductServices"
         android:layout_width="match_parent"

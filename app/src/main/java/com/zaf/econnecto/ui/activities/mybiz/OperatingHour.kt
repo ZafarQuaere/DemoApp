@@ -1,40 +1,80 @@
 package com.zaf.econnecto.ui.activities.mybiz
 
-import android.app.Activity
 import android.app.TimePickerDialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import android.widget.TimePicker
+import androidx.lifecycle.Observer
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import com.zaf.econnecto.R
 import com.zaf.econnecto.utils.LogUtils
+import com.zaf.econnecto.utils.storage.PrefUtil
 import kotlinx.android.synthetic.main.layout_operating_hour.*
 import java.util.*
 
 
 class OperatingHour : AppCompatActivity() {
 
+    private lateinit var myBizViewModel: MyBusinessViewModel
+    /**
+     * 1) first time keep monday enable, others disable, 2) Copy for weekday will also be disabled until he enters data in monday field
+     * 2) copy for weekdays will also update the toggle on/off.
+     * 3)
+     */
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_operating_hour)
+        myBizViewModel = ViewModelProviders.of(this).get(MyBusinessViewModel::class.java)
+        myBizViewModel.bizOperatingHours(this, null, PrefUtil.getBizId(this))
         initUI()
     }
 
     private fun initUI() {
         textSubmit.setOnClickListener {
-            val returnIntent = Intent()
+            updateOperatingHours()
+            /*val returnIntent = Intent()
             returnIntent.putExtra("result", "data from secondActivity")
             setResult(Activity.RESULT_OK, returnIntent)
-            finish()
+            finish()*/
         }
 
         textBack.setOnClickListener {
             onBackPressed();
         }
+        myBizViewModel.opHourList.observe(this, Observer { data -> updateOpHourData(data) })
         selectTimeClickEvents()
+    }
 
+    private fun updateOperatingHours() {
+        myBizViewModel.updateOperatingHours()
+    }
+
+
+    private fun updateOpHourData(data: List<OPHoursData>) {
+        monFromTime.text = data[0].open_time
+        monEndTime.text = data[0].close_time
+
+        tueFromTime.text = data[1].open_time
+        tueEndTime.text = data[1].close_time
+
+        wedFromTime.text = data[2].open_time
+        wedEndTime.text = data[2].close_time
+
+        thuFromTime.text = data[3].open_time
+        thuEndTime.text = data[3].close_time
+
+        friFromTime.text = data[4].open_time
+        friEndTime.text = data[4].close_time
+
+        satFromTime.text = data[5].open_time
+        satEndTime.text = data[5].close_time
+
+        sunFromTime.text = data[6].open_time
+        sunEndTime.text = data[6].close_time
     }
 
     private fun selectTimeClickEvents() {
@@ -43,57 +83,9 @@ class OperatingHour : AppCompatActivity() {
         for (text in list){
             text.setOnClickListener { onTimeClick(text) }
         }
-        /*monFromTime.setOnClickListener {
-            onTimeClick(monFromTime)
-        }
-        monEndTime.setOnClickListener {
-            onTimeClick(monEndTime)
-        }
-        tueFromTime.setOnClickListener {
-            onTimeClick(tueFromTime)
-        }
-        tueEndTime.setOnClickListener {
-            onTimeClick(tueEndTime)
-        }
-        wedFromTime.setOnClickListener {
-            onTimeClick(wedFromTime)
-        }
-        wedEndTime.setOnClickListener {
-            onTimeClick(wedEndTime)
-        }
-        thuFromTime.setOnClickListener {
-            onTimeClick(thuFromTime)
-        }
-        thuEndTime.setOnClickListener {
-            onTimeClick(thuEndTime)
-        }
-        friFromTime.setOnClickListener {
-            onTimeClick(friFromTime)
-        }
-        friEndTime.setOnClickListener {
-            onTimeClick(friEndTime)
-        }
-        satFromTime.setOnClickListener {
-            onTimeClick(satFromTime)
-        }
-        satEndTime.setOnClickListener {
-            onTimeClick(satEndTime)
-        }
-        sunFromTime.setOnClickListener {
-            onTimeClick(sunFromTime)
-        }
-        sunEndTime.setOnClickListener {
-            onTimeClick(sunEndTime)
-        }*/
         checkCopyForWeekday.setOnCheckedChangeListener { buttonView, isChecked ->
             setWeekdaysTiming(isChecked)
-//            if (isChecked) {
-//                setWeekdaysTiming(isChecked)
-//            } else {
-//                setWeekdaysTiming(true)
-//            }
         }
-
     }
 
     private fun setWeekdaysTiming( setSameTiming : Boolean) {
@@ -158,7 +150,5 @@ class OperatingHour : AppCompatActivity() {
             }
         }, hour, minute, false)
         mTimePicker.show()
-
     }
-
 }

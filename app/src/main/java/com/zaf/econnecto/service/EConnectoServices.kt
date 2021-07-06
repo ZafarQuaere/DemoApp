@@ -63,7 +63,7 @@ interface EConnectoServices {
     fun bizImageList(@Query("business_id") businessId: String): Call<JsonObject>
 
     @GET(AppConstant.URL_BIZ_OPERATING_HOURS)
-    fun bizOperatingHours(@Query("business_id") businessId: String): Call<OPHours>
+    fun bizOperatingHours(@Query("business_id") businessId: String): Call<JsonObject>
 
     @GET(AppConstant.URL_BIZ_BROCHURE_LIST)
     fun bizBrochureList(@Query("business_id") businessId: String): Call<Brochure>

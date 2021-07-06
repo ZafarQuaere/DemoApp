@@ -17,14 +17,14 @@
         android:textStyle="bold"
         android:text="@string/categories" />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:visibility="gone"
-        android:id="@+id/myBizCategoryList"
+        android:layout_marginTop="@dimen/_10dp"
+        android:id="@+id/bizCategoryRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:overScrollMode="never"
         tools:listitem="@layout/my_biz_category_item" />
-
 
     <TextView
         android:id="@+id/textAddCategory"
@@ -35,8 +35,6 @@
         android:gravity="center_vertical"
         android:paddingStart="@dimen/_10dp"
         android:text="@string/add_category" />
-
-
 
 </LinearLayout>
 

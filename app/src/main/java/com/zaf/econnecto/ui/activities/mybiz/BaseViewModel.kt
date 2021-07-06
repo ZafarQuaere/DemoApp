@@ -23,4 +23,6 @@ open class BaseViewModel : ViewModel() {
 
     val mbPricingList :  MutableLiveData<Pricing> by lazy { MutableLiveData<Pricing>() }
     val isPricingDeleted: MutableLiveData<Boolean> by lazy { MutableLiveData<Boolean>() }
+
+    val opHourList: MutableLiveData<List<OPHoursData>> by lazy { MutableLiveData<List<OPHoursData>>() }
 }

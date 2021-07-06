@@ -110,9 +110,7 @@ public class BizCategoryFragment extends BaseFragment<BizCategoryPresenter> impl
             }
         });
         recyclerCategory.setAdapter(adapter);
-
     }
-
 
     public interface OnCategoryItemClickListener {
         void onCategoryItemClick(CategoryData item);
