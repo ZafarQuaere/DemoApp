@@ -306,7 +306,7 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
     private fun updatePricingUI(data: List<PricingData>) {
         textAddPricing.visibility = View.GONE
         lytPricing.visibility = View.VISIBLE
-        val layoutManager = StaggeredGridLayoutManager(2, LinearLayout.VERTICAL)
+        val layoutManager = StaggeredGridLayoutManager(1, LinearLayout.VERTICAL)
         recyclerPricing.layoutManager = layoutManager
         recyclerPricing.itemAnimator = DefaultItemAnimator()
         val adapter = BizPricingAdapter(this, data)

@@ -137,4 +137,7 @@ interface EConnectoServices {
 
     @GET(AppConstant.URL_OTHER_BIZ_CATEGORIES)
     fun otherBizCategoryList(@Query("business_id") businessId: String): Call<JsonObject>
+
+    @POST(AppConstant.URL_BIZ_ADD_OP_HOUR)
+    fun addOpHour(@Body requestBody: RequestBody): Call<JsonObject>
 }

@@ -29,6 +29,7 @@ public class AppConstant {
     public static final String TIMESTAMP_FORMAT = "yyyyMMdd_HHmmss";
     public static final String TAG = "eConnecto";
     public static final String RUPEES_SYMBOL = "₹ ";
+    public static final String DEFAULT_TIME = "00:00";
 
     public static final String URL_BASE_MVP = "http://econnecto.com/andMVP/api/";
     public static final String URL_BASE = "http://econnecto.com/api/";
@@ -77,6 +78,7 @@ public class AppConstant {
     public static final String URL_BIZ_ADD_PRICING = "my_biz_add_edit/pricing/add_price.php";
     public static final String URL_BIZ_REMOVE_PRICING = "my_biz_add_edit/pricing/remove_price.php";
     public static final String URL_BIZ_ADD_BROCHURE = "my_biz_add_edit/brochure/add_brochure.php";
+    public static final String URL_BIZ_ADD_OP_HOUR = "my_biz_add_edit/operating_hour/add_edit_op_hr.php";
 
     // Other Business APIS
     public static final String URL_OTHER_BIZ_BASIC_DETAILS = "other_biz/other_biz_basic.php";

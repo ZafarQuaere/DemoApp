@@ -3,12 +3,14 @@ package com.zaf.econnecto.ui.activities.mybiz
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.View
+import android.widget.Switch
 import android.widget.TextView
 import android.widget.TimePicker
-import androidx.lifecycle.Observer
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.zaf.econnecto.R
+import com.zaf.econnecto.utils.AppConstant
 import com.zaf.econnecto.utils.LogUtils
 import com.zaf.econnecto.utils.storage.PrefUtil
 import kotlinx.android.synthetic.main.layout_operating_hour.*
@@ -50,31 +52,25 @@ class OperatingHour : AppCompatActivity() {
     }
 
     private fun updateOperatingHours() {
-        myBizViewModel.updateOperatingHours()
+        val startList = listOf<TextView>(monFromTime,tueFromTime,wedFromTime,thuFromTime,friFromTime,satFromTime,sunFromTime)
+        val endList = listOf<TextView>(monEndTime,tueEndTime,wedEndTime,thuEndTime,friEndTime,satEndTime,sunEndTime)
+        myBizViewModel.updateOperatingHours(startList,endList)
     }
 
 
     private fun updateOpHourData(data: List<OPHoursData>) {
-        monFromTime.text = data[0].open_time
-        monEndTime.text = data[0].close_time
+        val startList = listOf<TextView>(monFromTime,tueFromTime,wedFromTime,thuFromTime,friFromTime,satFromTime,sunFromTime)
+        val endList = listOf<TextView>(monEndTime,tueEndTime,wedEndTime,thuEndTime,friEndTime,satEndTime,sunEndTime)
+        val switchList = listOf<Switch>(switchMon,switchTue,switchWed,switchThu,switchFri,switchSat,switchSun)
+        for (i in 0..6) {
+            startList[i].text = data[i].open_time
+            endList[i].text = data[i].close_time
+            updateToggle(switchList[i],startList[i].text.toString())
+        }
+    }
 
-        tueFromTime.text = data[1].open_time
-        tueEndTime.text = data[1].close_time
-
-        wedFromTime.text = data[2].open_time
-        wedEndTime.text = data[2].close_time
-
-        thuFromTime.text = data[3].open_time
-        thuEndTime.text = data[3].close_time
-
-        friFromTime.text = data[4].open_time
-        friEndTime.text = data[4].close_time
-
-        satFromTime.text = data[5].open_time
-        satEndTime.text = data[5].close_time
-
-        sunFromTime.text = data[6].open_time
-        sunEndTime.text = data[6].close_time
+    private fun updateToggle(switch: Switch, openTime: String) {
+        switch.isChecked = openTime != AppConstant.DEFAULT_TIME
     }
 
     private fun selectTimeClickEvents() {
@@ -92,27 +88,46 @@ class OperatingHour : AppCompatActivity() {
         if (setSameTiming) {
             val fromTime = monFromTime.text.toString()
             val endTime = monEndTime.text.toString()
+
             tueFromTime.text = fromTime
             tueEndTime.text = endTime
+            updateToggle(switchTue,fromTime)
+
             wedFromTime.text = fromTime
             wedEndTime.text = endTime
+            updateToggle(switchWed,fromTime)
+
             thuFromTime.text = fromTime
             thuEndTime.text = endTime
+            updateToggle(switchThu,fromTime)
+
             friFromTime.text = fromTime
             friEndTime.text = endTime
+            updateToggle(switchFri,fromTime)
+
             satFromTime.text = fromTime
             satEndTime.text = endTime
+            updateToggle(switchSat,fromTime)
         } else {
             tueFromTime.text = getString(R.string.default_start_time)
             tueEndTime.text = getString(R.string.default_end_time)
+            updateToggle(switchTue,tueFromTime.text.toString())
+
             wedFromTime.text = getString(R.string.default_start_time)
             wedEndTime.text = getString(R.string.default_end_time)
+            updateToggle(switchWed,wedFromTime.text.toString())
+
             thuFromTime.text = getString(R.string.default_start_time)
             thuEndTime.text = getString(R.string.default_end_time)
+            updateToggle(switchThu,thuFromTime.text.toString())
+
             friFromTime.text = getString(R.string.default_start_time)
             friEndTime.text = getString(R.string.default_end_time)
+            updateToggle(switchFri,friFromTime.text.toString())
+
             satFromTime.text = getString(R.string.default_start_time)
             satEndTime.text = getString(R.string.default_end_time)
+            updateToggle(switchSat,satFromTime.text.toString())
         }
     }
 
@@ -126,26 +141,60 @@ class OperatingHour : AppCompatActivity() {
                 val datetime = Calendar.getInstance()
                 datetime[Calendar.HOUR_OF_DAY] = hourOfDay
                 datetime[Calendar.MINUTE] = minute
-                var am_pm = if (datetime.get(Calendar.AM_PM) == Calendar.AM) "AM" else "PM"
-                var hours = if (hourOfDay > 12) hourOfDay - 12 else hourOfDay
+                val am_pm = if (datetime.get(Calendar.AM_PM) == Calendar.AM) "AM" else "PM"
+                val hours = if (hourOfDay > 12) hourOfDay - 12 else hourOfDay
 
                 when (v!!.id) {
-                    R.id.monFromTime -> monFromTime.text = String.format("%d:%d %s", hours, minute, am_pm)
-                    R.id.monEndTime -> monEndTime.text = String.format("%d:%d %s", hours, minute, am_pm)
-                    R.id.tueFromTime -> tueFromTime.text = String.format("%d:%d %s", hours, minute, am_pm)
-                    R.id.tueEndTime ->  tueEndTime.text = String.format("%d:%d %s", hours, minute, am_pm)
-                    R.id.wedFromTime -> wedFromTime.text = String.format("%d:%d %s", hours, minute, am_pm)
-                    R.id.wedEndTime ->  wedEndTime.text = String.format("%d:%d %s", hours, minute, am_pm)
-                    R.id.thuFromTime -> thuFromTime.text = String.format("%d:%d %s", hours, minute, am_pm)
-                    R.id.thuEndTime ->  thuEndTime.text = String.format("%d:%d %s", hours, minute, am_pm)
-                    R.id.friFromTime -> friFromTime.text = String.format("%d:%d %s", hours, minute, am_pm)
-                    R.id.friEndTime ->  friEndTime.text = String.format("%d:%d %s", hours, minute, am_pm)
-                    R.id.satFromTime -> satFromTime.text = String.format("%d:%d %s", hours, minute, am_pm)
-                    R.id.satEndTime ->  satEndTime.text = String.format("%d:%d %s", hours, minute, am_pm)
-                    R.id.sunFromTime -> sunFromTime.text = String.format("%d:%d %s", hours, minute, am_pm)
-                    R.id.sunEndTime ->  sunEndTime.text = String.format("%d:%d %s", hours, minute, am_pm)
-                    else -> LogUtils.showToast(this@OperatingHour, "Tue tueEndTime Time")
+                    R.id.monFromTime -> {
+                        monFromTime.text = String.format("%d:%d %s", hours, minute, am_pm)
+                        updateToggle(switchMon, monFromTime.text.toString())
+                        checkCopyForWeekday.isEnabled = true
+                    }
+                    R.id.monEndTime -> monEndTime.text =
+                        String.format("%d:%d %s", hours, minute, am_pm)
 
+                    R.id.tueFromTime -> {
+                        tueFromTime.text = String.format("%d:%d %s", hours, minute, am_pm)
+                        updateToggle(switchTue, tueFromTime.text.toString())
+                    }
+                    R.id.tueEndTime -> tueEndTime.text =
+                        String.format("%d:%d %s", hours, minute, am_pm)
+
+                    R.id.wedFromTime -> {
+                        wedFromTime.text = String.format("%d:%d %s", hours, minute, am_pm)
+                        updateToggle(switchWed, wedFromTime.text.toString())
+                    }
+                    R.id.wedEndTime -> wedEndTime.text =
+                        String.format("%d:%d %s", hours, minute, am_pm)
+
+                    R.id.thuFromTime -> {
+                        thuFromTime.text = String.format("%d:%d %s", hours, minute, am_pm)
+                        updateToggle(switchThu, thuFromTime.text.toString())
+                    }
+                    R.id.thuEndTime -> thuEndTime.text =
+                        String.format("%d:%d %s", hours, minute, am_pm)
+
+                    R.id.friFromTime -> {
+                        friFromTime.text = String.format("%d:%d %s", hours, minute, am_pm)
+                        updateToggle(switchFri, friFromTime.text.toString())
+                    }
+                    R.id.friEndTime -> friEndTime.text =
+                        String.format("%d:%d %s", hours, minute, am_pm)
+
+                    R.id.satFromTime -> {
+                        satFromTime.text = String.format("%d:%d %s", hours, minute, am_pm)
+                        updateToggle(switchSat, satFromTime.text.toString())
+                    }
+                    R.id.satEndTime -> satEndTime.text =
+                        String.format("%d:%d %s", hours, minute, am_pm)
+
+                    R.id.sunFromTime -> {
+                        sunFromTime.text = String.format("%d:%d %s", hours, minute, am_pm)
+                        updateToggle(switchSun, sunFromTime.text.toString())
+                    }
+                    R.id.sunEndTime -> sunEndTime.text =
+                        String.format("%d:%d %s", hours, minute, am_pm)
+                    else -> LogUtils.showToast(this@OperatingHour, "Tue tueEndTime Time")
                 }
             }
         }, hour, minute, false)

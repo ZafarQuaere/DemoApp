@@ -42,6 +42,7 @@
         android:layout_marginHorizontal="@dimen/_20dp"
         android:layout_marginTop="@dimen/_10dp"
         android:checked="false"
+        android:enabled="false"
         android:text="@string/copy_for_weekdays" />
 
     <LinearLayout
@@ -58,7 +59,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.9"
             android:checked="true"
-            android:paddingEnd="@dimen/_10dp" />
+            android:paddingEnd="@dimen/_10dp"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
         <TextView
             android:layout_width="0dp"
@@ -112,8 +114,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.9"
-            android:checked="true"
-            android:paddingEnd="@dimen/_10dp" />
+            android:checked="false"
+            android:paddingEnd="@dimen/_10dp"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
         <TextView
             android:layout_width="0dp"
@@ -167,7 +170,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.9"
-            android:checked="true"
+            android:checked="false"
             android:paddingEnd="@dimen/_10dp" />
 
         <TextView
@@ -221,7 +224,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.9"
-            android:checked="true"
+            android:checked="false"
             android:paddingEnd="@dimen/_10dp" />
 
         <TextView
@@ -276,7 +279,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.9"
-            android:checked="true"
+            android:checked="false"
             android:paddingEnd="@dimen/_10dp" />
 
         <TextView
@@ -331,7 +334,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.9"
-            android:checked="true"
+            android:checked="false"
             android:paddingEnd="@dimen/_10dp" />
 
         <TextView

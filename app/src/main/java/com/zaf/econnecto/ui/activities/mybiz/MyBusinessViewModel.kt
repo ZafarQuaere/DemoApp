@@ -1,7 +1,9 @@
 package com.zaf.econnecto.ui.activities.mybiz
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.android.volley.Request
@@ -32,6 +34,8 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MyBusinessViewModel : BaseViewModel() {
 
@@ -834,24 +838,33 @@ class MyBusinessViewModel : BaseViewModel() {
         })
     }
 
-    fun updateOperatingHours() {
+    fun updateOperatingHours(startList: List<TextView>, endList: List<TextView>) {
         val loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
+        val timeList = mutableListOf<String>()
+        for (i in 0..6) {
+           val day = if (startList[i].text.toString() != AppConstant.DEFAULT_TIME) {
+                getHHMM(startList[i].text.toString()) +"-"+getHHMM(endList[i].text.toString())
+            } else {
+                startList[i].text.toString() +"-"+endList[i].text.toString()
+            }
+            timeList.add(i,day)
+        }
         val jsonObject = JSONObject()
         jsonObject.put("jwt_token", Utils.getAccessToken(mActivity))
         jsonObject.put("owner_id", Utils.getUserID(mActivity))
-        jsonObject.put("Mon", "Mon")
-        jsonObject.put("Tue", "Tue")
-        jsonObject.put("Wed", "Wed")
-        jsonObject.put("Thu", "Thu")
-        jsonObject.put("Fri", "Fri")
-        jsonObject.put("Sat", "Sat")
-        jsonObject.put("Sun", "Sun")
+        jsonObject.put("Mon", timeList[0])
+        jsonObject.put("Tue", timeList[1])
+        jsonObject.put("Wed", timeList[2])
+        jsonObject.put("Thu", timeList[3])
+        jsonObject.put("Fri", timeList[4])
+        jsonObject.put("Sat", timeList[5])
+        jsonObject.put("Sun", timeList[6])
 
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString())
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
 
-        val requestCall = categoryService.addPricing(requestBody)
+        val requestCall = categoryService.addOpHour(requestBody)
         LogUtils.DEBUG("Url: ${requestCall.request().url()}  \nBody: $jsonObject")
 
         requestCall.enqueue(object : Callback<JsonObject> {
@@ -862,16 +875,27 @@ class MyBusinessViewModel : BaseViewModel() {
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 val body = JSONObject(Gson().toJson(response.body()))
-                LogUtils.DEBUG("AddPricingApi Response:->> ${body.toString()}")
+                LogUtils.DEBUG("addOpHourApi Response:->> ${body.toString()}")
                 val status = body.optInt("status")
                 loader.dismiss()
                 if (status == AppConstant.SUCCESS) {
-                    //
+                    LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) {
+                        mActivity.onBackPressed()
+                    }
                 } else {
                     LogUtils.showDialogSingleActionButton(mActivity, mActivity.getString(R.string.ok), body.optJSONArray("message").optString(0)) {  }
                 }
             }
         })
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun getHHMM(text: String): String {
+        val displayFormat = SimpleDateFormat("HH:mm")
+        val parseFormat = SimpleDateFormat("hh:mm a")
+        val date: Date = parseFormat.parse(text)
+        println(parseFormat.format(date).toString() + " = " + displayFormat.format(date))
+        return displayFormat.format(date)
     }
 }
 
