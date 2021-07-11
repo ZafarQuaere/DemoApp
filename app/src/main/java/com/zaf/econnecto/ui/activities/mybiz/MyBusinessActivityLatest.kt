@@ -11,6 +11,7 @@ import android.graphics.drawable.ColorDrawable
 import android.location.Address
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.provider.MediaStore
 import android.view.View
 import android.view.WindowManager
@@ -28,6 +29,7 @@ import com.google.android.gms.maps.UiSettings
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.tabs.TabLayout
+import com.zaf.econnecto.BuildConfig
 import com.zaf.econnecto.R
 import com.zaf.econnecto.model.ImageUpdateModelListener
 import com.zaf.econnecto.network_call.request_model.AddressData
@@ -227,8 +229,10 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
             basicDetailsDta.email?.let { Utils.openMail(mContext, it) }
         }
         rlytShareBiz.setOnClickListener {
-            shareScreenContent()
-            LogUtils.showToast(mContext, "expand address")
+            mapFrag.requireView().visibility = View.GONE
+            Handler().postDelayed({
+                shareScreenContent()
+            },100)
         }
     }
 
@@ -238,6 +242,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
             val saveFile = ScreenshotUtils.getMainDirectoryName(this) //get the path to save screenshot
             val file = ScreenshotUtils.store(bitmap, "econnecto_screenshot"  + ".jpg", saveFile!!) //save the screenshot to selected path
             shareScreenshot(file) //finally share screenshot
+            mapFrag.requireView().visibility = View.VISIBLE
         } else {
             //If bitmap is null show toast message
             LogUtils.showToast(mContext,"Failed to capture screen");
@@ -245,15 +250,16 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
     }
 
     private fun shareScreenshot(file: File?) {
-//        val uri = Uri.fromFile(file) //Convert file path into Uri for sharing
         val uri = file?.let { FileProvider.getUriForFile(baseContext,applicationContext.packageName+".provider", it) } //Convert file path into Uri for sharing
         val intent = Intent()
+        var shareMessage: String = getString(R.string.share_app_content)
+        shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID
         intent.action = Intent.ACTION_SEND
         intent.type = "image/*"
         intent.putExtra(Intent.EXTRA_SUBJECT, "")
-        intent.putExtra(Intent.EXTRA_TEXT, "share econnecto screen getString(R.string.sharing_text)")
+        intent.putExtra(Intent.EXTRA_TEXT, shareMessage)
         intent.putExtra(Intent.EXTRA_STREAM, uri) //pass uri here
-        startActivity(Intent.createChooser(intent, "Share content"))
+        startActivity(Intent.createChooser(intent, "Share Business"))
     }
 
     private fun updateMap(basicDetailsDta: BasicDetailsData) {

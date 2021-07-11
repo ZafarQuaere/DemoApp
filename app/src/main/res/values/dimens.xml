@@ -74,6 +74,7 @@
     <dimen name="previewAddDealImageWidth">300dp</dimen>
     <dimen name="headerImageBannerHeight">220dp</dimen>
     <dimen name="headerImageBannerWidth">300dp</dimen>
+    <dimen name="photoImageHeight">220dp</dimen>
 
     <!-- Operating Hour Screen  -->
     <dimen name="textSizeFromTime">11sp</dimen>

@@ -352,15 +352,14 @@ public class Utils {
         try {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "AquaHey Seller");
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "eConnecto");
             String shareMessage = activity.getString(R.string.share_app_content);
-            shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
+            shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID;
             shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
             activity.startActivity(Intent.createChooser(shareIntent, activity.getString(R.string.select_app_to_share)));
         } catch (Exception e) {
             e.printStackTrace();
             LogUtils.ERROR(e.getMessage());
-            //e.toString();
         }
     }
 

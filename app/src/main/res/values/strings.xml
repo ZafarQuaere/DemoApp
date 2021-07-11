@@ -180,7 +180,7 @@
     <string name="rate_us_playstore">Rate Us on Play Store</string>
 
     <string name="share_app_content">eConnecto - A social media platform for your business.\nRegister and verify yourself and Add your Businness to connect with the local user.\nPost your hot deals, trends and offers with your followers easily.
-        \nDownload the app here : </string>
+        \nDownload the app here:\n </string>
 
     <array name="charges_uniit">
         <item name="Select_Charges">Select Charges</item>

@@ -29,7 +29,7 @@ object ScreenshotUtils {
 
         //If File is not present create directory
         if (!mainDir.exists()) {
-            if (mainDir.mkdir()) Log.e("Create Directory", "Main Directory Created : $mainDir")
+            if (mainDir.mkdir()) LogUtils.ERROR("Create Directory Main Directory Created : $mainDir")
         }
         return mainDir
     }

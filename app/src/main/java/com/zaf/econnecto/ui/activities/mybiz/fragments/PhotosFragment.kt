@@ -15,6 +15,7 @@ import com.zaf.econnecto.R
 import com.zaf.econnecto.network_call.response_model.img_data.ViewImageData
 import com.zaf.econnecto.ui.activities.mybiz.MyBusinessActivityLatest
 import com.zaf.econnecto.ui.activities.mybiz.MyBusinessViewModel
+import com.zaf.econnecto.ui.adapters.PhotosAdapter
 import com.zaf.econnecto.ui.adapters.StaggeredImageAdapter
 import com.zaf.econnecto.ui.interfaces.DeleteImageListener
 import com.zaf.econnecto.utils.AppConstant
@@ -67,6 +68,7 @@ class PhotosFragment : Fragment() {
             val layoutManager = GridLayoutManager(mContext, 2)
             recycler_photos.layoutManager = layoutManager
 //            recycler_photos.itemAnimator = DefaultItemAnimator()
+//            val adapter = PhotosAdapter(mContext,data,null)
             val adapter = StaggeredImageAdapter(mContext, data, true, object : DeleteImageListener {
                 override fun onDeleteClick(imageData: ViewImageData?, position: Int) {
                     lifecycleScope.launch {

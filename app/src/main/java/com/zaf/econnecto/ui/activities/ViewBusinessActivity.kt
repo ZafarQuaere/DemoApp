@@ -2,14 +2,19 @@ package com.zaf.econnecto.ui.activities
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.ListView
 import androidx.appcompat.widget.Toolbar
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +26,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.UiSettings
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.zaf.econnecto.BuildConfig
 import com.zaf.econnecto.R
 import com.zaf.econnecto.network_call.request_model.AddressData
 import com.zaf.econnecto.network_call.response_model.home.CategoryData
@@ -35,6 +41,7 @@ import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
 import com.zaf.econnecto.ui.presenters.operations.IViewBizns
 import com.zaf.econnecto.utils.KotUtil
 import com.zaf.econnecto.utils.LogUtils
+import com.zaf.econnecto.utils.ScreenshotUtils
 import com.zaf.econnecto.utils.Utils
 import kotlinx.android.synthetic.main.mb_address_detail.*
 import kotlinx.android.synthetic.main.mb_communication_menu.*
@@ -46,6 +53,7 @@ import kotlinx.android.synthetic.main.mb_layout_payment.*
 import kotlinx.android.synthetic.main.mb_layout_pricing.*
 import kotlinx.android.synthetic.main.mb_layout_product_services.*
 import kotlinx.android.synthetic.main.mb_operating_hours.*
+import java.io.File
 
 
 class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, IMyBusinessLatest, IMyBizImage, OnMapReadyCallback {
@@ -56,6 +64,7 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
     private lateinit var myBizVm: MyBusinessViewModel
     private lateinit var ownerId: String
     private lateinit var businessId: String
+    lateinit var rootContent: CoordinatorLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
@@ -75,7 +84,7 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
     private fun initUI() {
         ownerId = intent.getStringExtra(getString(R.string.key_owner_id))
         businessId = intent.getStringExtra(getString(R.string.key_biz_id))
-
+        rootContent = findViewById<CoordinatorLayout>(R.id.rootContent)
         mapFrag.requireView().visibility = View.VISIBLE
         onClickEvents()
         callApis(ownerId, businessId)
@@ -91,7 +100,6 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
         otherBizViewModel.bizPaymentMethodList(mContext as Activity?, this, businessId)
         otherBizViewModel.bizPricingList(mContext as Activity?, this, businessId)
         otherBizViewModel.bizCategoryList(mContext as Activity?, this, businessId)
-
     }
 
     private fun updateActionbar() {
@@ -123,8 +131,38 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
         rlytMail.setOnClickListener {
             Utils.openMsgInbox(mContext, "7834908329")
         }
+        rlytShareBiz.setOnClickListener {
+            mapFrag.requireView().visibility = View.GONE
+            Handler().postDelayed({
+                shareScreenContent()
+            },100)
+        }
+    }
+    private fun shareScreenContent() {
+        val bitmap: Bitmap? = ScreenshotUtils.getScreenShot(rootContent)
+        if (bitmap != null) {
+            val saveFile = ScreenshotUtils.getMainDirectoryName(this) //get the path to save screenshot
+            val file = ScreenshotUtils.store(bitmap, "econnecto_screenshot"  + ".jpg", saveFile!!) //save the screenshot to selected path
+            shareScreenshot(file) //finally share screenshot
+            mapFrag.requireView().visibility = View.VISIBLE
+        } else {
+            //If bitmap is null show toast message
+            LogUtils.showToast(mContext,"Failed to capture screen");
+        }
     }
 
+    private fun shareScreenshot(file: File?) {
+        val uri = file?.let { FileProvider.getUriForFile(baseContext,applicationContext.packageName+".provider", it) } //Convert file path into Uri for sharing
+        val intent = Intent()
+        var shareMessage: String = getString(R.string.share_app_content)
+        shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID
+        intent.action = Intent.ACTION_SEND
+        intent.type = "image/*"
+        intent.putExtra(Intent.EXTRA_SUBJECT, "")
+        intent.putExtra(Intent.EXTRA_TEXT, shareMessage)
+        intent.putExtra(Intent.EXTRA_STREAM, uri) //pass uri here
+        startActivity(Intent.createChooser(intent, "Share Business"))
+    }
 
     override fun updateCategory(data: List<CategoryData>) {
 //        val recycler_hotdeals = findViewById<RecyclerView>(R.id.recycler_hotdeals)
