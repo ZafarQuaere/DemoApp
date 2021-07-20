@@ -11,6 +11,8 @@ import com.zaf.econnecto.R
 import com.zaf.econnecto.ui.activities.mybiz.MbCategoryViewModel
 import com.zaf.econnecto.ui.activities.mybiz.MyBusinessViewModel
 import com.zaf.econnecto.ui.activities.mybiz.UserCategoryData
+import com.zaf.econnecto.ui.interfaces.DialogButtonClick
+import com.zaf.econnecto.utils.LogUtils
 
 class MyBizCategoriesAdapter(private val context: Activity, private val mValues: List<UserCategoryData>, payVm: MyBusinessViewModel) : RecyclerView.Adapter<MyBizCategoriesAdapter.ViewHolder>() {
 
@@ -26,7 +28,16 @@ class MyBizCategoriesAdapter(private val context: Activity, private val mValues:
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.textPayTypeName.text = mValues[position].category_name
         holder.iconDelete.setOnClickListener {
-            callDeleteApi(mValues[position])
+            LogUtils.showDialogDoubleButton(mActivity,
+                mActivity.getString(R.string.cancel),
+                mActivity.getString(R.string.ok),
+                mActivity.getString(R.string.do_you_really_want_to_delete),
+                object : DialogButtonClick {
+                    override fun onOkClick() {
+                        callDeleteApi(mValues[position])
+                    }
+                    override fun onCancelClick() {}
+                })
         }
     }
 

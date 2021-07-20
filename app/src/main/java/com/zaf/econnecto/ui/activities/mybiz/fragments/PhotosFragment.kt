@@ -18,7 +18,9 @@ import com.zaf.econnecto.ui.activities.mybiz.MyBusinessViewModel
 import com.zaf.econnecto.ui.adapters.PhotosAdapter
 import com.zaf.econnecto.ui.adapters.StaggeredImageAdapter
 import com.zaf.econnecto.ui.interfaces.DeleteImageListener
+import com.zaf.econnecto.ui.interfaces.DialogButtonClick
 import com.zaf.econnecto.utils.AppConstant
+import com.zaf.econnecto.utils.LogUtils
 import kotlinx.android.synthetic.main.fragment_photos.*
 import kotlinx.coroutines.launch
 
@@ -71,10 +73,22 @@ class PhotosFragment : Fragment() {
 //            val adapter = PhotosAdapter(mContext,data,null)
             val adapter = StaggeredImageAdapter(mContext, data, true, object : DeleteImageListener {
                 override fun onDeleteClick(imageData: ViewImageData?, position: Int) {
-                    lifecycleScope.launch {
-                        if (imageData != null) {
-                            (activity as MyBusinessActivityLatest).callDeleteImageApi(imageData, position)
-                        }
+                    if (imageData != null) {
+                        LogUtils.showDialogDoubleButton(mContext,
+                            getString(R.string.cancel),
+                            getString(R.string.ok),
+                            getString(R.string.do_you_really_want_to_delete),
+                            object : DialogButtonClick {
+                                override fun onOkClick() {
+                                    lifecycleScope.launch {
+                                        (activity as MyBusinessActivityLatest).callDeleteImageApi(
+                                            imageData,
+                                            position
+                                        )
+                                    }
+                                }
+                                override fun onCancelClick() {}
+                            })
                     }
                 }
             })

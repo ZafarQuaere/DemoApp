@@ -43,6 +43,7 @@ import com.zaf.econnecto.ui.adapters.*
 import com.zaf.econnecto.ui.fragments.details_frag.*
 import com.zaf.econnecto.ui.interfaces.AddPhotoDialogListener
 import com.zaf.econnecto.ui.interfaces.DeleteProductListener
+import com.zaf.econnecto.ui.interfaces.DialogButtonClick
 import com.zaf.econnecto.ui.presenters.MyBusinessPresenterLatest
 import com.zaf.econnecto.ui.presenters.operations.IMyBizImage
 import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
@@ -62,6 +63,8 @@ import kotlinx.android.synthetic.main.mb_layout_pricing.*
 import kotlinx.android.synthetic.main.mb_layout_product_services.*
 import kotlinx.android.synthetic.main.mb_operating_hours.*
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMyBizImage, IMyBusinessLatest, ImageUpdateModelListener.ImageUpdateListener, OnMapReadyCallback {
 
@@ -419,9 +422,13 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         }
     }
 
-    private fun getOPTiming(data: List<OPHoursData>?): String {
-
-        return "Operating Hours"
+    private fun getOPTiming(data: List<OPHoursData>): String {
+        val sdf = SimpleDateFormat("EEE")
+        val d = Date()
+        val dayOfTheWeek: String = sdf.format(d)
+        println("Day of the week : $dayOfTheWeek")
+        val timing :String =  KotUtil.getOpenCloseTime(dayOfTheWeek,data)
+        return "Open $timing"
     }
 
     override fun updateProductServiceSection(data: List<ProductNServiceData>?) {
@@ -448,7 +455,16 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
 
             val adapter = BizProdNServiceListAdapter(this, data, object : DeleteProductListener {
                 override fun deleteProd(prodData: ProductNServiceData) {
-                    myBizViewModel.removeProductOrService(mContext, prodData.prod_serv_id, this@MyBusinessActivityLatest, PrefUtil.getBizId(mContext as Activity))
+                    LogUtils.showDialogDoubleButton(mContext,
+                        getString(R.string.cancel),
+                        getString(R.string.ok),
+                        getString(R.string.do_you_really_want_to_delete),
+                        object : DialogButtonClick {
+                            override fun onOkClick() {
+                                myBizViewModel.removeProductOrService(mContext, prodData.prod_serv_id, this@MyBusinessActivityLatest, PrefUtil.getBizId(mContext as Activity))
+                            }
+                            override fun onCancelClick() {}
+                        })
                 }
             })
             listViewProductServices.adapter = adapter

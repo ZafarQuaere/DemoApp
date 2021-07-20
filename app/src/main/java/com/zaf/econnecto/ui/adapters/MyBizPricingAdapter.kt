@@ -12,9 +12,12 @@ import com.zaf.econnecto.R
 import com.zaf.econnecto.ui.activities.mybiz.MyBusinessViewModel
 import com.zaf.econnecto.ui.activities.mybiz.PricingData
 import com.zaf.econnecto.ui.activities.mybiz.PricingViewModel
+import com.zaf.econnecto.ui.interfaces.DialogButtonClick
+import com.zaf.econnecto.utils.LogUtils
 
 class MyBizPricingAdapter(private val context: Context, private val mValues: List<PricingData>, private val pricingVm: MyBusinessViewModel) : RecyclerView.Adapter<MyBizPricingAdapter.ViewHolder>() {
 
+    val mActivity = context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.pricing_items, parent, false)
         return ViewHolder(view)
@@ -26,7 +29,16 @@ class MyBizPricingAdapter(private val context: Context, private val mValues: Lis
         holder.textPricingLabel.text = amenityData.prod_serv_name
         holder.textPricingValue.text = amenityData.price
         holder.iconDelete.setOnClickListener {
-            pricingVm.removePricing(context,mValues[position].prod_serv_id)
+            LogUtils.showDialogDoubleButton(mActivity,
+                mActivity.getString(R.string.cancel),
+                mActivity.getString(R.string.ok),
+                mActivity.getString(R.string.do_you_really_want_to_delete),
+                object : DialogButtonClick {
+                    override fun onOkClick() {
+                        pricingVm.removePricing(context,mValues[position].prod_serv_id)
+                    }
+                    override fun onCancelClick() {}
+                })
         }
     }
 

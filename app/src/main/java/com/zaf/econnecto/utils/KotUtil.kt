@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.zaf.econnecto.R
+import com.zaf.econnecto.ui.activities.mybiz.OPHoursData
 import com.zaf.econnecto.ui.fragments.add_business.AddBizScreen1Fragment
 import com.zaf.econnecto.ui.fragments.add_business.AddBizScreen2Fragment
 import com.zaf.econnecto.ui.fragments.add_business.AddBizScreen3Fragment
@@ -227,7 +228,18 @@ class KotUtil {
             return px / scaledDensity
         }
 
-
+        fun getOpenCloseTime(dayOfTheWeek: String, data: List<OPHoursData>): String {
+            when (dayOfTheWeek){
+               "Mon" -> return "${data[0].open_time} : ${data[0].close_time} "
+               "Tue" -> return "${data[1].open_time} : ${data[1].close_time} "
+               "Wed" -> return "${data[2].open_time} : ${data[2].close_time} "
+               "Thu" -> return "${data[3].open_time} : ${data[3].close_time} "
+               "Fri" -> return "${data[4].open_time} : ${data[4].close_time} "
+               "Sat" -> return "${data[5].open_time} : ${data[5].close_time} "
+               "Sun" -> return "${data[6].open_time} : ${data[6].close_time} "
+            }
+            return "00:00 "
+        }
     }
 
 

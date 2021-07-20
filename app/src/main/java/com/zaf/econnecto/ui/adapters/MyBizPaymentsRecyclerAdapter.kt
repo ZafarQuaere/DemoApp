@@ -11,6 +11,8 @@ import com.zaf.econnecto.R
 import com.zaf.econnecto.ui.activities.mybiz.MyBusinessViewModel
 import com.zaf.econnecto.ui.activities.mybiz.PaymentMethodData
 import com.zaf.econnecto.ui.activities.mybiz.PaymentsViewModel
+import com.zaf.econnecto.ui.interfaces.DialogButtonClick
+import com.zaf.econnecto.utils.LogUtils
 import com.zaf.econnecto.utils.storage.PrefUtil
 
 class MyBizPaymentsRecyclerAdapter(private val context: Activity, private val mValues: List<PaymentMethodData>, payVm: MyBusinessViewModel) : RecyclerView.Adapter<MyBizPaymentsRecyclerAdapter.ViewHolder>() {
@@ -27,7 +29,16 @@ class MyBizPaymentsRecyclerAdapter(private val context: Activity, private val mV
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.textPayTypeName.text = mValues[position].p_method_name
         holder.iconDelete.setOnClickListener {
-            callDeleteApi(mValues[position].p_method_id)
+            LogUtils.showDialogDoubleButton(mActivity,
+                mActivity.getString(R.string.cancel),
+                mActivity.getString(R.string.ok),
+                mActivity.getString(R.string.do_you_really_want_to_delete),
+                object : DialogButtonClick {
+                    override fun onOkClick() {
+                        callDeleteApi(mValues[position].p_method_id)
+                    }
+                    override fun onCancelClick() {}
+                })
         }
     }
 

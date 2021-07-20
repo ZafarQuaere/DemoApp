@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zaf.econnecto.R
 import com.zaf.econnecto.ui.activities.mybiz.AmenityData
 import com.zaf.econnecto.ui.activities.mybiz.MyBusinessViewModel
+import com.zaf.econnecto.ui.interfaces.DialogButtonClick
+import com.zaf.econnecto.utils.LogUtils
 import com.zaf.econnecto.utils.storage.PrefUtil
 
 class AmenitiesRecyclerAdapter(private val context: Activity, private val mValues: List<AmenityData>, amenitiesViewModel: MyBusinessViewModel) : RecyclerView.Adapter<AmenitiesRecyclerAdapter.ViewHolder>() {
@@ -26,7 +28,16 @@ class AmenitiesRecyclerAdapter(private val context: Activity, private val mValue
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.textAmenityName.text = mValues[position].amenity_name
         holder.iconDelete.setOnClickListener {
-            callDeleteApi(mValues[position].amenity_id)
+            LogUtils.showDialogDoubleButton(mActivity,
+                mActivity.getString(R.string.cancel),
+                mActivity.getString(R.string.ok),
+                mActivity.getString(R.string.do_you_really_want_to_delete),
+                object : DialogButtonClick {
+                    override fun onOkClick() {
+                        callDeleteApi(mValues[position].amenity_id)
+                    }
+                    override fun onCancelClick() {}
+                })
         }
     }
 
