@@ -18,6 +18,15 @@ import com.zaf.econnecto.ui.interfaces.PinCodeDataListener
 import com.zaf.econnecto.utils.KotUtil
 import com.zaf.econnecto.utils.LogUtils
 import kotlinx.android.synthetic.main.add_biz_screen2_fragment.*
+import kotlinx.android.synthetic.main.add_biz_screen2_fragment.editAddress1
+import kotlinx.android.synthetic.main.add_biz_screen2_fragment.editCity
+import kotlinx.android.synthetic.main.add_biz_screen2_fragment.editCountry
+import kotlinx.android.synthetic.main.add_biz_screen2_fragment.editPinCode
+import kotlinx.android.synthetic.main.add_biz_screen2_fragment.editState
+import kotlinx.android.synthetic.main.add_biz_screen2_fragment.lytLocalitySpin
+import kotlinx.android.synthetic.main.add_biz_screen2_fragment.spinnerLocality
+import kotlinx.android.synthetic.main.add_biz_screen2_fragment.textLocalityLabel
+import kotlinx.android.synthetic.main.layout_edit_details.*
 
 class AddBizScreen2Fragment : Fragment() {
 
@@ -75,7 +84,7 @@ class AddBizScreen2Fragment : Fragment() {
         data.address1.isNullOrEmpty() -> {
             LogUtils.showErrorDialog(activity, requireActivity().getString(R.string.ok), requireActivity().getString(R.string.please_enter_address))
         }
-        data.pincode.isNullOrEmpty() -> {
+        data.pincode.isNullOrEmpty() || data.pincode.length < 6 -> {
             LogUtils.showErrorDialog(activity, requireActivity().getString(R.string.ok), requireActivity().getString(R.string.please_enter_valid_pincode))
         }
         data.locality.isNullOrEmpty() -> {
@@ -100,40 +109,58 @@ class AddBizScreen2Fragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AddBizScreen2ViewModel::class.java)
         viewModel.updatePinCodeData(activity, editPinCode, object : PinCodeDataListener {
-            override fun onDataFetched(pincodeData: PinCodeResponse) {
-                val data = pincodeData.getData()
-                if (data != null) {
-                    textLocalityLabel.visibility = View.VISIBLE
-                    lytLocalitySpin.visibility = View.VISIBLE
-                    pincode = pincodeData.getData()!![0]!!.getPincode().toString()
-                    city = pincodeData.getData()!![0]!!.getDistrict().toString()
-                    state = pincodeData.getData()!![0]!!.getStateName().toString()
+            override fun onDataFetched(pincodeData: PinCodeResponse?) {
+                if (pincodeData != null) {
+                    val data = pincodeData.getPostOffice()
+                    if (data != null) {
+                        spinnerLocality.isEnabled = true
+                        textLocalityLabel.visibility = View.VISIBLE
+                        lytLocalitySpin.visibility = View.VISIBLE
+                        pincode = data[0]?.getPincode().toString()
+                        city = data[0]?.getBlock().toString()
+                        state = data[0]?.getState().toString()
+                        editCity.setText("")
+                        editState.setText("")
+                        editCountry.setText("")
+                        editCity.setText(data[0]?.getBlock())
+                        editState.setText(data[0]?.getState())
+                        editCountry.setText(getString(R.string.india))
+                        editCity.isEnabled = false
+                        editState.isEnabled = false
+                        editCountry.isEnabled = false
+                        val localityArray = arrayOfNulls<String>(data.size)
+                        for (i in data.indices) {
+                            localityArray[i] = data[i]?.getName().toString()
+                        }
+                        val localityAdapter = ArrayAdapter<String>(
+                            activity,
+                            android.R.layout.simple_spinner_item,
+                            localityArray
+                        )
+                        localityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                        spinnerLocality.adapter = localityAdapter
+                    }
+                } else {
+//                    LogUtils.showToast(activity, getString(R.string.please_enter_valid_pincode))
                     editCity.setText("")
                     editState.setText("")
                     editCountry.setText("")
-                    editCity.setText(pincodeData.getData()!![0]!!.getDistrict())
-                    editState.setText(pincodeData.getData()!![0]!!.getStateName())
-                    editCountry.setText(getString(R.string.india))
-                    editCity.isEnabled = false
-                    editState.isEnabled = false
-                    editCountry.isEnabled = false
-                    val localityArray = arrayOfNulls<String>(data.size)
-                    for (i in data.indices) {
-                        localityArray[i] = data[i]!!.getOfficeName().toString()
-                    }
-
-                    val localityAdapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, localityArray)
-                    localityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    spinnerLocality.adapter = localityAdapter
+                    spinnerLocality.isEnabled = false
                 }
 
-                spinnerLocality.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                    override fun onNothingSelected(parent: AdapterView<*>?) {}
-                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                        locality = parent!!.getItemAtPosition(position).toString()
-                        //  LogUtils.showToast(activity, locality )
+                spinnerLocality.onItemSelectedListener =
+                    object : AdapterView.OnItemSelectedListener {
+                        override fun onNothingSelected(parent: AdapterView<*>?) {}
+                        override fun onItemSelected(
+                            parent: AdapterView<*>?,
+                            view: View?,
+                            position: Int,
+                            id: Long
+                        ) {
+                            locality = parent?.getItemAtPosition(position).toString()
+                            //  LogUtils.showToast(activity, locality )
+                        }
                     }
-                }
             }
         })
     }

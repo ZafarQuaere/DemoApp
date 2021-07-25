@@ -182,6 +182,8 @@
     <string name="share_app_content">eConnecto - A social media platform for your business.\nRegister and verify yourself and Add your Businness to connect with the local user.\nPost your hot deals, trends and offers with your followers easily.
         \nDownload the app here:\n </string>
 
+    <string name="do_you_really_want_to_delete">Do you really want to delete ?</string>
+
     <array name="charges_uniit">
         <item name="Select_Charges">Select Charges</item>
         <item name="per_person">Per Person</item>

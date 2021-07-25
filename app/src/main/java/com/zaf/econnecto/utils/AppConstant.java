@@ -34,6 +34,7 @@ public class AppConstant {
     public static final String URL_BASE_MVP = "http://econnecto.com/andMVP/api/";
     public static final String URL_BASE = "http://econnecto.com/api/";
     public static final String URL_PINCODE = "https://pincode.saratchandra.in/api/pincode/";
+    public static final String URL_NEW_PINCODE = "https://api.postalpincode.in/pincode/";
     public static final String URL_REGISTER = "register.php";
     public static final String URL_LOGIN = "login.php";
     public static final String URL_LOGIN_MVP = "user_login/login.php";

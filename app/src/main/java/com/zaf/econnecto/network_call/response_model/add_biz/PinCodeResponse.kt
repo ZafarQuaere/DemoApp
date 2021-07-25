@@ -7,26 +7,40 @@ import com.google.gson.annotations.SerializedName
 
 class PinCodeResponse {
 
-    @SerializedName("status")
+    @SerializedName("Message")
     @Expose
-    private var status: Int? = null
-    @SerializedName("data")
-    @Expose
-    private var data: List<PinCodeData?>? = null
+    private var message: String? = null
 
-    fun getStatus(): Int? {
+    @SerializedName("Status")
+    @Expose
+    private var status: String? = null
+
+    @SerializedName("PostOffice")
+    @Expose
+    private var postOffice: List<PostOffice?>? = null
+
+    fun getMessage(): String? {
+        return message
+    }
+
+    fun setMessage(message: String?) {
+        this.message = message
+    }
+
+    fun getStatus(): String? {
         return status
     }
 
-    fun setStatus(status: Int?) {
+    fun setStatus(status: String?) {
         this.status = status
     }
 
-    fun getData(): List<PinCodeData?>? {
-        return data
+    fun getPostOffice(): List<PostOffice?>? {
+        return postOffice
     }
 
-    fun setData(data: List<PinCodeData?>?) {
-        this.data = data
+    fun setPostOffice(postOffice: List<PostOffice?>?) {
+        this.postOffice = postOffice
     }
+
 }

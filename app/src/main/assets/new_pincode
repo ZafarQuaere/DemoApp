@@ -1,0 +1,186 @@
+[
+  {
+    "Message": "Number of pincode(s) found:12",
+    "Status": "Success",
+    "PostOffice": [
+      {
+        "Name": "A.P.Colony (Gaya)",
+        "Description": null,
+        "BranchType": "Sub Post Office",
+        "DeliveryStatus": "Non-Delivery",
+        "Circle": "Bihar",
+        "District": "Gaya",
+        "Division": "Gaya",
+        "Region": "Patna HQ",
+        "Block": "Gaya",
+        "State": "Bihar",
+        "Country": "India",
+        "Pincode": "823001"
+      },
+      {
+        "Name": "Chand Chourah",
+        "Description": null,
+        "BranchType": "Sub Post Office",
+        "DeliveryStatus": "Non-Delivery",
+        "Circle": "Bihar",
+        "District": "Gaya",
+        "Division": "Gaya",
+        "Region": "Patna HQ",
+        "Block": "Gaya",
+        "State": "Bihar",
+        "Country": "India",
+        "Pincode": "823001"
+      },
+      {
+        "Name": "Chandouti",
+        "Description": null,
+        "BranchType": "Sub Post Office",
+        "DeliveryStatus": "Non-Delivery",
+        "Circle": "Bihar",
+        "District": "Gaya",
+        "Division": "Gaya",
+        "Region": "Patna HQ",
+        "Block": "Gaya",
+        "State": "Bihar",
+        "Country": "India",
+        "Pincode": "823001"
+      },
+      {
+        "Name": "Chowk",
+        "Description": null,
+        "BranchType": "Sub Post Office",
+        "DeliveryStatus": "Non-Delivery",
+        "Circle": "Bihar",
+        "District": "Gaya",
+        "Division": "Gaya",
+        "Region": "Patna HQ",
+        "Block": "Gaya",
+        "State": "Bihar",
+        "Country": "India",
+        "Pincode": "823001"
+      },
+      {
+        "Name": "Civil Lines (Gaya)",
+        "Description": null,
+        "BranchType": "Sub Post Office",
+        "DeliveryStatus": "Non-Delivery",
+        "Circle": "Bihar",
+        "District": "Gaya",
+        "Division": "Gaya",
+        "Region": "Patna HQ",
+        "Block": "Gaya",
+        "State": "Bihar",
+        "Country": "India",
+        "Pincode": "823001"
+      },
+      {
+        "Name": "Gaya",
+        "Description": null,
+        "BranchType": "Head Post Office",
+        "DeliveryStatus": "Delivery",
+        "Circle": "Bihar",
+        "District": "Gaya",
+        "Division": "Gaya",
+        "Region": "Patna HQ",
+        "Block": "Gaya",
+        "State": "Bihar",
+        "Country": "India",
+        "Pincode": "823001"
+      },
+      {
+        "Name": "Gaya D.B",
+        "Description": null,
+        "BranchType": "Sub Post Office",
+        "DeliveryStatus": "Non-Delivery",
+        "Circle": "Bihar",
+        "District": "Gaya",
+        "Division": "Gaya",
+        "Region": "Patna HQ",
+        "Block": "Gaya",
+        "State": "Bihar",
+        "Country": "India",
+        "Pincode": "823001"
+      },
+      {
+        "Name": "Gaya Jail",
+        "Description": null,
+        "BranchType": "Sub Post Office",
+        "DeliveryStatus": "Non-Delivery",
+        "Circle": "Bihar",
+        "District": "Gaya",
+        "Division": "Gaya",
+        "Region": "Patna HQ",
+        "Block": "Gaya",
+        "State": "Bihar",
+        "Country": "India",
+        "Pincode": "823001"
+      },
+      {
+        "Name": "Gewal Bigha",
+        "Description": null,
+        "BranchType": "Sub Post Office",
+        "DeliveryStatus": "Non-Delivery",
+        "Circle": "Bihar",
+        "District": "Gaya",
+        "Division": "Gaya",
+        "Region": "Patna HQ",
+        "Block": "Gaya",
+        "State": "Bihar",
+        "Country": "India",
+        "Pincode": "823001"
+      },
+      {
+        "Name": "Karimganj",
+        "Description": null,
+        "BranchType": "Sub Post Office",
+        "DeliveryStatus": "Non-Delivery",
+        "Circle": "Bihar",
+        "District": "Gaya",
+        "Division": "Gaya",
+        "Region": "Patna HQ",
+        "Block": "Gaya",
+        "State": "Bihar",
+        "Country": "India",
+        "Pincode": "823001"
+      },
+      {
+        "Name": "New Godown",
+        "Description": null,
+        "BranchType": "Sub Post Office",
+        "DeliveryStatus": "Non-Delivery",
+        "Circle": "Bihar",
+        "District": "Gaya",
+        "Division": "Gaya",
+        "Region": "Patna HQ",
+        "Block": "Gaya",
+        "State": "Bihar",
+        "Country": "India",
+        "Pincode": "823001"
+      },
+      {
+        "Name": "Purani Godown",
+        "Description": null,
+        "BranchType": "Sub Post Office",
+        "DeliveryStatus": "Non-Delivery",
+        "Circle": "Bihar",
+        "District": "Gaya",
+        "Division": "Gaya",
+        "Region": "Patna HQ",
+        "Block": "Gaya",
+        "State": "Bihar",
+        "Country": "India",
+        "Pincode": "823001"
+      }
+    ]
+  }
+]
+
+==========
+Error Response:
+[
+  {
+    "Message": "No records found",
+    "Status": "Error",
+    "PostOffice": null
+  }
+]

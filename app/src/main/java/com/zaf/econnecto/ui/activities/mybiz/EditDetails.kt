@@ -18,7 +18,18 @@ import com.zaf.econnecto.ui.presenters.EditDetailsPresenter
 import com.zaf.econnecto.ui.presenters.operations.IEditDetails
 import com.zaf.econnecto.utils.LogUtils
 import com.zaf.econnecto.utils.storage.PrefUtil
+import kotlinx.android.synthetic.main.add_biz_screen2_fragment.*
 import kotlinx.android.synthetic.main.layout_edit_details.*
+import kotlinx.android.synthetic.main.layout_edit_details.editAddress1
+import kotlinx.android.synthetic.main.layout_edit_details.editAddress2
+import kotlinx.android.synthetic.main.layout_edit_details.editCity
+import kotlinx.android.synthetic.main.layout_edit_details.editCountry
+import kotlinx.android.synthetic.main.layout_edit_details.editLandMark
+import kotlinx.android.synthetic.main.layout_edit_details.editPinCode
+import kotlinx.android.synthetic.main.layout_edit_details.editState
+import kotlinx.android.synthetic.main.layout_edit_details.lytLocalitySpin
+import kotlinx.android.synthetic.main.layout_edit_details.spinnerLocality
+import kotlinx.android.synthetic.main.layout_edit_details.textLocalityLabel
 
 class EditDetails : BaseActivity<EditDetailsPresenter?>(), IEditDetails {
     val mContext = this
@@ -40,32 +51,44 @@ class EditDetails : BaseActivity<EditDetailsPresenter?>(), IEditDetails {
     private fun getLocalityData() {
         viewModel = ViewModelProviders.of(this).get(AddBizScreen2ViewModel::class.java)
         viewModel.updatePinCodeData(this, editPinCode, object : PinCodeDataListener {
-            override fun onDataFetched(pincodeData: PinCodeResponse) {
-                val data = pincodeData.getData()
-                if (data != null) {
-                    textLocalityLabel.visibility = View.VISIBLE
-                    lytLocalitySpin.visibility = View.VISIBLE
-                    pincode = pincodeData.getData()!![0]!!.getPincode().toString()
-                    city = pincodeData.getData()!![0]!!.getDistrict().toString()
-                    state = pincodeData.getData()!![0]!!.getStateName().toString()
+            override fun onDataFetched(pincodeData: PinCodeResponse?) {
+                if (pincodeData != null) {
+                    val data = pincodeData.getPostOffice()
+                    if (data != null) {
+                        spinnerLocality.isEnabled = true
+                        textLocalityLabel.visibility = View.VISIBLE
+                        lytLocalitySpin.visibility = View.VISIBLE
+                        pincode = data.get(0)?.getPincode().toString()
+                        city = data.get(0)?.getBlock().toString()
+                        state = data.get(0)?.getState().toString()
+                        editCity.setText("")
+                        editState.setText("")
+                        editCountry.setText("")
+                        locality = data.get(0)?.getName().toString()
+                        editCity.setText(data.get(0)?.getBlock())
+                        editState.setText(data.get(0)?.getState())
+                        editCountry.setText(getString(R.string.india))
+                        editCity.isEnabled = false
+                        editState.isEnabled = false
+                        editCountry.isEnabled = false
+                        val localityArray = arrayOfNulls<String>(data.size)
+                            for (i in data.indices) {
+                                localityArray[i] = data?.get(i)?.getName()
+                            }
+                        val localityAdapter = ArrayAdapter<String>(
+                            this@EditDetails,
+                            android.R.layout.simple_spinner_item,
+                            localityArray
+                        )
+                        localityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                        spinnerLocality.adapter = localityAdapter
+                    }
+                } else {
+                    spinnerLocality.isEnabled = false
+//                    LogUtils.showToast(mContext,getString(R.string.please_enter_valid_pincode))
                     editCity.setText("")
                     editState.setText("")
                     editCountry.setText("")
-                    locality = pincodeData.getData()!![0]!!.getTaluk().toString()
-                    editCity.setText(pincodeData.getData()!![0]!!.getDistrict())
-                    editState.setText(pincodeData.getData()!![0]!!.getStateName())
-                    editCountry.setText(getString(R.string.india))
-                    editCity.isEnabled = false
-                    editState.isEnabled = false
-                    editCountry.isEnabled = false
-                    val localityArray = arrayOfNulls<String>(data.size)
-                    for (i in data.indices) {
-                        localityArray[i] = data[i]!!.getOfficeName().toString()
-                    }
-
-                    val localityAdapter = ArrayAdapter<String>(this@EditDetails, android.R.layout.simple_spinner_item, localityArray)
-                    localityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    spinnerLocality.adapter = localityAdapter
                 }
 
                 spinnerLocality.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

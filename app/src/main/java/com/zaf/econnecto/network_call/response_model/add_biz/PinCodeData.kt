@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose
 
 import com.google.gson.annotations.SerializedName
 
-
+// Older data class
 class PinCodeData {
 
     @SerializedName("pincode")
