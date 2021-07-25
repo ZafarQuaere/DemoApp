@@ -1,14 +1,12 @@
 package com.zaf.econnecto.service
 
 import com.google.gson.JsonObject
+import com.zaf.econnecto.network_call.response_model.add_biz.PinCodeResponse
 import com.zaf.econnecto.ui.activities.mybiz.*
 import com.zaf.econnecto.utils.AppConstant
 import okhttp3.RequestBody
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface EConnectoServices {
 
@@ -140,4 +138,9 @@ interface EConnectoServices {
 
     @POST(AppConstant.URL_BIZ_ADD_OP_HOUR)
     fun addOpHour(@Body requestBody: RequestBody): Call<JsonObject>
+
+    //Pincode Api
+    @GET
+    fun getPinCode(@Url url: String): Call<List<PinCodeResponse>>
+
 }

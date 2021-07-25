@@ -38,7 +38,7 @@ public class LogUtils {
 
     public static void showToast(Context context, String message) {
         if (context != null) {
-            final Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
+            final Toast toast = Toast.makeText(context, message, Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
         }
