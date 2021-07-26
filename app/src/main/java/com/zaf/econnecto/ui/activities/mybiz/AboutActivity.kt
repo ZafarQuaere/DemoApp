@@ -27,10 +27,11 @@ class AboutActivity : AppCompatActivity() {
     }
 
     private fun initUI() {
-        val data = PrefUtil.getBasicDetailsData(this)
-        if (data != null ) {
-            editBizDesc.setText(data.aboutDescription)
-            editWhyUs.setText(data.aboutDescription)
+        val about = PrefUtil.getAboutText(this)
+        val why = PrefUtil.getWhyUsText(this)
+        if ( about?.isNotEmpty() == true && why?.isNotEmpty() == true) {
+            editBizDesc.setText(about)
+            editWhyUs.setText(why)
         }
 
         textUpdateAbout.setOnClickListener {

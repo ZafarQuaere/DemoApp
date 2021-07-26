@@ -62,8 +62,8 @@ class PhotosFragment : Fragment() {
             callPhotosApi()
     }
 
-    private fun updatePhotosUI(data: MutableList<ViewImageData>) {
-        if (data.isNotEmpty()) {
+    private fun updatePhotosUI(data: MutableList<ViewImageData>?) {
+        if (data != null && data.isNotEmpty()) {
             textAddPhotos.visibility = View.GONE
             recycler_photos.visibility = View.VISIBLE
             recycler_photos.setHasFixedSize(true)
@@ -81,10 +81,7 @@ class PhotosFragment : Fragment() {
                             object : DialogButtonClick {
                                 override fun onOkClick() {
                                     lifecycleScope.launch {
-                                        (activity as MyBusinessActivityLatest).callDeleteImageApi(
-                                            imageData,
-                                            position
-                                        )
+                                        (activity as MyBusinessActivityLatest).callDeleteImageApi(imageData, position)
                                     }
                                 }
                                 override fun onCancelClick() {}
@@ -96,6 +93,9 @@ class PhotosFragment : Fragment() {
         } else {
             textAddPhotos.visibility = View.VISIBLE
             recycler_photos.visibility = View.GONE
+            textAddPhotos.setOnClickListener {
+                view?.let { it1 -> (activity as MyBusinessActivityLatest).uploadPhoto(it1) }
+            }
         }
     }
 }

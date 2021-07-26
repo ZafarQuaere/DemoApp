@@ -108,7 +108,7 @@
                 layout="@layout/mb_layout_brochure"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
             <include
                 layout="@layout/mb_layout_about"

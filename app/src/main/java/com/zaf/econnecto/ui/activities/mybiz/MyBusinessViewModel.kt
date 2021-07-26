@@ -71,7 +71,6 @@ class MyBusinessViewModel : BaseViewModel() {
                 loader.dismiss()
                 if (status == AppConstant.SUCCESS) {
                     val basicDetailsResponse = ParseManager.getInstance().fromJSON(body.toString(), BasicDetailsResponse::class.java)
-//                   basicDetailsData = basicDetailsResponse.data.toMutableList()
                     PrefUtil.setBasicDetailsData(mActivity, body.toString())
                     listener?.updateBasicDetails(basicDetailsResponse, imageUpdate)
                 } else {
@@ -84,7 +83,7 @@ class MyBusinessViewModel : BaseViewModel() {
     fun bizImageList(activity: Activity?, listener: IMyBizImage, bizId: String) {
         if (activity != null)
             mActivity = activity
-        var loader = AppDialogLoader.getLoader(mActivity)
+        val loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
         val requestCall = categoryService.bizImageList(bizId)
@@ -104,11 +103,11 @@ class MyBusinessViewModel : BaseViewModel() {
                     val data = ParseManager.getInstance().fromJSON(body.toString(), ViewImages::class.java)
                     imageList.value = data.data
                     listener.updateBannerImage(data.data)
-//                    PrefUtil.saveImageData(mActivity, response.toString())
                 } else {
                     val jsonArray = body.optJSONArray("message")
                     val message = jsonArray!!.get(0) as String
-                    LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), message)
+                    LogUtils.DEBUG(message)
+                    imageList.value = null
                 }
                 loader.dismiss()
             }
@@ -378,7 +377,7 @@ class MyBusinessViewModel : BaseViewModel() {
                     if (PnService.status == AppConstant.SUCCESS) {
                         listener.updateProductServiceSection(PnService.data)
                     } else {
-                        LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), PnService.message[0])
+                        LogUtils.DEBUG(PnService.message[0])
                     }
                 }
                 loader.dismiss()

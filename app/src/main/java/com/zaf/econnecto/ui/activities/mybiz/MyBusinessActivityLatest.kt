@@ -210,8 +210,6 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
     @SuppressLint("SetTextI18n")
     private fun updateBasicDetails(data: BasicDetailsResponse) {
         val basicDetailsDta = data.data[0]
-        mContext?.let { PrefUtil.setAboutText(it,basicDetailsDta.aboutDescription) }
-        mContext?.let { PrefUtil.setWhyUsText(it,basicDetailsDta.aboutWhyUs) }
         textBusinessName.text = basicDetailsDta.businessName
         textFollowers.text = "${basicDetailsDta.followersCount} " + getString(R.string.followers)
         textShortDescription.text = basicDetailsDta.shortDescription

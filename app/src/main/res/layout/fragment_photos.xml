@@ -16,14 +16,15 @@
             android:id="@+id/textAddPhotos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_10dp"
-            android:layout_marginTop="@dimen/_10dp"
-            android:background="@drawable/btn_follow"
-            android:drawableTop="@drawable/ic_add"
-            android:gravity="center_horizontal"
-            android:paddingVertical="@dimen/_20dp"
-            android:text="@string/add_photos"
-            android:visibility="gone" />
+            android:gravity="center"
+            android:letterSpacing="0.03"
+            android:lineSpacingExtra="@dimen/_10dp"
+            android:minHeight="@dimen/_150dp"
+            android:text="@string/photos_no_available_click_here_to_add"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/font_20sp"
+            android:textStyle="bold"
+            android:visibility="visible" />
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -35,7 +36,7 @@
             android:orientation="horizontal"
             android:overScrollMode="never"
             android:scrollbars="none"
-            android:visibility="visible"
+            android:visibility="gone"
             android:paddingBottom="@dimen/recycler_padding_bottom"
             tools:listitem="@layout/header_image_list_item" />
 

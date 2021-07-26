@@ -47,16 +47,16 @@ class AboutFragment : Fragment() {
         val why = PrefUtil.getWhyUsText(mContext)
         if ( about?.isNotEmpty() == true && why?.isNotEmpty() == true) {
             lytAboutData.visibility = View.VISIBLE
-            lytAddAboutSection.visibility = View.GONE
+            textNoAboutData.visibility = View.GONE
             textAboutDesc.text = about
             textAboutWhyUs.text = why
             editAbout.setOnClickListener {
                 startActivityForResult(Intent(activity, AboutActivity::class.java), MyBusinessActivityLatest.UPDATE_ABOUT_US)
             }
         } else {
-            lytAddAboutSection.visibility = View.VISIBLE
+            textNoAboutData.visibility = View.VISIBLE
             lytAboutData.visibility = View.GONE
-            lytAddAboutSection.setOnClickListener {
+            textNoAboutData.setOnClickListener {
                 startActivityForResult(Intent(activity, AboutActivity::class.java), MyBusinessActivityLatest.UPDATE_ABOUT_US)
             }
         }
@@ -66,11 +66,22 @@ class AboutFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == MyBusinessActivityLatest.UPDATE_ABOUT_US) {
             LogUtils.DEBUG("Coming from About Activity")
-            lytAboutData.visibility = View.VISIBLE
-            lytAddAboutSection.visibility = View.GONE
-            AboutActivity.about.observe(viewLifecycleOwner, Observer { text -> textAboutDesc.text = text })
-            AboutActivity.whyUs.observe(viewLifecycleOwner, Observer { text -> textAboutWhyUs.text = text })
+            AboutActivity.about.observe(viewLifecycleOwner, Observer { text ->
+                run {
+                    if (text.isNotEmpty()) {
+                        lytAboutData.visibility = View.VISIBLE
+                        textNoAboutData.visibility = View.GONE
+                        textAboutDesc.text = text
+                    }
+                }
+            })
+            AboutActivity.whyUs.observe(viewLifecycleOwner, Observer { text ->
+                run {
+                    if (text.isNotEmpty()) {
+                        textAboutWhyUs.text = text
+                    }
+                }
+            })
         }
     }
-
 }
