@@ -1,0 +1,11 @@
+Follow API Call:
+URL :           http://econnecto.com/andMVP/api/follow_unfollow/follow_unfollow.php
+Request Body:  {"jwt_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9lY29ubmVjdG8uY29tIiwiYXVkIjoiaHR0cDpcL1wvZWNvbm5lY3RvLmNvbSIsImlhdCI6MTYyNzI0MDQ1NywibmJmIjoxNjI3MjQwNDY3LCJkYXRhIjp7ImlkIjoiZDNkOTQ0NjgwMmE0NDI1OTc1NWQzOGU2ZDE2M2U4MjAiLCJwaG9uZSI6MTc3MDYxNDYyMjQsImNvbW1lbnQiOiJpZCBhbmQgcGhvbmUgYXJlIGVuY3J5cHRlZC4gU2VlIHRoZSBEb2N1bWVudGF0aW9uIGJlZm9yZSB1c2UifX0.HLx4j6E2RsIDgzIr9SVR4XTl2wm7ZXFCTLIY1ZRqi5Y",
+                "action":"follow","id":"10","business_id":"12"}
+Response:       {"message":["Followed successfully"],"status":401,"data":[]}
+
+UnFollow API:
+URL:            URL : http://econnecto.com/andMVP/api/follow_unfollow/follow_unfollow.php
+Request Body :: {"jwt_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9lY29ubmVjdG8uY29tIiwiYXVkIjoiaHR0cDpcL1wvZWNvbm5lY3RvLmNvbSIsImlhdCI6MTYyNzI0MDQ1NywibmJmIjoxNjI3MjQwNDY3LCJkYXRhIjp7ImlkIjoiZDNkOTQ0NjgwMmE0NDI1OTc1NWQzOGU2ZDE2M2U4MjAiLCJwaG9uZSI6MTc3MDYxNDYyMjQsImNvbW1lbnQiOiJpZCBhbmQgcGhvbmUgYXJlIGVuY3J5cHRlZC4gU2VlIHRoZSBEb2N1bWVudGF0aW9uIGJlZm9yZSB1c2UifX0.HLx4j6E2RsIDgzIr9SVR4XTl2wm7ZXFCTLIY1ZRqi5Y",
+                "action":"unfollow","id":"10","business_id":"12"}
+Response :      {"message":["Unfollowed successfully"],"status":501,"data":[]}
