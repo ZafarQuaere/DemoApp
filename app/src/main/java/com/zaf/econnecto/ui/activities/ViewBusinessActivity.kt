@@ -11,10 +11,10 @@ import android.os.Handler
 import android.view.View
 import android.view.WindowManager
 import android.widget.LinearLayout
-import android.widget.ListView
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.FileProvider
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,10 +35,12 @@ import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsDat
 import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsResponse
 import com.zaf.econnecto.ui.activities.mybiz.*
 import com.zaf.econnecto.ui.adapters.*
+import com.zaf.econnecto.ui.interfaces.DialogButtonClick
 import com.zaf.econnecto.ui.presenters.ViewBusinessPresenter
 import com.zaf.econnecto.ui.presenters.operations.IMyBizImage
 import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
 import com.zaf.econnecto.ui.presenters.operations.IViewBizns
+import com.zaf.econnecto.utils.AppConstant
 import com.zaf.econnecto.utils.KotUtil
 import com.zaf.econnecto.utils.LogUtils
 import com.zaf.econnecto.utils.ScreenshotUtils
@@ -88,6 +90,7 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
         mapFrag.requireView().visibility = View.VISIBLE
         onClickEvents()
         callApis(ownerId, businessId)
+        otherBizViewModel.followStatus.observe(this, Observer { followStatus -> updateFollowUI(followStatus) })
     }
 
     private fun callApis(ownerId: String, businessId: String) {
@@ -137,7 +140,42 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
                 shareScreenContent()
             },100)
         }
+
+        textFollow.setOnClickListener {
+            validateFollow()
+        }
+
     }
+
+    private fun validateFollow() {
+        if (Utils.isLoggedIn(mContext)) {
+            if (textFollow.text.toString() == getString(R.string.follow)) {
+                // call follow Api with
+                otherBizViewModel.callFollowApi(mContext,"follow",businessId)
+            } else {
+                LogUtils.showDialogDoubleButton(mContext,mContext.getString(R.string.cancel),mContext.getString(R.string.ok),
+                    mContext.getString(R.string.do_you_want_to_unfollow)
+                        .toString() + " ?",object : DialogButtonClick{
+                        override fun onOkClick() {
+                            otherBizViewModel.callFollowApi(mContext,"unfollow",businessId)
+                        }
+                        override fun onCancelClick() {}
+                    })
+                }
+        } else {
+            LogUtils.showDialogDoubleButton(mContext,
+                mContext.getString(R.string.cancel),
+                mContext.getString(R.string.ok),
+                mContext.getString(R.string.you_need_to_login_first_to_follow_a_business),
+                object : DialogButtonClick {
+                    override fun onOkClick() {
+                        mContext.startActivity(Intent(mContext, LoginActivity::class.java))
+                    }
+                    override fun onCancelClick() {}
+                })
+        }
+    }
+
     private fun shareScreenContent() {
         val bitmap: Bitmap? = ScreenshotUtils.getScreenShot(rootContent)
         if (bitmap != null) {
@@ -198,7 +236,7 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
             updateMap(basicDetailsResponse.data[0])
             val basicDetailsData = basicDetailsResponse.data[0]
             textBusinessName.text = basicDetailsData.businessName
-            textFollowers.text = "${basicDetailsData.followersCount} " + getString(R.string.followers)
+            textFollowers.text = "${basicDetailsData.followersCount}  ${getString(R.string.followers)}"
             textShortDescription.text = basicDetailsData.shortDescription
             textEstablishedDate.text = getString(R.string.established_year) + ": ${basicDetailsData.yearEstablished}"
             textAddress.text = basicDetailsData.address1
@@ -209,14 +247,28 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
     }
 
     private fun updateFollowUI(following: Int) {
-        if (following == 0) {
-            textFollow.text = mContext.getString(R.string.follow)
-//            textFollow.setBackgroundResource(R.drawable.add_biz_button)
-//            textFollow.setTextColor(R.color.colorWhite)
-        } else {
-            textFollow.text = mContext.getString(R.string.following);
-//            textFollow.setBackgroundResource(R.drawable.add_biz_button)
-//            textFollow.setTextColor(R.color.colorWhite)
+        when (following) {
+            0 -> {
+                textFollow.text = mContext.getString(R.string.follow)
+            }
+            1 -> {
+                textFollow.text = mContext.getString(R.string.following);
+            }
+            501 -> {
+                textFollow.text = mContext.getString(R.string.follow)
+                AppConstant.NEW_FOLLOW = true
+                textFollowers.text =
+                    "${KotUtil.getFollowerCount(textFollowers.text.toString()) - 1} ${getString(R.string.followers)}"
+            }
+            401 -> {
+                AppConstant.NEW_FOLLOW = true
+                textFollow.text = mContext.getString(R.string.following)
+                textFollowers.text =
+                    "${KotUtil.getFollowerCount(textFollowers.text.toString()) + 1} ${getString(R.string.followers)}"
+            }
+            400 -> {
+                LogUtils.showToast(mContext, "Cannot follow. Either already following or server error")
+            }
         }
     }
 
@@ -375,14 +427,15 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
 
     private fun updateMap(basicDetailsDta: BasicDetailsData) {
         val fullAddress: String = basicDetailsDta.address1 + ", " + basicDetailsDta.cityTown + ", " + basicDetailsDta.state + ", " + basicDetailsDta.pinCode
-        val location = KotUtil.getLocationFromAddress(this, fullAddress)!!
-        val address = AddressData(basicDetailsDta.address1, basicDetailsDta.state, basicDetailsDta.cityTown, basicDetailsDta.pinCode, location.latitude.toString() + "", "" + location.longitude)
+        val location = KotUtil.getLocationFromAddress(this, fullAddress)
+        val address = AddressData(basicDetailsDta.address1, basicDetailsDta.state, basicDetailsDta.cityTown, basicDetailsDta.pinCode, location?.latitude.toString() + "", "" + location?.longitude)
         LogUtils.DEBUG(address.toString())
-        val storeLocation = LatLng(location.latitude, location.longitude)
+        val storeLocation = location?.latitude?.let { LatLng(it, location.longitude) }
         val markerOptions = MarkerOptions()
-        markerOptions.position(storeLocation)
+        if (storeLocation != null) {
+            markerOptions.position(storeLocation)
+        }
         gMap.addMarker(markerOptions)
         gMap.moveCamera(CameraUpdateFactory.newLatLng(storeLocation))
     }
-
 }

@@ -240,6 +240,12 @@ class KotUtil {
             }
             return "00:00 "
         }
+
+        fun getFollowerCount(str: String): Int {
+            val count = str.split(" ").toTypedArray()
+            return count[0].toInt()
+        }
+
     }
 
 

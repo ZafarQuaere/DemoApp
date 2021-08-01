@@ -212,9 +212,6 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         LogUtils.showErrorDialog(mContext, getString(R.string.ok), msg);
     }
 
-
-
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -514,7 +511,6 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
 
         btnSelectBgColor.setOnClickListener(v -> getPresenter().showColorPickerDialog(rlyBG));
 
-
         lytAddDeals.setVisibility(lytAddDeals.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
         imgExpandAddDeals.setBackground(lytAddDeals.getVisibility() == View.VISIBLE ? getResources().getDrawable(R.drawable.ic_expand_less) :
                 getResources().getDrawable(R.drawable.ic_expand_more));
@@ -587,15 +583,11 @@ public class MyBusinessActivity extends BaseActivity<MyBusinessPresenter> implem
         imgBackground.setVisibility(View.INVISIBLE);
     }
 
-
     @IntDef({NONE, SCALE, ROTATE, ALL})
     @Retention(RetentionPolicy.SOURCE)
     public @interface GestureTypes { }
 
-
     public interface OnBgImageClicked {
         void onBgImageClicked(DealsBgData item);
     }
-
-
 }

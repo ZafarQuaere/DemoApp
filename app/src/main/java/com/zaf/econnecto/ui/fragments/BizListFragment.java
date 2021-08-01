@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.text.Editable;
 import android.view.LayoutInflater;
@@ -24,6 +24,7 @@ import com.zaf.econnecto.network_call.response_model.biz_list.BizData;
 import com.zaf.econnecto.ui.activities.AddBusinessActivity;
 import com.zaf.econnecto.ui.activities.BizDetailsActivity;
 import com.zaf.econnecto.ui.activities.LoginActivity;
+import com.zaf.econnecto.ui.activities.OthersBusinessViewModel;
 import com.zaf.econnecto.ui.activities.ViewBusinessActivity;
 import com.zaf.econnecto.ui.adapters.BizListRecyclerAdapter;
 import com.zaf.econnecto.ui.interfaces.ActionBarItemClick;
@@ -52,6 +53,7 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
     private TextView btnAddBizns;
     private LinearLayout lytAddBiz;
     private ApiViewModel apiViewModel;
+    private OthersBusinessViewModel otherBizVm;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,7 +89,6 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
 
     private void callApi() {
         if (NetworkUtils.isNetworkEnabled(mContext)) {
-//            getPresenter().callBListApi();
             apiViewModel.callBizListApi(getActivity(),this);
         } else {
             LogUtils.showDialogSingleActionButton(mContext, mContext.getString(R.string.retry), mContext.getString(R.string.please_check_your_network_connection), new DialogSingleButtonListener() {
@@ -106,6 +107,15 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
 
     private void initUI(View view) {
         apiViewModel = ViewModelProviders.of(this).get(ApiViewModel.class);
+        otherBizVm = ViewModelProviders.of(requireActivity()).get(OthersBusinessViewModel.class);
+        // this approach is not working, need to update later.
+        otherBizVm.getFollowStatus().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                //not working need to check later
+                callApi();
+            }
+        });
         recylcerProducts = (RecyclerView) view.findViewById(R.id.recyclerBusinessList);
         recylcerProducts.setHasFixedSize(true);
 
@@ -135,10 +145,8 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
                             public void onOkClick() {
                                 mContext.startActivity(new Intent(mContext, LoginActivity.class));
                             }
-
                             @Override
-                            public void onCancelClick() {
-                            }
+                            public void onCancelClick() { }
                         });
             }
         });
@@ -161,14 +169,10 @@ public class BizListFragment extends BaseFragment<BListPresenter> implements IFr
         if (data != null) {
             BizListRecyclerAdapter adapter = new BizListRecyclerAdapter(mContext, data, item -> {
                 if (item != null) {
-                    /*Intent i = new Intent(getActivity(), ViewBusinessActivity.class);
-                    startActivity(i);*/
                     LogUtils.DEBUG("Selected Biz name: "+item.getBusinessName()+" Business id: "+item.getBusinessId()+" Owner id: "+item.getOwnerId());
-
                     Intent intent = new Intent(getActivity(), ViewBusinessActivity.class);
                     intent.putExtra(getString(R.string.key_biz_id), item.getBusinessId());
                     intent.putExtra(getString(R.string.key_owner_id), item.getOwnerId());
-//                    intent.putExtra(getString(R.string.is_following), item.getIsFollowing() == 1);
                     startActivity(intent);
                 }
             });

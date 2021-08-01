@@ -2,12 +2,14 @@ package com.zaf.econnecto.ui.activities
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.android.volley.Request
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.zaf.econnecto.R
+import com.zaf.econnecto.network_call.MyJsonObjectRequest
 import com.zaf.econnecto.network_call.response_model.img_data.ViewImages
 import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsData
 import com.zaf.econnecto.network_call.response_model.my_business.BasicDetailsResponse
@@ -16,19 +18,17 @@ import com.zaf.econnecto.service.ServiceBuilder
 import com.zaf.econnecto.ui.activities.mybiz.*
 import com.zaf.econnecto.ui.presenters.operations.IMyBizImage
 import com.zaf.econnecto.ui.presenters.operations.IMyBusinessLatest
-import com.zaf.econnecto.utils.AppConstant
-import com.zaf.econnecto.utils.AppDialogLoader
-import com.zaf.econnecto.utils.LogUtils
-import com.zaf.econnecto.utils.Utils
+import com.zaf.econnecto.utils.*
 import com.zaf.econnecto.utils.parser.ParseManager
 import okhttp3.MediaType
 import okhttp3.RequestBody
+import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class OthersBusinessViewModel : ViewModel() {
+class OthersBusinessViewModel : BaseViewModel() {
 
     @SuppressLint("StaticFieldLeak")
     lateinit var mActivity: Activity
@@ -158,7 +158,6 @@ class OthersBusinessViewModel : ViewModel() {
                 loader.dismiss()
                 LogUtils.DEBUG("bizOperatingHours error: " + t.localizedMessage)
             }
-
         })
     }
 
@@ -311,5 +310,29 @@ class OthersBusinessViewModel : ViewModel() {
         })
     }
 
+    fun callFollowApi(mContext: Context, action: String, businessUid: String) {
+        val url = AppConstant.URL_BASE_MVP + AppConstant.URL_FOLLOW
+        val requestObject = JSONObject()
+        try {
+            requestObject.put("jwt_token", Utils.getAccessToken(mContext))
+            requestObject.put("action", action)
+            requestObject.put("id", Utils.getUserID(mContext))
+            requestObject.put("business_id", businessUid)
+        } catch (e: JSONException) {
+            e.printStackTrace()
+            LogUtils.ERROR(e.message)
+        }
+        LogUtils.DEBUG("URL : $url\nRequest Body :: $requestObject")
+        val objectRequest = MyJsonObjectRequest(mActivity, Request.Method.POST, url, requestObject,
+            { response ->
+                LogUtils.DEBUG("Follow Response ::$response")
+                if (response != null && response.toString().isNotEmpty()) {
+                    val status = response.optInt("status")
+                    followStatus.value = status
+                }
+            }
+        ) { error -> LogUtils.DEBUG("Follow Error ::" + error.message) }
+        AppController.getInstance().addToRequestQueue(objectRequest, "Follow")
+    }
 }
 

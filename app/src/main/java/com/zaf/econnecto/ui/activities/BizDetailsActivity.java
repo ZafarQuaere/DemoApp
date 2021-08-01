@@ -160,9 +160,6 @@ public class BizDetailsActivity extends BaseActivity<BizDetailPresenter> impleme
                 callFollowApi("follow", biz_uid);
                 textFollowers.setText((Integer.parseInt(mBizDetailsData.getFollowersCount()))+ 1 + " " + mContext.getString(R.string.followers));
                 AppConstant.NEW_FOLLOW = true;
-               /* int followerCount = Integer.parseInt(mValues.get(position).getFollowersCount()) + 1;
-                mValues.get(position).setFollowersCount(followerCount + "");
-                mValues.get(position).setIsFollowing(1);*/
                 updateFollowingUI(textFollow);
             } else {
                 LogUtils.showDialogDoubleButton(mContext, mContext.getString(R.string.cancel), mContext.getString(R.string.ok),
@@ -173,10 +170,7 @@ public class BizDetailsActivity extends BaseActivity<BizDetailPresenter> impleme
                                 updateUnfollowUI(textFollow);
                                 textFollowers.setText((Integer.parseInt(getFollowerCount(textFollowers)))- 1 + " " + mContext.getString(R.string.followers));
                                 AppConstant.NEW_FOLLOW = true;
-                               /* int followerCount = Integer.parseInt(mValues.get(position).getFollowersCount()) - 1;
-                                mValues.get(position).setFollowersCount(followerCount + "");
-                                mValues.get(position).setIsFollowing(0);*/
-                            }
+                               }
 
                             @Override
                             public void onCancelClick() {
