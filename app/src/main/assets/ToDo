@@ -45,3 +45,36 @@ View Business
 2) Remove Photos section from Tab and see more arrow in Topbar image list.
 
 ** Preview and Share your business in My Business bottom
+{
+  "message": "List fetched successfully",
+  "status": 1,
+  "data": {
+  "banner_image": "http:\/\/econnecto.com\/andMVP\/src\/images\/homepage\/banners\/ban1.jpeg",
+  "bottom_image1": "http:\/\/econnecto.com\/andMVP\/src\/images\/homepage\/bottom\/bottom1.jpeg",
+  "getbusiness_image": "http:\/\/econnecto.com\/andMVP\/src\/images\/homepage\/others\/getbusiness.jpeg",
+  "cards":[
+    {
+      "card_image": "http:\/\/econnecto.com\/andMVP\/src\/images\/homepage\/cards\/card1.jpeg",
+      "card_image": "http:\/\/econnecto.com\/andMVP\/src\/images\/homepage\/cards\/card2.jpeg"
+    }
+	]
+  }
+}
+
+
+
+{
+  "message": "List fetched successfully",
+  "status": 1,
+  "banner_image": "http:\/\/econnecto.com\/andMVP\/src\/images\/homepage\/banners\/ban1.jpeg",
+  "bottom_image1": "http:\/\/econnecto.com\/andMVP\/src\/images\/homepage\/bottom\/bottom1.jpeg",
+  "getbusiness_image": "http:\/\/econnecto.com\/andMVP\/src\/images\/homepage\/others\/getbusiness.jpeg",
+  "data": [
+    {
+      "card_image1": "http:\/\/econnecto.com\/andMVP\/src\/images\/homepage\/cards\/card1.jpeg",
+      "card_image2": "http:\/\/econnecto.com\/andMVP\/src\/images\/homepage\/cards\/card2.jpeg"
+    }
+  ]
+}
+
+
