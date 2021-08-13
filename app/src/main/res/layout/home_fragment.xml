@@ -6,38 +6,5 @@
     android:layout_height="match_parent"
     tools:context=".version2.ui.home.HomeFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
-        <com.zaf.imageslider.SliderView
-            android:id="@+id/imageSlider"
-            android:layout_width="match_parent"
-            android:layout_height="140dp"
-            android:background="@color/colorPrimary" />
-
-
-       <!-- <include
-            layout="@layout/layout_bottom_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />-->
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerBusinessList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:overScrollMode="never"
-            android:paddingBottom="@dimen/recycler_padding_bottom"
-            tools:listitem="@layout/biz_list_items1" />
-
-        <TextView
-            android:id="@+id/emptyTextView"
-            style="@style/EmptyTextView"
-            android:text="@string/no_business_available"
-            android:visibility="gone" />
-
-
-    </LinearLayout>
 </ScrollView>

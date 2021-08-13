@@ -83,7 +83,7 @@ public class MainPresenter extends BasePresenter {
                 break;
             case "HomeFragment":
                 Utils.moveToFragment(mContext, new HomeFragment(), HomeFragment.class.getSimpleName(), null);
-//                Utils.updateActionBar(mContext, HomeFragment.class.getSimpleName(), mContext.getString(R.string.hot_deals), null, null);
+                Utils.updateActionBar(mContext, HomeFragment.class.getSimpleName(), mContext.getString(R.string.hot_deals), null, null);
                 break;
         }
         //LogUtils.showToast(mContext, fragName);

@@ -92,6 +92,7 @@ public class AppConstant {
     public static final String URL_OTHER_BIZ_CATEGORIES = "other_biz/other_biz_categories.php";
 
     public static final String URL_BIZ_ALL_CATEGORIES = "categories/categories_list.php";
+    public static final String URL_HOME_PAGE = "homepage/home_images_api.php";
 
     //Edit My Business Endpoints
     public static final String URL_EDIT_ABOUT_WHY = URL_BASE_MVP+"my_biz_add_edit/about_section/add_edit_about.php";

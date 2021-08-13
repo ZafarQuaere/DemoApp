@@ -3,6 +3,8 @@ package com.zaf.econnecto.ui.activities.mybiz
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.JsonObject
+import com.zaf.econnecto.model.HomeResponse
+import com.zaf.econnecto.network_call.response_model.biz_list.BizListData
 import com.zaf.econnecto.network_call.response_model.img_data.ViewImageData
 import retrofit2.Response
 
@@ -27,4 +29,6 @@ open class BaseViewModel : ViewModel() {
     val opHourList: MutableLiveData<List<OPHoursData>> by lazy { MutableLiveData<List<OPHoursData>>() }
 
     val followStatus: MutableLiveData<Int> by lazy { MutableLiveData<Int>() }
+
+    val homeResponse: MutableLiveData<HomeResponse> by lazy { MutableLiveData<HomeResponse>() }
 }

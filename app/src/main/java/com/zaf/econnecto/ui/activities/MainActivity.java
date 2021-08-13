@@ -37,6 +37,7 @@ import com.zaf.econnecto.utils.AppConstant;
 import com.zaf.econnecto.utils.BitmapUtils;
 import com.zaf.econnecto.utils.LogUtils;
 import com.zaf.econnecto.utils.Utils;
+import com.zaf.econnecto.version2.ui.home.HomeFragment;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -67,9 +68,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
     setUpToolbar();
     updateUI();
     initUI();
-    moveToBList();
+//    moveToBList();
     addFirebaseAnalytics();
-    //moveToHome();
+    moveToHome();
     // moveToAddBizness();
 
   }
@@ -112,7 +113,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
 
   @SuppressLint("RestrictedApi")
   private void moveToHome() {
-    getPresenter().moveToFragment(BizCategoryFragment.class.getSimpleName());
+    getPresenter().moveToFragment(HomeFragment.class.getSimpleName());
     fabAddBizness.setVisibility(View.VISIBLE);
   }
 
