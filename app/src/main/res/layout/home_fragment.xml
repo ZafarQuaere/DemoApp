@@ -1,10 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".version2.ui.home.HomeFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_250dp">
+
+            <ImageView
+                android:id="@+id/imgHomeBanner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+                tools:background="@drawable/slider1" />
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchViewBiz"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginHorizontal="@dimen/_20dp"
+                android:layout_marginBottom="@dimen/_20dp"
+                android:background="@drawable/home_search_bg"
+                app:queryHint="@string/search" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_250dp">
+
+            <ImageView
+                android:id="@+id/imgGetBiz"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+                tools:background="@drawable/slider1" />
+
+            <TextView
+                android:id="@+id/textGetFreeBizAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rounded_background"
+                android:paddingHorizontal="@dimen/_20dp"
+                android:paddingVertical="@dimen/_10dp"
+                android:text="@string/get_free_business_account"
+                android:textColor="@color/colorWhite" />
+        </FrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recylerCards"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_250dp">
+
+            <ImageView
+                android:id="@+id/imgHomeBottom"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+                tools:background="@drawable/slider1" />
+
+            <TextView
+                android:id="@+id/textViewAllBiz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="@dimen/_20dp"
+                android:layout_marginStart="@dimen/_50dp"
+                android:paddingVertical="@dimen/_5dp"
+                android:paddingHorizontal="@dimen/_30dp"
+                android:text="@string/view_all_bizness"
+                android:textStyle="bold|italic"
+                android:textColor="@color/colorBlack" />
+        </FrameLayout>
+    </LinearLayout>
 
 
 </ScrollView>

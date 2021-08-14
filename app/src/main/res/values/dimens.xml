@@ -40,6 +40,7 @@
     <dimen name="_100dp">100dp</dimen>
     <dimen name="_120dp">120dp</dimen>
     <dimen name="_150dp">150dp</dimen>
+    <dimen name="_250dp">250dp</dimen>
 
     <dimen name="font_small_text">12sp</dimen>
     <dimen name="font_regular_text">14sp</dimen>
