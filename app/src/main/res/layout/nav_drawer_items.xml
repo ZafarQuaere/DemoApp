@@ -100,15 +100,15 @@
                 android:id="@+id/textItem3"
                 style="@style/NavigationDrawerText"
                 android:drawableLeft="@drawable/ic_home"
-                android:onClick="onListingClick"
-                android:text="@string/business_list" />
+                android:onClick="onHomeClick"
+                android:text="@string/hot_deals" />
 
             <TextView
                 android:id="@+id/textItem1"
                 style="@style/NavigationDrawerText"
                 android:drawableLeft="@drawable/ic_hot_deals"
-                android:onClick="onHomeClick"
-                android:text="@string/hot_deals" />
+                android:onClick="onListingClick"
+                android:text="@string/business_list"/>
 
             <TextView
                 android:id="@+id/textItem2"

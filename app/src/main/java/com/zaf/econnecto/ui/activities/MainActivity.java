@@ -161,7 +161,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
   }
 
   public void onHomeClick(View view) {
-    getPresenter().moveToFragment(BizCategoryFragment.class.getSimpleName());
+    getPresenter().moveToFragment(HomeFragment.class.getSimpleName());
     closeDrawer();
   }
 
@@ -236,7 +236,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
 
   public void item3Click(View view) {
     closeDrawer();
-    startActivity(new Intent(this, MyBusinessActivityLatest.class));
+//    startActivity(new Intent(this, MyBusinessActivityLatest.class));
     // LogUtils.showToast(mContext, "Development under progress");
   }
 
