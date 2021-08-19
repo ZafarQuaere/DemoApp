@@ -31,4 +31,6 @@ open class BaseViewModel : ViewModel() {
     val followStatus: MutableLiveData<Int> by lazy { MutableLiveData<Int>() }
 
     val homeResponse: MutableLiveData<HomeResponse> by lazy { MutableLiveData<HomeResponse>() }
+
+    val bizListData: MutableLiveData<BizListData> by lazy {MutableLiveData<BizListData>() }
 }

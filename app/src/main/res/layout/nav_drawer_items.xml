@@ -101,7 +101,7 @@
                 style="@style/NavigationDrawerText"
                 android:drawableLeft="@drawable/ic_home"
                 android:onClick="onHomeClick"
-                android:text="@string/hot_deals" />
+                android:text="@string/home" />
 
             <TextView
                 android:id="@+id/textItem1"
