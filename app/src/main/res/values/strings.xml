@@ -28,13 +28,11 @@
     <string name="email_id">Email ID*</string>
     <string name="confirm_pswd">Confirm Password</string>
     <string name="error_network_unavailable"><!--Oh no!--> No internet found,Check your connection and Try again.</string>
-    <string name="please_enter_username">Please enter  username</string>
     <string name="please_enter_password">Please enter password</string>
     <string name="password_must_have_atleast_8_character">Password must have atleast 8 character</string>
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">Close</string>
     <string name="nav_header_title">eConnecto</string>
-    <string name="nav_header_subtitle">e-connecto@support.com</string>
     <string name="key_serializable">key_serializable</string>
     <string name="submit">Submit</string>
     <string name="enter_otp">Enter OTP</string>
@@ -59,24 +57,17 @@
     <string name="please_enter_valid_pincode">Please Enter valid pincode.</string>
     <string name="please_enter_city_name">Please enter city</string>
     <string name="please_enter_state">Please enter state.</string>
-    <string name="key_otp_data">key_otp_data</string>
     <string name="key_mobile_no">key_mobile_no</string>
     <string name="change_pswd">Change Password</string>
     <string name="my_account">My Account</string>
     <string name="register">Register</string>
     <string name="my_business">My Business</string>
-    <string name="new_order">New Order</string>
-    <string name="pending">Pending</string>
-    <string name="completed">Completed</string>
     <string name="select_app_to_share">Select App to share</string>
     <string name="key_login_data">key_login_data</string>
-    <string name="key_new_order_data">key_new_order_data</string>
     <string name="key_business_status">key_business_status</string>
     <string name="no_data_available">No data available!</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="no_new_order_available">No Order available right now.</string>
-    <string name="no_pending_order">No Order is pending.</string>
     <string name="contact_us">Contact Us</string>
 
     <string name="website_link"><a href="http://econnecto.com/"> www.econnecto.com</a></string>
@@ -92,67 +83,43 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="already_member_login_here">Already a member ? Login here..</string>
-    <string name="username">Username</string>
-    <string name="first_name">First Name</string>
-    <string name="last_name">Last Name</string>
     <string name="enter_registered_email">Enter Registered Email</string>
     <string name="send_otp">Send OTP</string>
     <string name="add_business">Add Business</string>
-    <string name="add_your_business">Add Your Business</string>
     <string name="business_list">Business List</string>
     <string name="establish_year">Establishment year* </string>
     <string name="view_business">View Business</string>
-    <string name="basic_details">Basic Details</string>
-    <string name="other_details">Other Details</string>
     <string name="contact_details">Contact Details</string>
-    <string name="service_details">Service Details</string>
     <string name="no_business_available">No Business Available as of now.</string>
     <string name="do_you_want_to_unfollow">Do you want really want to Unfollow </string>
-    <string name="business_dialog">Business Dialog (very short description)</string>
     <string name="business_name">Business Name*</string>
     <string name="category">Category*</string>
     <string name="detailed_business_description">Detailed Business Description</string>
-    <string name="year_founded">Foundation year</string>
-    <string name="awards_n_achievement">Awards and Achievements</string>
     <string name="address">Address</string>
-    <string name="phone">Phone No.</string>
-    <string name="alternate_phone">Alternate Phone</string>
     <string name="website">Website</string>
-    <string name="charges">Charges</string>
-    <string name="amount">Amount</string>
     <string name="business_details">Business Details</string>
     <string name="settings">Settings</string>
-    <string name="please_enter_firstname">Please enter first name</string>
-    <string name="please_enter_lastname">Please enter last name</string>
-    <string name="please_select_age">Please select age group.</string>
-    <string name="please_select_gender">Please select gender</string>
     <string name="key_biz_id">key_biz_id</string>
-    <string name="age_group">Age Group</string>
     <string name="followers">Followers</string>
     <string name="something_wrong_from_server_plz_try_again">Oops! Something went wrong. Please try again</string>
     <string name="contact_n_address">Contact &amp; Address </string>
-    <string name="key_user_email">key_user_email</string>
     <string name="follow">Follow</string>
     <string name="following">Following</string>
     <string name="hot_deals">Hot Deals</string>
     <string name="register_successful_plz_login">Your mobile number is verified now.\nPlease login with mobile no and password</string>
     <string name="retry">Retry</string>
     <string name="you_need_to_login_first_to_follow_a_business">You need to Login first to follow a Business.</string>
-    <string name="please_enter_business_name">Please Enter Business Name</string>
     <string name="please_enter_a_short_description">Please enter a short description or tagline of your business.</string>
     <string name="Select_Category">Select Category</string>
-    <string name="please_select_business_category">Please select business category</string>
     <string name="please_enter_a_detail_description">Please enter description of your business.</string>
     <string name="please_enter_foundation_year_of_business">Please enter Foundation Year of the business.</string>
     <string name="add_business_success_msg">Congratulations !!  Your business is added Successfully.</string>
     <string name="please_enable_your_network_connection_and_launch_again">Please enable your network connection and launch again.</string>
     <string name="is_following">is_following</string>
     <string name="you_need_to_login_first_to_add_a_business">You need to login first to add a Business.</string>
-    <string name="congratulations_your_registration_is_successfull">Congratulations!! Your registration is completed successfully.</string>
     <string name="enter_new_pswd">Enter New Password</string>
     <string name="submit_otp">Submit OTP</string>
     <string name="verify_your_email">Verify your Email</string>
-    <string name="otp_is_sent_to_your_registered_email_plz_enter_same">An OTP will be sent to  your registered Email ID. Please enter OTP and New Password on the next screen.</string>
     <string name="please_enter_otp_sent_on_your_email">Please enter OTP sent to your email id</string>
     <string name="request_otp">request_otp</string>
     <string name="enter_otp_sent_to_your_email">Enter OTP Sent to your Email</string>
@@ -163,10 +130,7 @@
     <string name="congrats_your_account_is_verified_now">Congrats !! Your email is verfied now.</string>
     <string name="key_email_verified">key_email_verified</string>
 
-    <string name="you_need_to_verify_your_email_to_add_a_business">You need to Verfiy your email to add a bussiness</string>
-
     <string name="description">Description</string>
-    <string name="you_need_to_login_first_to_upload_profile">You need to login first to upload profile pic.</string>
     <string name="need_permission_upload_image">You need to allow access to of Read Permission to upload Banner and Profile</string>
     <string name="you_need_to_login_first_to_check_account">You need to login first to check the account.</string>
     <string name="enter_email">Enter email</string>
@@ -183,62 +147,6 @@
         \nDownload the app here:\n </string>
 
     <string name="do_you_really_want_to_delete">Do you really want to delete ?</string>
-
-    <array name="charges_uniit">
-        <item name="Select_Charges">Select Charges</item>
-        <item name="per_person">Per Person</item>
-        <item name="per_month">Per Month</item>
-        <item name="rupee_symbol">₹</item>
-    </array>
-
-    <array name="biz_category">
-        <item name="Select_Category">Select Category</item>
-        <item name="Automobiles_Showroom">Automobiles Showroom</item>
-        <item name="Bags_and_Luggage">Bags and Luggage</item>
-        <item name="Bakery">Bakery</item>
-        <item name="Bank">Bank</item>
-        <item name="Beauty_Parlour">Beauty Parlour</item>
-        <item name="Book_Store">Book Store</item>
-        <item name="Building_and_Materials">Building and Materials</item>
-        <item name="Cab_and_Cars">Cab and Cars</item>
-        <item name="Coaching_Institute">Coaching Institute</item>
-        <item name="College_School">College/School</item>
-        <item name="Courier_Services">Courier Services</item>
-        <item name="Crockery">Crockery</item>
-        <item name="Doctors">Doctors</item>
-        <item name="Electric_Store">Electric Store</item>
-        <item name="Entertainment">Entertainment</item>
-        <item name="Florists">Florists</item>
-        <item name="Foot_Wear_Shop">Foot Wear Shop</item>
-        <item name="Fruits_Shops">Fruits Shops</item>
-        <item name="Furniture_Store">Furniture Store</item>
-        <item name="Garments_Shop">Garments Shop</item>
-        <item name="Grocery">Grocery</item>
-        <item name="Home_Decor">Home Decor</item>
-        <item name="Hospital">Hospital</item>
-        <item name="Hotel">Hotel</item>
-        <item name="Internet_Cafe">Internet Cafe</item>
-        <item name="Jewelry">Jewelry</item>
-        <item name="Marriage_Hall">Marriage Hall</item>
-        <item name="Medical_Store">Medical Store</item>
-        <item name="Mobile_and_Mobile_Accessories_Store">Mobile and Mobile Accessories Store</item>
-        <item name="Mobile_DTH_Recharge">Mobile/DTH Recharge</item>
-        <item name="Motor_Bike_Showroom">Motor Bike Showroom</item>
-        <item name="Packers_and_Movers">Packers and Movers</item>
-        <item name="Petrol_Pump">Petrol Pump</item>
-        <item name="Photocopy_Shop">Photocopy Shop</item>
-        <item name="Poultry">Poultry</item>
-        <item name="Real_State">Real State</item>
-        <item name="Restaurant">Restaurant</item>
-        <item name="Saloon">Saloon</item>
-        <item name="Shopping_Mall">Shopping Mall</item>
-        <item name="Sports">Sports</item>
-        <item name="Stationary">Stationary</item>
-        <item name="Sweet_Shop">Sweet Shop</item>
-        <item name="Telecom">Telecom</item>
-        <item name="Utensils_Shops">Utensils Shops</item>
-        <item name="Others">Others</item>
-    </array>
 
     <!-- <array name="biz_category">
         <item name="Select_Category">Select Category</item>
@@ -289,7 +197,6 @@
     <string name="otp_is_sent_to_your_mobile_no_plz_enter_the_otp">An OTP is sent to your entered mobile number, Please enter the OTP to verify your number</string>
     <string name="verify_mobile_no">Verify Phone</string>
     <string name="resend_otp"> <b>Resend OTP ?</b></string>
-    <string name="key_access_token">key_access_token</string>
     <string name="previous">Previous</string>
     <string name="add_category"><b>Add Category</b></string>
     <string name="address_details">Address Details</string>
@@ -300,7 +207,6 @@
     <string name="post_office">Post Office</string>
     <string name="address_line1">Address Line 1*</string>
     <string name="address_line2">Address Line 2</string>
-    <string name="add_more_category">Add More Category</string>
     <string name="enter_valid_business_name">Enter Valid Business Name</string>
     <string name="select_atleast_one_category_plz_click_on_add_category_text">You must add at-least one category of your business\n Please click on Add Category text</string>
     <string name="landmark">Landmark</string>
@@ -311,8 +217,6 @@
     <string name="enter_valid_establishment_year">Enter valid year of Establishment of your business</string>
     <string name="already_selected_plz_select_different_category">It is already Selected, Please select different category</string>
     <string name="you_have_already_selected_max_no_of_category">Category limit is 3,  You have already selected maximum no. of category</string>
-    <string name="please_tap_on_add_category_text_below_to_select_category">Please taps on <b>Add Category</b> text below to select category</string>
-    <string name="key_user_id">key_user_id</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -353,9 +257,7 @@
     <string name="pricing">Pricing</string>
     <string name="categories">Categories</string>
     <string name="product">Product</string>
-    <string name="product_name">Product Name</string>
     <string name="add_more_product">Add products</string>
-    <string name="service_name">Service Name</string>
     <string name="services">Services</string>
     <string name="add_more_services">Add services</string>
     <string name="add_amenities">Add Amenities</string>
@@ -385,14 +287,11 @@
     <string name="add">Add</string>
     <string name="add_payment_option">Add Payments</string>
     <string name="select_payment_options">Select payment options</string>
-    <string name="amenity_added_successfully">Amenity successfully added</string>
-    <string name="payment_method_added_successfully">Payment method added succesfully</string>
     <string name="key_owner_id">key_owner_id</string>
     <string name="add_more">Add more</string>
     <string name="price">Price</string>
     <string name="unit">Unit</string>
     <string name="edit">Edit</string>
-    <string name="add_about_section">Add About Section</string>
     <string name="search_bizness_here">Search Business</string>
 
     <string name="no_data_available_click_to_add">No data available! \n click here to add</string>

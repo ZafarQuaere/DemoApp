@@ -97,18 +97,11 @@ class KotUtil {
             LogUtils.DEBUG(AppConstant.TAG + " Utils >> updateActionBar() called : " + className + "/" + dynamicTitle)
 
             val toolbarLayout = activity.findViewById<View>(R.id.lytToolbar) as RelativeLayout
-            val rlytSearch = toolbarLayout.findViewById<View>(R.id.rlytSearch) as RelativeLayout
             val textTitle = toolbarLayout.findViewById<View>(R.id.textTitle) as TextView
             val textBack = toolbarLayout.findViewById<View>(R.id.textBack) as TextView
-            val txtSearch = toolbarLayout.findViewById<View>(R.id.txtSearch) as TextView
-            val txtSearchBack = toolbarLayout.findViewById<View>(R.id.txtSearchBack) as TextView
-            val txtSearchClear = toolbarLayout.findViewById<View>(R.id.txtSearchClear) as TextView
-            val editSearch = toolbarLayout.findViewById<View>(R.id.editSearch) as EditText
             val imgActionBarDrawerIcon = toolbarLayout.findViewById<View>(R.id.imgActionBarDrawerIcon) as ImageView
 
             textBack.visibility = View.GONE
-            txtSearch.visibility = View.GONE
-            rlytSearch.visibility = View.GONE
 
             //  txtSearchBack.setVisibility(View.GONE);
             textTitle.text = dynamicTitle

@@ -373,7 +373,7 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
             //val byteArray = BitmapUtils.getFileDataFromDrawable(BitmapUtils.getBitmap(mContext,selectedImageUri))
             intent.putExtra("imagePath", BitmapUtils.getImagePath(this, selectedImageUri, null, BitmapUtils.URI_IMAGE))
         } else if (requestCode == CAMERA_IMAGE_CODE) {
-            val bitmap = data.extras.get("data") as Bitmap
+            val bitmap = data.extras?.get("data") as Bitmap
             intent.putExtra("imagePath", BitmapUtils.getImagePath(this, null, bitmap, BitmapUtils.BITMAP_IMAGE))
         }
         startActivity(intent)

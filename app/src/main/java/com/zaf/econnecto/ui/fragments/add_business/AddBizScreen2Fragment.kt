@@ -132,12 +132,14 @@ class AddBizScreen2Fragment : Fragment() {
                         for (i in data.indices) {
                             localityArray[i] = data[i]?.getName().toString()
                         }
-                        val localityAdapter = ArrayAdapter<String>(
-                            activity,
-                            android.R.layout.simple_spinner_item,
-                            localityArray
-                        )
-                        localityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                        val localityAdapter = activity?.let {
+                            ArrayAdapter<String>(
+                                    it,
+                                    android.R.layout.simple_spinner_item,
+                                    localityArray
+                            )
+                        }
+                        localityAdapter?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                         spinnerLocality.adapter = localityAdapter
                     }
                 } else {

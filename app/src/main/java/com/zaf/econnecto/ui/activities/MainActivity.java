@@ -69,7 +69,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
     updateUI();
     initUI();
 //    moveToBList();
-    addFirebaseAnalytics();
+//    addFirebaseAnalytics();
     moveToHome();
     // moveToAddBizness();
 

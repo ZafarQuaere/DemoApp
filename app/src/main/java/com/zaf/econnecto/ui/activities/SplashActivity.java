@@ -10,7 +10,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.zaf.econnecto.R;
-import com.zaf.econnecto.ui.activities.mybiz.MyBusinessActivityLatest;
 import com.zaf.econnecto.utils.DateUtils;
 import com.zaf.econnecto.utils.Utils;
 import com.zaf.econnecto.version2.ui.HomeActivity;

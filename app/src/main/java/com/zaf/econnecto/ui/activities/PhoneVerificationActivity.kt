@@ -26,7 +26,7 @@ class PhoneVerificationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.phone_verification_fragment)
-        mobileNo = intent.getStringExtra("mobile")
+        mobileNo = intent.getStringExtra("mobile").toString()
         initUI()
         viewModel = ViewModelProviders.of(this).get(PhoneVerificationViewModel::class.java)
         // LogUtils.showToast(mContext, mobileNo)

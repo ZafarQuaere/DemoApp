@@ -64,12 +64,10 @@ public class MainPresenter extends BasePresenter {
                 Utils.moveToFragment(mContext, new BizCategoryFragment(), BizCategoryFragment.class.getSimpleName(), null);
                 Utils.updateActionBar(mContext, BizCategoryFragment.class.getSimpleName(), mContext.getString(R.string.hot_deals), null, null);
                 break;
-
             case "AddBizScreen1Fragemnt":
                 Utils.moveToFragment(mContext, new AddBizScreen1Fragment(), AddBizScreen1Fragment.class.getSimpleName(), null);
                 Utils.updateActionBar(mContext, AddBizScreen1Fragment.class.getSimpleName(), mContext.getString(R.string.add_business), null, null);
                 break;
-
             case "BizListFragment":
                 Utils.moveToFragment(mContext, new BizListFragment(), BizListFragment.class.getSimpleName(), null);
                 break;
@@ -83,7 +81,7 @@ public class MainPresenter extends BasePresenter {
                 break;
             case "HomeFragment":
                 Utils.moveToFragment(mContext, new HomeFragment(), HomeFragment.class.getSimpleName(), null);
-                Utils.updateActionBar(mContext, HomeFragment.class.getSimpleName(), mContext.getString(R.string.hot_deals), null, null);
+                Utils.updateActionBar(mContext, HomeFragment.class.getSimpleName(), mContext.getString(R.string.home), null, null);
                 break;
         }
         //LogUtils.showToast(mContext, fragName);
@@ -126,6 +124,9 @@ public class MainPresenter extends BasePresenter {
             Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.save_address), null, null);
         } else if (baseFragment.getClass().getSimpleName().contains("Help")) {
             Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.help_faq), null, null);
+        } else if (baseFragment.getClass().getSimpleName().contains("Home")) {
+            iMain.showAddBizFab(false);
+            Utils.updateActionBar(mContext, baseFragment.getClass().getSimpleName(), mContext.getString(R.string.home), null, null);
         }
     }
 
@@ -134,6 +135,7 @@ public class MainPresenter extends BasePresenter {
         LogUtils.showToast(mContext, mContext.getString(R.string.you_are_sucessfully_logout));
         iMain.onLogoutCall();
     }
+
     private void callLogoutApi() {
         loader.show();
         String url = AppConstant.URL_BASE + AppConstant.URL_LOGOUT;

@@ -125,7 +125,7 @@ class OthersBusinessViewModel : BaseViewModel() {
                 } else {
                     val jsonArray = body.optJSONArray("message")
                     val message = jsonArray!!.get(0) as String
-                    LogUtils.showErrorDialog(mActivity, mActivity.getString(R.string.ok), message)
+                    LogUtils.ERROR(message)
                 }
                 loader.dismiss()
             }
@@ -138,7 +138,7 @@ class OthersBusinessViewModel : BaseViewModel() {
         val loader = AppDialogLoader.getLoader(mActivity)
         loader.show()
         val categoryService = ServiceBuilder.buildConnectoService(EConnectoServices::class.java)
-        val requestCall = categoryService.otherBizOperatingHours("21"/*bizId*/)
+        val requestCall = categoryService.otherBizOperatingHours(bizId)
         LogUtils.DEBUG("Url: ${requestCall.request().url()} ")
         requestCall.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
@@ -153,7 +153,6 @@ class OthersBusinessViewModel : BaseViewModel() {
                     listener.updateOperatingHours(null)
                 }
             }
-
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 loader.dismiss()
                 LogUtils.DEBUG("bizOperatingHours error: " + t.localizedMessage)

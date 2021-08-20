@@ -84,8 +84,8 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
     }
 
     private fun initUI() {
-        ownerId = intent.getStringExtra(getString(R.string.key_owner_id))
-        businessId = intent.getStringExtra(getString(R.string.key_biz_id))
+        ownerId = intent.getStringExtra(getString(R.string.key_owner_id)).toString()
+        businessId = intent.getStringExtra(getString(R.string.key_biz_id)).toString()
         rootContent = findViewById<CoordinatorLayout>(R.id.rootContent)
         mapFrag.requireView().visibility = View.VISIBLE
         onClickEvents()

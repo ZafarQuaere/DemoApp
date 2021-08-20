@@ -97,7 +97,9 @@ class TermsConditionWebViewFragment : Fragment() {
             webSettings.useWideViewPort = true
             webView!!.webChromeClient = MyChromeClient()
             webView!!.webViewClient = MyWebViewClient()
-            webView!!.loadUrl(Url)
+            if (Url != null) {
+                webView!!.loadUrl(Url)
+            }
            /* var removeHnFThread = RemoveHeaderFooter()
             removeHnFThread.start()*/
         } catch (e: Exception) {

@@ -34,20 +34,6 @@
             android:text="@string/nav_header_title"
             android:visibility="visible" />
 
-        <TextView
-            android:id="@+id/txtSearch"
-            style="@style/RegularTextview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/_20dp"
-            android:background="@drawable/ic_search"
-            android:visibility="visible" />
 
-        <include
-            android:id="@+id/rlytSearch"
-            layout="@layout/toolbar_search_view"
-            android:visibility="gone" />
     </RelativeLayout>
 </androidx.appcompat.widget.Toolbar>

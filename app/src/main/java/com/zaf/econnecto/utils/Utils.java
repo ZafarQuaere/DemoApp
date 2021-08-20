@@ -45,6 +45,7 @@ import com.zaf.econnecto.ui.fragments.add_business.AddBizScreen1Fragment;
 import com.zaf.econnecto.ui.interfaces.ActionBarItemClick;
 import com.zaf.econnecto.utils.parser.ParseManager;
 import com.zaf.econnecto.utils.storage.AppSharedPrefs;
+import com.zaf.econnecto.version2.ui.home.HomeFragment;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -175,137 +176,49 @@ public class Utils {
         LogUtils.DEBUG(AppConstant.TAG + " Utils >> updateActionBar() called : " + className + "/" + dynamicTitle);
 
         RelativeLayout toolbarLayout = (RelativeLayout) ((Activity) activity).findViewById(R.id.lytToolbar);
-        final RelativeLayout rlytSearch = (RelativeLayout) toolbarLayout.findViewById(R.id.rlytSearch);
         final TextView textTitle = (TextView) toolbarLayout.findViewById(R.id.textTitle);
         final TextView textBack = (TextView) toolbarLayout.findViewById(R.id.textBack);
-        final TextView txtSearch = (TextView) toolbarLayout.findViewById(R.id.txtSearch);
-        final TextView txtSearchBack = (TextView) toolbarLayout.findViewById(R.id.txtSearchBack);
-        final TextView txtSearchClear = (TextView) toolbarLayout.findViewById(R.id.txtSearchClear);
-        final EditText editSearch = (EditText) toolbarLayout.findViewById(R.id.editSearch);
         final ImageView imgActionBarDrawerIcon = (ImageView) toolbarLayout.findViewById(R.id.imgActionBarDrawerIcon);
-
         textBack.setVisibility(View.GONE);
-        txtSearch.setVisibility(View.GONE);
-        rlytSearch.setVisibility(View.GONE);
-      //  txtSearchBack.setVisibility(View.GONE);
-
         textTitle.setText(dynamicTitle);
+
         if (className.equals(new LoginActivity().getClass().getSimpleName())) {
             textBack.setVisibility(View.VISIBLE);
-            textBack.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((Activity) activity).onBackPressed();
-                }
-            });
+            textBack.setOnClickListener(v -> ((Activity) activity).onBackPressed());
         } else if (className.equals(new ChangePswdActivity().getClass().getSimpleName())) {
             textBack.setVisibility(View.VISIBLE);
-            textBack.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((Activity) activity).onBackPressed();
-                }
-            });
+            textBack.setOnClickListener(v -> ((Activity) activity).onBackPressed());
         } else if (className.equals(new EnterNewPswdActivity().getClass().getSimpleName())) {
             textBack.setVisibility(View.VISIBLE);
-            textBack.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((Activity) activity).onBackPressed();
-                }
-            });
+            textBack.setOnClickListener(v -> ((Activity) activity).onBackPressed());
         } else if (className.equals(new BizDetailsActivity().getClass().getSimpleName())) {
             textBack.setVisibility(View.VISIBLE);
-            textBack.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((Activity) activity).onBackPressed();
-                }
-            });
+            textBack.setOnClickListener(v -> ((Activity) activity).onBackPressed());
         } else if (className.equals(new MyBusinessActivity().getClass().getSimpleName())) {
             textBack.setVisibility(View.VISIBLE);
-            textBack.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((Activity) activity).onBackPressed();
-                }
-            });
+            textBack.setOnClickListener(v -> ((Activity) activity).onBackPressed());
         } else if (className.equals(new BizCategoryFragment().getClass().getSimpleName())) {
             textBack.setVisibility(View.GONE);
             imgActionBarDrawerIcon.setVisibility(View.VISIBLE);
         }  else if (className.equals(new AddBizScreen1Fragment().getClass().getSimpleName())) {
             imgActionBarDrawerIcon.setVisibility(View.VISIBLE);
             textBack.setOnClickListener(v -> ((Activity) activity).onBackPressed());
-
-
         } else if (className.equals(new BizListFragment().getClass().getSimpleName())) {
             imgActionBarDrawerIcon.setVisibility(View.VISIBLE);
-            txtSearch.setVisibility(View.VISIBLE);
-            txtSearchBack.bringToFront();
-            txtSearch.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    rlytSearch.setVisibility(View.VISIBLE);
-                    imgActionBarDrawerIcon.setVisibility(View.GONE);
-                    textBack.setVisibility(View.GONE);
-                    textTitle.setVisibility(View.GONE);
-                    txtSearch.setVisibility(View.GONE);
-                    txtSearchClear.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            editSearch.setText("");
-                            actionBarListener.clearSearch();
-                        }
-                    });
-                }
-            });
-            txtSearchBack.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    rlytSearch.setVisibility(View.GONE);
-                    imgActionBarDrawerIcon.setVisibility(View.VISIBLE);
-                    textTitle.setVisibility(View.VISIBLE);
-                    txtSearch.setVisibility(View.VISIBLE);
-                }
-            });
-            editSearch.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                }
+        }  else if (className.equals(new HomeFragment().getClass().getSimpleName())) {
+            imgActionBarDrawerIcon.setVisibility(View.VISIBLE);
 
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-                    if (s != null && !s.toString().isEmpty() && actionBarListener!= null)
-                        actionBarListener.afterTextChanged(s);
-                }
-            });
         } else if (className.equals(new FragmentProfile().getClass().getSimpleName())) {
             imgActionBarDrawerIcon.setVisibility(View.VISIBLE);
-            textBack.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((Activity) activity).onBackPressed();
-                }
-            });
+            textBack.setOnClickListener(v -> ((Activity) activity).onBackPressed());
         }  else if (className.equals(new ForgetPswdActivity().getClass().getSimpleName())) {
             textBack.setVisibility(View.VISIBLE);
-            textBack.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((Activity) activity).onBackPressed();
-                }
-            });
+            textBack.setOnClickListener(v -> ((Activity) activity).onBackPressed());
         }
     }
 
     public static void clearBackStackTillHomeFragment(Context activity) {
-
         LogUtils.DEBUG("Utils >> clearBackStackTillHomeFragment() >> activity : " + activity);
         if (activity == null) {
             return;
@@ -324,8 +237,6 @@ public class Utils {
         Utils.updateActionBar(activity, BizCategoryFragment.class.getSimpleName(), activity.getString(R.string.business_list), null, null);
         //updateBottomBar(activity, new BizCategoryFragment().getClass().getSimpleName());
     }
-
-
 
     public static void setMobileNo(Context mContext, String mobile) {
         if (mContext == null)
@@ -445,18 +356,6 @@ public class Utils {
         return firstTimeLaunch;
     }
 
-    public static String getNewOrderData(Context context) {
-        AppSharedPrefs prefs = AppSharedPrefs.getInstance(context);
-        String data = "";
-        try {
-            data = (String) prefs.get(context.getString(R.string.key_new_order_data));
-        } catch (Exception e) {
-            e.printStackTrace();
-            LogUtils.ERROR(e.getMessage());
-            return data;
-        }
-        return data;
-    }
 
     public static void saveLoginData(Context mContext, String data) {
         if (mContext == null)

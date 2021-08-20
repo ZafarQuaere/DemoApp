@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AutoCompleteTextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -20,10 +19,13 @@ import com.zaf.econnecto.model.HomeResponse
 import com.zaf.econnecto.network_call.response_model.biz_list.BizData
 import com.zaf.econnecto.network_call.response_model.biz_list.BizListData
 import com.zaf.econnecto.ui.activities.AddBusinessActivity
+import com.zaf.econnecto.ui.activities.LoginActivity
 import com.zaf.econnecto.ui.activities.MainActivity
+import com.zaf.econnecto.ui.activities.mybiz.MyBusinessActivityLatest
 import com.zaf.econnecto.ui.adapters.CardsImageRecyclerAdapter
 import com.zaf.econnecto.ui.adapters.SearchAdapter
 import com.zaf.econnecto.ui.fragments.BizListFragment
+import com.zaf.econnecto.ui.interfaces.DialogButtonClick
 import com.zaf.econnecto.utils.AppConstant
 import com.zaf.econnecto.utils.LogUtils
 import com.zaf.econnecto.utils.Utils
@@ -67,7 +69,7 @@ class HomeFragment : Fragment() {
         (activity as MainActivity).showAddBizFab(false)
         lytParent.visibility = View.GONE
         textGetFreeBizAccount.setOnClickListener {
-            startActivity(Intent(activity,AddBusinessActivity::class.java))
+            openAddBusiness()
         }
 
         textViewAllBiz.setOnClickListener {
@@ -76,10 +78,32 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun openAddBusiness() {
+        if (Utils.isLoggedIn(mContext)) {
+            if (Utils.getBusinessStatus(mContext) == "0") {
+                startActivity(Intent(mContext, AddBusinessActivity::class.java))
+            } else {
+                startActivity(Intent(mContext, MyBusinessActivityLatest::class.java))
+            }
+        } else {
+            LogUtils.showDialogDoubleButton(
+                    mContext,
+                    mContext.getString(R.string.cancel),
+                    mContext.getString(R.string.ok),
+                    mContext.getString(R.string.you_need_to_login_first_to_add_a_business),
+                    object : DialogButtonClick {
+                        override fun onOkClick() {
+                            mContext.startActivity(Intent(mContext, LoginActivity::class.java))
+                            // overridePendingTransition(R.anim.slide_in_right,R.anim.slide_in_left);
+                        }
+                        override fun onCancelClick() {}
+                    })
+        }
+    }
+
     private fun registerListener() {
         viewModel.homeResponse.observe(viewLifecycleOwner, Observer { homeResponse -> updateUI(homeResponse) })
         viewModel.bizListData.observe(viewLifecycleOwner, Observer { bizList -> updateBizList(bizList) })
-
     }
 
     private fun updateBizList(bizData: BizListData?) {
