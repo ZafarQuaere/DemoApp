@@ -11,10 +11,12 @@
         android:id="@+id/textPnDHeader"
         android:background="@drawable/btn_follow"
         android:layout_marginHorizontal="@dimen/_10dp"
-        android:paddingVertical="@dimen/_5dp"
+        android:paddingVertical="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textSize="@dimen/font_regular_text"
         android:text="@string/product_n_services" />
 
     <TextView

@@ -184,6 +184,7 @@ public class Utils {
 
         if (className.equals(new LoginActivity().getClass().getSimpleName())) {
             textBack.setVisibility(View.VISIBLE);
+            imgActionBarDrawerIcon.setVisibility(View.GONE);
             textBack.setOnClickListener(v -> ((Activity) activity).onBackPressed());
         } else if (className.equals(new ChangePswdActivity().getClass().getSimpleName())) {
             textBack.setVisibility(View.VISIBLE);
