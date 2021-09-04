@@ -60,7 +60,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
@@ -69,7 +69,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
-    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.squareup.retrofit2:retrofit:2.6.1'
     api 'com.squareup.okhttp3:logging-interceptor:3.12.1'
@@ -88,20 +88,13 @@ dependencies {
     //api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
     // implementation 'com.github.yalantis:ucrop:2.2.4'
 
-    def paging_version = "1.0.0"
     def lifecycleVersion = "2.2.0-alpha05"
-    implementation 'com.google.firebase:firebase-analytics:17.4.2'
-    implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
-
     //adding view model
     implementation "android.arch.lifecycle:extensions:$lifecycleVersion"
     implementation "android.arch.lifecycle:viewmodel:$lifecycleVersion"
 
     //Html parser
     implementation 'org.jsoup:jsoup:1.11.1'
-
-    //adding paging
-//    implementation "android.arch.paging:runtime:$paging_version"
 
     // Required -- JUnit 4 framework
     testImplementation 'junit:junit:4.12'
@@ -119,14 +112,11 @@ dependencies {
 
     //for background color picker of hot deals
     implementation 'com.github.skydoves:colorpickerpreference:1.0.2'
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
 
     //image compressor
     implementation 'id.zelory:compressor:3.0.0'
 
-    // JAX-B dependencies for JDK 9+
-//    implementation "jakarta.xml.bind:jakarta.xml.bind-api:2.3.2"
-//    implementation "org.glassfish.jaxb:jaxb-runtime:2.3.2"
 }
 apply plugin: 'com.google.gms.google-services'
 repositories {

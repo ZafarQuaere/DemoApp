@@ -23,7 +23,6 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.squareup.picasso.Picasso;
 import com.zaf.econnecto.R;
 import com.zaf.econnecto.ui.activities.mybiz.MyBusinessActivityLatest;
@@ -52,7 +51,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
   private Context mContext;
   private FloatingActionButton fabAddBizness;
   private NavigationView navigationView;
-  private FirebaseAnalytics mFirebaseAnalytics;
+//  private FirebaseAnalytics mFirebaseAnalytics;
 
   @Override
   protected MainPresenter initPresenter() {
@@ -64,7 +63,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     mContext = this;
-    mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+//    mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
     setUpToolbar();
     updateUI();
     initUI();
@@ -75,13 +74,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
 
   }
 
-  private void addFirebaseAnalytics() {
-    Bundle bundle = new Bundle();
-    bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "id");
-    bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "name");
-    bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
-    mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-  }
+//  private void addFirebaseAnalytics() {
+//    Bundle bundle = new Bundle();
+//    bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "id");
+//    bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "name");
+//    bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
+//    mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+//  }
 
   private void moveToAddBizness() {
     // getPresenter().moveToFragment(AddBusinessFragment.class.getSimpleName());

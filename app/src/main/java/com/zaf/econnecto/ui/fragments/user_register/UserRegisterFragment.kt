@@ -54,6 +54,6 @@ class UserRegisterFragment : Fragment(), FragmentNavigation {
 
     override fun navigate() {
         var bundle = bundleOf("mobile_no" to editPhone.text.toString().trim())
-        navController!!.navigate(R.id.action_register_to_phone_verification,bundle)
+        navController.navigate(R.id.action_register_to_phone_verification,bundle)
     }
 }
