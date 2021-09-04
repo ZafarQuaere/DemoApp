@@ -7,49 +7,10 @@
     android:clickable="true"
     android:focusable="true">
 
-    <LinearLayout
-        android:id="@+id/lytAddBiz"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_10dp"
-        android:layout_marginTop="@dimen/_5dp"
-        android:layout_marginBottom="2dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:paddingVertical="@dimen/_10dp">
-
-        <TextView
-            android:id="@+id/textAddBizLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/get_free_business_account"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/font_x_large_text"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/btnAddBizns"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10dp"
-            android:background="@drawable/add_biz_button"
-            android:gravity="center"
-            android:paddingHorizontal="@dimen/_10dp"
-            android:paddingVertical="@dimen/_5dp"
-            android:text="Add Now"
-            android:textAllCaps="false"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/font_large_text"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerBusinessList"
             android:layout_width="match_parent"
-            android:layout_below="@+id/lytAddBiz"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:overScrollMode="never"

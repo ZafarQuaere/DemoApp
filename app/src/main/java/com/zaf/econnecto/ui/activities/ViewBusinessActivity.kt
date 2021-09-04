@@ -67,6 +67,7 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
     private lateinit var ownerId: String
     private lateinit var businessId: String
     lateinit var rootContent: CoordinatorLayout
+    lateinit var basicDetailsData: BasicDetailsData
 
     override fun onCreate(savedInstanceState: Bundle?) {
         window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
@@ -125,22 +126,20 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
         }
 
         rlytCall.setOnClickListener {
-            Utils.callPhone(mContext, "7834908329")
+            Utils.callPhone(mContext, basicDetailsData.mobile1)
         }
         rlytWhatsApp.setOnClickListener {
-            Utils.openWhatsApp(mContext, "+91 7677616600")
+            Utils.openWhatsApp(mContext, basicDetailsData.mobile1)
         }
-
         rlytMail.setOnClickListener {
-            Utils.openMsgInbox(mContext, "7834908329")
+            Utils.openMsgInbox(mContext, basicDetailsData.mobile1)
         }
         rlytShareBiz.setOnClickListener {
             mapFrag.requireView().visibility = View.GONE
             Handler().postDelayed({
                 shareScreenContent()
-            },100)
+            }, 100)
         }
-
         textFollow.setOnClickListener {
             validateFollow()
         }
@@ -234,7 +233,7 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
         if (basicDetailsResponse.data[0] != null) {
             presenter.initMap(this, mapFrag)
             updateMap(basicDetailsResponse.data[0])
-            val basicDetailsData = basicDetailsResponse.data[0]
+            basicDetailsData = basicDetailsResponse.data[0]
             textBusinessName.text = basicDetailsData.businessName
             textFollowers.text = "${basicDetailsData.followersCount}  ${getString(R.string.followers)}"
             textShortDescription.text = basicDetailsData.shortDescription

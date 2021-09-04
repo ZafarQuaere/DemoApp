@@ -21,6 +21,7 @@ import com.zaf.econnecto.network_call.response_model.biz_list.BizListData
 import com.zaf.econnecto.ui.activities.AddBusinessActivity
 import com.zaf.econnecto.ui.activities.LoginActivity
 import com.zaf.econnecto.ui.activities.MainActivity
+import com.zaf.econnecto.ui.activities.ViewBusinessActivity
 import com.zaf.econnecto.ui.activities.mybiz.MyBusinessActivityLatest
 import com.zaf.econnecto.ui.adapters.CardsImageRecyclerAdapter
 import com.zaf.econnecto.ui.adapters.SearchAdapter
@@ -50,6 +51,12 @@ class HomeFragment : Fragment() {
         viewModel.callHomeApi(context as Activity?)
         viewModel.callBizListApi(context)
         mContext = context
+    }
+
+    override fun onResume() {
+        super.onResume()
+        textGetFreeBizAccount.text = if (Utils.getBusinessStatus(mContext) == "0") mContext.getString(R.string.get_free_business_account)
+        else mContext.getString(R.string.my_account)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -117,18 +124,16 @@ class HomeFragment : Fragment() {
             autoTextSearch.setOnItemClickListener { parent, view, position, id ->
                 run {
                     val selectedBiz: BizData =  parent.adapter.getItem(position) as BizData
-//                    val selectedItem = (parent.getItemAtPosition(position) as CategoryListData).categoryName
-//                    LogUtils.showToast(mContext, selectedBiz.businessName)
-                    LogUtils.showToast(mContext, selectedBiz.businessName)
-                    autoTextSearch.setText(selectedBiz.businessName)
-                    autoTextSearch.setSelection(selectedBiz.businessName.length)
-
+//                    autoTextSearch.setText(selectedBiz.businessName)
+//                    autoTextSearch.setSelection(selectedBiz.businessName.length)
+                    LogUtils.DEBUG("Selected Biz name: " + selectedBiz.businessName + " Business id: " + selectedBiz.businessId + " Owner id: " + selectedBiz.ownerId)
+                    val intent = Intent(activity, ViewBusinessActivity::class.java)
+                    intent.putExtra(getString(R.string.key_biz_id), selectedBiz.businessId)
+                    intent.putExtra(getString(R.string.key_owner_id), selectedBiz.ownerId)
+                    startActivity(intent)
                 }
-
             }
-
         }
-
     }
 
     private fun updateUI(homeResponse: HomeResponse?) {
@@ -145,7 +150,7 @@ class HomeFragment : Fragment() {
 
     private fun updateBottomImage(bottomImage: List<String>) {
         for(i in bottomImage){
-            Picasso.get().load(i).placeholder(R.drawable.default_biz_profile_pic).into(imgHomeBottom)
+            Picasso.get().load(i).into(imgHomeBottom)
         }
     }
 
@@ -158,13 +163,13 @@ class HomeFragment : Fragment() {
 
     private fun updateGetBizImage(getbusinessImage: List<String>) {
         for(i in getbusinessImage){
-            Picasso.get().load(i).placeholder(R.drawable.default_biz_profile_pic).into(imgGetBiz)
+            Picasso.get().load(i).into(imgGetBiz)
         }
     }
 
     private fun updateBannerImage(bannerImage: List<String>) {
         for(i in bannerImage){
-            Picasso.get().load(i).placeholder(R.drawable.default_biz_profile_pic).into(imgHomeBanner)
+            Picasso.get().load(i).into(imgHomeBanner)
         }
     }
 

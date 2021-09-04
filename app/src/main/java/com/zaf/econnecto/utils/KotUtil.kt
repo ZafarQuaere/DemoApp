@@ -9,7 +9,6 @@ import android.location.Geocoder
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView

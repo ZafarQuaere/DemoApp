@@ -168,12 +168,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
   public void addBusinessClick(View view) {
     if (Utils.isLoggedIn(mContext)) {
         if (Utils.getBusinessStatus(mContext).equals("0")) {
-           // getPresenter().moveToFragment(AddBusinessFragment.class.getSimpleName());
             startActivity(new Intent(mContext,AddBusinessActivity.class));
             //fabAddBizness.setVisibility(View.GONE);
         } else {
             LogUtils.showErrorDialog(mContext,getString(R.string.ok),getString(R.string.you_have_already_added_business));
-          //startActivity(new Intent(mContext,AddBusinessActivity.class));
         }
     } else {
         LogUtils.showDialogDoubleButton(mContext, mContext.getString(R.string.cancel), mContext.getString(R.string.ok),
@@ -348,7 +346,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain {
   @Override
   public void onLogoutCall() {
     Utils.clearBackStackTillHomeFragment(mContext);
-    getPresenter().moveToFragment(BizListFragment.class.getSimpleName());
+    getPresenter().moveToFragment(HomeFragment.class.getSimpleName());
     updateMyAccountUI(false);
     updateUI();
   }

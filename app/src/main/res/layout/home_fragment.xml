@@ -2,22 +2,24 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/home"
+    android:id="@+id/homeParent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:scrollbars="none"
     android:overScrollMode="never"
+    android:scrollbars="none"
     tools:context=".version2.ui.home.HomeFragment">
 
     <LinearLayout
+        android:id="@+id/lytParent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/lytParent"
         android:orientation="vertical">
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/_250dp">
+
             <ImageView
                 android:id="@+id/imgHomeBanner"
                 android:layout_width="match_parent"
@@ -27,57 +29,75 @@
                 tools:background="@drawable/slider1" />
 
             <RelativeLayout
-                android:layout_gravity="bottom"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
                 android:layout_marginHorizontal="@dimen/_20dp"
                 android:layout_marginBottom="@dimen/_20dp"
-                android:paddingVertical="@dimen/_8dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/home_search_bg">
+                android:background="@drawable/home_search_bg"
+                android:paddingVertical="@dimen/_8dp">
 
                 <AutoCompleteTextView
                     android:id="@+id/autoTextSearch"
                     android:layout_width="match_parent"
-                    android:gravity="center_horizontal"
-                    android:paddingHorizontal="@dimen/_10dp"
+                    android:layout_height="wrap_content"
                     android:background="@null"
+                    android:gravity="center_horizontal"
                     android:hint="@string/search_bizness_here"
-                    android:layout_height="wrap_content"/>
+                    android:paddingHorizontal="@dimen/_10dp" />
 
             </RelativeLayout>
 
         </FrameLayout>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/_10dp"
-            android:layout_height="@dimen/_250dp">
 
-            <ImageView
-                android:id="@+id/imgGetBiz"
+        <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            card_view:cardCornerRadius="8dp"
+            card_view:cardElevation="8dp"
+            card_view:cardUseCompatPadding="true"
+            card_view:contentPadding="0dp">
+
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="230dp"
-                android:fitsSystemWindows="true"
-                android:scaleType="fitXY"
-                tools:background="@drawable/slider2" />
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imgGetBiz"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/home_card_height"
+                    android:fitsSystemWindows="true"
+                    android:scaleType="fitXY"
+                    tools:background="@drawable/slider2" />
+            </FrameLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="-40dp"
+            card_view:cardBackgroundColor="@color/colorDarkGrey"
+            card_view:cardCornerRadius="22dp"
+            card_view:cardElevation="8dp"
+            card_view:contentPadding="0dp">
 
             <TextView
                 android:id="@+id/textGetFreeBizAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center_horizontal"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/rounded_background"
                 android:paddingHorizontal="@dimen/_20dp"
-                android:paddingVertical="@dimen/_10dp"
+                android:paddingVertical="@dimen/_15dp"
                 android:text="@string/get_free_business_account"
+                android:textSize="@dimen/font_large_text"
+                android:textStyle="bold|italic"
                 android:textColor="@color/colorWhite" />
-
-        </FrameLayout>
+        </androidx.cardview.widget.CardView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recylerCards"
-            android:layout_marginTop="@dimen/_10dp"
             android:layout_width="match_parent"
             android:layout_height="@dimen/headerImageBannerHeight"
             android:background="@color/colorWhite"
@@ -89,31 +109,39 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/_10dp"
-            android:layout_height="@dimen/_250dp">
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/imgHomeBottom"
-                android:layout_width="match_parent"
-                android:layout_height="230dp"
-                android:fitsSystemWindows="true"
-                android:scaleType="fitXY"
-                tools:background="@drawable/slider3" />
-
-            <TextView
-                android:id="@+id/textViewAllBiz"
+            <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="@dimen/_20dp"
-                android:layout_marginStart="@dimen/_20dp"
-                android:paddingVertical="@dimen/_5dp"
-                android:paddingStart="@dimen/_10dp"
-                android:paddingEnd="@dimen/_30dp"
-                android:text="@string/view_all_bizness"
-                android:textStyle="bold|italic"
-                android:textColor="@color/white" />
+                android:layout_height="@dimen/home_card_height"
+                card_view:cardCornerRadius="8dp"
+                card_view:cardElevation="8dp"
+                card_view:cardUseCompatPadding="true"
+                card_view:contentPadding="0dp">
 
+                <ImageView
+                    android:id="@+id/imgHomeBottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fitsSystemWindows="true"
+                    android:scaleType="fitXY"
+                    tools:background="@drawable/slider3" />
+
+                <TextView
+                    android:id="@+id/textViewAllBiz"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="@dimen/_20dp"
+                    android:layout_marginBottom="@dimen/_20dp"
+                    android:paddingVertical="@dimen/_5dp"
+                    android:paddingStart="@dimen/_10dp"
+                    android:paddingEnd="@dimen/_30dp"
+                    android:text="@string/view_all_bizness"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_x_large_text"
+                    android:textStyle="bold|italic" />
+            </androidx.cardview.widget.CardView>
         </FrameLayout>
 
     </LinearLayout>
