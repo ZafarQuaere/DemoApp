@@ -144,10 +144,11 @@ class OthersBusinessViewModel : BaseViewModel() {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 loader.dismiss()
                 val body = JSONObject(Gson().toJson(response.body()))
-                LogUtils.DEBUG("bizPricingList Response:->> $body")
+                LogUtils.DEBUG("bizOperatingHours Response:->> $body")
                 val status = body.optInt("status")
                 if (status == AppConstant.SUCCESS) {
                     val opHours = ParseManager.getInstance().fromJSON(body.toString(), OPHours::class.java)
+                    opHourList.value = opHours.data
                     listener.updateOperatingHours(opHours.data)
                 } else {
                     listener.updateOperatingHours(null)

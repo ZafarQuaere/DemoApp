@@ -126,6 +126,7 @@ class HomeFragment : Fragment() {
                     val selectedBiz: BizData =  parent.adapter.getItem(position) as BizData
 //                    autoTextSearch.setText(selectedBiz.businessName)
 //                    autoTextSearch.setSelection(selectedBiz.businessName.length)
+                    autoTextSearch.setText("")
                     LogUtils.DEBUG("Selected Biz name: " + selectedBiz.businessName + " Business id: " + selectedBiz.businessId + " Owner id: " + selectedBiz.ownerId)
                     val intent = Intent(activity, ViewBusinessActivity::class.java)
                     intent.putExtra(getString(R.string.key_biz_id), selectedBiz.businessId)

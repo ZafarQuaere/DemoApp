@@ -417,6 +417,8 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
            val storeStatus =  data[data.size-1].current_status
             iconOpenClose.background = if (storeStatus == "Closed") getDrawable(R.drawable.ic_circle_red) else getDrawable(R.drawable.ic_circle_green)
             textOperatingHours.text = if (storeStatus == "Closed") "Closed" else getOPTiming(data)
+        } else {
+            textOperatingHours.text = getString(R.string.please_add_operting_hours)
         }
     }
 

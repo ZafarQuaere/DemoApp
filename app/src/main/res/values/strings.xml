@@ -299,4 +299,6 @@
     <string name="key_why_us">key_why_us</string>
     <string name="key_about_us">key_about_us</string>
     <string name="view_all_bizness">View All Business >> </string>
+    <string name="timing_not_provided">Timing not provided</string>
+    <string name="please_add_operting_hours">Please add operating hours</string>
 </resources>

@@ -56,6 +56,8 @@ import kotlinx.android.synthetic.main.mb_layout_pricing.*
 import kotlinx.android.synthetic.main.mb_layout_product_services.*
 import kotlinx.android.synthetic.main.mb_operating_hours.*
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, IMyBusinessLatest, IMyBizImage, OnMapReadyCallback {
@@ -290,6 +292,23 @@ class ViewBusinessActivity : BaseActivity<ViewBusinessPresenter>(), IViewBizns, 
 
     override fun updateOperatingHours(data: List<OPHoursData>?) {
         iconEditOPHour.visibility = View.GONE
+        if (data != null) {
+            val storeStatus =  data[data.size-1].current_status
+            iconOpenClose.background = if (storeStatus == "Closed") getDrawable(R.drawable.ic_circle_red) else getDrawable(R.drawable.ic_circle_green)
+            textOperatingHours.text = if (storeStatus == "Closed") "Closed" else getOPTiming(data)
+        } else {
+            // write any default day or time.
+            textOperatingHours.text = getString(R.string.timing_not_provided)
+        }
+    }
+
+    private fun getOPTiming(data: List<OPHoursData>): String {
+        val sdf = SimpleDateFormat("EEE")
+        val d = Date()
+        val dayOfTheWeek: String = sdf.format(d)
+        println("Day of the week : $dayOfTheWeek")
+        val timing :String =  KotUtil.getOpenCloseTime(dayOfTheWeek,data)
+        return "Open $timing"
     }
 
     override fun updateProductServiceSection(data: List<ProductNServiceData>?) {
