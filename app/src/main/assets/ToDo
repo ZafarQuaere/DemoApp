@@ -1,6 +1,8 @@
 //TODO
 for Zoom Image
 https://github.com/hsmnzaydn/image-zoom-view
+apply sealed class for network response
+https://medium.com/codex/kotlin-sealed-classes-for-better-handling-of-api-response-6aa1fbd23c76
 
 
 1) Add setMyLocation in Add Business Address Details Screen.

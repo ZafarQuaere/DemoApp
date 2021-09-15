@@ -291,7 +291,6 @@ class MyBusinessActivityLatest : BaseActivity<MyBusinessPresenterLatest?>(), IMy
         recyclerHeader.adapter = bannerImageAdapter
     }
 
-
     fun uploadPhoto(view: View) {
         if (PermissionUtils.checkPermission(mContext)) {
             isBrochure = false
